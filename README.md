@@ -31,11 +31,13 @@ Instead ...
 - Create an issue at [https://github.com/lbo462/starflit/issues](https://github.com/lbo462/starflit/issues)
 and describe what needs to be done.
 
-- From that issue, create a pull request at [https://github.com/lbo462/starflit/pulls](https://github.com/lbo462/starflit/pulls)
-and link it to your issue (at the bottom-right of the page).
+- On this issue, create a branch (checkout locally), at the bottom right of the page (under the Development section).
 
 - From now on, `git fetch origin -v` to fetch the created branch and `git checkout <branch>` to work on the given branch.
 You can freely make commits and push to that branch to implement what's needed.
+
+- From that issue and once you made changes, create a pull request at [https://github.com/lbo462/starflit/pulls](https://github.com/lbo462/starflit/pulls)
+and link it to your issue (at the bottom-right of the page).
 
 - Once your work is done, assign someone to review your work and approve your changes.
 
@@ -64,3 +66,14 @@ Now you can proceed with `git rebase master -i` and follow the interactive docum
 This process replays your branches commits from `master` so there's can't be conflict when merging the two branches and one keep a linear commit history.
 
 Once the rebase is done, just push your branch to GitHub and have someone review your changes.
+
+## Install the Arduino environment
+
+Install the Arduino IDE for your platform and add the librairies folder to your environment.
+
+To do so, copy paste the librairies into a folder named `librairies` in the Arduino folder of your computer.
+This folder is probably located under `Documents\` on Windows or `~/Arduino` on linux.
+Otherwise, check or change its location in the preferences in the Arduino IDE.
+
+`cp librairies/* ~/Arduino/librairies/` on linux to install the librairies.
+
