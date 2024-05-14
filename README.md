@@ -43,6 +43,8 @@ and select the branch created for the issue.
 
 - Once approved, you can __squash and merge__ your branch via the pull request you created.
 
+- A good pratice is to delete the merged branch once the pull request is accepted, and can be done via the pull request.
+
 ### Rebase
 
 Rebasing is the tricky part of this process.
