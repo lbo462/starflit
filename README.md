@@ -37,7 +37,7 @@ and describe what needs to be done.
 You can freely make commits and push to that branch to implement what's needed.
 
 - From that issue and once you made changes, create a pull request at [https://github.com/lbo462/starflit/pulls](https://github.com/lbo462/starflit/pulls)
-and link it to your issue (at the bottom-right of the page).
+and select the branch created for the issue.
 
 - Once your work is done, assign someone to review your work and approve your changes.
 
