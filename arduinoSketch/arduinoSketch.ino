@@ -35,8 +35,7 @@ void loop() {
 
 
   // Go forward
-  Serial.print("Go Forward ! 
-");
+  Serial.print("Go Forward ! ");
   goForward();
 
 
