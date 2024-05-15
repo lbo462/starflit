@@ -63,6 +63,11 @@ void turnLeft() {
  * "going forward" is going away from the dev cable port.
  */
 void goForward() {
+  //collisionAvoidance
+  if(collisionDetection(isGoingForward, isGoingBackward, isTurningRight, isTurningLeft)){
+    collisionAvoidance(isGoingForward, isGoingBackward, isTurningRight, isTurningLeft);
+  }
+
   digitalWrite(MOTOR_RIGHT_PLUS_PIN, HIGH);
   digitalWrite(MOTOR_RIGHT_MINUS_PIN, LOW);
   digitalWrite(MOTOR_LEFT_PLUS_PIN, LOW);
@@ -78,6 +83,12 @@ void goForward() {
  * "going backward" is going in the direction of the dev cable port.
  */
 void goBackward() {
+
+  //collisionAvoidance
+  if(collisionDetection(isGoingForward, true, isTurningRight, isTurningLeft)){
+    collisionAvoidance(isGoingForward, true, isTurningRight, isTurningLeft);
+  }
+
   digitalWrite(MOTOR_RIGHT_PLUS_PIN, LOW);
   digitalWrite(MOTOR_RIGHT_MINUS_PIN, HIGH);
   digitalWrite(MOTOR_LEFT_PLUS_PIN, HIGH);

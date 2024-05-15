@@ -8,13 +8,18 @@ void randomDirection(){
   if (randomNumber == 0) {
     Serial.print("Direction : turnleft \n");
     turnLeft();
-    delay(2000);
+    delay(1000);
     stopMotors();
+    Serial.print("randomDirection : moteurs arrêtés \n");
   } else {
     Serial.print("Direction : turnright \n");
     turnRight();
-    delay(2000);
+    delay(1000);
     stopMotors();
+    Serial.print("randomDirection : moteurs arrêtés \n");
   }
+
+  Serial.print("randomDirection : sortie de la fonction \n");
+
 }
 

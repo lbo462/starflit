@@ -25,6 +25,8 @@ void setup() {
 
   // Setup ultraSonic
   set_up_ultrasonic();
+
+
 }
 
 void loop() {
@@ -32,17 +34,13 @@ void loop() {
   //delay(2000);
 
 
-
-  //collisionAvoidance
-  if(collisionDetection(isGoingForward, isGoingBackward, isTurningRight, isTurningLeft)){
-    collisionAvoidance(isGoingForward, isGoingBackward, isTurningRight, isTurningLeft);
-  }
-
   // Go forward
-  Serial.print("Go Forward !");
+  Serial.print("Go Forward ! 
+");
   goForward();
 
 
 
 
 }
+

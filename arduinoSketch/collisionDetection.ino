@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 // Fonction permettant de savoir si le bot a un objet devant ou derrière lui en utilisant les ultrasons
 bool collisionDetection(bool WF, bool WB, bool WR, bool WL){
 
@@ -29,7 +23,11 @@ void collisionAvoidance(bool WF,bool WB, bool WR, bool WL){
   Serial.print("Collision avoidance \n");
   stopMotors();
   delay(2000);
-  if(collisionDetection(isGoingForward, isGoingBackward, isTurningRight, isTurningLeft)){
+  if(collisionDetection(WF, WB, WR, WL)){
+    Serial.print("Go little backward \n");
+    goBackward();
+    delay(500);
+    //stopMotors();
     Serial.print("Appel de randomDirection \n");
     randomDirection();
   }
