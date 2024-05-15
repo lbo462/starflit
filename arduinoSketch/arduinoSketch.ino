@@ -22,9 +22,23 @@ void setup() {
 
   // Set an initial pretty low speed
   setMotorsSpeed(192);
+
+
+  // Setup ultraSonic
+  set_up_ultrasonic();
 }
 
 void loop() {
-  dance();
-  delay(2000);
+  //dance();
+  //delay(2000);
+
+
+  // Go forward
+  Serial.print("Go Forward ! ");
+  goForward();
+
+
+
+
 }
+
