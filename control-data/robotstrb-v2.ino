@@ -7,6 +7,7 @@ char flag_droit = 0;
 char flag_gauche = 0;
 String debug;
 
+#define INTERVAL_MS_PRINT 300
 
 extern bool mpu_6050_present;
 
@@ -47,38 +48,71 @@ void loop() {
 
   int valeur;
   float tensionx, tensiony;
-  char  buf[10];
+  char  cde[10];
   char retour_chariot;
   float battery_voltage, motors_voltage;
 
+
+unsigned long currentMillis = millis();
+
   readSample();
+
+  if (currentMillis - lastPrintMillis > INTERVAL_MS_PRINT) {
+    /*
+    Serial.print("Pitch:\t");
+    Serial.print(getPitch());
+    Serial.print("\xC2\xB0"); //Print degree symbol
+    Serial.println();
+
+    Serial.print("Roll:\t");
+    Serial.print(getRoll());
+    Serial.print("\xC2\xB0"); //Print degree symbol
+    Serial.println();
+
+    Serial.println(gyroscope.z);
+    Serial.println(gyroscope.y);
+    Serial.println(gyroscope.x);
+
+    Serial.println();
+    */
+      
+    Serial.print(getPitch());
+    Serial.print(",");
+    Serial.print(getRoll());
+    Serial.print(",");
+    Serial.print(getYaw());
+    Serial.println("");
+    
+
+    lastPrintMillis = currentMillis;
+  }
 
   if ( Serial.available() > 0 )
   {
-    Serial.readBytes(buf, 1);
+    Serial.readBytes(cde, 1);
 
     if (voltage_motors_set_command)
     {
-      if  ( ( (buf[0] >= '5') && (buf[0] <= '9') ) || ( (buf[0] >= 'A') && (buf[0] <= 'C') )  )
+      if  ( ( (cde[0] >= '5') && (cde[0] <= '9') ) || ( (cde[0] >= 'A') && (cde[0] <= 'C') )  )
       {
-        if (buf[0] <= '9')
+        if (cde[0] <= '9')
         {
-          change_motors_voltage(buf[0] - 48);
+          change_motors_voltage(cde[0] - 48);
         }
         else
         {
-          change_motors_voltage(buf[0] - 55);
+          change_motors_voltage(cde[0] - 55);
         }
 
       }
 
       voltage_motors_set_command = false;
-      buf[0] = 0;
+      cde[0] = 0;
     }
 
 
 
-    switch (buf[0])
+    switch (cde[0])
     {
       case '8' : va_tout_droit(); flag_gauche = 0; flag_droit = 0; break;
       case '2' : va_en_arriere(); flag_gauche = 0; flag_droit = 0; break;

@@ -43,14 +43,3 @@ double getRoll()
 {
   return position.y;
 }
-
-void detectYaw(angle gyroscope, angle accelerometer)
-{
-  position.z = 0.98 * (position.z + degrees(gyroscope.z)) + 0.02 * degrees(accelerometer.z);
-}
-
-double getYaw()
-{
-  return position.z;
-}
-

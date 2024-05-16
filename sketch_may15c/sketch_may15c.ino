@@ -19,9 +19,9 @@
 
 #define TEMPERATURE_OFFSET 21 // As defined in documentation
 
-#define INTERVAL_MS_PRINT 300
+#define INTERVAL_MS_PRINT 500
 
-#define G 9.80665
+#define G 9.80665q
 
 struct gyroscope_raw {
   int16_t x, y, z;
@@ -51,7 +51,7 @@ angle position;
 
 unsigned long lastPrintMillis = 0;
 unsigned long lastSampleMicros = 0;
-/*
+
 void setup()
 {
   Wire.begin();
@@ -66,7 +66,7 @@ void setup()
   I2CwriteByte(MPU6050_IMU_ADDRESS, 28, ACC_FULL_SCALE_2G); // Configure accelerometer range
   I2CwriteByte(MPU6050_IMU_ADDRESS, 56, 0x01); // Enable interrupt pin for raw data
   
-  
+  /*
   byte error, address;
   int nDevices;
 
@@ -103,7 +103,7 @@ void setup()
     Serial.println("No I2C devices found\n");
   else
     Serial.println("done\n");
-  
+ */ 
 }
 
 
@@ -114,7 +114,7 @@ void loop()
   readSample();
 
   if (currentMillis - lastPrintMillis > INTERVAL_MS_PRINT) {
-    
+    /*
     Serial.print("Pitch:\t");
     Serial.print(getPitch());
     Serial.print("\xC2\xB0"); //Print degree symbol
@@ -124,23 +124,19 @@ void loop()
     Serial.print(getRoll());
     Serial.print("\xC2\xB0"); //Print degree symbol
     Serial.println();
-
-    Serial.println(gyroscope.z);
-    Serial.println(gyroscope.y);
-    Serial.println(gyroscope.x);
-
+*/
     Serial.println();
-      
-    Serial.print(getPitch());
+    Serial.print(accelerometer.x);
     Serial.print(",");
-    Serial.print(getRoll());
+    Serial.print(accelerometer.y);
+    Serial.print(",");
+    Serial.print(accelerometer.z);
     Serial.println("");
-    
 
     lastPrintMillis = currentMillis;
   }
 }
-*/
+
 bool readSample()
 {
   if (isImuReady() == false) {
@@ -162,7 +158,6 @@ bool readSample()
 
   detectPitch(gyroscope, accelerometer);
   detectRoll(gyroscope, accelerometer);
-  detectYaw(gyroscope, accelerometer);
 
   return true;
 }
