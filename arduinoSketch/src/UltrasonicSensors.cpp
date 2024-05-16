@@ -31,7 +31,6 @@ unsigned int UltrasonicSensors::getDistance(int trigPin)
     digitalWrite(trigPin, 0);
 
     const long distance = pulseIn(echo, 1);
-    Serial.println(distance / 58);
     pinMode(echo, OUTPUT);
 
     return(distance / 58);

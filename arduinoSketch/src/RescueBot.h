@@ -19,7 +19,7 @@ class RescueBot {
         const int mrp=10, mrm=9, mlp=6, mlm=5;
 
         // Add some ultrasonic sensors
-        const UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
+        UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
         /* Set-up the pins mode
          * To be called on global setup

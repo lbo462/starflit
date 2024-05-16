@@ -90,6 +90,14 @@ Instead, you're encourage to work with VSCode and the appropriate extension.
 You'll find the extension by typing `Arduino` in the VSCode search extension field 
 (`Ctrl+Shift+X`) and clicking the one provided by Microsoft.
 
+__Before going any further__ ...
+Open the `.ino` file and select in your IDE footer:
+
+- the board: `Arduino UNO` (install Arduino AVR board if necessary)
+- the port: the one on which you're connecting the robot
+- the programmer: `AVR ISP`
+
+In the file header, you should see new buttons.
 Here's the actions you'll need to do often while developing:
 
 - `Verify` (aka `Compile`) is accessible via a button that appears
