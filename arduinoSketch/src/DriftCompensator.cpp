@@ -1,5 +1,4 @@
 #include "DriftCompensator.h"
-#include "imu.h"
 #include "Wire.h"
 #include "I2C.h"
 
@@ -28,5 +27,26 @@ void DriftCompensator::setup()
 
 void DriftCompensator::readSample()
 {
+    if(imu.isReady() == false) {
+        return false;
+    }
 
+    unsigned long sampleMicros = (lastSampleMicros > 0) ? micros() - lastSampleMicros : 0;
+
+    lastSampleMicros = micros()/10000;
+
+    imu.readRaw();
+
+    normalize(gyroscope);
+    normalize(accelerometer);
+    normalize(temperature);
+
+    angle accelerometer = calculateAccelerometerAngles();
+    angle gyroscope = calculateGyroscopeAngles(sampleMicros);
+
+    detectPitch(gyroscope, accelerometer);
+    detectRoll(gyroscope, accelerometer);
+    detectYaw(gyroscope, accelerometer);
+
+    return true;
 }

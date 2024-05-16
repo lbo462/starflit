@@ -1,22 +1,25 @@
-#ifndef imu_h
-#define imu_h
+#ifndef Imu_h
+#define Imu_h
+#include "Angles.h"
 
 class Imu {
     public:
-    Imu();
-    ~Imu();
+        Imu();
+        ~Imu();
 
-    const int imu_addr = 68;
+        const int imu_addr = 68;
 
-    bool isImuReady()
-    {
+        Angles angles = Angles();
 
-    };
+        bool isReady()
+        {
 
-    void readRawImu()
-    {
+        };
 
-    };
+        void readRaw()
+        {
+
+        };
 
 
 };

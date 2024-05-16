@@ -1,25 +1,6 @@
 #ifndef drift_compensator_h
 #define drift_compensator_h
-
-#include <cstdint>
-
-struct gyroscope_raw {
-  int16_t x, y, z;
-} gyroscope;
-
-struct accelerometer_raw {
-  int16_t x, y, z;
-} accelerometer;
-
-struct {
-  struct {
-    float x, y, z;
-  } accelerometer, gyroscope;
-} normalized;
-
-struct angle {
-  float x, y, z = 0;
-};
+#include "Imu.h"
 
 class DriftCompensator {
     public:
@@ -36,7 +17,9 @@ class DriftCompensator {
         const int acc_fs_8g = 10;
         const int acc_fs_16g = 24;
 
-        const float g = 9.80665;
+        unsigned long lastSampleMicros = 0;
+
+        Imu imu = Imu();
 
         /**
          * Does the basic setup of gyro and acc.
@@ -44,7 +27,7 @@ class DriftCompensator {
         */
         void setup();
 
-        bool readSample();
+        bool readSample(imu);
 };
 
 #endif
