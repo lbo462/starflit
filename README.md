@@ -8,7 +8,8 @@ _Inspiration from [https://www.strandbeest.com/](https://www.strandbeest.com/)_
 
 You need to have `git` installed on your computer (Linux is preferred but `git bash` for Windows works just fine).
 
-Clone the repo with `git clone git@github.com:lbo462/starflit.git`, after having a clean [SSH-key access set-up](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+Clone the repo with `git clone git@github.com:lbo462/starflit.git`, 
+after having a clean [SSH-key access set-up](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
 The other useful and only commands you'll ever need for this project are:
 - `git add -v .` to stage your local changes
@@ -36,14 +37,15 @@ and describe what needs to be done.
 - From now on, `git fetch origin -v` to fetch the created branch and `git checkout <branch>` to work on the given branch.
 You can freely make commits and push to that branch to implement what's needed.
 
-- From that issue and once you made changes, create a pull request at [https://github.com/lbo462/starflit/pulls](https://github.com/lbo462/starflit/pulls)
+- From that issue and once you made changes, create a pull request at 
+[https://github.com/lbo462/starflit/pulls](https://github.com/lbo462/starflit/pulls)
 and select the branch created for the issue.
 
 - Once your work is done, assign someone to review your work and approve your changes.
 
 - Once approved, you can __squash and merge__ your branch via the pull request you created.
 
-- A good pratice is to delete the merged branch once the pull request is accepted, and can be done via the pull request.
+- A good practice is to delete the merged branch once the pull request is accepted, and can be done via the pull request.
 
 ### Rebase
 
@@ -65,17 +67,46 @@ git checkout <your-branch>
 
 Now you can proceed with `git rebase master -i` and follow the interactive documentation.
 
-This process replays your branches commits from `master` so there's can't be conflict when merging the two branches and one keep a linear commit history.
+This process replays your branches commits from `master` so there's can't be conflict 
+when merging the two branches and one keep a linear commit history.
 
 Once the rebase is done, just push your branch to GitHub and have someone review your changes.
 
-## Install the Arduino environment
+## Install the development environment
 
-Install the Arduino IDE for your platform and add the librairies folder to your environment.
+Install the Arduino IDE for your platform and add the libraries folder to your environment.
 
-To do so, copy paste the librairies into a folder named `librairies` in the Arduino folder of your computer.
+To do so, copy paste the libraries into a folder named `libraries` in the Arduino folder of your computer.
 This folder is probably located under `Documents\` on Windows or `~/Arduino` on linux.
 Otherwise, check or change its location in the preferences in the Arduino IDE.
 
-`cp librairies/* ~/Arduino/librairies/` on linux to install the librairies.
+`cp libraries/* ~/Arduino/libraries/` on linux to install the libraries.
 
+### Better use VSCode
+
+The Arduino IDE lacks the major features of a professional IDE.
+Instead, you're encourage to work with VSCode and the appropriate extension.
+
+You'll find the extension by typing `Arduino` in the VSCode search extension field 
+(`Ctrl+Shift+X`) and clicking the one provided by Microsoft.
+
+__Before going any further__ ...
+Open the `.ino` file and select in your IDE footer:
+
+- the board: `Arduino UNO` (install Arduino AVR board if necessary)
+- the port: the one on which you're connecting the robot
+- the programmer: `AVR ISP`
+
+In the file header, you should see new buttons.
+Here's the actions you'll need to do often while developing:
+
+- `Verify` (aka `Compile`) is accessible via a button that appears
+in the header of the opened `.ino` file.
+
+- `Upload` is accessible the same way via a button that appear
+in the header of the opened `.ino` file.
+
+- `Serial Monitoring` is accessible via the shortcut `Ctrl+Shift+M` (on Windows) 
+and clicking the `Serial Monitor` tab.
+Make sure to select the right port and speed (which is `9600`) and click
+`Start Monitoring`.
