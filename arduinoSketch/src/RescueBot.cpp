@@ -20,6 +20,9 @@ void RescueBot::setup()
     pinMode(mlp, OUTPUT);
     pinMode(mlm, OUTPUT);
 
+    // Sensors set-up
+    ultrasonicSensors.setup();
+
     // Simple sanitasize check, cut off the motors
     stop();
 

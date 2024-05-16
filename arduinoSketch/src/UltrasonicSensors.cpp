@@ -16,22 +16,22 @@ UltrasonicSensors::~UltrasonicSensors()
 
 void UltrasonicSensors::setup()
 {
-    pinMode(trig1, INPUT);
-    pinMode(trig2, INPUT);
+    pinMode(trig1, OUTPUT);
+    pinMode(trig2, OUTPUT);
     pinMode(echo, OUTPUT); // ECHO is used as output for RCB_LEDS_WS2812
 }
 
-unsigned int UltrasonicSensors::getDistance(char pin)
+unsigned int UltrasonicSensors::getDistance(int trigPin)
 {
     digitalWrite(echo, 0); 
     pinMode(echo, INPUT);
 
-    digitalWrite(pin, 1); 
+    digitalWrite(trigPin, 1); 
     delayMicroseconds(10); 
-    digitalWrite(pin, 0);
+    digitalWrite(trigPin, 0);
 
     const long distance = pulseIn(echo, 1);
-    Serial.println(distance);
+    Serial.println(distance / 58);
     pinMode(echo, OUTPUT);
 
     return(distance / 58);

@@ -16,7 +16,7 @@ class UltrasonicSensors {
         /* Sensor pins
          * 
          */
-        const int echo=2, trig1=8, trig2=7;
+        const int echo=2, trig1=7, trig2=8;
 
         /* Set-up the pins mode
          * To be called on global setup
@@ -37,7 +37,7 @@ class UltrasonicSensors {
 
     private:
         // Get the distance in centimeter for a given pin (ie, given sensor)
-        unsigned int getDistance(char pin);
+        unsigned int getDistance(int trigPin);
 };
 
 #endif
