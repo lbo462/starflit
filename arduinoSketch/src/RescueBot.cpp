@@ -1,6 +1,6 @@
 #include "RescueBot.h"
 
-RescueBot::RescueBot()
+RescueBot::RescueBot() : movementDelay(0)
 {
     /**
      * Function constructor is moved to the method setup()
@@ -29,12 +29,14 @@ void RescueBot::setup()
 
     // Set an initial pretty low speed
     setSpeed(192);
+    
 }
 
 void RescueBot::update()
 {
     explore();
 }
+
 
 void RescueBot::stop()
 {
@@ -72,8 +74,12 @@ void RescueBot::turnRight_()
 
 bool RescueBot::turnRight()
 {
-    turnRight_();
-    return true;
+    if(isMovementAvailable()){
+        turnRight_();
+        return true;
+    }
+    return false;
+
 }
 
 void RescueBot::turnLeft_()
@@ -91,8 +97,12 @@ void RescueBot::turnLeft_()
 
 bool RescueBot::turnLeft()
 {
-    turnLeft_();
-    return true;
+    if(isMovementAvailable()){
+        turnLeft_();
+        return true;
+    }
+    return false;
+
 }
 
 void RescueBot::goForward_()
@@ -110,11 +120,13 @@ void RescueBot::goForward_()
 
 bool RescueBot::goForward()
 {
-    if(!ultrasonicSensors.collisionDetection(true, false))
+    
+    if(!ultrasonicSensors.collisionDetection(true, false) && isMovementAvailable())
     {
         goForward_();
         return true;
     }
+    stop();
     return false;
 }
 
@@ -133,11 +145,12 @@ void RescueBot::goBackward_()
 
 bool RescueBot::goBackward()
 {
-    if(!ultrasonicSensors.collisionDetection(false, true))
+    if(!ultrasonicSensors.collisionDetection(false, true) && isMovementAvailable())
     {
         goBackward_();
         return true;
     }
+    stop();
     return false;
 }
 
@@ -150,25 +163,59 @@ bool RescueBot::setRandomDirection()
     } else {
         couldTurn = turnRight();
     }
-    delay(1000);
-    stop();
     return couldTurn;
 }
 
-void RescueBot::explore()
-{
-    if(!goForward())
-    {
+void RescueBot::collisionAvoidance(){
+
+    // Si on avance, on s'arrête et on bloque le mouvement pendant 200 ms 
+    if(isGoingForward()){
         stop();
-        delay(500);
-        if(goBackward())
-        {
-            delay(1000);
-            setRandomDirection();
-        }
-        else 
-        {
-            stop();
-        }
+        setMovementDelay(20);
     }
+
+    // Si on n'avance pas, si on ne tourne pas ni à droite ni à gauche on lance le mouvement reculer et on le bloque pendant 200 ms
+    else if(!isTurningLeft() && !isTurningRight()){
+        goBackward();
+        setMovementDelay(20);    
+    }
+
+    // Si on recule, on tente de lancer randomDirection()
+    if (goBackward())
+    {
+        setRandomDirection();
+    }
+
+}
+
+void RescueBot::explore(){
+
+    // On avance, si on ne peut pas avance on appelle collisionAvoidance
+    if(!goForward()){
+        collisionAvoidance();
+    }
+    decreaseMovementDelay();
+
+}
+
+
+// Si movementDelay n'est pas déjà initialisé, on lui donne une valeur. Cela bloquera les mouvements pendant la duré définie
+void RescueBot::setMovementDelay(int value){
+    if(movementDelay==0){
+        movementDelay=value;
+    }
+}
+
+void RescueBot::decreaseMovementDelay(){
+    if(movementDelay!=0){
+        movementDelay-=1;
+    }
+    
+}
+
+bool RescueBot::isMovementAvailable(){
+    if(movementDelay==0){
+        return true;
+    }
+    return false;
 }

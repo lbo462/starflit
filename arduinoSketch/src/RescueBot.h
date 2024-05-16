@@ -113,11 +113,18 @@ class RescueBot {
          */
         void explore();
 
+        /**
+         * Avoid the collisions and try to set a new direction 
+         * for the RescueBot
+         */
+        void collisionAvoidance();
+
     private:
         /**
          * State of the robot as read-only
          */
         bool isGoingForward_, isGoingBackward_, isTurningRight_, isTurningLeft_;
+
 
         /**
          * Basic movements functions
@@ -129,6 +136,23 @@ class RescueBot {
         void goBackward_();
         void turnRight_();
         void turnLeft_();
+
+
+        /*
+        * The value that delays the movements of the motors
+        */
+        int movementDelay;
+
+        // The basic functions that set and decrease the movementDelay
+        void decreaseMovementDelay();
+        void setMovementDelay(int value);
+
+        /* 
+        * Tells, depending on the movementDelay if the movements
+        * are available
+        */ 
+        bool isMovementAvailable();
+
 };
 
 #endif
