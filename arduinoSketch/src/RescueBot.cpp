@@ -115,6 +115,7 @@ bool RescueBot::goForward()
         goForward_();
         return true;
     }
+    stop();
     return false;
 }
 
@@ -138,6 +139,7 @@ bool RescueBot::goBackward()
         goBackward_();
         return true;
     }
+    stop();
     return false;
 }
 
@@ -150,25 +152,17 @@ bool RescueBot::setRandomDirection()
     } else {
         couldTurn = turnRight();
     }
-    delay(1000);
-    stop();
     return couldTurn;
 }
 
 void RescueBot::explore()
 {
-    if(!goForward())
+    if(isGoingBackward() && ultrasonicSensors.collisionDetection(true, false, 60))
     {
-        stop();
-        delay(500);
-        if(goBackward())
-        {
-            delay(1000);
-            setRandomDirection();
-        }
-        else 
-        {
-            stop();
-        }
+        setRandomDirection();
+    }
+    else if(!goForward())
+    {
+        goBackward();
     }
 }

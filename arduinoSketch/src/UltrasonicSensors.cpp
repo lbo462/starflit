@@ -47,7 +47,7 @@ unsigned int UltrasonicSensors::getRearDistance()
     return getDistance(trig2);
 }
 
-bool UltrasonicSensors::collisionDetection(bool goingForward, bool goingBackward)
+bool UltrasonicSensors::collisionDetection(bool fromFront, bool fromRear, unsigned int distance = 30)
 {
-    return (goingForward && getFrontDistance() < 30) || (goingBackward && getRearDistance() < 30);
+    return (fromFront && getFrontDistance() < distance) || (fromRear && getRearDistance() < distance);
 }
