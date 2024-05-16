@@ -149,7 +149,7 @@ bool readSample()
 
   unsigned long sampleMicros = (lastSampleMicros > 0) ? micros() - lastSampleMicros : 0;
 
-  lastSampleMicros = micros();
+  lastSampleMicros = micros()/10000;
 
   readRawImu();
 

@@ -76,9 +76,11 @@ unsigned long currentMillis = millis();
     Serial.println();
     */
       
-    Serial.print(getPitch());
-    Serial.print(",");
-    Serial.print(getRoll());
+    //Serial.print(getPitch());
+    //Serial.print(",");
+    //Serial.print(getRoll());
+    //Serial.print(",");
+    Serial.print(0);
     Serial.print(",");
     Serial.print(getYaw());
     Serial.println("");
