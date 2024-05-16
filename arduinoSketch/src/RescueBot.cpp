@@ -2,7 +2,8 @@
 
 RescueBot::RescueBot()
 {
-    /* Function constructor is moved to the method setup()
+    /**
+     * Function constructor is moved to the method setup()
      * This is not for no reason, please, leave it that way
      * It should be called during global setup
      */
@@ -32,18 +33,7 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
-    if(ultrasonicSensors.collisionDetection(isGoingForward(), isGoingBackward()))
-    {
-        stop();
-        delay(1000);
-        goBackward();
-        delay(1000);
-        randomDirection();
-    }
-    else 
-    {
-        goForward();
-    }
+    explore();
 }
 
 void RescueBot::stop()
@@ -67,7 +57,7 @@ void RescueBot::setSpeed(int speed)
     Wire.endTransmission();
 }
 
-void RescueBot::turnRight()
+void RescueBot::turnRight_()
 {
     digitalWrite(mrp, 0);
     digitalWrite(mrm, 1);
@@ -80,7 +70,13 @@ void RescueBot::turnRight()
     isTurningLeft_ = false;
 }
 
-void RescueBot::turnLeft()
+bool RescueBot::turnRight()
+{
+    turnRight_();
+    return true;
+}
+
+void RescueBot::turnLeft_()
 {
     digitalWrite(mrp, 1);
     digitalWrite(mrm, 0);
@@ -93,7 +89,13 @@ void RescueBot::turnLeft()
     isTurningLeft_ = true;
 }
 
-void RescueBot::goForward()
+bool RescueBot::turnLeft()
+{
+    turnLeft_();
+    return true;
+}
+
+void RescueBot::goForward_()
 {
     digitalWrite(mrp, 0);
     digitalWrite(mrm, 1);
@@ -106,7 +108,17 @@ void RescueBot::goForward()
     isTurningLeft_ = false;
 }
 
-void RescueBot::goBackward()
+bool RescueBot::goForward()
+{
+    if(!ultrasonicSensors.collisionDetection(true, false))
+    {
+        goForward_();
+        return true;
+    }
+    return false;
+}
+
+void RescueBot::goBackward_()
 {
     digitalWrite(mrp, 1);
     digitalWrite(mrm, 0);
@@ -119,16 +131,44 @@ void RescueBot::goBackward()
     isTurningLeft_ = false;
 }
 
-void RescueBot::randomDirection()
+bool RescueBot::goBackward()
+{
+    if(!ultrasonicSensors.collisionDetection(false, true))
+    {
+        goBackward_();
+        return true;
+    }
+    return false;
+}
+
+bool RescueBot::setRandomDirection()
 {  
+    bool couldTurn;
+
     if (random(2) == 0) {
-        Serial.print("Direction : turnleft \n");
-        turnLeft();
+        couldTurn = turnLeft();
     } else {
-        Serial.print("Direction : turnright \n");
-        turnRight();
+        couldTurn = turnRight();
     }
     delay(1000);
     stop();
-    Serial.print("randomDirection : sortie de la fonction \n");
+    return couldTurn;
+}
+
+void RescueBot::explore()
+{
+    if(!goForward())
+    {
+        stop();
+        delay(500);
+        if(goBackward())
+        {
+            delay(1000);
+            setRandomDirection();
+        }
+        else 
+        {
+            stop();
+        }
+    }
 }
