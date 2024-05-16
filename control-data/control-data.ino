@@ -51,7 +51,7 @@ angle position;
 
 unsigned long lastPrintMillis = 0;
 unsigned long lastSampleMicros = 0;
-/*
+
 void setup()
 {
   Wire.begin();

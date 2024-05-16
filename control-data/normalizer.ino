@@ -17,9 +17,3 @@ void normalize(accelerometer_raw accelerometer)
   normalized.accelerometer.y = accelerometer.y * G / 16384;
   normalized.accelerometer.z = accelerometer.z * G / 16384;
 }
-
-void normalize(temperature_raw temperature)
-{
-  // Sensitivity Scale Factor (MPU datasheet page 11) & formula (MPU registers page 33)
-  normalized.temperature = ((temperature.value - TEMPERATURE_OFFSET) / 333.87) + TEMPERATURE_OFFSET;
-}
