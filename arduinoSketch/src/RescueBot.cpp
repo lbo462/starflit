@@ -34,8 +34,10 @@ void RescueBot::update()
 {
     if(ultrasonicSensors.collisionDetection(isGoingForward(), isGoingBackward()))
     {
+        stop();
+        delay(1000);
         goBackward();
-        delay(500);
+        delay(1000);
         randomDirection();
     }
     else 
@@ -93,10 +95,10 @@ void RescueBot::turnLeft()
 
 void RescueBot::goForward()
 {
-    digitalWrite(mrp, 1);
-    digitalWrite(mrm, 0);
-    digitalWrite(mlp, 0);
-    digitalWrite(mlm, 1);
+    digitalWrite(mrp, 0);
+    digitalWrite(mrm, 1);
+    digitalWrite(mlp, 1);
+    digitalWrite(mlm, 0);
 
     isGoingForward_ = true;
     isGoingBackward_ = false;
@@ -106,10 +108,10 @@ void RescueBot::goForward()
 
 void RescueBot::goBackward()
 {
-    digitalWrite(mrp, 0);
-    digitalWrite(mrm, 1);
-    digitalWrite(mlp, 1);
-    digitalWrite(mlm, 0);
+    digitalWrite(mrp, 1);
+    digitalWrite(mrm, 0);
+    digitalWrite(mlp, 0);
+    digitalWrite(mlm, 1);
 
     isGoingForward_ = false;
     isGoingBackward_ = true;
