@@ -159,13 +159,16 @@ void RescueBot::explore()
 {
     if(!isGoingForward())
     {
-        if(ultrasonicSensors.collisionDetection(true, false, 40))
+        if(ultrasonicSensors.collisionDetection(true, false, 40)) {
             goBackward();
-        else if(ultrasonicSensors.collisionDetection(true, false, 60))
+        }
+        else if(ultrasonicSensors.collisionDetection(true, false, 80)) {
             if(!isTurningLeft() && !isTurningRight())
                 setRandomDirection();
-        else
+        }
+        else {
             goForward();
+        }
     }
     else
     {
