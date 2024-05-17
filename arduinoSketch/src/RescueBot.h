@@ -58,6 +58,16 @@ class RescueBot {
         bool isTurningLeft() { return isTurningLeft_; };
 
         /**
+         * Scan the environnement to see if there are obstacles out of its detection cone
+         */
+        void scan();
+
+        /**
+         * Avoid any collision by making some wiggy-jiggy moves 
+         */
+        void collisionAvoidance();
+
+        /**
          * Stop all the motors
          */
         void stop();

@@ -38,8 +38,8 @@ class UltrasonicSensors {
         /** Check that no collision is to occur
          * @return true if an object if too close from front or rear, else false
          */
-        bool collisionDetection(bool goingForward, bool goingBackward);
-
+        bool collisionDetection(bool fromFront, bool fromRear, unsigned int distance = 30);
+        
     private:
         /**
          * Get the distance in centimeter for a given pin (ie, given sensor)

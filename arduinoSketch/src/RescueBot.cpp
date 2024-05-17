@@ -29,6 +29,7 @@ void RescueBot::setup()
 
     // Set an initial pretty low speed
     setSpeed(192);
+
 }
 
 void RescueBot::update()
@@ -47,6 +48,38 @@ void RescueBot::stop()
     isGoingBackward_ = false;
     isTurningRight_ = false;
     isTurningLeft_ = false;
+}
+
+void RescueBot::scan()
+{
+    stop();
+
+    if (ultrasonicSensors.collisionDetection(true, false,50)) {
+        collisionAvoidance();
+        return;
+    }
+
+    turnRight();
+    delay(250);
+    stop();
+
+    if (ultrasonicSensors.collisionDetection(true, false,50)) {
+        collisionAvoidance();
+        return;
+    }
+
+    turnLeft();
+    delay(500);
+    stop();
+
+    if (ultrasonicSensors.collisionDetection(true, false,50)) {
+        collisionAvoidance();
+        return;
+    }
+
+    turnRight();
+    delay(250);
+    stop();
 }
 
 void RescueBot::setSpeed(int speed)
@@ -155,20 +188,50 @@ bool RescueBot::setRandomDirection()
     return couldTurn;
 }
 
+void RescueBot::collisionAvoidance()
+{
+    // Go backward until the front object is 80 cm away  
+    if(ultrasonicSensors.collisionDetection(true, false, 50)) {
+        goBackward();
+    }
+
+    // Now, turn until there's no front object at 100 cm
+    else if(ultrasonicSensors.collisionDetection(true, false, 100)) {
+        if(!isTurningLeft() && !isTurningRight())
+            setRandomDirection();
+    }
+
+    // Then continue forward
+    else {
+        goForward();
+    }
+}
+
+unsigned long previousMillis = 0;   // Variable pour stocker le temps de la dernière exécution de scan()
+const long interval = 3000;          // Interval en millisecondes (3 secondes)
+
 void RescueBot::explore()
 {
-    if(!goForward())
-    {
-        stop();
-        delay(500);
-        if(goBackward())
+    
+    unsigned long currentMillis = millis();  // Récupère le temps actuel
+
+    if (currentMillis - previousMillis >= interval) {  // Vérifie si l'intervalle est écoulé
+
+    // Appelle la fonction scan()
+    scan();
+
+    // Réinitialise le temps de la dernière exécution de scan()
+    previousMillis = millis(); 
+    
+    }else{
+        if(!isGoingForward())
         {
-            delay(1000);
-            setRandomDirection();
+            // If we're not going forward it means that we're a state that requires collision avoidance
+            collisionAvoidance();
         }
-        else 
+        else
         {
-            stop();
+            goForward();
         }
-    }
+    }   
 }
