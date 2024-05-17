@@ -53,6 +53,7 @@ void RescueBot::update()
     Serial.println(radio.send(text, sizeof(text)));
     
     //explore();
+>>>>>>> 887d9b1 (WIP refactoring into cpp)
 }
 
 void RescueBot::stop()
