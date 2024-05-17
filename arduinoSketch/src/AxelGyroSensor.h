@@ -20,7 +20,7 @@ class AxelGyroSensor
         /**
          * Address of the IMU
          */
-        const int imuAddr = 68;
+        const int imuAddr = 0x68;
 
         /**
          * Define the gyro precision

@@ -31,8 +31,11 @@ void AxelGyroSensor::update()
     lastSampleMicros = micros();
 
     // Get angles required for computation
-    Vector3D axel = getAxelAngle(getRawAxel());
-    Vector3D gyro = getGyroAngle(getRawGyro());
+    Vector3D rawAxel = getRawAxel();
+    Vector3D rawGyro = getRawGyro();
+
+    Vector3D axel = getAxelAngle(rawAxel);
+    Vector3D gyro = getGyroAngle(rawGyro);    
 
     // Update position
     position = Vector3D(
@@ -48,9 +51,9 @@ Vector3D AxelGyroSensor::getRawAxel()
     I2Cread(imuAddr, 59, 14, buff);
 
     return Vector3D(
-        buff[0] << 8 | buff[1],
-        buff[2] << 8 | buff[3],
-        buff[4] << 8 | buff[5]
+        float(buff[0] << 8 | buff[1]),
+        float(buff[2] << 8 | buff[3]),
+        float(buff[4] << 8 | buff[5])
     );
 }
 
@@ -58,26 +61,25 @@ Vector3D AxelGyroSensor::getRawGyro()
 {
     uint8_t buff[14];
     I2Cread(imuAddr, 59, 14, buff);
-
+    
     return Vector3D(
-        buff[8] << 8 | buff[9],
-        buff[10] << 8 | buff[11],
-        buff[12] << 8 | buff[13]
+        float(buff[8] << 8 | buff[9]),
+        float(buff[10] << 8 | buff[11]),
+        float(buff[12] << 8 | buff[13])
     );
 }
 
 Vector3D AxelGyroSensor::getAxelAngle(Vector3D rawAxel)
 {
-    Vector3D axel = rawAxel.normalize(9.80665 / 16384);
+    const Vector3D axel = rawAxel.normalize(9.80665 / 16384);
     return Vector3D(
         atan(axel.y / sqrt(axel.x * axel.x + axel.z * axel.z)),
         atan(-1 * axel.x / sqrt(axel.y * axel.y + axel.z * axel.z)),
         atan2(rawAxel.y, rawAxel.x)
-    ); 
+    );
 }
 
 Vector3D AxelGyroSensor::getGyroAngle(Vector3D rawGyro)
 {
-    Vector3D gyro = rawGyro.normalize((1 / 32.8));
-    return gyro.normalize(sampleMicros / 1000000);
+    return rawGyro.normalize((1.0 / 32.8) * (float(sampleMicros) / 1000000.0));
 }
