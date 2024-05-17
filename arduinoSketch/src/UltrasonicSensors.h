@@ -36,9 +36,13 @@ class UltrasonicSensors {
         unsigned int getRearDistance();
 
         /** Check that no collision is to occur
+         * @param fromFront Check front collision 
+         * @param fromRear Check rear collision
+         * @param distance Distance in cm for which the collision will be detected, default is 30 cm
+         * which correspond to the robot width
          * @return true if an object if too close from front or rear, else false
          */
-        bool collisionDetection(bool goingForward, bool goingBackward);
+        bool collisionDetection(bool fromFront, bool fromRear, unsigned int distance = 30);
 
     private:
         /**

@@ -108,6 +108,11 @@ class RescueBot {
         bool setRandomDirection();
 
         /**
+         * Avoid any collision by making some wiggy-jiggy moves 
+         */
+        void collisionAvoidance();
+
+        /**
          * Make random moves to explore the space.
          * Aware of collisions and won't break walls !
          */
