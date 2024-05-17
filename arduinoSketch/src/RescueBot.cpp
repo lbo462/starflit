@@ -155,20 +155,31 @@ bool RescueBot::setRandomDirection()
     return couldTurn;
 }
 
+void RescueBot::collisionAvoidance()
+{
+    // Go backward until the front object is 80 cm away  
+    if(ultrasonicSensors.collisionDetection(true, false, 80)) {
+        goBackward();
+    }
+
+    // Now, turn until there's no front object at 100 cm
+    else if(ultrasonicSensors.collisionDetection(true, false, 100)) {
+        if(!isTurningLeft() && !isTurningRight())
+            setRandomDirection();
+    }
+
+    // Then continue forward
+    else {
+        goForward();
+    }
+}
+
 void RescueBot::explore()
 {
     if(!isGoingForward())
     {
-        if(ultrasonicSensors.collisionDetection(true, false, 40)) {
-            goBackward();
-        }
-        else if(ultrasonicSensors.collisionDetection(true, false, 80)) {
-            if(!isTurningLeft() && !isTurningRight())
-                setRandomDirection();
-        }
-        else {
-            goForward();
-        }
+        // If we're not going forward it means that we're a state that requires collision avoidance
+        collisionAvoidance();
     }
     else
     {
