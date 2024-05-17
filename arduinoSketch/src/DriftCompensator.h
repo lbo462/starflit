@@ -1,6 +1,8 @@
 #ifndef drift_compensator_h
 #define drift_compensator_h
 #include "Imu.h"
+#include "Normalizer.h"
+#include "Angles.h"
 
 class DriftCompensator {
     public:
@@ -20,6 +22,8 @@ class DriftCompensator {
         unsigned long lastSampleMicros = 0;
 
         Imu imu = Imu();
+        Normalizer normalizer = Normalizer();
+        Angles angles = Angles();
 
         /**
          * Does the basic setup of gyro and acc.
@@ -27,7 +31,7 @@ class DriftCompensator {
         */
         void setup();
 
-        bool readSample(imu);
+        bool readSample();
 };
 
 #endif

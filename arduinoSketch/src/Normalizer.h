@@ -23,16 +23,9 @@ class Normalizer {
 
         const float g = 9.80665;
 
-        void normalizeGyro(gyroscope_raw gyroscope)
-        {
+        void normalizeGyro(gyroscope_raw gyroscope);
 
-        };
-
-        void normalizeAcc(accelerometer_raw accelerometer)
-        {
-
-        };
-        
+        void normalizeAcc(accelerometer_raw accelerometer); 
 };
 
 #endif

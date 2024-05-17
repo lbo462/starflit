@@ -34,32 +34,32 @@ angle Angles::calculateGyroscopeAngles(unsigned long sampleMicros)
     return gyroscope;
 };
 
-void detectPitch(angle gyroscope, angle accelerometer)
+void Angles::detectPitch(angle gyroscope, angle accelerometer)
 {
   position.x = 0.98 * (position.x + degrees(gyroscope.x)) + 0.02 * degrees(accelerometer.x);
 };
 
-double getPitch()
+double Angles::getPitch()
 {
   return position.x;
 };
 
-void detectRoll(angle gyroscope, angle accelerometer)
+void Angles::detectRoll(angle gyroscope, angle accelerometer)
 {
   position.y = 0.98 * (position.y + degrees(gyroscope.y)) + 0.02 * degrees(accelerometer.y);
 };
 
-double getRoll()
+double Angles::getRoll()
 {
   return position.y;
 };
 
-void detectYaw(angle gyroscope, angle accelerometer)
+void Angles::detectYaw(angle gyroscope, angle accelerometer)
 {
   position.z = 0.98 * (position.z + degrees(gyroscope.z)) + 0.02 * degrees(accelerometer.z);
 };
 
-double getYaw()
+double Angles::getYaw()
 {
   return position.z;
 };

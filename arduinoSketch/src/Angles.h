@@ -17,45 +17,21 @@ class Angles {
 
         Normalizer normalizer = Normalizer();
 
-        angle calculateAccelerometerAngles()
-        {
+        angle calculateAccelerometerAngles();
 
-        };
+        angle calculateGyroscopeAngles(unsigned long sampleMicros);
 
-        angle calculateGyroscopeAngles(unsigned long sampleMicros)
-        {
+        void detectPitch(angle gyroscope, angle accelerometer);
 
-        };
+        double getPitch();
 
-        void detectPitch(angle gyroscope, angle accelerometer)
-        {
+        void detectRoll(angle gyroscope, angle accelerometer);
 
-        };
+        double getRoll();
 
-        double getPitch()
-        {
+        void detectYaw(angle gyroscope, angle accelerometer);
 
-        };
-
-        void detectRoll(angle gyroscope, angle accelerometer)
-        {
-
-        };
-
-        double getRoll()
-        {
-
-        };
-
-        void detectYaw(angle gyroscope, angle accelerometer)
-        {
-
-        };
-
-        double getYaw()
-        {
-
-        };
+        double getYaw();
 };
 
 #endif

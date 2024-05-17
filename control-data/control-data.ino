@@ -140,7 +140,7 @@ void loop()
     lastPrintMillis = currentMillis;
   }
 }
-*/
+
 bool readSample()
 {
   if (isImuReady() == false) {

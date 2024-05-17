@@ -1,6 +1,5 @@
 #ifndef Imu_h
 #define Imu_h
-#include "Angles.h"
 
 class Imu {
     public:
@@ -11,17 +10,9 @@ class Imu {
 
         Angles angles = Angles();
 
-        bool isReady()
-        {
+        bool isReady();
 
-        };
-
-        void readRaw()
-        {
-
-        };
-
-
+        void readRaw();
 };
 
 #endif
