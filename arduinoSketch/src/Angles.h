@@ -1,6 +1,8 @@
 #ifndef angles_h
 #define angles_h
 #include "Normalizer.h"
+#include <Arduino.h>
+#include <math.h>
 
 
 struct angle {

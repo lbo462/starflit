@@ -1,13 +1,8 @@
 #ifndef normalizer_h
 #define normalizer_h
 
-struct gyroscope_raw {
-  int16_t x, y, z;
-} gyroscope;
-
-struct accelerometer_raw {
-  int16_t x, y, z;
-} accelerometer;
+#include "Imu.h"
+#include <Arduino.h>
 
 struct {
   struct {

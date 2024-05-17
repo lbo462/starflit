@@ -3,6 +3,9 @@
 #include "Imu.h"
 #include "Normalizer.h"
 #include "Angles.h"
+#include <Arduino.h>
+#include "Wire.h"
+#include "I2C.h"
 
 class DriftCompensator {
     public:

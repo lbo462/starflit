@@ -1,6 +1,4 @@
 #include "Angles.h"
-#include <math.h>
-
 
 Angles::Angles()
 {
@@ -16,8 +14,12 @@ angle Angles::calculateAccelerometerAngles()
 {
     angle accelerometer;
 
-    accelerometer.x = atan(normalized.accelerometer.y / sqrt(sq(normalized.accelerometer.x) + sq(normalized.accelerometer.z)));
-    accelerometer.y = atan(-1 * normalized.accelerometer.x / sqrt(sq(normalized.accelerometer.y) + sq(normalized.accelerometer.z)));
+    float normAccX = normalized.accelerometer.x;
+    float normAccY = normalized.accelerometer.y;
+    float normAccZ = normalized.accelerometer.z;
+
+    accelerometer.x = atan(normalized.accelerometer.y / sqrt(normAccX * normAccX + normAccZ * normAccZ));
+    accelerometer.y = atan(-1 * normAccX / sqrt(normAccY * normAccY + normAccZ * normAccZ));
     accelerometer.z = atan2(accelerometer.y, accelerometer.x);
 
     return accelerometer;

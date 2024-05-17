@@ -1,6 +1,4 @@
 #include "DriftCompensator.h"
-#include "Wire.h"
-#include "I2C.h"
 
 DriftCompensator::DriftCompensator()
 {
@@ -15,7 +13,6 @@ DriftCompensator::~DriftCompensator()
 void DriftCompensator::setup()
 {
     Wire.begin();
-    Serial.begin(115200);
     delay(1000);
 
     I2CwriteByte(imu.imu_addr, 25, 1);

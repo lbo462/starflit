@@ -4,6 +4,7 @@
 
 #ifndef I2C_h
 #define I2C_h
+#include <stdint.h>
 
 // This function read n bytes (bytes) from I2C device at address (address).
 // Put read bytes starting at register (register) in an array (data).
