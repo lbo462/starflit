@@ -4,9 +4,11 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "UltrasonicSensors.h"
+#include "AxelGyroSensor.h"
 
 
-class RescueBot {
+class RescueBot 
+{
     public:
         RescueBot();
         ~RescueBot();
@@ -23,6 +25,11 @@ class RescueBot {
          * Ultrasonic sensors so that the bot is able to detect collisions
          */
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
+
+        /**
+         * Add an axelgyro sensor to our beloved bot 
+         */
+        AxelGyroSensor axelgyro = AxelGyroSensor();
 
         /**
          * Set-up the pins mode.

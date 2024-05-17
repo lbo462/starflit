@@ -8,7 +8,8 @@
 #include <Arduino.h>
 
 
-class UltrasonicSensors {
+class UltrasonicSensors
+{
     public:
         UltrasonicSensors();
         ~UltrasonicSensors();

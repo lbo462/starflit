@@ -23,6 +23,7 @@ void RescueBot::setup()
 
     // Sensors set-up
     ultrasonicSensors.setup();
+    axelgyro.setup();
 
     // Simple sanitasize check, cut off the motors
     stop();
