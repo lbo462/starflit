@@ -8,22 +8,15 @@
 #include "Radio.h"
 
 
+/**
+ * Main class that holds the logic and glue every modules to control the robot efficiently
+ * One should call `setup()` once and `update()` at each frame
+ */
 class RescueBot 
 {
     public:
         RescueBot();
         ~RescueBot();
-
-        /**
-         * Robots PINS, depends on the ways it's wired.
-         * Written in three letters : m[x][y]
-         * [x] can be r = right or l = left ;
-         * [y] can be p = plus-pin or m = minus-pin
-         */
-        const int mrp=10, mrm=9, mlp=6, mlm=5;
-
-        unsigned long scanPreviousMillis = 0;   // Variable pour stocker le temps de la dernière exécution de scan()
-        const long scanInterval = 3000;          // Interval en millisecondes (3 secondes)
 
         /**
          * Ultrasonic sensors so that the bot is able to detect collisions
@@ -140,6 +133,14 @@ class RescueBot
         void explore();
 
     private:
+        /**
+         * Robots PINS, depends on the ways it's wired.
+         * Written in three letters : m[x][y]
+         * [x] can be r = right or l = left ;
+         * [y] can be p = plus-pin or m = minus-pin
+         */
+        const int mrp=10, mrm=9, mlp=6, mlm=5;
+
         /**
          * State of the robot as read-only
          */

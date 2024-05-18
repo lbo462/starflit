@@ -6,7 +6,7 @@ AxelGyroSensor::AxelGyroSensor()
     /**
      * Function constructor is moved to the method setup()
      * This is not for no reason, please, leave it that way
-     * It should be called during global setup
+     * `setup()` should be called during global setup
      */
 }
 
@@ -37,11 +37,11 @@ void AxelGyroSensor::update()
     Vector3D axel = getAxelAngle(rawAxel);
     Vector3D gyro = getGyroAngle(rawGyro);    
 
-    // Update position
-    position = Vector3D(
-        0.98 * (position.x + degrees(gyro.x)) + 0.02 * degrees(axel.x),
-        0.98 * (position.y + degrees(gyro.y)) + 0.02 * degrees(axel.y),
-        0.98 * (position.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
+    // Update angle
+    angle = Vector3D(
+        0.98 * (angle.x + degrees(gyro.x)) + 0.02 * degrees(axel.x),
+        0.98 * (angle.y + degrees(gyro.y)) + 0.02 * degrees(axel.y),
+        0.98 * (angle.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
     );
 }
 

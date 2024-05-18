@@ -1,23 +1,19 @@
-/* UltrasonicSensors are compose of two sensors and hence, two pins
- * one for the front side and the other for the rear size.
- */
-
 #ifndef ultrasonic_h
 #define ultrasonic_h
 
 #include <Arduino.h>
 
 
+/**
+ * UltrasonicSensors are compose of two sensors and hence, two pins.
+ * One is used for the front side and the other for the rear size.
+ * One should call `setup()` once.
+ */
 class UltrasonicSensors
 {
     public:
         UltrasonicSensors();
         ~UltrasonicSensors();
-
-        /**
-         * Sensor pins
-         */
-        const int echo=2, trig1=7, trig2=8;
 
         /**
          * Set-up the pins mode
@@ -46,6 +42,11 @@ class UltrasonicSensors
         bool collisionDetection(bool fromFront, bool fromRear, unsigned int distance = 30);
 
     private:
+        /**
+         * Sensor pins
+         */
+        const int echo=2, trig1=7, trig2=8;
+
         /**
          * Get the distance in centimeter for a given pin (ie, given sensor)
          */

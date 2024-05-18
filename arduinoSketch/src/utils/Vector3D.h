@@ -2,6 +2,9 @@
 #define vector3d_h
 
 
+/**
+ * 3D Vector with x, y and z coordinates
+ */
 class Vector3D
 {
     public:
@@ -13,9 +16,10 @@ class Vector3D
         float x, y, z;
 
         /**
-         * Normalize the vector by dividing all
-         * it component by the given reference
-         * @param ref Reference for the vector
+         * Normalize the vector by multiplying all
+         * its components by the given reference
+         * @param ref Factor that will multiply the coordinates
+         * @return A new vector instance with multiplied coordinates
          */
         Vector3D normalize(float ref);
 };

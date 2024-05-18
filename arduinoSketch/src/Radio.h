@@ -20,12 +20,19 @@ class Radio
         void setup();
 
         /**
-         * Send a message by writing it on the pipe
-         * @param msg String message to transmit
-         * @param size sizeof(msg)
+         * Send a buffer content by writing it on the radio pipe
+         * @param buf Buffer to transmit
+         * @param len sizeof(buf)
          * @return True if the payload was delivered successfully false if not
          */
-        bool send(const char msg[], const int size);
+        bool send(const void *buf, byte len);
+
+        /**
+         * Send a string message by writing it on the radio pipe
+         * @param msg A string (from Arduino) to send
+         * @return True if the payload was delivered successfully false if not
+         */
+        bool sendString(String msg);
 
     private:
         /**
