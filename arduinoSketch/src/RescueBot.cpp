@@ -1,5 +1,6 @@
 #include "RescueBot.h"
 
+
 RescueBot::RescueBot()
 {
     /**
@@ -25,7 +26,10 @@ void RescueBot::setup()
     ultrasonicSensors.setup();
     axelgyro.setup();
 
-    // Simple sanitasize check, cut off the motors
+    // Radio setup
+    radio.setup();
+
+    // Simple sanitize check, cut off the motors
     stop();
 
     // Set an initial pretty low speed
@@ -34,6 +38,10 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
+    // The code below is an example of how to use the radio
+    // const char text[] = "Hello World";
+    // Serial.println(radio.send(text, sizeof(text)));
+    
     explore();
 }
 
