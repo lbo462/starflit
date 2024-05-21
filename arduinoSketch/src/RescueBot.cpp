@@ -34,15 +34,7 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
-    //explore();
-    goForward();
-    if(ultrasonicSensors.collisionDetection(true,false)){
-        stop();
-        delay(1000);
-        goBackward();
-        //delay(1000);
-        //stop();
-    }
+    explore();
     
 }
 
@@ -61,31 +53,32 @@ void RescueBot::stop()
 
 void RescueBot::scan()
 {
-    stop();
 
     if (ultrasonicSensors.collisionDetection(true, false,50)) {
         collisionAvoidance();
         return;
     }
 
+    stop();
+    delay(250);
     turnRight();
     delay(250);
-    stop();
 
     if (ultrasonicSensors.collisionDetection(true, false,50)) {
         collisionAvoidance();
         return;
     }
 
+    stop();
+    delay(250);
     turnLeft();
     delay(500);
-    stop();
-
     if (ultrasonicSensors.collisionDetection(true, false,50)) {
         collisionAvoidance();
         return;
     }
-
+    stop();
+    delay(250);
     turnRight();
     delay(250);
     stop();
@@ -114,6 +107,7 @@ void RescueBot::turnRight_()
 
 bool RescueBot::turnRight()
 {
+
     turnRight_();
     return true;
 }
@@ -188,8 +182,12 @@ bool RescueBot::setRandomDirection()
     bool couldTurn;
 
     if (random(2) == 0) {
+        stop();
+        delay(250);
         couldTurn = turnLeft();
     } else {
+        stop();
+        delay(250);
         couldTurn = turnRight();
     }
     delay(1000);
@@ -201,6 +199,7 @@ void RescueBot::collisionAvoidance()
 {
     // Go backward until the front object is 80 cm away  
     if(ultrasonicSensors.collisionDetection(true, false, 80)) {
+        stop();
         goBackward();
     }
 
@@ -214,6 +213,7 @@ void RescueBot::collisionAvoidance()
 
     // Then continue forward
     else {
+        stop();
         goForward();
     }
 }
@@ -224,7 +224,7 @@ const long interval = 3000;          // Interval en millisecondes (3 secondes)
 void RescueBot::explore()
 {
     
-    /*unsigned long currentMillis = millis();  // Récupère le temps actuel
+    unsigned long currentMillis = millis();  // Récupère le temps actuel
 
     if (currentMillis - previousMillis >= interval) {  // Vérifie si l'intervalle est écoulé
 
@@ -241,9 +241,9 @@ void RescueBot::explore()
             collisionAvoidance();
         }
         else
-        {
+        {   
             goForward();
         }
-    }   */
-
+    } 
+    
 }
