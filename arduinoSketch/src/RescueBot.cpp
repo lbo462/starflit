@@ -34,7 +34,16 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
-    explore();
+    //explore();
+    goForward();
+    if(ultrasonicSensors.collisionDetection(true,false)){
+        stop();
+        delay(1000);
+        goBackward();
+        //delay(1000);
+        //stop();
+    }
+    
 }
 
 void RescueBot::stop()
@@ -191,14 +200,16 @@ bool RescueBot::setRandomDirection()
 void RescueBot::collisionAvoidance()
 {
     // Go backward until the front object is 80 cm away  
-    if(ultrasonicSensors.collisionDetection(true, false, 50)) {
+    if(ultrasonicSensors.collisionDetection(true, false, 80)) {
         goBackward();
     }
 
     // Now, turn until there's no front object at 100 cm
     else if(ultrasonicSensors.collisionDetection(true, false, 100)) {
         if(!isTurningLeft() && !isTurningRight())
+        {
             setRandomDirection();
+        }
     }
 
     // Then continue forward
@@ -213,15 +224,15 @@ const long interval = 3000;          // Interval en millisecondes (3 secondes)
 void RescueBot::explore()
 {
     
-    unsigned long currentMillis = millis();  // Récupère le temps actuel
+    /*unsigned long currentMillis = millis();  // Récupère le temps actuel
 
     if (currentMillis - previousMillis >= interval) {  // Vérifie si l'intervalle est écoulé
 
-    // Appelle la fonction scan()
-    scan();
+        // Appelle la fonction scan()
+        scan();
 
-    // Réinitialise le temps de la dernière exécution de scan()
-    previousMillis = millis(); 
+        // Réinitialise le temps de la dernière exécution de scan()
+        previousMillis = millis(); 
     
     }else{
         if(!isGoingForward())
@@ -233,5 +244,6 @@ void RescueBot::explore()
         {
             goForward();
         }
-    }   
+    }   */
+
 }
