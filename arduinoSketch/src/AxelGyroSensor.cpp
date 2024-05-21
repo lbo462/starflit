@@ -37,11 +37,18 @@ void AxelGyroSensor::update()
     Vector3D axel = getAxelAngle(rawAxel);
     Vector3D gyro = getGyroAngle(rawGyro);    
 
+    // Update angle speed
+    angleSpeed = Vector3D(
+        0.98 * (angleSpeed.x + degrees(gyro.x)) + 0.02 * degrees(axel.x),
+        0.98 * (angleSpeed.y + degrees(gyro.y)) + 0.02 * degrees(axel.y),
+        0.98 * (angleSpeed.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
+    );
+
     // Update angle
     angle = Vector3D(
-        0.98 * (angle.x + degrees(gyro.x)) + 0.02 * degrees(axel.x),
-        0.98 * (angle.y + degrees(gyro.y)) + 0.02 * degrees(axel.y),
-        0.98 * (angle.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
+        angle.x + angleSpeed.x / (sampleMicros * 0.001),
+        angle.y + angleSpeed.y / (sampleMicros * 0.001),
+        angle.z + angleSpeed.z / (sampleMicros * 0.001)
     );
 }
 

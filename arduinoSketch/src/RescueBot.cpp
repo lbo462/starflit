@@ -46,6 +46,7 @@ void RescueBot::update()
         + String(axelgyro.angle.z, 2) + F(",")
         + String(1000.0, 2);
 
+    Serial.println(text);
     radio.sendString(text);
     
     //explore();
