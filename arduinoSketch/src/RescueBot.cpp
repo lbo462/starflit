@@ -38,8 +38,9 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
-    const char text[] = "Hello World";
-    Serial.println(radio.send(text, sizeof(text)));
+    // The code below is an example of how to use the radio
+    // const char text[] = "Hello World";
+    // Serial.println(radio.send(text, sizeof(text)));
     
     explore();
 }
