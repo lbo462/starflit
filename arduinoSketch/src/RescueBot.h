@@ -5,6 +5,7 @@
 #include <Wire.h>
 #include "UltrasonicSensors.h"
 #include "AxelGyroSensor.h"
+#include "Radio.h"
 
 
 class RescueBot 
@@ -30,6 +31,11 @@ class RescueBot
          * Add an axelgyro sensor to our beloved bot 
          */
         AxelGyroSensor axelgyro = AxelGyroSensor();
+
+        /**
+         * Plugged some RF24 antennas and use the radio class instance to send messages to space!  
+         */
+        Radio radio = Radio();
 
         /**
          * Set-up the pins mode.
