@@ -220,15 +220,15 @@ void RescueBot::collisionAvoidance()
 void RescueBot::explore()
 {
 
-    unsigned long currentMillis = millis();  // Récupère le temps actuel
+    unsigned long scanCurrentMillis = millis();  // Récupère le temps actuel
 
-    if (currentMillis - previousMillis >= interval) {  // Vérifie si l'intervalle est écoulé
+    if (scanCurrentMillis - scanPreviousMillis >= scanInterval) {  // Vérifie si l'intervalle est écoulé
 
         // Appelle la fonction scan()
         scan();
 
         // Réinitialise le temps de la dernière exécution de scan()
-        previousMillis = millis(); 
+        scanPreviousMillis = millis(); 
 
     }else{
         if(!isGoingForward())

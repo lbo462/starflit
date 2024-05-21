@@ -22,8 +22,8 @@ class RescueBot
          */
         const int mrp=10, mrm=9, mlp=6, mlm=5;
 
-        unsigned long previousMillis = 0;   // Variable pour stocker le temps de la dernière exécution de scan()
-        const long interval = 3000;          // Interval en millisecondes (3 secondes)
+        unsigned long scanPreviousMillis = 0;   // Variable pour stocker le temps de la dernière exécution de scan()
+        const long scanInterval = 3000;          // Interval en millisecondes (3 secondes)
 
         /**
          * Ultrasonic sensors so that the bot is able to detect collisions
