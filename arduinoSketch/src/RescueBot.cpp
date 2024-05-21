@@ -230,10 +230,9 @@ void RescueBot::explore()
         // Réinitialise le temps de la dernière exécution de scan()
         scanPreviousMillis = millis(); 
 
-    }else{
+    } else {
         if(!isGoingForward())
         {
-            stop();
             // If we're not going forward it means that we're a state that requires collision avoidance
             collisionAvoidance();
         }
