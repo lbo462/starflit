@@ -164,6 +164,40 @@ bool RescueBot::setRandomDirection()
     return couldTurn;
 }
 
+void RescueBot::scan()
+{
+
+    if (ultrasonicSensors.collisionDetection(true, false,50)) {
+        collisionAvoidance();
+        return;
+    }
+
+    stop();
+    delay(250);
+    turnRight();
+    delay(250);
+
+    if (ultrasonicSensors.collisionDetection(true, false,50)) {
+        collisionAvoidance();
+        return;
+    }
+
+    stop();
+    delay(250);
+    turnLeft();
+    delay(500);
+    if (ultrasonicSensors.collisionDetection(true, false,50)) {
+        collisionAvoidance();
+        return;
+    }
+    stop();
+    delay(250);
+    turnRight();
+    delay(250);
+    stop();
+}
+
+
 void RescueBot::collisionAvoidance()
 {
     // Go backward until the front object is 80 cm away  
@@ -185,13 +219,28 @@ void RescueBot::collisionAvoidance()
 
 void RescueBot::explore()
 {
-    if(!isGoingForward())
-    {
-        // If we're not going forward it means that we're a state that requires collision avoidance
-        collisionAvoidance();
-    }
-    else
-    {
-        goForward();
-    }
+
+    unsigned long currentMillis = millis();  // Récupère le temps actuel
+
+    if (currentMillis - previousMillis >= interval) {  // Vérifie si l'intervalle est écoulé
+
+        // Appelle la fonction scan()
+        scan();
+
+        // Réinitialise le temps de la dernière exécution de scan()
+        previousMillis = millis(); 
+
+    }else{
+        if(!isGoingForward())
+        {
+            stop();
+            // If we're not going forward it means that we're a state that requires collision avoidance
+            collisionAvoidance();
+        }
+        else
+        {   
+            goForward();
+        }
+    } 
+
 }
