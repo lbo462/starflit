@@ -1,5 +1,6 @@
 #include "RescueBot.h"
 
+
 RescueBot::RescueBot()
 {
     /**
@@ -25,14 +26,10 @@ void RescueBot::setup()
     ultrasonicSensors.setup();
     axelgyro.setup();
 
-<<<<<<< Updated upstream
-    // Simple sanitasize check, cut off the motors
-=======
     // Radio setup
     radio.setup();
 
     // Simple sanitize check, cut off the motors
->>>>>>> Stashed changes
     stop();
 
     // Set an initial pretty low speed
@@ -41,21 +38,10 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
-<<<<<<< Updated upstream
-    explore();
-=======
-    axelgyro.update();
-    Serial.print(axelgyro.angle.x);
-    Serial.print(",");
-    Serial.print(axelgyro.angle.y);
-    Serial.print(",");
-    Serial.println(axelgyro.angle.z);
-
     const char text[] = "Hello World";
     Serial.println(radio.send(text, sizeof(text)));
     
-    //explore();
->>>>>>> Stashed changes
+    explore();
 }
 
 void RescueBot::stop()
