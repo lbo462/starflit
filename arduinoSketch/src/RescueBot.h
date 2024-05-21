@@ -22,6 +22,9 @@ class RescueBot
          */
         const int mrp=10, mrm=9, mlp=6, mlm=5;
 
+        unsigned long scanPreviousMillis = 0;   // Variable pour stocker le temps de la dernière exécution de scan()
+        const long scanInterval = 3000;          // Interval en millisecondes (3 secondes)
+
         /**
          * Ultrasonic sensors so that the bot is able to detect collisions
          */
@@ -119,6 +122,11 @@ class RescueBot
          * @return true if the action could be done, false otherwise
          */
         bool setRandomDirection();
+
+        /**
+         * Scan the environnement to see if there are obstacles out of its detection cone
+         */
+        void scan();
 
         /**
          * Avoid any collision by making some wiggy-jiggy moves 
