@@ -146,6 +146,9 @@ class RescueBot
          */
         bool isGoingForward_, isGoingBackward_, isTurningRight_, isTurningLeft_;
 
+        unsigned long scanPreviousMillis = 0;   // Variable pour stocker le temps de la dernière exécution de scan()
+        const long scanInterval = 3000;         // Interval en millisecondes (3 secondes)
+
         /**
          * Basic movements functions
          * Theses are private since we don't want to call them directly
