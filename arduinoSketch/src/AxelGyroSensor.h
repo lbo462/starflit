@@ -52,7 +52,7 @@ class AxelGyroSensor
          */
         void update();
 
-    //private:
+    private:
         /**
          * MPU used to control the axelgyro microprocessor
          */
