@@ -17,11 +17,20 @@ AxelGyroSensor::~AxelGyroSensor()
 
 void AxelGyroSensor::setup()
 {
-    I2CwriteByte(imuAddr, 25, 0x01); // Set the SRD to 1
-    I2CwriteByte(imuAddr, 26, 0x01); // Set the DLPF to 184HZ by default
-    I2CwriteByte(imuAddr, 27, gyro_fs_1000_dps); // Configure gyroscope range
-    I2CwriteByte(imuAddr, 28, acc_fs_2g); // Configure accelerometer range
-    I2CwriteByte(imuAddr, 56, 0x01); // Enable interrupt pin for raw data
+    if(!mpu.begin())
+    {
+        Serial.print("Impossible to load axelgyro, check wires");
+        exit(1);
+    }
+  
+    mpu_temp = mpu.getTemperatureSensor();
+    mpu_temp->printSensorDetails();
+
+    mpu_accel = mpu.getAccelerometerSensor();
+    mpu_accel->printSensorDetails();
+
+    mpu_gyro = mpu.getGyroSensor();
+    mpu_gyro->printSensorDetails();
 }
 
 void AxelGyroSensor::update()
@@ -54,25 +63,25 @@ void AxelGyroSensor::update()
 
 Vector3D AxelGyroSensor::getRawAxel()
 {
-    uint8_t buff[14];
-    I2Cread(imuAddr, 59, 14, buff);
+    sensors_event_t a;
+    mpu_accel->getEvent(&a);
 
     return Vector3D(
-        float(buff[0] << 8 | buff[1]),
-        float(buff[2] << 8 | buff[3]),
-        float(buff[4] << 8 | buff[5])
+        a.acceleration.x,
+        a.acceleration.y,
+        a.acceleration.z
     );
 }
 
 Vector3D AxelGyroSensor::getRawGyro()
 {
-    uint8_t buff[14];
-    I2Cread(imuAddr, 59, 14, buff);
-    
+    sensors_event_t g;
+    mpu_gyro->getEvent(&g);
+
     return Vector3D(
-        float(buff[8] << 8 | buff[9]),
-        float(buff[10] << 8 | buff[11]),
-        float(buff[12] << 8 | buff[13])
+        g.gyro.x,
+        g.gyro.y,
+        g.gyro.z
     );
 }
 

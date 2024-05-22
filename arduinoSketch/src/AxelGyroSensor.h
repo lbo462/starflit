@@ -3,7 +3,8 @@
 
 #include <Arduino.h>
 #include <math.h>
-#include "I2C.h"
+#include <Adafruit_MPU6050.h>
+
 #include "utils/Vector3D.h"
 
 
@@ -53,19 +54,14 @@ class AxelGyroSensor
 
     private:
         /**
-         * Address of the IMU
+         * MPU used to control the axelgyro microprocessor
          */
-        const int imuAddr = 0x68;
+        Adafruit_MPU6050 mpu;
 
         /**
-         * Define the gyroscope precision
+         * Specific MPU sensor
          */
-        const int gyro_fs_250_dps = 0, gyro_fs_500_dps = 8, gyro_fs_1000_dps = 10, gyro_fs_2000_dps = 24;
-
-        /**
-         * Define the accelerometer precision
-         */
-        const int acc_fs_2g = 0, acc_fs_4g = 8, acc_fs_8g = 10, acc_fs_16g = 24;
+        Adafruit_Sensor *mpu_temp, *mpu_accel, *mpu_gyro;
 
         /**
          * Correspond to the frame duration.
