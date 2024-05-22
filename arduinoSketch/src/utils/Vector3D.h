@@ -22,6 +22,11 @@ class Vector3D
          * @return A new vector instance with multiplied coordinates
          */
         Vector3D normalize(float ref);
+
+        /**
+         * Get the printable and plottable string version of this vector 
+         */
+        String toString();
 };
 
 #endif

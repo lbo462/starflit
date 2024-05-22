@@ -40,14 +40,8 @@ void RescueBot::update()
 {    
     axelgyro.update();
 
-    String text = 
-          String(axelgyro.angle.x, 2) + F(",")
-        + String(axelgyro.angle.y, 2) + F(",")
-        + String(axelgyro.angle.z, 2) + F(",")
-        + String(1000.0, 2);
-
-    Serial.println(text);
-    radio.sendString(text);
+    Serial.println(axelgyro.angle.toString());
+    radio.sendString(axelgyro.angle.toString());
     
     //explore();
 }

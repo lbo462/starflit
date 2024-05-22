@@ -9,3 +9,8 @@ Vector3D Vector3D::normalize(float ref)
         z * ref
     );
 }
+
+String Vector3D::toString()
+{
+    return String(x) + F(",") + String(y) + F(",") + String(z);
+}
