@@ -22,6 +22,17 @@ void setup_mpu6050()
 
   Serial.println("Initialize MPU6050");
 
+/*
+b=mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G);
+Serial.println(b,DEC);
+*/  
+/*
+  while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G,0x68))
+  {
+    Serial.println("Could not find a valid MPU6050 sensor, check wiring!");
+    delay(500);
+  }
+*/
 mpu_6050_present=false;
 
 if (!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G))
@@ -35,6 +46,15 @@ else
    mpu_6050_present=true;
    checkSettings();
   }  
+  
+
+
+
+  // If you want, you can set accelerometer offsets
+  // mpu.setAccelOffsetX();
+  // mpu.setAccelOffsetY();
+  // mpu.setAccelOffsetZ();
+  
   
 }
 
