@@ -6,7 +6,7 @@ RescueBot::RescueBot()
     /**
      * Function constructor is moved to the method setup()
      * This is not for no reason, please, leave it that way
-     * It should be called during global setup
+     * `setup()` should be called during global setup
      */
 }
 
@@ -37,11 +37,8 @@ void RescueBot::setup()
 }
 
 void RescueBot::update()
-{
-    // The code below is an example of how to use the radio
-    // const char text[] = "Hello World";
-    // Serial.println(radio.send(text, sizeof(text)));
-    
+{    
+    axelgyro.update();
     explore();
 }
 

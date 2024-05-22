@@ -5,7 +5,7 @@ RescueBot bot = RescueBot();
 
 
 void setup() {
-  Serial.begin(9600);  // Serial communication
+  Serial.begin(115200);  // Serial communication
   Wire.begin();  // I2C communication
 
   bot.setup();

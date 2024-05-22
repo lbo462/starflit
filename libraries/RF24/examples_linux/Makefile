@@ -18,6 +18,9 @@ endif
 include ../Makefile.inc
 
 # define all programs
-PROGRAMS = gettingstarted gettingstarted_call_response transfer pingpair_dyn
+PROGRAMS = gettingstarted acknowledgementPayloads manualAcknowledgements streamingData multiceiverDemo scanner
+ifneq (,$(findstring -lpigpio,$(SHARED_LINKER_LIBS)))
+PROGRAMS+=interruptConfigure
+endif
 
 include Makefile.examples

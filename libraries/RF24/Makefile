@@ -3,12 +3,12 @@
 # Makefile for librf24
 #
 # License: GPL (General Public License)
-# Author:  Charles-Henri Hallard 
-# Date:    2013/03/13 
+# Author:  Charles-Henri Hallard
+# Date:    2013/03/13
 #
 # Description:
 # ------------
-# use make all and make install to install the library 
+# use make all and make install to install the library
 #
 
 CONFIG_FILE=Makefile.inc
@@ -21,11 +21,19 @@ OBJECTS=RF24.o
 ifeq ($(DRIVER), MRAA)
 OBJECTS+=spi.o gpio.o compatibility.o
 else ifeq ($(DRIVER), RPi)
-OBJECTS+=spi.o bcm2835.o interrupt.o
+OBJECTS+=spi.o bcm2835.o compatibility.o
+ifneq (,$(findstring -lpigpio,$(SHARED_LINKER_LIBS)))
+OBJECTS+=interrupt.o
+endif
 else ifeq ($(DRIVER), SPIDEV)
-OBJECTS+=spi.o gpio.o compatibility.o interrupt.o
+OBJECTS+=spi.o gpio.o compatibility.o
+ifneq (,$(findstring -lpigpio,$(SHARED_LINKER_LIBS)))
+OBJECTS+=interrupt.o
+endif
 else ifeq ($(DRIVER), wiringPi)
 OBJECTS+=spi.o
+else ifeq ($(DRIVER), pigpio)
+OBJECTS+=spi.o gpio.o interrupt.o compatibility.o
 endif
 
 # make all
@@ -35,10 +43,10 @@ all: $(LIBNAME)
 # Make the library
 $(LIBNAME): $(OBJECTS)
 	@echo "[Linking]"
-	$(CC) $(SHARED_LINKER_FLAGS) $(CFLAGS) -o $(LIBNAME) $^
+	$(CC) $(SHARED_LINKER_FLAGS) $(CFLAGS) -o $(LIBNAME) $^ $(SHARED_LINKER_LIBS)
 
 # Library parts
-RF24.o: RF24.cpp	
+RF24.o: RF24.cpp
 	$(CXX) -fPIC $(CFLAGS) -c $^
 
 bcm2835.o: $(DRIVER_DIR)/bcm2835.c
@@ -47,15 +55,15 @@ bcm2835.o: $(DRIVER_DIR)/bcm2835.c
 spi.o: $(DRIVER_DIR)/spi.cpp
 	$(CXX) -fPIC $(CFLAGS) -c $^
 
-compatibility.o: $(DRIVER_DIR)/compatibility.c
-	$(CC) -fPIC  $(CFLAGS) -c $(DRIVER_DIR)/compatibility.c
+compatibility.o: $(DRIVER_DIR)/compatibility.cpp
+	$(CC) -fPIC  $(CFLAGS) -c $(DRIVER_DIR)/compatibility.cpp
 
 gpio.o: $(DRIVER_DIR)/gpio.cpp
 	$(CXX) -fPIC $(CFLAGS) -c $(DRIVER_DIR)/gpio.cpp
 
-interrupt.o: $(DRIVER_DIR)/interrupt.c
-	$(CXX) -fPIC $(CFLAGS) -c $(DRIVER_DIR)/interrupt.c
-	
+interrupt.o: $(DRIVER_DIR)/interrupt.cpp
+	$(CXX) -fPIC $(CFLAGS) -c $(DRIVER_DIR)/interrupt.cpp
+
 # clear configuration files
 cleanconfig:
 	@echo "[Cleaning configuration]"

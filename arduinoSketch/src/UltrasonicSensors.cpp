@@ -6,7 +6,7 @@ UltrasonicSensors::UltrasonicSensors()
     /**
      * Function constructor is moved to the method setup()
      * This is not for no reason, please, leave it that way
-     * It should be called during global setup
+     * `setup()` should be called during global setup
      */
 }
 
