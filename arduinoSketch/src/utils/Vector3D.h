@@ -1,6 +1,8 @@
 #ifndef vector3d_h
 #define vector3d_h
 
+#include <Arduino.h>
+
 
 /**
  * 3D Vector with x, y and z coordinates
