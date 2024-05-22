@@ -32,7 +32,7 @@ class AxelGyroSensor
         /**
          * Absolute angle of the sensor, obtained by integrating during `update()` 
          */
-        Vector3D angle = Vector3D(0.0, 0.0, 0.0);
+        // Vector3D angle = Vector3D(0.0, 0.0, 0.0);
 
         /**
          * Absolute position of the sensor, obtained by integrating twice during `update()` 
@@ -52,7 +52,7 @@ class AxelGyroSensor
          */
         void update();
 
-    private:
+    //private:
         /**
          * MPU used to control the axelgyro microprocessor
          */

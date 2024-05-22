@@ -39,11 +39,7 @@ void RescueBot::setup()
 void RescueBot::update()
 {    
     axelgyro.update();
-
-    Serial.println(axelgyro.angle.toString());
-    radio.sendString(axelgyro.angle.toString());
-    
-    //explore();
+    explore();
 }
 
 void RescueBot::stop()

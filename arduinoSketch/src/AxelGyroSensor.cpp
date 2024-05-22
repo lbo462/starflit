@@ -54,11 +54,11 @@ void AxelGyroSensor::update()
     );
 
     // Update angle
-    angle = Vector3D(
-        angle.x + angleSpeed.x / (sampleMicros * 0.001),
-        angle.y + angleSpeed.y / (sampleMicros * 0.001),
-        angle.z + angleSpeed.z / (sampleMicros * 0.001)
-    );
+    //angle = Vector3D(
+    //    angle.x + angleSpeed.x / (sampleMicros * 0.001),
+    //    angle.y + angleSpeed.y / (sampleMicros * 0.001),
+    //    angle.z + angleSpeed.z / (sampleMicros * 0.001)
+    //);
 }
 
 Vector3D AxelGyroSensor::getRawAxel()
