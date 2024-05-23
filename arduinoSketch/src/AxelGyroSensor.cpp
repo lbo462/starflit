@@ -54,11 +54,17 @@ void AxelGyroSensor::update()
         0.98 * (complementaryFilterOutput.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
     );
 
+    Serial.print(angle.z);
+    Serial.print(" + ");
+    Serial.print(rawGyro.z);
+    Serial.print(" * ");
+    Serial.println(sampleMicros * 0.000001);
+
     // Update angle
     angle = Vector3D(
-        angle.x + complementaryFilterOutput.x / (sampleMicros * 0.000001),
-        angle.y + complementaryFilterOutput.y / (sampleMicros * 0.000001),
-        angle.z + complementaryFilterOutput.z / (sampleMicros * 0.000001)
+        angle.x + rawGyro.x * (sampleMicros * 0.000001),
+        angle.y + rawGyro.y * (sampleMicros * 0.000001),
+        angle.z + rawGyro.z * (sampleMicros * 0.000001)
     );
 }
 
