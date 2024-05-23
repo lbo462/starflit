@@ -19,10 +19,10 @@ void AxelGyroSensor::setup()
 {
     if(!mpu.begin())
     {
-        Serial.print("Impossible to load axelgyro, check wires");
+        Serial.println("Impossible to load axelgyro, check wires.");
         exit(1);
     }
-  
+
     mpu_temp = mpu.getTemperatureSensor();
     mpu_temp->printSensorDetails();
 
@@ -31,6 +31,95 @@ void AxelGyroSensor::setup()
 
     mpu_gyro = mpu.getGyroSensor();
     mpu_gyro->printSensorDetails();
+
+    Serial.println("Calibrating sensors ... do not move!");
+    if(calibrate() != 0)
+    {
+        Serial.println("Impossible to calibrate sensors but continuing anyway ...");
+    }
+    Serial.println("Calibrated sensors!");
+}
+
+bool AxelGyroSensor::calibrate(
+    Vector3D allowedAccelError,
+    Vector3D allowedGyroError,
+    unsigned long maxDelay)
+{
+    unsigned long startTime = millis(); // Time at which the calibration started
+    int sensorReady = 0;  // Amount of sensors ready
+
+    while(sensorReady < 6)
+    {
+        if(millis() - startTime > maxDelay) return 1;  // Could not calibrate in a convenient delay
+
+        // Get the mean values
+        Vector3D meanAxel = getMeanAccel();
+        Vector3D meanGyro = getMeanGyro();
+
+        // Compute the values that would have been read taking the offset into account
+        Vector3D axelValue = meanAxel - axelOffset;
+        Vector3D gyroValue = meanGyro - gyroOffset;
+
+        /**
+         * Now, we verify that the value we read match the allowed errors
+         * If this verification fails, we update the offset with the mean
+         * If the verification passes, consider the sensor ready and calibrated!
+         */
+
+        Serial.println(axelValue.toString());
+
+        if(abs(axelValue.x) > abs(allowedAccelError.x))
+            axelOffset.x = meanAxel.x;
+        else sensorReady++;
+
+        if(abs(axelValue.y) > abs(allowedAccelError.y))
+            axelOffset.y = meanAxel.y;
+        else sensorReady++;
+
+        if(abs(axelValue.z) > abs(allowedAccelError.z))
+            axelOffset.z = meanAxel.z;
+        else sensorReady++;
+
+        if(abs(gyroValue.x) > abs(allowedGyroError.x))
+            gyroOffset.x = meanGyro.x;
+        else sensorReady++;
+
+        if(abs(gyroValue.y) > abs(allowedGyroError.y))
+            gyroOffset.y = meanGyro.y;
+        else sensorReady++;
+
+        if(abs(gyroValue.z) > abs(allowedGyroError.z))
+            gyroOffset.z = meanGyro.z;
+        else sensorReady++;
+    }
+    return 0;
+}
+
+Vector3D AxelGyroSensor::getMeanAccel(int bufferSize)
+{
+    // Sum of every values read from the sensor
+    Vector3D sum = Vector3D();
+
+    for(int i = 0; i < bufferSize; i++)
+    {
+        sum = sum + getRawAxel();
+    }
+
+    return sum / bufferSize;
+}
+
+
+Vector3D AxelGyroSensor::getMeanGyro(int bufferSize)
+{
+    // Sum of every values read from the sensor
+    Vector3D sum = Vector3D();
+
+    for(int i = 0; i < bufferSize; i++)
+    {
+        sum = sum + getRawGyro();
+    }
+
+    return sum / bufferSize;
 }
 
 void AxelGyroSensor::update()
@@ -39,9 +128,9 @@ void AxelGyroSensor::update()
     sampleMicros = (lastSampleMicros > 0) ? micros() - lastSampleMicros : 20000;
     lastSampleMicros = micros();
 
-    // Get raw reading from sensors
-    Vector3D rawAxel = getRawAxel();
-    Vector3D rawGyro = getRawGyro();
+    // Get values from sensors (take offsets into account)
+    Vector3D rawAxel = getOffsetedAxel();
+    Vector3D rawGyro = getOffsetedGyro();
 
     // Compute in-between vectors for the complementary filter
     Vector3D axel = getAxelAngle(rawAxel);
@@ -53,12 +142,6 @@ void AxelGyroSensor::update()
         0.98 * (complementaryFilterOutput.y + degrees(gyro.y)) + 0.02 * degrees(axel.y),
         0.98 * (complementaryFilterOutput.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
     );
-
-    Serial.print(angle.z);
-    Serial.print(" + ");
-    Serial.print(rawGyro.z);
-    Serial.print(" * ");
-    Serial.println(sampleMicros * 0.000001);
 
     // Update angle
     angle = Vector3D(
@@ -80,6 +163,11 @@ Vector3D AxelGyroSensor::getRawAxel()
     );
 }
 
+Vector3D AxelGyroSensor::getOffsetedAxel()
+{
+    return getRawAxel() - axelOffset;
+}
+
 Vector3D AxelGyroSensor::getRawGyro()
 {
     sensors_event_t g;
@@ -90,6 +178,11 @@ Vector3D AxelGyroSensor::getRawGyro()
         g.gyro.y,
         g.gyro.z
     );
+}
+
+Vector3D AxelGyroSensor::getOffsetedGyro()
+{
+    return getRawGyro() - gyroOffset;
 }
 
 Vector3D AxelGyroSensor::getAxelAngle(Vector3D rawAxel)
