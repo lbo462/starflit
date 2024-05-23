@@ -1,19 +1,8 @@
 #include "AxelGyroSensor.h"
 
 
-AxelGyroSensor::AxelGyroSensor()
-{
-    /**
-     * Function constructor is moved to the method setup()
-     * This is not for no reason, please, leave it that way
-     * `setup()` should be called during global setup
-     */
-}
-
-AxelGyroSensor::~AxelGyroSensor()
-{
-
-}
+AxelGyroSensor::AxelGyroSensor() {}
+AxelGyroSensor::~AxelGyroSensor() {}
 
 void AxelGyroSensor::setup()
 {
@@ -149,8 +138,6 @@ void AxelGyroSensor::update()
         angle.y + rawGyro.y * (sampleMicros * 0.000001),
         angle.z + rawGyro.z * (sampleMicros * 0.000001)
     );
-
-    Serial.println(angle.toString());
 }
 
 Vector3D AxelGyroSensor::getRawAxel()

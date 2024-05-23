@@ -5,7 +5,7 @@
 #include <math.h>
 #include <Adafruit_MPU6050.h>
 
-#include "utils/Vector3D.h"
+#include "../utils/Vector3D.h"
 
 
 /**
@@ -25,7 +25,8 @@ class AxelGyroSensor
          * through the `update()` method.
          * The x-coordinate is the pitch,
          * The y-coordinate is the roll,
-         * The z-coordinate is the yaw,
+         * The z-coordinate is the yaw.
+         * Its name is complementaryFilterOutput until we find a better name.
          */
         Vector3D complementaryFilterOutput = Vector3D();
 
@@ -37,7 +38,7 @@ class AxelGyroSensor
         /**
          * Absolute position of the sensor, obtained by integrating twice during `update()` 
          */
-        Vector3D position = Vector3D();
+        //Vector3D position = Vector3D();
 
         /**
          * Set-up the pins mode.
@@ -52,16 +53,31 @@ class AxelGyroSensor
          */
         void update();
 
+        // Read raw values from the sensors
+        Vector3D getRawAxel(); Vector3D getRawGyro();
+
     private:
-        /**
-         * MPU used to control the axelgyro microprocessor
-         */
+        //MPU used to control the axelgyro microprocessor
         Adafruit_MPU6050 mpu;
 
-        /**
-         * Specific MPU sensor
-         */
+        //Specific MPU sensor
         Adafruit_Sensor *mpu_temp, *mpu_accel, *mpu_gyro;
+
+        // Offset from the sensors in all directions
+        Vector3D axelOffset = Vector3D(), gyroOffset = Vector3D();
+
+        /**
+         * Correspond to the frame duration.
+         * Is updated via the method update() and is required
+         * to compute angles and positions correctly
+         */
+        unsigned long sampleMicros, lastSampleMicros;
+
+        /**
+         * Read raw values from the sensors ...
+         * but substracted the offsets !
+         */
+        Vector3D getOffsetedAxel(); Vector3D getOffsetedGyro();
 
         /**
          * Calibrate the sensors.
@@ -92,38 +108,11 @@ class AxelGyroSensor
          */
         Vector3D getMeanAccel(int bufferSize = 100); Vector3D getMeanGyro(int bufferSize = 100);
 
-        // Offset from the sensors in all directions
-        Vector3D axelOffset = Vector3D(), gyroOffset = Vector3D();
-
         /**
-         * Correspond to the frame duration.
-         * Is updated via the method update() and is required
-         * to compute angles and positions correctly
+         * Fetch the angle from raw data.
+         * Used to compute the yaw roll and pitch for the complementary filter.
          */
-        unsigned long sampleMicros, lastSampleMicros;
-
-        /**
-         * Read raw values from the sensors 
-         */
-        Vector3D getRawAxel(); Vector3D getRawGyro();
-
-        /**
-         * Read raw values from the sensors ...
-         * but substracted the offsets !
-         */
-        Vector3D getOffsetedAxel(); Vector3D getOffsetedGyro();
-
-        /**
-         * Fetch the accelerometer angles from raw axel data.
-         * Used to compute the yaw roll and pitch. 
-         */
-        Vector3D getAxelAngle(Vector3D rawAxel);
-
-        /**
-         * Fetch the gyroscope angles from raw axel data.
-         * Used to compute the yaw roll and pitch. 
-         */
-        Vector3D getGyroAngle(Vector3D rawGyro);
+        Vector3D getAxelAngle(Vector3D rawAxel); Vector3D getGyroAngle(Vector3D rawGyro);
 };
 
 #endif
