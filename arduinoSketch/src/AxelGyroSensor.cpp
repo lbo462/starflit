@@ -36,29 +36,30 @@ void AxelGyroSensor::setup()
 void AxelGyroSensor::update()
 {
     // Update frame time
-    sampleMicros = (lastSampleMicros > 0) ? micros() - lastSampleMicros : 0;
+    sampleMicros = (lastSampleMicros > 0) ? micros() - lastSampleMicros : 20000;
     lastSampleMicros = micros();
 
-    // Get angles required for computation
+    // Get raw reading from sensors
     Vector3D rawAxel = getRawAxel();
     Vector3D rawGyro = getRawGyro();
 
+    // Compute in-between vectors for the complementary filter
     Vector3D axel = getAxelAngle(rawAxel);
     Vector3D gyro = getGyroAngle(rawGyro);    
 
-    // Update angle speed
-    angleSpeed = Vector3D(
-        0.98 * (angleSpeed.x + degrees(gyro.x)) + 0.02 * degrees(axel.x),
-        0.98 * (angleSpeed.y + degrees(gyro.y)) + 0.02 * degrees(axel.y),
-        0.98 * (angleSpeed.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
+    // Compute the actual complementary filter
+    complementaryFilterOutput = Vector3D(
+        0.98 * (complementaryFilterOutput.x + degrees(gyro.x)) + 0.02 * degrees(axel.x),
+        0.98 * (complementaryFilterOutput.y + degrees(gyro.y)) + 0.02 * degrees(axel.y),
+        0.98 * (complementaryFilterOutput.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
     );
 
     // Update angle
-    //angle = Vector3D(
-    //    angle.x + angleSpeed.x / (sampleMicros * 0.001),
-    //    angle.y + angleSpeed.y / (sampleMicros * 0.001),
-    //    angle.z + angleSpeed.z / (sampleMicros * 0.001)
-    //);
+    angle = Vector3D(
+        angle.x + complementaryFilterOutput.x / (sampleMicros * 0.000001),
+        angle.y + complementaryFilterOutput.y / (sampleMicros * 0.000001),
+        angle.z + complementaryFilterOutput.z / (sampleMicros * 0.000001)
+    );
 }
 
 Vector3D AxelGyroSensor::getRawAxel()

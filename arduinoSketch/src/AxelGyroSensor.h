@@ -20,19 +20,19 @@ class AxelGyroSensor
         ~AxelGyroSensor();
 
         /**
-         * Get the angle speed of the sensor.
+         * Get the angle speed of the sensor through the complementary filter
          * Require that the AxelGyro instance was updated beforehand
          * through the `update()` method.
          * The x-coordinate is the pitch,
          * The y-coordinate is the roll,
          * The z-coordinate is the yaw,
          */
-        Vector3D angleSpeed = Vector3D(0.0, 0.0, 0.00);
+        Vector3D complementaryFilterOutput = Vector3D(0.0, 0.0, 0.00);
 
         /**
          * Absolute angle of the sensor, obtained by integrating during `update()` 
          */
-        // Vector3D angle = Vector3D(0.0, 0.0, 0.0);
+        Vector3D angle = Vector3D(0.0, 0.0, 0.0);
 
         /**
          * Absolute position of the sensor, obtained by integrating twice during `update()` 
