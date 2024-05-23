@@ -77,8 +77,8 @@ class AxelGyroSensor
          * @return True if the calibration could be done, false otherwise
          */
         bool calibrate(
-            Vector3D allowedAccelError = Vector3D(1.0, 1.0, 1.0),
-            Vector3D allowedGyroError = Vector3D(1.0, 1.0, 1.0),
+            Vector3D allowedAccelError = Vector3D(0.01, 0.01, 0.01),
+            Vector3D allowedGyroError = Vector3D(0.01, 0.01, 0.01),
             unsigned long maxDelay = 10000
         );
 

@@ -149,6 +149,8 @@ void AxelGyroSensor::update()
         angle.y + rawGyro.y * (sampleMicros * 0.000001),
         angle.z + rawGyro.z * (sampleMicros * 0.000001)
     );
+
+    Serial.println(angle.toString());
 }
 
 Vector3D AxelGyroSensor::getRawAxel()
@@ -187,7 +189,7 @@ Vector3D AxelGyroSensor::getOffsetedGyro()
 
 Vector3D AxelGyroSensor::getAxelAngle(Vector3D rawAxel)
 {
-    const Vector3D axel = rawAxel.normalize(9.80665 / 16384);
+    const Vector3D axel = rawAxel * (9.80665 / 16384);
     return Vector3D(
         atan(axel.y / sqrt(axel.x * axel.x + axel.z * axel.z)),
         atan(-1 * axel.x / sqrt(axel.y * axel.y + axel.z * axel.z)),
@@ -197,5 +199,5 @@ Vector3D AxelGyroSensor::getAxelAngle(Vector3D rawAxel)
 
 Vector3D AxelGyroSensor::getGyroAngle(Vector3D rawGyro)
 {
-    return rawGyro.normalize((1.0 / 32.8) * (float(sampleMicros) / 1000000.0));
+    return rawGyro * ((1.0 / 32.8) * (float(sampleMicros) / 1000000.0));
 }

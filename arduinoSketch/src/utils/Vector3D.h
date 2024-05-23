@@ -19,14 +19,6 @@ class Vector3D
         float x, y, z;
 
         /**
-         * Normalize the vector by multiplying all
-         * its components by the given reference
-         * @param ref Factor that will multiply the coordinates
-         * @return A new vector instance with multiplied coordinates
-         */
-        Vector3D normalize(float ref);
-
-        /**
          * Get the printable and plottable string version of this vector 
          */
         String toString();
