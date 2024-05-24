@@ -7,21 +7,20 @@ SmartMotors::~SmartMotors() {}
 void SmartMotors::setup()
 {
     motors.setup();
-    ultrasonicSensors.setup();
     axelgyro.setup();
+    pid.Start(axelgyro.angle.z, PIDoutput, PIDsetPoint);
+    pid.SetMode(AUTOMATIC);
 }
 
 void SmartMotors::update()
 {
     axelgyro.update();
+    PIDoutput = pid.Run(axelgyro.angle.z);
 }
 
-bool SmartMotors::goForward(int speed) 
+void SmartMotors::goForward(int speed) 
 {
-    if(ultrasonicSensors.collisionDetection(true, false)) {
-        motors.stop();
-        return false;
-    }
+    PIDsetPoint = axelgyro.getRawGyro().z;
 
     float yaw = axelgyro.getRawGyro().z;
     float yawRatio = yaw * 2;
@@ -43,26 +42,16 @@ bool SmartMotors::goForward(int speed)
     
     motors.turnRightWheel(true, rightSpeed);
     motors.turnLeftWheel(true, leftSpeed);
-
-    return true;
 }
 
-bool SmartMotors::goBackward(int speed)
+void SmartMotors::goBackward(int speed)
 {
-    if(ultrasonicSensors.collisionDetection(false, true)) {
-        motors.stop();
-        return false;
-    }
-
-    return false; // Because not implemented yet
 }
 
-bool SmartMotors::turnRight(int speed)
+void SmartMotors::turnRight(int speed)
 {
-    return false; // Because not implemented yet
 }
 
-bool SmartMotors::turnLeft(int speed)
+void SmartMotors::turnLeft(int speed)
 {
-    return false; // Because not implemented yet
 }

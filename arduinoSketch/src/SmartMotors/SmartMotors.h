@@ -1,7 +1,13 @@
 #ifndef smart_motors_h
 #define smart_motors
 
+#define KP 4
+#define KI 4
+#define KD 0.5
+
 #include <Arduino.h>
+#include <PID_v2.h>
+
 #include "Motors.h"
 #include "AxelGyroSensor.h"
 
@@ -37,33 +43,35 @@ class SmartMotors
          * Makes the robots turning right until something else stops it.
          * The "turning right" is from the point of view of "going forward"
          * "going forward" is going away from the dev cable port.
-         * @return true if the action could be done, false otherwise
          */
-        bool turnRight(int speed);
+        void turnRight(int speed);
 
         /**
          * Makes the robots turning left until something else stops it.
          * The "turning left" is from the point of view of "going forward"
          * "going forward" is going away from the dev cable port.
-         * @return true if the action could be done, false otherwise
          */
-        bool turnLeft(int speed);
+        void turnLeft(int speed);
 
         /**
          * Makes the robots going forward until something else stops it.
          * "going forward" is going away from the dev cable port.
-         * @return true if the action could be done, false otherwise
          */
-        bool goForward(int speed);
+        void goForward(int speed);
 
         /**
          * Makes the robots going backward until something else stops it.
-         * "going backward" is going in the direction of the dev cable port..
-         * @return true if the action could be done, false otherwise
+         * "going backward" is going in the direction of the dev cable port.
          */
-        bool goBackward(int speed);
+        void goBackward(int speed);
 
     private:
+        float PIDsetPoint, PIDoutput;      
+
+        /** PID object to deal with control engineering for the translation movement */
+        PID_v2 pid = PID_v2(KP, KI, KD, DIRECT);
+
+
 };
 
 #endif
