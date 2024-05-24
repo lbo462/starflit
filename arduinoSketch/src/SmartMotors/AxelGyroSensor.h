@@ -9,8 +9,8 @@
 
 
 /**
- * AxelGyro stands for Accelerometer + Gyroscope
- * It's used to control the Accelerometer and the Gyroscope of the robot
+ * It's used to control the Accelerometer and the Gyroscope of the robot.
+ * AxelGyro stands for Accelerometer + Gyroscope.
  * One should call `setup()` once and `update()` at each frame
  */
 class AxelGyroSensor

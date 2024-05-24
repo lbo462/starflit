@@ -5,11 +5,12 @@
 #include <Wire.h>
 
 #include "SmartMotors/SmartMotors.h"
+#include "UltrasonicSensors.h"
 #include "Radio.h"
 
 
 /**
- * Main class that holds the logic and glue every modules to control the robot efficiently
+ * Main class that holds the logic and glue every modules to control the robot efficiently.
  * One should call `setup()` once and `update()` at each frame
  */
 class RescueBot 
@@ -20,6 +21,9 @@ class RescueBot
 
         /** Smart motors instance to make the robot move in a smart way */
         SmartMotors smartMotors = SmartMotors();
+
+        /** Ultrasonic sensors used to detect incoming collisions */
+        UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
         /** Plugged some RF24 antennas and use the radio class instance to send messages to space! */
         Radio radio = Radio();

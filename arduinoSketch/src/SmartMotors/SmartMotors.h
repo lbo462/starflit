@@ -3,12 +3,11 @@
 
 #include <Arduino.h>
 #include "Motors.h"
-#include "UltrasonicSensors.h"
 #include "AxelGyroSensor.h"
 
 
 /**
- * Smart motors is abstract representation of motors monitored via control engineer
+ * Smart motors is abstract representation of motors monitored via control engineer.
  * Instances of this class have a motor and an axelgyro module.
  * The `motor` module makes the motors move by applying voltage ;
  * The `axelgyro` module look out for any drifting behaviour and adapt the motor commands.
@@ -21,9 +20,6 @@ class SmartMotors
 
         /** Motors instance to activate the motors */
         Motors motors = Motors();
-
-        /** Ultrasonic sensors used to detect incoming collisions */
-        UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
         /** Controls the accel/gyro data to adapt movements */
         AxelGyroSensor axelgyro = AxelGyroSensor();
