@@ -22,17 +22,14 @@ class UltrasonicSensors
          */ 
         void setup();
 
-        /**
-         * Get the distance with any front object
-         */
+        /** Get the distance with any front object */
         unsigned int getFrontDistance();
 
-        /**
-         * Get the distance with any rear object
-         */
+        /** Get the distance with any rear object */
         unsigned int getRearDistance();
 
-        /** Check that no collision is to occur
+        /** 
+         * Check that no collision is to occur
          * @param fromFront Check front collision 
          * @param fromRear Check rear collision
          * @param distance Distance in cm for which the collision will be detected, default is 30 cm
@@ -42,14 +39,10 @@ class UltrasonicSensors
         bool collisionDetection(bool fromFront, bool fromRear, unsigned int distance = 30);
 
     private:
-        /**
-         * Sensor pins
-         */
+        /** Sensor pins */
         const int echo=2, trig1=7, trig2=8;
 
-        /**
-         * Get the distance in centimeter for a given pin (ie, given sensor)
-         */
+        /** Get the distance in centimeter for a given pin (ie, given sensor) */
         unsigned int getDistance(int trigPin);
 };
 

@@ -19,13 +19,13 @@ class SmartMotors
         SmartMotors();
         ~SmartMotors();
 
-        // Motors instance to activate the motors
+        /** Motors instance to activate the motors */
         Motors motors = Motors();
 
-        // Ultrasonic sensors used to detect incoming collisions
+        /** Ultrasonic sensors used to detect incoming collisions */
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
-        // Controls the accel/gyro data to adapt movements
+        /** Controls the accel/gyro data to adapt movements */
         AxelGyroSensor axelgyro = AxelGyroSensor();
 
         /**
@@ -34,9 +34,7 @@ class SmartMotors
          */
         void setup();
 
-        /**
-         * This method should be called at each frame iteration to update sub-modules
-         */
+        /** This method should be called at each frame iteration to update sub-modules */
         void update();
 
         /**
@@ -56,7 +54,7 @@ class SmartMotors
         bool turnLeft(int speed);
 
         /**
-         * Makes the robots going foward until something else stops it.
+         * Makes the robots going forward until something else stops it.
          * "going forward" is going away from the dev cable port.
          * @return true if the action could be done, false otherwise
          */

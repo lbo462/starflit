@@ -28,7 +28,7 @@ class Motors
          */
         void turnRightWheel(bool forward, int voltage); void turnLeftWheel(bool forward, int voltage);
 
-        // Stop all motors
+        /** Stop all motors */
         void stop();
 
     private:

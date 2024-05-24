@@ -30,14 +30,10 @@ class AxelGyroSensor
          */
         Vector3D complementaryFilterOutput = Vector3D();
 
-        /**
-         * Absolute angle of the sensor, obtained by integrating during `update()` 
-         */
+        /** Absolute angle of the sensor, obtained by integrating during `update()` */
         Vector3D angle = Vector3D();
 
-        /**
-         * Absolute position of the sensor, obtained by integrating twice during `update()` 
-         */
+        /** Absolute position of the sensor, obtained by integrating twice during `update()` */
         //Vector3D position = Vector3D();
 
         /**
@@ -53,17 +49,17 @@ class AxelGyroSensor
          */
         void update();
 
-        // Read raw values from the sensors
+        /** Read raw values from the sensors */
         Vector3D getRawAxel(); Vector3D getRawGyro();
 
     private:
-        //MPU used to control the axelgyro microprocessor
+        /** MPU used to control the axelgyro microprocessor */
         Adafruit_MPU6050 mpu;
 
-        //Specific MPU sensor
+        /** Specific MPU sensor */
         Adafruit_Sensor *mpu_temp, *mpu_accel, *mpu_gyro;
 
-        // Offset from the sensors in all directions
+        /** Offset from the sensors in all directions */
         Vector3D axelOffset = Vector3D(), gyroOffset = Vector3D();
 
         /**

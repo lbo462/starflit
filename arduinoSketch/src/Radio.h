@@ -5,9 +5,7 @@
 #include <RF24.h>
 
 
-/**
- * Enables read-write radio communication through the RF24 antennas
- */
+/** Enables read-write radio communication through the RF24 antennas */
 class Radio
 {
     public:
@@ -36,14 +34,10 @@ class Radio
         bool sendString(String msg);
 
     private:
-        /**
-         * Radio object from the RF24 module to handle communication with the antennas
-         */
+        /** Radio object from the RF24 module to handle communication with the antennas */
         RF24 radio = RF24(A1, A0);
 
-        /**
-         * Pipe address on which the RF communication takes place
-         */
+        /** Pipe address on which the RF communication takes place */
         const byte address[6] = {0x1C,0xCE,0xCC,0xCE,0xCC};
 };
 

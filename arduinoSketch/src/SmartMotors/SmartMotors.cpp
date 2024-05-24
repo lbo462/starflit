@@ -18,6 +18,11 @@ void SmartMotors::update()
 
 bool SmartMotors::goForward(int speed) 
 {
+    if(ultrasonicSensors.collisionDetection(true, false)) {
+        motors.stop();
+        return false;
+    }
+
     float yaw = axelgyro.getRawGyro().z;
     float yawRatio = yaw * 2;
 
@@ -38,4 +43,26 @@ bool SmartMotors::goForward(int speed)
     
     motors.turnRightWheel(true, rightSpeed);
     motors.turnLeftWheel(true, leftSpeed);
+
+    return true;
+}
+
+bool SmartMotors::goBackward(int speed)
+{
+    if(ultrasonicSensors.collisionDetection(false, true)) {
+        motors.stop();
+        return false;
+    }
+
+    return false; // Because not implemented yet
+}
+
+bool SmartMotors::turnRight(int speed)
+{
+    return false; // Because not implemented yet
+}
+
+bool SmartMotors::turnLeft(int speed)
+{
+    return false; // Because not implemented yet
 }

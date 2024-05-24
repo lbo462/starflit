@@ -18,18 +18,15 @@ class RescueBot
         RescueBot();
         ~RescueBot();
 
-        // Smart motors instance to make the robot move in a smart way
+        /** Smart motors instance to make the robot move in a smart way */
         SmartMotors smartMotors = SmartMotors();
 
-        /**
-         * Plugged some RF24 antennas and use the radio class instance to send messages to space!  
-         */
+        /** Plugged some RF24 antennas and use the radio class instance to send messages to space! */
         Radio radio = Radio();
 
         /**
          * Set-up the pins mode.
          * To be called on global setup.
-         * Note that pins can be modified before setup if needed
          */ 
         void setup();
 
@@ -39,14 +36,10 @@ class RescueBot
          */
         void update();
 
-        /**
-         * Scan the environnement to see if there are obstacles out of its detection cone
-         */
+        /** Scan the environnement to see if there are obstacles out of its detection cone */
         void scan();
 
-        /**
-         * Avoid any collision by making some wiggy-jiggy moves 
-         */
+        /** Avoid any collision by making some wiggy-jiggy moves */
         void collisionAvoidance();
 
         /**
@@ -56,10 +49,10 @@ class RescueBot
         void explore();
 
     private:
-        // Variable pour stocker le temps de la dernière exécution de scan()
+        /** Variable pour stocker le temps de la dernière exécution de scan() */
         unsigned long scanPreviousMillis = 0;
 
-        // Interval en millisecondes (3 secondes)
+        /** Interval en millisecondes (3 secondes) */
         const long scanInterval = 3000;
 };
 
