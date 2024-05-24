@@ -19,7 +19,7 @@ void RescueBot::update()
     if(!ultrasonicSensors.collisionDetection(true, false))
         smartMotors.goForward(255);
     else
-        smartMotors.motors.stop();
+        smartMotors.stop();
 }
 
 void RescueBot::scan() {}

@@ -24,12 +24,6 @@ class SmartMotors
         SmartMotors();
         ~SmartMotors();
 
-        /** Motors instance to activate the motors */
-        Motors motors = Motors();
-
-        /** Controls the accel/gyro data to adapt movements */
-        AxelGyroSensor axelgyro = AxelGyroSensor();
-
         /**
          * Setup function, to be called when setting all up,
          * required for the instance methods to work properly. 
@@ -38,6 +32,9 @@ class SmartMotors
 
         /** This method should be called at each frame iteration to update sub-modules */
         void update();
+
+        /** Stop every motors */
+        void stop();
 
         /**
          * Makes the robots turning right until something else stops it.
@@ -66,11 +63,31 @@ class SmartMotors
         void goBackward(int speed);
 
     private:
-        float PIDsetPoint, PIDoutput;      
+        /** Motors instance to activate the motors */
+        Motors motors = Motors();
 
-        /** PID object to deal with control engineering for the translation movement */
-        PID_v2 pid = PID_v2(KP, KI, KD, DIRECT);
+        /** Controls the accel/gyro data to adapt movements */
+        AxelGyroSensor axelgyro = AxelGyroSensor();
 
+        /**
+         * Get a new PID instance for our needs.
+         * We need to create a new instance because
+         * I couldn't find a way to reset the existent one.
+         * Maybe the PID library suck, maybe I suck ... 
+         */
+        PID_v2 getPID();
+
+        /**
+         * Tells what the motors were told to do.
+         * This allows to have some sort of "1-frame" history 
+         */
+        bool toldToForward=false, toldToBackward=false, toldToRight=false, toldToLeft=false;
+
+        /** 
+         * PID object to deal with control engineering for the translation movement;
+         * This object will be rewritten multiple time // TODO
+         */
+        PID_v2 pid;
 
 };
 

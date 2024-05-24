@@ -8,40 +8,53 @@ void SmartMotors::setup()
 {
     motors.setup();
     axelgyro.setup();
-    pid.Start(axelgyro.angle.z, PIDoutput, PIDsetPoint);
     pid.SetMode(AUTOMATIC);
+    pid.Start(axelgyro.angle.z, 0, axelgyro.angle.z);
 }
 
 void SmartMotors::update()
 {
     axelgyro.update();
-    PIDoutput = pid.Run(axelgyro.angle.z);
+}
+
+void SmartMotors::stop()
+{
+    // Update the command variables
+    toldToForward = false;
+    toldToBackward = false;
+    toldToRight = false;
+    toldToLeft = false;
+
+    pid = PID_v2(KP, KI, KD, DIRECT);
+
+    motors.stop();
 }
 
 void SmartMotors::goForward(int speed) 
 {
-    PIDsetPoint = axelgyro.getRawGyro().z;
+    if(!toldToForward)
+    {
+        /**
+         * Defines the setPoint for the "forward" direction.
+         * This is done only when the smartMotors where first told to go forward.
+         * The setPoint do not change until a new order arrives.
+         */ 
+        pid.Setpoint(axelgyro.angle.z);
+    }
 
-    float yaw = axelgyro.getRawGyro().z;
-    float yawRatio = yaw * 2;
+    // Get clamped output between 0 and `speed` from the PID module
+    const float output = min(pid.Run(axelgyro.angle.z), speed);
 
-    int rightSpeed, leftSpeed;
-    if(yawRatio < -0.5)
-    {
-        rightSpeed = 0; leftSpeed = speed;
-    }
-    else if (yawRatio > 0.5)
-    {
-        rightSpeed = speed; leftSpeed = 0;
-    }
-    else
-    {
-        rightSpeed = speed * (0.5 - yawRatio);
-        leftSpeed = speed * (0.5 + yawRatio);
-    }
+    // Update the command variables
+    toldToForward = true;
+    toldToBackward = false;
+    toldToRight = false;
+    toldToLeft = false;
+
+    Serial.println(output);
     
-    motors.turnRightWheel(true, rightSpeed);
-    motors.turnLeftWheel(true, leftSpeed);
+    //motors.turnRightWheel(true, (int)(speed + output));
+    //motors.turnLeftWheel(true, (int)(speed - output));
 }
 
 void SmartMotors::goBackward(int speed)
