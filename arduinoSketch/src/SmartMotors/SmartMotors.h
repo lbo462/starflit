@@ -69,25 +69,16 @@ class SmartMotors
         /** Controls the accel/gyro data to adapt movements */
         AxelGyroSensor axelgyro = AxelGyroSensor();
 
-        /**
-         * Get a new PID instance for our needs.
-         * We need to create a new instance because
-         * I couldn't find a way to reset the existent one.
-         * Maybe the PID library suck, maybe I suck ... 
+        /** 
+         * PID object to deal with control engineering for the translation movement.
          */
-        PID_v2 getPID();
+        PID_v2 pid = PID_v2(KP, KI, KD, DIRECT);
 
         /**
          * Tells what the motors were told to do.
          * This allows to have some sort of "1-frame" history 
          */
         bool toldToForward=false, toldToBackward=false, toldToRight=false, toldToLeft=false;
-
-        /** 
-         * PID object to deal with control engineering for the translation movement;
-         * This object will be rewritten multiple time // TODO
-         */
-        PID_v2 pid;
 
 };
 

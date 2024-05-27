@@ -8,7 +8,9 @@ void SmartMotors::setup()
 {
     motors.setup();
     axelgyro.setup();
+
     pid.SetMode(AUTOMATIC);
+    pid.SetOutputLimits(-255, 255);
     pid.Start(axelgyro.angle.z, 0, axelgyro.angle.z);
 }
 
@@ -25,9 +27,11 @@ void SmartMotors::stop()
     toldToRight = false;
     toldToLeft = false;
 
-    pid = PID_v2(KP, KI, KD, DIRECT);
-
     motors.stop();
+
+    pid.SetTunings(KP, 0, 0);
+    pid.Run(axelgyro.angle.z);
+    pid.SetTunings(KP, KI, KD);
 }
 
 void SmartMotors::goForward(int speed) 
@@ -38,8 +42,14 @@ void SmartMotors::goForward(int speed)
          * Defines the setPoint for the "forward" direction.
          * This is done only when the smartMotors where first told to go forward.
          * The setPoint do not change until a new order arrives.
-         */ 
+         * To set this setPoint properly, one needs to reset the PID since we couldn't
+         * find a way to use the built-in `SetPoint()` method. 
+         */
+        Serial.print("New SetPoint : ");
+        Serial.print(axelgyro.angle.z);
+        Serial.print(" -> ");
         pid.Setpoint(axelgyro.angle.z);
+        Serial.println(pid.GetSetpoint());
     }
 
     // Get clamped output between 0 and `speed` from the PID module
@@ -50,11 +60,9 @@ void SmartMotors::goForward(int speed)
     toldToBackward = false;
     toldToRight = false;
     toldToLeft = false;
-
-    Serial.println(output);
     
-    //motors.turnRightWheel(true, (int)(speed + output));
-    //motors.turnLeftWheel(true, (int)(speed - output));
+    motors.turnRightWheel(true, (int)(speed + output));
+    motors.turnLeftWheel(true, (int)(speed - output));
 }
 
 void SmartMotors::goBackward(int speed)
