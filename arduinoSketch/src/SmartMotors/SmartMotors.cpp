@@ -29,6 +29,11 @@ void SmartMotors::stop()
 
     motors.stop();
 
+    /**
+     * This weird code resets the internal sums
+     * of the PID object.
+     * If not done, the setPoint won't work properly.
+     */
     pid.SetTunings(KP, 0, 0);
     pid.Run(axelgyro.angle.z);
     pid.SetTunings(KP, KI, KD);
@@ -42,14 +47,8 @@ void SmartMotors::goForward(int speed)
          * Defines the setPoint for the "forward" direction.
          * This is done only when the smartMotors where first told to go forward.
          * The setPoint do not change until a new order arrives.
-         * To set this setPoint properly, one needs to reset the PID since we couldn't
-         * find a way to use the built-in `SetPoint()` method. 
          */
-        Serial.print("New SetPoint : ");
-        Serial.print(axelgyro.angle.z);
-        Serial.print(" -> ");
         pid.Setpoint(axelgyro.angle.z);
-        Serial.println(pid.GetSetpoint());
     }
 
     // Get clamped output between 0 and `speed` from the PID module
