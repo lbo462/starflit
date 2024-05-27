@@ -22,14 +22,26 @@ void Motors::stop()
     digitalWrite(motorLM, LOW);
 }
 
-void Motors::turnRightWheel(bool forward, int voltage)
+bool Motors::turnRightWheel(bool forward, int voltage)
 {
-    analogWrite(motorRP, forward ? LOW : max(voltage, 0));
-    analogWrite(motorRM, forward ? max(voltage, 0) : LOW);
+    const int appliedVoltage = voltage > 0 ? voltage : -voltage;
+    if(voltage > MIN_POWER)
+    {
+        analogWrite(motorRP, forward && voltage > 0 ? LOW : appliedVoltage);
+        analogWrite(motorRM, forward && voltage > 0 ? appliedVoltage : LOW);
+        return true;
+    }
+    return false;
 }
 
-void Motors::turnLeftWheel(bool forward, int voltage)
+bool Motors::turnLeftWheel(bool forward, int voltage)
 {
-    analogWrite(motorLP, forward ? max(voltage, 0) : LOW);
-    analogWrite(motorLM, forward ? LOW : max(voltage, 0));
+    const int appliedVoltage = voltage > 0 ? voltage : -voltage;
+    if(voltage > MIN_POWER)
+    {
+        analogWrite(motorLP, forward && voltage > 0 ? max(voltage, 0) : LOW);
+        analogWrite(motorLM, forward && voltage > 0 ? LOW : max(voltage, 0));
+        return true;
+    }
+    return false;
 }

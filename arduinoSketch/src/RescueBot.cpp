@@ -16,10 +16,14 @@ void RescueBot::update()
 {    
     smartMotors.update();
 
+    smartMotors.turnRight(2);
+
+/*
     if(!ultrasonicSensors.collisionDetection(true, false))
         smartMotors.goForward(255);
     else
         smartMotors.stop();
+*/
 }
 
 void RescueBot::scan() {}

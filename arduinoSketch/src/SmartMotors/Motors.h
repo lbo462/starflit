@@ -5,6 +5,15 @@
 
 
 /**
+ * Defines the minimum voltage that the motors need to really turn.
+ * This depends on the mechanical friction on our system.
+ * If the voltage applied is less than this value, the command won't be sent.
+ * Even if it was sent, the motors wouldn't be able to move and would make a sad noise :'(
+ */
+#define MIN_POWER 100
+
+
+/**
  * This class is aimed to control motors, nothing more.
  * Remember to call its `setup()` method once.
  */
@@ -25,9 +34,11 @@ class Motors
          * Makes the motor turn.
          * @param forward Tells whether the motors will turn forward (true) or backward (false)
          * @param voltage Voltage to apply on the motor, that will define its speed.
-         * Note that a negative voltage will just be set to 0.
+         * Note that a negative voltage will make the motors turn in the opposite director of `forward`.
+         * @return true the voltage was big enough so that the command truly made the motors turn.
+         * Returns false if the required voltage was too low.
          */
-        void turnRightWheel(bool forward, int voltage); void turnLeftWheel(bool forward, int voltage);
+        bool turnRightWheel(bool forward, int voltage); bool turnLeftWheel(bool forward, int voltage);
 
         /** Stop all motors */
         void stop();

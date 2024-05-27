@@ -40,15 +40,19 @@ class SmartMotors
          * Makes the robots turning right until something else stops it.
          * The "turning right" is from the point of view of "going forward"
          * "going forward" is going away from the dev cable port.
+         * @param angle The angle that the robot should aim.
+         * @param speed Speed for the rotation.
          */
-        void turnRight(int speed);
+        void turnRight(float angle, int speed = 10);
 
         /**
          * Makes the robots turning left until something else stops it.
          * The "turning left" is from the point of view of "going forward"
          * "going forward" is going away from the dev cable port.
+         * @param angle The angle that the robot should aim.
+         * @param speed Speed for the rotation.
          */
-        void turnLeft(int speed);
+        void turnLeft(float angle, int speed = 10);
 
         /**
          * Makes the robots going forward until something else stops it.

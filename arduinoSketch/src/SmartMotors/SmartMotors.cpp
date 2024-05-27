@@ -91,16 +91,43 @@ void SmartMotors::goBackward(int speed)
     toldToRight = false;
     toldToLeft = false;
 
-    Serial.println(output);
-    
     motors.turnRightWheel(false, (int)(speed - output));
     motors.turnLeftWheel(false, (int)(speed + output));
 }
 
-void SmartMotors::turnRight(int speed)
+void SmartMotors::turnRight(float angle, int speed)
 {
+    if(!toldToRight)
+    {
+        /**
+         * We could set the set point every time this function is called.
+         * But that would be computations wasted computation power.
+         * Instead, we set it up only once, when the order was first given.
+         */
+        pidSetpoint(axelgyro.angle.z - angle);
+    }
+
+    const float output = pid.Run(axelgyro.angle.z);
+
+    // Update the command variables
+    toldToForward = false;
+    toldToBackward = false;
+    toldToRight = true;
+    toldToLeft = false;
+
+    Serial.print(axelgyro.angle.z);
+    Serial.print(" / ");
+    Serial.print(pid.GetSetpoint());
+    Serial.print(" -> ");
+    Serial.print(output);
+    Serial.print(" -> ");
+    Serial.print((int)(speed * output));
+    Serial.println();
+
+    motors.turnRightWheel(false, (int)(speed * output));
+    motors.turnLeftWheel(true, (int)(speed * output));
 }
 
-void SmartMotors::turnLeft(int speed)
+void SmartMotors::turnLeft(float angle, int speed)
 {
 }
