@@ -19,6 +19,21 @@ void SmartMotors::update()
     axelgyro.update();
 }
 
+void SmartMotors::pidSetpoint(double setpoint)
+{
+    /**
+     * This weird code resets the internal sums
+     * of the PID object.
+     * If not done, the setPoint won't work properly.
+     */
+    pid.SetTunings(KP, 0, 0);
+    pid.Run(axelgyro.angle.z);
+    pid.SetTunings(KP, KI, KD);
+
+    /** Finally set the setpoint */
+    pid.Setpoint(setpoint);
+}
+
 void SmartMotors::stop()
 {
     // Update the command variables
@@ -28,15 +43,6 @@ void SmartMotors::stop()
     toldToLeft = false;
 
     motors.stop();
-
-    /**
-     * This weird code resets the internal sums
-     * of the PID object.
-     * If not done, the setPoint won't work properly.
-     */
-    pid.SetTunings(KP, 0, 0);
-    pid.Run(axelgyro.angle.z);
-    pid.SetTunings(KP, KI, KD);
 }
 
 void SmartMotors::goForward(int speed) 
@@ -48,7 +54,7 @@ void SmartMotors::goForward(int speed)
          * This is done only when the smartMotors where first told to go forward.
          * The setPoint do not change until a new order arrives.
          */
-        pid.Setpoint(axelgyro.angle.z);
+        pidSetpoint(axelgyro.angle.z);
     }
 
     // Get clamped output between 0 and `speed` from the PID module
@@ -66,6 +72,29 @@ void SmartMotors::goForward(int speed)
 
 void SmartMotors::goBackward(int speed)
 {
+    if(!toldToBackward)
+    {
+        /**
+         * Defines the setPoint for the "backward" direction.
+         * This is done only when the smartMotors where first told to go forward.
+         * The setPoint do not change until a new order arrives.
+         */
+        pidSetpoint(axelgyro.angle.z);
+    }
+
+    // Get clamped output between 0 and `speed` from the PID module
+    const float output = min(pid.Run(axelgyro.angle.z), speed);
+
+    // Update the command variables
+    toldToForward = false;
+    toldToBackward = true;
+    toldToRight = false;
+    toldToLeft = false;
+
+    Serial.println(output);
+    
+    motors.turnRightWheel(false, (int)(speed - output));
+    motors.turnLeftWheel(false, (int)(speed + output));
 }
 
 void SmartMotors::turnRight(int speed)

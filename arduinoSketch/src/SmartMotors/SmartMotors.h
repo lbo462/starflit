@@ -75,6 +75,15 @@ class SmartMotors
         PID_v2 pid = PID_v2(KP, KI, KD, DIRECT);
 
         /**
+         * Resets the SetPoint for the PID.
+         * This can't be done easily through `pid.SetPoint()`.
+         * Instead, some weird code happens inside this function to
+         * make it work properly.
+         * It resets the internal sums of the PID object, then sets the setPoint.
+         */
+        void pidSetpoint(double setpoint);
+
+        /**
          * Tells what the motors were told to do.
          * This allows to have some sort of "1-frame" history 
          */

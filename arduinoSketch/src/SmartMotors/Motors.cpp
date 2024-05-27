@@ -24,28 +24,12 @@ void Motors::stop()
 
 void Motors::turnRightWheel(bool forward, int voltage)
 {
-    if(forward)
-    {
-        analogWrite(motorRP, LOW);
-        analogWrite(motorRM, voltage);
-    }
-    else
-    {
-        analogWrite(motorRP, voltage);
-        analogWrite(motorRM, LOW);
-    }
+    analogWrite(motorRP, forward ? LOW : max(voltage, 0));
+    analogWrite(motorRM, forward ? max(voltage, 0) : LOW);
 }
 
 void Motors::turnLeftWheel(bool forward, int voltage)
 {
-    if(forward)
-    {
-        analogWrite(motorLP, voltage);
-        analogWrite(motorLM, LOW);
-    }
-    else
-    {
-        analogWrite(motorRP, LOW);
-        analogWrite(motorRP, voltage);
-    }
+    analogWrite(motorLP, forward ? max(voltage, 0) : LOW);
+    analogWrite(motorLM, forward ? LOW : max(voltage, 0));
 }

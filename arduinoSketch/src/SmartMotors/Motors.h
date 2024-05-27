@@ -24,7 +24,8 @@ class Motors
         /**
          * Makes the motor turn.
          * @param forward Tells whether the motors will turn forward (true) or backward (false)
-         * @param voltage Voltage to apply on the motor, that will define its speed
+         * @param voltage Voltage to apply on the motor, that will define its speed.
+         * Note that a negative voltage will just be set to 0.
          */
         void turnRightWheel(bool forward, int voltage); void turnLeftWheel(bool forward, int voltage);
 
