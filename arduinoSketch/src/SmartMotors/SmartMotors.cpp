@@ -97,9 +97,6 @@ void SmartMotors::goBackward(int speed)
 
 void SmartMotors::turnRight(float angle, int speed, float allowedError)
 {
-    /** Since we're turning right, the aimed angle has the opposite sign. */
-    //angle = -angle;
-
     if(abs(axelgyro.angle.z - angle) < abs(allowedError))
     {
         /** Stop the motors and ignore the command if angle is the allowed error range */
@@ -120,4 +117,20 @@ void SmartMotors::turnRight(float angle, int speed, float allowedError)
 
 void SmartMotors::turnLeft(float angle, int speed, float allowedError)
 {
+    if(abs(axelgyro.angle.z - angle) < abs(allowedError))
+    {
+        /** Stop the motors and ignore the command if angle is the allowed error range */
+        motors.stop();
+        return;
+    }
+
+    // Update the command variables
+    toldToForward = false;
+    toldToBackward = false;
+    toldToRight = false;
+    toldToLeft = true;
+
+    // Do turn
+    motors.turnRightWheel(true, speed);
+    motors.turnLeftWheel(false, speed);
 }
