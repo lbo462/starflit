@@ -42,8 +42,10 @@ class SmartMotors
          * "going forward" is going away from the dev cable port.
          * @param angle The angle that the robot should aim.
          * @param speed Speed for the rotation.
+         * @param allowedError Allowed error for the angle.
+         * No move will occur if the angle lies in the allowed error range.
          */
-        void turnRight(float angle, int speed = 10);
+        void turnRight(float angle, int speed = 10, float allowedError = 0.05);
 
         /**
          * Makes the robots turning left until something else stops it.
@@ -51,8 +53,10 @@ class SmartMotors
          * "going forward" is going away from the dev cable port.
          * @param angle The angle that the robot should aim.
          * @param speed Speed for the rotation.
+         * @param allowedError Allowed error for the angle.
+         * No move will occur if the angle lies in the allowed error range.
          */
-        void turnLeft(float angle, int speed = 10);
+        void turnLeft(float angle, int speed = 10, float allowedError = 0.05);
 
         /**
          * Makes the robots going forward until something else stops it.

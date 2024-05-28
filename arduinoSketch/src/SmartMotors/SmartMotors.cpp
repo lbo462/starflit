@@ -95,8 +95,18 @@ void SmartMotors::goBackward(int speed)
     motors.turnLeftWheel(false, (int)(speed + output));
 }
 
-void SmartMotors::turnRight(float angle, int speed)
+void SmartMotors::turnRight(float angle, int speed, float allowedError)
 {
+    /** Since we're turning right, the aimed angle has the opposite sign. */
+    angle = -angle;
+
+    if(abs(axelgyro.angle.z - angle) < abs(allowedError))
+    {
+        /** Stop the motors and ignore the command if angle is the allowed error range */
+        motors.stop();
+        return;
+    }
+    
     if(!toldToRight)
     {
         /**
@@ -104,7 +114,7 @@ void SmartMotors::turnRight(float angle, int speed)
          * But that would be computations wasted computation power.
          * Instead, we set it up only once, when the order was first given.
          */
-        pidSetpoint(axelgyro.angle.z - angle);
+        pidSetpoint(axelgyro.angle.z + angle);
     }
 
     const float output = pid.Run(axelgyro.angle.z);
@@ -125,9 +135,9 @@ void SmartMotors::turnRight(float angle, int speed)
     Serial.println();
 
     motors.turnRightWheel(false, (int)(speed * output));
-    motors.turnLeftWheel(true, (int)(speed * output));
+    motors.turnLeftWheel(false, (int)(speed * output));
 }
 
-void SmartMotors::turnLeft(float angle, int speed)
+void SmartMotors::turnLeft(float angle, int speed, float allowedError)
 {
 }

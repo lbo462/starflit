@@ -25,10 +25,10 @@ void Motors::stop()
 bool Motors::turnRightWheel(bool forward, int voltage)
 {
     const int appliedVoltage = voltage > 0 ? voltage : -voltage;
-    if(voltage > MIN_POWER)
+    if(appliedVoltage > MIN_POWER)
     {
-        analogWrite(motorRP, forward && voltage > 0 ? LOW : appliedVoltage);
-        analogWrite(motorRM, forward && voltage > 0 ? appliedVoltage : LOW);
+        analogWrite(motorRP, forward == voltage > 0 ? LOW : appliedVoltage);
+        analogWrite(motorRM, forward == voltage > 0 ? appliedVoltage : LOW);
         return true;
     }
     return false;
@@ -37,10 +37,10 @@ bool Motors::turnRightWheel(bool forward, int voltage)
 bool Motors::turnLeftWheel(bool forward, int voltage)
 {
     const int appliedVoltage = voltage > 0 ? voltage : -voltage;
-    if(voltage > MIN_POWER)
+    if(appliedVoltage > MIN_POWER)
     {
-        analogWrite(motorLP, forward && voltage > 0 ? max(voltage, 0) : LOW);
-        analogWrite(motorLM, forward && voltage > 0 ? LOW : max(voltage, 0));
+        analogWrite(motorLP, forward == voltage > 0 ? LOW : voltage);
+        analogWrite(motorLM, forward == voltage > 0 ? voltage : LOW);
         return true;
     }
     return false;
