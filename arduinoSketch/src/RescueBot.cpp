@@ -16,7 +16,7 @@ void RescueBot::update()
 {    
     smartMotors.update();
 
-    smartMotors.turnRight(2);
+    smartMotors.turnRight(PI);
 
 /*
     if(!ultrasonicSensors.collisionDetection(true, false))

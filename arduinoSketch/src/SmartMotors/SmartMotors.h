@@ -45,7 +45,7 @@ class SmartMotors
          * @param allowedError Allowed error for the angle.
          * No move will occur if the angle lies in the allowed error range.
          */
-        void turnRight(float angle, int speed = 10, float allowedError = 0.05);
+        void turnRight(float angle, int speed = 128, float allowedError = 0.1);
 
         /**
          * Makes the robots turning left until something else stops it.
@@ -56,7 +56,7 @@ class SmartMotors
          * @param allowedError Allowed error for the angle.
          * No move will occur if the angle lies in the allowed error range.
          */
-        void turnLeft(float angle, int speed = 10, float allowedError = 0.05);
+        void turnLeft(float angle, int speed = 128, float allowedError = 0.1);
 
         /**
          * Makes the robots going forward until something else stops it.

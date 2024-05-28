@@ -98,7 +98,7 @@ void SmartMotors::goBackward(int speed)
 void SmartMotors::turnRight(float angle, int speed, float allowedError)
 {
     /** Since we're turning right, the aimed angle has the opposite sign. */
-    angle = -angle;
+    //angle = -angle;
 
     if(abs(axelgyro.angle.z - angle) < abs(allowedError))
     {
@@ -106,18 +106,6 @@ void SmartMotors::turnRight(float angle, int speed, float allowedError)
         motors.stop();
         return;
     }
-    
-    if(!toldToRight)
-    {
-        /**
-         * We could set the set point every time this function is called.
-         * But that would be computations wasted computation power.
-         * Instead, we set it up only once, when the order was first given.
-         */
-        pidSetpoint(axelgyro.angle.z + angle);
-    }
-
-    const float output = pid.Run(axelgyro.angle.z);
 
     // Update the command variables
     toldToForward = false;
@@ -125,17 +113,9 @@ void SmartMotors::turnRight(float angle, int speed, float allowedError)
     toldToRight = true;
     toldToLeft = false;
 
-    Serial.print(axelgyro.angle.z);
-    Serial.print(" / ");
-    Serial.print(pid.GetSetpoint());
-    Serial.print(" -> ");
-    Serial.print(output);
-    Serial.print(" -> ");
-    Serial.print((int)(speed * output));
-    Serial.println();
-
-    motors.turnRightWheel(false, (int)(speed * output));
-    motors.turnLeftWheel(false, (int)(speed * output));
+    // Do turn
+    motors.turnRightWheel(false, speed);
+    motors.turnLeftWheel(true, speed);
 }
 
 void SmartMotors::turnLeft(float angle, int speed, float allowedError)
