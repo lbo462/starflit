@@ -1,16 +1,25 @@
 #ifndef smart_motors_h
 #define smart_motors
 
-#define KP 4
-#define KI 4
-#define KD 0.5
-
 #include <Arduino.h>
 #include <PID_v2.h>
 
 #include "Motors.h"
 #include "AxelGyroSensor.h"
 
+
+#define KP 4
+#define KI 4
+#define KD 0.5
+
+/**
+ * Allowed error for the angle when turning.
+ * No move will occur if the angle lies in the allowed error range.
+ */
+#define ANGLE_ERROR_ALLOWED 0.05
+
+/** Speed of the motors when turning */
+#define TURNING_SPEED 128
 
 /**
  * Smart motors is abstract representation of motors monitored via control engineer.
@@ -40,23 +49,19 @@ class SmartMotors
          * Makes the robots turning right until something else stops it.
          * The "turning right" is from the point of view of "going forward"
          * "going forward" is going away from the dev cable port.
+         * Note that the turning process occurs in the `update()` method.
          * @param angle The angle that the robot should aim.
-         * @param speed Speed for the rotation.
-         * @param allowedError Allowed error for the angle.
-         * No move will occur if the angle lies in the allowed error range.
          */
-        void turnRight(float angle, int speed = 128, float allowedError = 0.1);
+        void turnRight(float angle);
 
         /**
          * Makes the robots turning left until something else stops it.
          * The "turning left" is from the point of view of "going forward"
          * "going forward" is going away from the dev cable port.
+         * Note that the turning process occurs in the `update()` method.
          * @param angle The angle that the robot should aim.
-         * @param speed Speed for the rotation. Default is 128.
-         * @param allowedError Allowed error for the angle. Default is 0.1.
-         * No move will occur if the angle lies in the allowed error range.
          */
-        void turnLeft(float angle, int speed = 128, float allowedError = 0.1);
+        void turnLeft(float angle);
 
         /**
          * Makes the robots going forward until something else stops it.
@@ -78,6 +83,11 @@ class SmartMotors
          */
         bool toldToForward=false, toldToBackward=false, toldToRight=false, toldToLeft=false;
 
+        /**
+         * Tells whether the motors are commanded to be stopped or not 
+         */
+        inline bool stopped() {return !toldToForward && !toldToBackward && !toldToRight && !toldToLeft;};
+
     private:
         /** Motors instance to activate the motors. */
         Motors motors = Motors();
@@ -96,6 +106,12 @@ class SmartMotors
          * It resets the internal sums of the PID object, then sets the setPoint.
          */
         void pidSetpoint(double setpoint);
+
+        /**
+         * Aimed angle persistent through multiple loop iterations when required to turn.
+         * Default is `-1` and indicate that no angle is aimed (maybe the robot isn't turning).
+         */
+        float aimedAngle = -1;
 };
 
 #endif

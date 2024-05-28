@@ -16,7 +16,36 @@ void SmartMotors::setup()
 
 void SmartMotors::update()
 {
+    // Update angle and position
     axelgyro.update();
+
+    /** Now we do the moves we're required to do, such as turning */
+    if(toldToRight || toldToLeft)
+    {
+        // Stop the motors when the current angle matches the aimed one. 
+        if(abs(axelgyro.angle.z - aimedAngle) < abs(ANGLE_ERROR_ALLOWED))
+        {
+            // This also resets the variables `toldToRight` and `toldToLeft`
+            stop();
+            aimedAngle = -1;
+        }
+
+        // Otherwise, turn right if told so ...
+        else if(toldToRight)
+        {
+            motors.turnRightWheel(false, TURNING_SPEED);
+            motors.turnLeftWheel(true, TURNING_SPEED);
+        }
+
+        // ... or turn left if told so.
+        else if(toldToLeft)
+        {
+            motors.turnRightWheel(true, TURNING_SPEED);
+            motors.turnLeftWheel(false, TURNING_SPEED);
+        }
+    }
+    
+    
 }
 
 void SmartMotors::pidSetpoint(double setpoint)
@@ -65,13 +94,6 @@ void SmartMotors::goForward(int speed)
     toldToBackward = false;
     toldToRight = false;
     toldToLeft = false;
-    
-    Serial.print(axelgyro.preAngle.z);
-    Serial.print(" ");
-    Serial.print((int)(speed - output));
-    Serial.print(" ");
-    Serial.print((int)(speed + output));
-    Serial.println();
 
     motors.turnRightWheel(true, (int)(speed - output));
     motors.turnLeftWheel(true, (int)(speed + output));
@@ -102,13 +124,12 @@ void SmartMotors::goBackward(int speed)
     motors.turnLeftWheel(false, (int)(speed - output));
 }
 
-void SmartMotors::turnRight(float angle, int speed, float allowedError)
+void SmartMotors::turnRight(float angle)
 {
-    if(abs(axelgyro.angle.z - angle) < abs(allowedError))
+    /** Update the aimed angle only if the function wasn't already called previously. */
+    if(!toldToRight)
     {
-        /** Stop the motors and ignore the command if angle is the allowed error range */
-        motors.stop();
-        return;
+        aimedAngle = fmod(axelgyro.angle.z - angle, 2*PI);
     }
 
     // Update the command variables
@@ -116,19 +137,14 @@ void SmartMotors::turnRight(float angle, int speed, float allowedError)
     toldToBackward = false;
     toldToRight = true;
     toldToLeft = false;
-
-    // Do turn
-    motors.turnRightWheel(false, speed);
-    motors.turnLeftWheel(true, speed);
 }
 
-void SmartMotors::turnLeft(float angle, int speed, float allowedError)
+void SmartMotors::turnLeft(float angle)
 {
-    if(abs(axelgyro.angle.z - angle) < abs(allowedError))
+    /** Update the aimed angle only if the function wasn't already called previously. */
+    if(!toldToLeft)
     {
-        /** Stop the motors and ignore the command if angle is the allowed error range */
-        motors.stop();
-        return;
+        aimedAngle = fmod(axelgyro.angle.z + angle, 2*PI);
     }
 
     // Update the command variables
@@ -136,8 +152,4 @@ void SmartMotors::turnLeft(float angle, int speed, float allowedError)
     toldToBackward = false;
     toldToRight = false;
     toldToLeft = true;
-
-    // Do turn
-    motors.turnRightWheel(true, speed);
-    motors.turnLeftWheel(false, speed);
 }

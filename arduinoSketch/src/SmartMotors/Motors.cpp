@@ -20,6 +20,13 @@ void Motors::stop()
     digitalWrite(motorRM, LOW);
     digitalWrite(motorLP, LOW);
     digitalWrite(motorLM, LOW);
+
+    /**
+     * Avoid falling forward.
+     * Does not work as well as expected for high speed value ...
+     * TODO This should be revised.
+     */
+    delay(200);
 }
 
 bool Motors::turnRightWheel(bool forward, int voltage)

@@ -23,36 +23,57 @@ void RescueBot::scan() {}
 
 void RescueBot::collisionAvoidance()
 {
+    // The robots is currently turning, let it turn in peace until it stops!
+    if(smartMotors.toldToRight || smartMotors.toldToLeft)
+        return;
+
+    // If we've stop, it means we're able to go forward and exit collision avoidance.
+    if(smartMotors.stopped())
+    {
+        smartMotors.goForward();
+        return;
+    }
+
     // Back away until the front object is 80 cm away  
     if(ultrasonicSensors.collisionDetection(true, false, 80))
     {
-        smartMotors.goBackward(255);
+        // ... but verify that we won't collide rear objects.
+        if(!ultrasonicSensors.collisionDetection(false, true))
+            smartMotors.goBackward();
+        // If something's behind, just stop.
+        else
+            smartMotors.stop();
     }
 
-    // Now, turn until there's no front object at 100 cm
-    else if(ultrasonicSensors.collisionDetection(true, false, 100))
+    // If no object is to be seen in front, make a turn
+    else
     {
-        if(!smartMotors.toldToRight && !smartMotors.toldToRight)
+        if(!(smartMotors.toldToRight || smartMotors.toldToLeft))
         {
             // Set a new random direction, and make a full turn
             if (random(2) == 0)
-                smartMotors.turnRight(2*PI);
+                smartMotors.turnRight(PI/2);
             else
-                smartMotors.turnLeft(2*PI);
+                smartMotors.turnLeft(PI/2);
         }
-    }
-
-    // Collision avoidance exit
-    else
-    {
-        smartMotors.goForward();
+        // else, do nothing and let it turn
     }
 }
 
 void RescueBot::explore()
 {
-    if(!smartMotors.toldToForward && !ultrasonicSensors.collisionDetection(true, false))
-        smartMotors.goForward();
-    else
+    if(!smartMotors.toldToForward)
+    {
         collisionAvoidance();
+    }
+
+    // It's possible that `collisionAvoidance()` changed the `toldToForward` state.
+    // In that case, try to go forward.
+    if(smartMotors.toldToForward)
+    {
+        if(!ultrasonicSensors.collisionDetection(true, false))
+            smartMotors.goForward();
+        else
+            smartMotors.goBackward();
+    }
 }

@@ -143,6 +143,8 @@ void AxelGyroSensor::update()
     );
 
     // Transform negative angles into positive angles by adding 2*PI
+    // Not sure about the use of the ternary expression here since the raw modulo
+    //   might do the job on its own ... TODO but definitely not urgent and not mandatory.
     angle = Vector3D(
         fmod(preAngle.x > 0 ? preAngle.x : preAngle.x + 2*PI, 2*PI),
         fmod(preAngle.y > 0 ? preAngle.y : preAngle.y + 2*PI, 2*PI),
