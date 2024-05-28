@@ -28,14 +28,16 @@ For the connection to the internet, we will be connecting to the Eduroam network
 2. Insert the following configuration:
 
 ```bash
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev                                               update_config=1                                                   ap_scan=1
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev                                               update_config=1
+ap_scan=1
 network={
 ssid="eduroam"
 scan_ssid=1
 key_mgmt=WPA-EAP
 eap=PEAP
 identity="${EDUROAM_EMAIL}"
-phase2="auth=MSCHAPV2"                                            password="${EDUROAM_PW}"
+phase2="auth=MSCHAPV2"
+password="${EDUROAM_PW}"
 anonymous_identity="anonymous@insa-lyon.fr"
 }  
 ```
