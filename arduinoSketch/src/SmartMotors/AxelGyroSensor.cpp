@@ -136,17 +136,17 @@ void AxelGyroSensor::update()
 
     // Create a "pre-angle" from our calculations.
     // This pre-angle features negatives that will be removed next.
-    const Vector3D preAngle = Vector3D(
-        fmod(angle.x + rawGyro.x * (sampleMicros * 0.000001), 2*PI),
-        fmod(angle.y + rawGyro.y * (sampleMicros * 0.000001), 2*PI),
-        fmod(angle.z + rawGyro.z * (sampleMicros * 0.000001), 2*PI)
+    preAngle = Vector3D(
+        preAngle.x + rawGyro.x * (sampleMicros * 0.000001),
+        preAngle.y + rawGyro.y * (sampleMicros * 0.000001),
+        preAngle.z + rawGyro.z * (sampleMicros * 0.000001)
     );
 
     // Transform negative angles into positive angles by adding 2*PI
     angle = Vector3D(
-        preAngle.x > 0 ? preAngle.x : preAngle.x + 2*PI,
-        preAngle.y > 0 ? preAngle.y : preAngle.y + 2*PI,
-        preAngle.z > 0 ? preAngle.z : preAngle.z + 2*PI
+        fmod(preAngle.x > 0 ? preAngle.x : preAngle.x + 2*PI, 2*PI),
+        fmod(preAngle.y > 0 ? preAngle.y : preAngle.y + 2*PI, 2*PI),
+        fmod(preAngle.z > 0 ? preAngle.z : preAngle.z + 2*PI, 2*PI)
     );
 }
 

@@ -50,7 +50,7 @@ class Motors
          * [X] can be R = right or L = left ;
          * [Y] can be P = plus-pin or M = minus-pin
          */
-        const int motorRP=10, motorRM=9, motorLP=6, motorLM=5;
+        const int motorRP=6, motorRM=5, motorLP=10, motorLM=9;
 };
 
 #endif

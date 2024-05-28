@@ -30,7 +30,16 @@ class AxelGyroSensor
          */
         Vector3D complementaryFilterOutput = Vector3D();
 
-        /** Absolute angle of the sensor, obtained by integrating during `update()` */
+        /** 
+         * Absolute angle of the sensor, obtained by integrating during `update()`
+         * This angle keeps track of the direction (minus and positive values allowed)
+         */
+        Vector3D preAngle = Vector3D();
+
+        /** 
+         * Absolute angle of the sensor, obtained by integrating during `update()`
+         * Only positive values (negative angles gets +2*PI)
+         */
         Vector3D angle = Vector3D();
 
         /** Absolute position of the sensor, obtained by integrating twice during `update()` */

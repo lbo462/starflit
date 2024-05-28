@@ -70,7 +70,7 @@ class SmartMotors
          */
         void goBackward(int speed);
 
-    private:
+    //private:
         /** Motors instance to activate the motors */
         Motors motors = Motors();
 
