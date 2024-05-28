@@ -52,8 +52,8 @@ class SmartMotors
          * The "turning left" is from the point of view of "going forward"
          * "going forward" is going away from the dev cable port.
          * @param angle The angle that the robot should aim.
-         * @param speed Speed for the rotation.
-         * @param allowedError Allowed error for the angle.
+         * @param speed Speed for the rotation. Default is 128.
+         * @param allowedError Allowed error for the angle. Default is 0.1.
          * No move will occur if the angle lies in the allowed error range.
          */
         void turnLeft(float angle, int speed = 128, float allowedError = 0.1);
@@ -61,25 +61,31 @@ class SmartMotors
         /**
          * Makes the robots going forward until something else stops it.
          * "going forward" is going away from the dev cable port.
+         * @param speed Speed at which one should move. Default is 255.
          */
-        void goForward(int speed);
+        void goForward(int speed = 255);
 
         /**
          * Makes the robots going backward until something else stops it.
          * "going backward" is going in the direction of the dev cable port.
+         * @param speed Speed at which one should move. Default is 255.
          */
-        void goBackward(int speed);
+        void goBackward(int speed = 255);
 
-    //private:
-        /** Motors instance to activate the motors */
+        /**
+         * Tells what the motors were told to do.
+         * This allows to have some sort of "1-frame" history 
+         */
+        bool toldToForward=false, toldToBackward=false, toldToRight=false, toldToLeft=false;
+
+    private:
+        /** Motors instance to activate the motors. */
         Motors motors = Motors();
 
-        /** Controls the accel/gyro data to adapt movements */
+        /** Controls the accel/gyro data to adapt movements. */
         AxelGyroSensor axelgyro = AxelGyroSensor();
 
-        /** 
-         * PID object to deal with control engineering for the translation movement.
-         */
+        /** PID object to deal with control engineering for the translation movement. */
         PID_v2 pid = PID_v2(KP, KI, KD, DIRECT);
 
         /**
@@ -90,13 +96,6 @@ class SmartMotors
          * It resets the internal sums of the PID object, then sets the setPoint.
          */
         void pidSetpoint(double setpoint);
-
-        /**
-         * Tells what the motors were told to do.
-         * This allows to have some sort of "1-frame" history 
-         */
-        bool toldToForward=false, toldToBackward=false, toldToRight=false, toldToLeft=false;
-
 };
 
 #endif

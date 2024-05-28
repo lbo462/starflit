@@ -52,7 +52,7 @@ class RescueBot
          */
         void explore();
 
-    //private:
+    private:
         /** Variable pour stocker le temps de la dernière exécution de scan() */
         unsigned long scanPreviousMillis = 0;
 
