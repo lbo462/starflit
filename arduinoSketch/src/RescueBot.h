@@ -8,6 +8,9 @@
 #include "UltrasonicSensors.h"
 #include "Radio.h"
 
+/** TODO */
+#define SCAN_INTERVAL 3000
+
 
 /**
  * Main class that holds the logic and glue every modules to control the robot efficiently.
@@ -43,6 +46,9 @@ class RescueBot
         /** Scan the environnement to see if there are obstacles out of its detection cone */
         void scan();
 
+        /** TODO */
+        inline bool isScanning() { return scanning; }
+
         /** Avoid any collision by making some wiggy-jiggy moves */
         void collisionAvoidance();
 
@@ -53,11 +59,17 @@ class RescueBot
         void explore();
 
     private:
-        /** Variable pour stocker le temps de la dernière exécution de scan() */
-        unsigned long scanPreviousMillis = 0;
+        /** TODO */
+        bool scanning = false;
 
-        /** Interval en millisecondes (3 secondes) */
-        const long scanInterval = 3000;
+        /** Previous scan timing in milliseconds */
+        unsigned long previousScan = 0;
+
+        /**
+         * Get rewritten during the scan and tells if
+         * the robot did scan on right or left. 
+         */
+        bool scannedRight, scannedLeft;
 };
 
 #endif
