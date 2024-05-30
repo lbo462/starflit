@@ -78,7 +78,7 @@ class RescueBot
          * Get rewritten during the scan and tells if
          * the robot did scan on right or left. 
          */
-        bool scannedRight, scannedLeft;
+        bool scannedRight = false, scannedLeft = false;
 };
 
 #endif

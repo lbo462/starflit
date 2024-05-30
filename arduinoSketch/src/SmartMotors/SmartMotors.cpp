@@ -12,6 +12,8 @@ void SmartMotors::setup()
     pid.SetMode(AUTOMATIC);
     pid.SetOutputLimits(-255, 255);
     pid.Start(axelgyro.angle.z, 0, axelgyro.angle.z);
+
+    stop();
 }
 
 void SmartMotors::update()
@@ -62,8 +64,6 @@ void SmartMotors::update()
             }
         }
     }
-    
-    
 }
 
 void SmartMotors::pidSetpoint(double setpoint)
