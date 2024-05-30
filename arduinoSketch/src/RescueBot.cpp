@@ -13,22 +13,30 @@ void RescueBot::setup()
 }
 
 void RescueBot::update()
-{    
+{
     unsigned long currentMillis = millis();
     smartMotors.update();
 
+    /** 
+     * Do the moves !
+     * 
+     *   _O/
+     *     \ 
+     *     /\_ 
+     *     \  ` 
+     *     `   
+     */
+
     /** Don't stop scanning. */
-    if(scanning)
+    if(isScanning())
     {
         scan();
     }
 
-    /** Check if it's tme to scan. */
+    /** Check if it's time to scan. */
     else if(currentMillis - previousScan > SCAN_INTERVAL)
     {
         scan();
-        previousScan = currentMillis;
-        return;
     }
 
     else
@@ -48,6 +56,7 @@ void RescueBot::scan()
         /** Exit scanning to enter collision avoidance at next iteration */
         smartMotors.goBackward();
         scanning = false, scannedRight = false, scannedLeft = false;
+        previousScan = millis();
         return;
     }
 
@@ -68,6 +77,7 @@ void RescueBot::scan()
 
         /** Exit scanning */
         scanning = false, scannedRight = false, scannedLeft = false;
+        previousScan = millis();
         return;
     }
 

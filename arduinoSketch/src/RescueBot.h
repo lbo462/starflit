@@ -8,8 +8,8 @@
 #include "UltrasonicSensors.h"
 #include "Radio.h"
 
-/** TODO */
-#define SCAN_INTERVAL 3000
+/** Time between two scans */
+#define SCAN_INTERVAL 5000
 
 
 /**
@@ -46,7 +46,13 @@ class RescueBot
         /** Scan the environnement to see if there are obstacles out of its detection cone */
         void scan();
 
-        /** TODO */
+        /**
+         * Tells whether we're currently scanning or not.
+         * Returns the value of the private attribute `scanning`.
+         * We don't want this attribute to be public since we don't want it modified outside this class.
+         * Instead, we define it private and allow reading write through this method.
+         * This makes the `scanning` attribute read-only.
+         */
         inline bool isScanning() { return scanning; }
 
         /** Avoid any collision by making some wiggy-jiggy moves */
@@ -59,7 +65,10 @@ class RescueBot
         void explore();
 
     private:
-        /** TODO */
+        /**
+         * Tells whether we're currently scanning or not.
+         * See `isScanning()` for more details.
+         */
         bool scanning = false;
 
         /** Previous scan timing in milliseconds */
