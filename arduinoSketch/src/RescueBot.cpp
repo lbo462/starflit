@@ -27,14 +27,8 @@ void RescueBot::update()
      *     `   
      */
 
-    /** Don't stop scanning. */
-    if(isScanning())
-    {
-        scan();
-    }
-
-    /** Check if it's time to scan. */
-    else if(currentMillis - previousScan > SCAN_INTERVAL)
+    /** Check if it's time to scan or if we're actually scanning */
+    if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
         scan();
     }

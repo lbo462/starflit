@@ -33,15 +33,33 @@ void SmartMotors::update()
         // Otherwise, turn right if told so ...
         else if(toldToRight)
         {
-            motors.turnRightWheel(false, TURNING_SPEED);
-            motors.turnLeftWheel(true, TURNING_SPEED);
+            if(axelgyro.angle.z > aimedAngle)
+            {
+                motors.turnRightWheel(false, TURNING_SPEED);
+                motors.turnLeftWheel(true, TURNING_SPEED);
+            }
+            else
+            {
+                // Turn back left if we went too far
+                motors.turnRightWheel(true, TURNING_SPEED);
+                motors.turnLeftWheel(false, TURNING_SPEED);
+            }
         }
 
         // ... or turn left if told so.
         else if(toldToLeft)
         {
-            motors.turnRightWheel(true, TURNING_SPEED);
-            motors.turnLeftWheel(false, TURNING_SPEED);
+            if(axelgyro.angle.z < aimedAngle)
+            {
+                motors.turnRightWheel(true, TURNING_SPEED);
+                motors.turnLeftWheel(false, TURNING_SPEED);
+            }
+            else
+            {
+                // Turn back right if we went too far
+                motors.turnRightWheel(false, TURNING_SPEED);
+                motors.turnLeftWheel(true, TURNING_SPEED);
+            }
         }
     }
     
