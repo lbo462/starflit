@@ -45,14 +45,14 @@ void set_up_motors() {
 
 void moteur_droit_en_avant()
 {
-  analogWrite(MOTOR_RIGHT_PLUS, 10);   // turn the LED on (HIGH is the voltage level)
-  analogWrite(MOTOR_RIGHT_MINUS, LOW);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(MOTOR_RIGHT_PLUS, HIGH);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(MOTOR_RIGHT_MINUS, LOW);   // turn the LED on (HIGH is the voltage level)
 }
 
 void moteur_droit_en_arriere()
 {
-  analogWrite(MOTOR_RIGHT_PLUS, LOW);   // turn the LED on (HIGH is the voltage level)
-  analogWrite(MOTOR_RIGHT_MINUS, 192);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(MOTOR_RIGHT_PLUS, LOW);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(MOTOR_RIGHT_MINUS, HIGH);   // turn the LED on (HIGH is the voltage level)
 }
 
 void moteur_droit_stop()

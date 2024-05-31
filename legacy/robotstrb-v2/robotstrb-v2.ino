@@ -125,8 +125,13 @@ void setup() {
   Serial.println("STRANDBEEST BOT STARTED...");
 
   set_up_motors(); // must be the first one to set_up !!! or some glitch on motor at start_up... !!!
+  set_up_ultrasonic();
+  setup_radio();
+  set_up_rgb_leds_ws2812();
   setup_pwm_pca9685();
 
+  setup_bme280();
+  setup_mpu6050();
 
   setup_motors_voltage();
   change_motors_voltage_to_saved_value();
@@ -179,6 +184,106 @@ void setup() {
 
 }
 
+void radio_commande_bot()
+{
+  char commande_radio;
+
+
+  //Serial.println("RADIO COMMANDE READY...");
+
+
+  if (received_something_on_radio())
+  {
+    commande_radio = get_received_radio_value();
+    Serial.println("RADIO COMMANDE READY...");
+    Serial.println(commande_radio);
+
+
+
+    if (voltage_motors_set_command)
+    {
+      if  ( ( (commande_radio >= '5') && (commande_radio <= '9') ) || ( (commande_radio >= 'A') && (commande_radio <= 'C') )  )
+      {
+        if (commande_radio <= '9')
+        {
+          change_motors_voltage(commande_radio - 48);
+        }
+        else
+        {
+          change_motors_voltage(commande_radio - 55);
+        }
+
+      }
+
+      voltage_motors_set_command = false;
+      commande_radio = 0;
+    }
+
+
+
+    switch (commande_radio)
+    {
+      case '8' : va_tout_droit(); flag_gauche = 0; flag_droit = 0; break;
+      case '2' : va_en_arriere(); flag_gauche = 0; flag_droit = 0; break;
+      case '5' : stop_motors(); flag_gauche = 0; flag_droit = 0; break;
+      case '6' : if (flag_droit == 0) {
+          tourne_a_droite_normal();
+          flag_droit = 1;
+        } else {
+          tourne_a_droite_sur_place();
+        } break;
+      case '4' : if (flag_gauche == 0) {
+          tourne_a_gauche_normal();
+          flag_gauche = 1;
+        } else {
+          tourne_a_gauche_sur_place();
+        } break;
+
+      case 'Y' : va_tout_droit(); flag_gauche = 0; flag_droit = 0; break;
+      case 'B' : va_en_arriere(); flag_gauche = 0; flag_droit = 0; break;
+      case ' ' : stop_motors(); flag_gauche = 0; flag_droit = 0; break;
+      case 'H' : if (flag_droit == 0) {
+          tourne_a_droite_normal();
+          flag_droit = 1;
+        } else {
+          tourne_a_droite_sur_place();
+        } break;
+      case 'G' : if (flag_gauche == 0) {
+          tourne_a_gauche_normal();
+          flag_gauche = 1;
+        } else {
+          tourne_a_gauche_sur_place();
+        } break;
+
+
+      //flag_gauche=0;flag_droit=0;
+      case 'Z' : mode_demo_servo = false; pwm_cptz = pwm_cptz + pas_pwm; pwm_cptz = min(zMaxPWM, pwm_cptz); set_channel_pwm_pca9685(0, pwm_cptz); Serial.println(pwm_cptz, DEC); break;
+      case 'S' : mode_demo_servo = false; pwm_cptz = pwm_cptz - pas_pwm; pwm_cptz = max(zMinPWM, pwm_cptz); set_channel_pwm_pca9685(0, pwm_cptz); Serial.println(pwm_cptz, DEC); break;
+      case 'Q' : mode_demo_servo = false; pwm_cptx = pwm_cptx + pas_pwm; pwm_cptx = min(xMaxPWM, pwm_cptx); set_channel_pwm_pca9685(1, pwm_cptx); Serial.println(pwm_cptx, DEC); break;
+      case 'D' : mode_demo_servo = false; pwm_cptx = pwm_cptx - pas_pwm; pwm_cptx = max(xMinPWM, pwm_cptx); set_channel_pwm_pca9685(1, pwm_cptx); Serial.println(pwm_cptx, DEC); break;
+
+      case 'F' : mode_demo_servo = true; set_servo_to_initial_position(); break;
+
+
+      case 'V' : voltage_motors_set_command = true; break;
+      case 'R' : save_motors_voltage(); break;
+      case 'N' : change_motors_voltage_to_saved_value(); break;
+
+      case 'L' : state = 100; mode_demo_servo = false; set_servo_to_initial_position(); stop_motors(); break;
+      case 'M' : state = 0; duree_state = 1; t4 = 0; break;
+
+
+        /*
+              case 'z' : pwm_cptz=pwm_cptz+pas_pwm;set_channel_pwm_pca9685(0, pwm_cptz);Serial.println(pwm_cptz,DEC);break;
+              case 's' : pwm_cptz=pwm_cptz-pas_pwm;set_channel_pwm_pca9685(0, pwm_cptz);Serial.println(pwm_cptz,DEC);break;
+              case 'q' : pwm_cptx=pwm_cptx+pas_pwm;set_channel_pwm_pca9685(1, pwm_cptx);Serial.println(pwm_cptx,DEC);break;
+              case 'd' : pwm_cptx=pwm_cptx-pas_pwm;set_channel_pwm_pca9685(1, pwm_cptx);Serial.println(pwm_cptx,DEC);break;
+        */
+    }
+  }
+
+
+}
 
 
 // the loop function runs over and over again forever
@@ -399,6 +504,8 @@ void loop() {
   //delay(1000);
   //val++;
 
+  radio_commande_bot();
+
 
 
 
@@ -408,6 +515,58 @@ void loop() {
     t3 = micros();
 
     retour_chariot = 0;
+#ifdef TEST_TEMERATURE_PRESSURE_HUMIDITY_SENSOR_MODULE_BME280
+    affiche_mesures_bme280();
+    retour_chariot = 1;
+#endif
+
+#ifdef TEST_ULTRASONIC_SENSOR_HC06
+    distance_in_cm = get_forward_distance_in_cm();
+    Serial.print("Forward distance : ");
+    Serial.print(distance_in_cm);
+    Serial.print(" cm            ");
+
+    distance_in_cm = get_backward_distance_in_cm();
+    Serial.print("Backward distance : ");
+    Serial.print(distance_in_cm);
+    Serial.println(" cm ");
+    retour_chariot = 1;
+#endif
+
+#ifdef TEST_ACCELEROMETER_GYROSCOPE_GY521
+    if (mpu_6050_present)
+    {
+      affiche_mesures_gy521();
+      retour_chariot = 1;
+    }
+#endif
+
+
+#ifdef TEST_BOARD_VOLTAGE_MEASUREMENTS
+    battery_voltage = get_battery_voltage();
+    motors_voltage = get_motors_voltage();
+    Serial.print("Battery voltage =  ");
+    Serial.print(battery_voltage);
+    Serial.print(" V      ");
+    Serial.print("Motors voltage =  ");
+    Serial.print(motors_voltage);
+    Serial.println(" V");
+    retour_chariot = 1;
+#endif
+
+
+    if (retour_chariot != 0) {
+      Serial.println("");
+    }
+
+    //printValues();
+
+  }
+
+
+
+
+
 
   if ( ((micros() - t4) > 200000) && (state < 100)  )
   {
