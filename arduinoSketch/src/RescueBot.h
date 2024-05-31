@@ -6,7 +6,7 @@
 
 #include "SmartMotors/SmartMotors.h"
 #include "UltrasonicSensors.h"
-#include "Radio.h"
+#include "Communication/Communication.h"
 
 /** Time between two scans */
 #define SCAN_INTERVAL 5000
@@ -28,8 +28,8 @@ class RescueBot
         /** Ultrasonic sensors used to detect incoming collisions */
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
-        /** Plugged some RF24 antennas and use the radio class instance to send messages to space! */
-        Radio radio = Radio();
+        /** Create a `Communication` instance with all the communication modules. */
+        Communication comm = Communication(CommModules {CommunicationModule::all});
 
         /**
          * Set-up the pins mode.

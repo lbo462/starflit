@@ -1,5 +1,5 @@
 #ifndef smart_motors_h
-#define smart_motors
+#define smart_motors_h
 
 #include <Arduino.h>
 #include <PID_v2.h>

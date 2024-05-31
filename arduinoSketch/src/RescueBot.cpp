@@ -9,7 +9,7 @@ void RescueBot::setup()
 {
     smartMotors.setup();
     ultrasonicSensors.setup();
-    radio.setup();
+    comm.setup();
 }
 
 void RescueBot::update()
@@ -17,7 +17,9 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
-    /*
+    //Serial.println(comm.sendString("Hey", {CommunicationModule::radio}));
+
+    /** 
      * Do the moves !
      * 
      *   _O/
