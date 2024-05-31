@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['axelgyrosensor_63',['AxelGyroSensor',['../classAxelGyroSensor.html',1,'']]]
+  ['axelgyrosensor_66',['AxelGyroSensor',['../classAxelGyroSensor.html',1,'']]]
 ];

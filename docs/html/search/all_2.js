@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['docs_10',['DOCS',['../md_docs_README.html',1,'']]]
+  ['docs_20index_10',['Docs index',['../md_docs_README.html',1,'']]]
 ];

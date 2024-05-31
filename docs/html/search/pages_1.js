@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initialize_20a_20rpi_20and_20connect_20to_20it_20via_20ssh_123',['Initialize a RPI and connect to it via SSH',['../md_docs_InitializeRPis.html',1,'']]]
+  ['generating_20the_20documentation_126',['Generating the documentation',['../md_docs_Doxygen.html',1,'']]]
 ];

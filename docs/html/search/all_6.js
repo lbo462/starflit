@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['motorrp_24',['motorRP',['../classMotors.html#acdc4ac10b7f82c5fe4c9c97dd8828ee0',1,'Motors']]],
-  ['motors_25',['Motors',['../classMotors.html',1,'']]],
-  ['motors_26',['motors',['../classSmartMotors.html#aadba77262a0de3df67267f4ac7d5750e',1,'SmartMotors']]],
-  ['mpu_27',['mpu',['../classAxelGyroSensor.html#a99e394c90c3f85449df3798b7e820a8f',1,'AxelGyroSensor']]],
-  ['mpu_5ftemp_28',['mpu_temp',['../classAxelGyroSensor.html#a32fdf51a5c5d2b478efb178274a163ae',1,'AxelGyroSensor']]]
+  ['initialize_20a_20rpi_20and_20connect_20to_20it_20via_20ssh_24',['Initialize a RPI and connect to it via SSH',['../md_docs_InitializeRPis.html',1,'']]],
+  ['install_20the_20development_20environment_25',['Install the development environment',['../md_docs_DevEnv.html',1,'']]],
+  ['isscanning_26',['isScanning',['../classRescueBot.html#a5dcf6337bb6a9f47ed5ca527d0ee8b78',1,'RescueBot']]]
 ];

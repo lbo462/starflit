@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['ultrasonicsensors_59',['UltrasonicSensors',['../classUltrasonicSensors.html',1,'UltrasonicSensors'],['../classUltrasonicSensors.html#a0c5c1233a35e6e0c2adb071707c51926',1,'UltrasonicSensors::UltrasonicSensors()']]],
-  ['ultrasonicsensors_60',['ultrasonicSensors',['../classRescueBot.html#a011c1cb3bd874cb46a6dc892ec2e6df0',1,'RescueBot']]],
-  ['update_61',['update',['../classRescueBot.html#a247ac45550a832441704db293099fc88',1,'RescueBot::update()'],['../classAxelGyroSensor.html#a4d609e060369e25d95690df030bdadd3',1,'AxelGyroSensor::update()'],['../classSmartMotors.html#a3bac0f8d95f7bc13de70d716b1a6ab92',1,'SmartMotors::update()']]]
+  ['toldtoforward_57',['toldToForward',['../classSmartMotors.html#a4568e0017b9a117f1c2c67510c091ab5',1,'SmartMotors']]],
+  ['tostring_58',['toString',['../classVector3D.html#a94f8979c02a45b721eca6886c148af99',1,'Vector3D']]],
+  ['turnleft_59',['turnLeft',['../classSmartMotors.html#a8d17616bf31eb062fce8ef2043d77bf0',1,'SmartMotors']]],
+  ['turnright_60',['turnRight',['../classSmartMotors.html#a29e48163e54c079160c93137c6f0042c',1,'SmartMotors']]],
+  ['turnrightwheel_61',['turnRightWheel',['../classMotors.html#a6577d8ca67aad7b80e81aee35120037e',1,'Motors']]]
 ];

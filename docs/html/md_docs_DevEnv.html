@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Starflit: Related Pages</title>
+<title>Starflit: Install the development environment</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,7 +46,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,24 +60,33 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
+</div><!-- top -->
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Related Pages</div>  </div>
+<div class="title">Install the development environment </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-<table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_docs_DevEnv.html" target="_self">Install the development environment</a></td><td class="desc"></td></tr>
-<tr id="row_1_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_docs_Doxygen.html" target="_self">Generating the documentation</a></td><td class="desc"></td></tr>
-<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_docs_GitAndGithub.html" target="_self">How to work with git and GitHub</a></td><td class="desc"></td></tr>
-<tr id="row_3_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_docs_InitializeRPis.html" target="_self">Initialize a RPI and connect to it via SSH</a></td><td class="desc"></td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_docs_NetworkLab.html" target="_self">Network Lab</a></td><td class="desc"></td></tr>
-<tr id="row_5_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_docs_README.html" target="_self">Docs index</a></td><td class="desc"></td></tr>
-<tr id="row_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_README.html" target="_self">Starflit: the Strandbeest fleet</a></td><td class="desc"></td></tr>
-<tr id="row_7_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_rfReceiver_README.html" target="_self">RF Receiver</a></td><td class="desc"></td></tr>
-</table>
-</div><!-- directory -->
-</div><!-- contents -->
+<div class="textblock"><p>Install the <a href="https://www.arduino.cc/en/software">Arduino IDE</a> for your platform and add the libraries folder to your environment.</p>
+<p>To do so, copy paste the libraries into a folder named <code>libraries</code> in the Arduino folder of your computer. This folder is probably located under <code>Documents\</code> on Windows or <code>~/Arduino</code> on linux. Otherwise, check or change its location in the preferences in the Arduino IDE.</p>
+<p><code>cp libraries/* ~/Arduino/libraries/</code> on linux to install the libraries.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Better use VSCode</h1>
+<p>The Arduino IDE lacks the major features of a professional IDE. Instead, you're encouraged to work with VSCode and the appropriate extension.</p>
+<p>You'll find the extension by typing <code>Arduino</code> in the VSCode search extension field (<code>Ctrl+Shift+X</code>) and clicking the one provided by Microsoft.</p>
+<p><b>Before going any further</b> ... Open the <code>.ino</code> file and select in your IDE footer:</p>
+<ul>
+<li>the board: <code>Arduino UNO</code> (install <b>Arduino AVR</b> board if necessary)</li>
+<li>the port: the one on which you're connecting the robot</li>
+<li>the programmer: <code>AVR ISP</code></li>
+</ul>
+<p>In the file header, you should see new buttons. Here's the actions you'll need to do often while developing:</p>
+<ul>
+<li><code>Verify</code> (aka <code>Compile</code>) is accessible via a button that appears in the header of the opened <code>.ino</code> file. <b>Also accessible through <code>Ctrl+Shift+i</code></b>.</li>
+<li><code>Upload</code> is accessible the same way via a button that appear in the header of the opened <code>.ino</code> file. <b>Also accessible through <code>Ctrl+Shift+u</code></b>.</li>
+<li><code>Serial Monitoring</code> is accessible via the shortcut <code>Ctrl+Shift+M</code> and clicking the <code>Serial Monitor</code> tab. Make sure to select the right port and speed (which is <code>115200</code> or <code>9600</code>) and click <code>Start Monitoring</code>. </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1

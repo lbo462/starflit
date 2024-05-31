@@ -66,7 +66,7 @@ $(function() {
 <div class="title">Network Lab </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md4"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md9"></a>
 Why?</h1>
 <p>This lab was configured to be able to configure the RPis via SSH, without needing to connect them to a monitor.</p>
 <p>To build this lab, you will need:</p>
@@ -74,7 +74,7 @@ Why?</h1>
 <li>a network switch</li>
 <li>a RPi (which you will configure as a DHCP server and router).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Instructions</h1>
 <p>In order to configure a RPi as a router, you will first need to flash RaspbianOS on a microSD card. Instructions to do so can be found here <a href="InitializeRPis.md#format-the-micro-sd-card">InitializeRPis</a>.</p>
 <p>In the <code>cmdline.txt</code> file in the boot partition, add the following line: <code>ip=192.168.1.254</code>.</p>
@@ -83,7 +83,7 @@ Instructions</h1>
 <p>Once connected, don't forget to <code>sudo apt-get update &amp;&amp; sudo apt-get upgrade</code>. </p>
 </blockquote>
 <p>For the connection to the internet, we will be connecting to the Eduroam network via Wifi. It is a WPA2 network configured with PEAP / MSCHAPv2 authentication (this is import because this creates many complications...).</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 WPA configuration</h2>
 <ol type="1">
 <li>Edit the <code>/etc/wpa_supplicant/wpa_supplicant.conf</code> file.</li>
@@ -112,7 +112,7 @@ WPA configuration</h2>
 </div><!-- fragment --><p>The RPi (router) should now be able to connect to Eduroam. You can test it by running the following command:</p>
 <div class="fragment"><div class="line">sudo /sbin/wpa_supplicant -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf</div>
 </div><!-- fragment --><p>You can make sure the router is connected with this command <code>wpa_cli status</code>.</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 DHCP configuration</h2>
 <p>The router will act as a DHCP server that will distribute IPs to the RPis so that we can easily connect to them via SSH.</p>
 <p>The steps are simple:</p>
@@ -135,12 +135,12 @@ DHCP configuration</h2>
 <div class="fragment"><div class="line">sudo systemctl restart isc-dhcp-server.service</div>
 </div><!-- fragment --><p>You can check the leases that are distributed to your clients via the following command:</p>
 <div class="fragment"><div class="line">dhcp-lease-list</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md13"></a>
 Routing configuration</h2>
-<h3><a class="anchor" id="autotoc_md9"></a>
+<h3><a class="anchor" id="autotoc_md14"></a>
 IP forwarding</h3>
 <p>Activate IP forwarding by editing the <code>/etc/sysctl.conf</code> file and uncommenting <code>net.ipv4.ip_forward=1</code>.</p>
-<h3><a class="anchor" id="autotoc_md10"></a>
+<h3><a class="anchor" id="autotoc_md15"></a>
 NAT</h3>
 <p>Activate NAT Masquerade with <code>iptables</code>:</p>
 <ul>
@@ -149,14 +149,14 @@ NAT</h3>
 <li><code>sudo apt install iptables-persistent</code> to render the configuration persistent on reboot.</li>
 </ul>
 <p>You can check your configuration with <code>sudo iptables -t nat -L</code>.</p>
-<h3><a class="anchor" id="autotoc_md11"></a>
+<h3><a class="anchor" id="autotoc_md16"></a>
 Default route</h3>
 <p>Delete the current default route:</p>
 <div class="fragment"><div class="line">sudo ip r d default</div>
 </div><!-- fragment --><p>Add a new one to the Eduroam gateway:</p>
 <div class="fragment"><div class="line">sudo ip r a default via 10.56.0.1 dev wlan0</div>
 </div><!-- fragment --><p>Your packets should now be routed correctly 📦.</p>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 Run everything on startup</h2>
 <p>We don't want to manually connect the router to the Wifi and configure the default routes everytime we turn the router on. To solve this problem, we are going to create a service that will run on startup, as well as a script to configure the default route.</p>
 <div class="fragment"><div class="line">[Unit]</div>

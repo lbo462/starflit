@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['network_20lab_124',['Network Lab',['../md_docs_NetworkLab.html',1,'']]]
+  ['how_20to_20work_20with_20git_20and_20github_127',['How to work with git and GitHub',['../md_docs_GitAndGithub.html',1,'']]]
 ];

@@ -68,75 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>This project aims to automate a fleet of Strandbeest-like robots.</p>
 <p><em>Inspiration from <a href="https://www.strandbeest.com/">https://www.strandbeest.com/</a></em></p>
-<h1><a class="anchor" id="autotoc_md15"></a>
-How to work with git and GitHub</h1>
-<p>You need to have <code>git</code> installed on your computer (Linux is preferred but <code>git bash</code> for Windows works just fine).</p>
-<p>Clone the repo with <code>git clone git@github.com:lbo462/starflit.git</code>, after having a clean <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">SSH-key access set-up</a></p>
-<p>The other useful and only commands you'll ever need for this project are:</p><ul>
-<li><code>git add -v .</code> to stage your local changes</li>
-<li><code>git commit -m "Your message"</code> to commit these changes</li>
-<li><code>git push origin &lt;your-branch&gt;</code> to push your commit to GitHub</li>
-<li><code>git fetch origin -v</code> to fetch changes and new branches from GitHub</li>
-<li><code>git checkout &lt;branch&gt;</code> to change the current branch</li>
-<li><code>git rebase master -i</code> to rebase your branch commits on the commits added to <code>master</code></li>
-</ul>
-<p>And these ones might be of use:</p><ul>
-<li><code>git status</code> the see a global view of changed files</li>
-<li><code>git diff</code> to see in details what changed</li>
-<li><code>git checkout .</code> to reset your changes to the previous commit. <b>To use carefully</b></li>
-</ul>
-<p>Here's the standard working process:</p>
-<p><b>Don't push to</b> <code>master</code>. Instead ...</p>
-<ul>
-<li>Create an issue at <a href="https://github.com/lbo462/starflit/issues">https://github.com/lbo462/starflit/issues</a> and describe what needs to be done.</li>
-<li>On this issue, create a branch (checkout locally), at the bottom right of the page (under the Development section).</li>
-<li>From now on, <code>git fetch origin -v</code> to fetch the created branch and <code>git checkout &lt;branch&gt;</code> to work on the given branch. You can freely make commits and push to that branch to implement what's needed.</li>
-<li>From that issue and once you made changes, create a pull request at <a href="https://github.com/lbo462/starflit/pulls">https://github.com/lbo462/starflit/pulls</a> and select the branch created for the issue.</li>
-<li>Once your work is done, assign someone to review your work and approve your changes.</li>
-<li>Once approved, you can <b>squash and merge</b> your branch via the pull request you created.</li>
-<li>A good practice is to delete the merged branch once the pull request is accepted, and can be done via the pull request.</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md16"></a>
-Rebase</h2>
-<p>Rebasing is the tricky part of this process.</p>
-<p>It's required when some changes happened on <code>master</code> after you created your branch. One way to solve this would be to solve merge conflict but it might be complex and won't always work as expected if done via GitHub.</p>
-<p>Instead, we propose here to rebase the incoming branch.</p>
-<p>Before going any further, it is required to pull the last changes from <code>master</code>. To do so:</p>
-<div class="fragment"><div class="line">git checkout master</div>
-<div class="line">git pull origin master</div>
-<div class="line">git checkout &lt;your-branch&gt;</div>
-</div><!-- fragment --><p>Now you can proceed with <code>git rebase master -i</code> and follow the interactive documentation.</p>
-<p>This process replays your branches commits from <code>master</code> so there's can't be conflict when merging the two branches and one keep a linear commit history.</p>
-<p>Once the rebase is done, just push your branch to GitHub and have someone review your changes.</p>
-<h1><a class="anchor" id="autotoc_md17"></a>
-Install the development environment</h1>
-<p>Install the Arduino IDE for your platform and add the libraries folder to your environment.</p>
-<p>To do so, copy paste the libraries into a folder named <code>libraries</code> in the Arduino folder of your computer. This folder is probably located under <code>Documents\</code> on Windows or <code>~/Arduino</code> on linux. Otherwise, check or change its location in the preferences in the Arduino IDE.</p>
-<p><code>cp libraries/* ~/Arduino/libraries/</code> on linux to install the libraries.</p>
-<h2><a class="anchor" id="autotoc_md18"></a>
-Better use VSCode</h2>
-<p>The Arduino IDE lacks the major features of a professional IDE. Instead, you're encourage to work with VSCode and the appropriate extension.</p>
-<p>You'll find the extension by typing <code>Arduino</code> in the VSCode search extension field (<code>Ctrl+Shift+X</code>) and clicking the one provided by Microsoft.</p>
-<p><b>Before going any further</b> ... Open the <code>.ino</code> file and select in your IDE footer:</p>
-<ul>
-<li>the board: <code>Arduino UNO</code> (install Arduino AVR board if necessary)</li>
-<li>the port: the one on which you're connecting the robot</li>
-<li>the programmer: <code>AVR ISP</code></li>
-</ul>
-<p>In the file header, you should see new buttons. Here's the actions you'll need to do often while developing:</p>
-<ul>
-<li><code>Verify</code> (aka <code>Compile</code>) is accessible via a button that appears in the header of the opened <code>.ino</code> file.</li>
-<li><code>Upload</code> is accessible the same way via a button that appear in the header of the opened <code>.ino</code> file.</li>
-<li><code>Serial Monitoring</code> is accessible via the shortcut <code>Ctrl+Shift+M</code> (on Windows) and clicking the <code>Serial Monitor</code> tab. Make sure to select the right port and speed (which is <code>9600</code>) and click <code>Start Monitoring</code>.</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md19"></a>
-Generating the documentation</h1>
-<p>Here, we use the famously know <b>Doxygen</b> to generate out documentation.</p>
-<p>To use it properly, install it for your OS by following the instruction on their <a href="https://www.doxygen.nl/i">website</a>. Then, use the <code>Doxyfile</code> file to generate the documentation.</p>
-<blockquote class="doxtable">
-<p>On Linux, call <code>doxygen Doxyfile</code> at the root of this project. </p>
-</blockquote>
-<p>It will create / update the folder called <code>docs/</code> that will contain the generated doc. Open <code>docs/html/index.html</code> in your browser to read through it. </p>
+<p>You'll find all the docs in the folder <code>docs/</code>. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

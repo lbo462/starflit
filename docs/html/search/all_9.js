@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['pid_34',['pid',['../classSmartMotors.html#af0def78463ccf019491366f76c04d59f',1,'SmartMotors']]],
-  ['pidsetpoint_35',['pidSetpoint',['../classSmartMotors.html#a72755fcf20c7d56b49fc1551fb737919',1,'SmartMotors']]],
-  ['preangle_36',['preAngle',['../classAxelGyroSensor.html#a33247b50592201294ae289600e23462a',1,'AxelGyroSensor']]],
-  ['previousscan_37',['previousScan',['../classRescueBot.html#afeb3e26acf46461aa7852a8698788741',1,'RescueBot']]]
+  ['operator_2a_33',['operator*',['../classVector3D.html#abd2a907ec7bce1b5b9888f80ac2588d7',1,'Vector3D']]],
+  ['operator_2b_34',['operator+',['../classVector3D.html#abf19d1d58eaa00fbfce8b5c32f996e62',1,'Vector3D']]],
+  ['operator_2d_35',['operator-',['../classVector3D.html#a4d2584a0e7d9ec35e8b7058dcf290798',1,'Vector3D']]],
+  ['operator_2f_36',['operator/',['../classVector3D.html#a73143b08f645d12ff518fda21180841a',1,'Vector3D']]]
 ];
