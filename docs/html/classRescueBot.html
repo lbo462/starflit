@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Starflit128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Starflit
    </div>
@@ -80,7 +81,16 @@ $(function() {
 Collaboration diagram for RescueBot:</div>
 <div class="dyncontent">
 <div class="center"><img src="classRescueBot__coll__graph.png" border="0" usemap="#aRescueBot_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<map name="aRescueBot_coll__map" id="aRescueBot_coll__map">
+<area shape="rect" title="Main class that holds the logic and glue every modules to control the robot efficiently." alt="" coords="191,1085,359,1309"/>
+<area shape="rect" href="classSmartMotors.html" title="Smart motors is abstract representation of motors monitored via control engineer." alt="" coords="51,725,193,1023"/>
+<area shape="rect" href="classMotors.html" title="This class is aimed to control motors, nothing more." alt="" coords="5,402,153,597"/>
+<area shape="rect" href="classAxelGyroSensor.html" title="It&#39;s used to control the Accelerometer and the Gyroscope of the robot." alt="" coords="177,336,339,663"/>
+<area shape="rect" href="classVector3D.html" title="3D Vector with x, y and z coordinates" alt="" coords="201,5,315,200"/>
+<area shape="rect" href="classRadio.html" title="Enables read&#45;write radio communication through the RF24 antennas." alt="" coords="217,799,333,949"/>
+<area shape="rect" href="classUltrasonicSensors.html" title="UltrasonicSensors are compose of two sensors that are used to detect collisions." alt="" coords="357,777,532,971"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>

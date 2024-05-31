@@ -1,0 +1,4 @@
+<map id="AxelGyroSensor" name="AxelGyroSensor">
+<area shape="rect" id="node1" title="It&#39;s used to control the Accelerometer and the Gyroscope of the robot." alt="" coords="5,336,167,663"/>
+<area shape="rect" id="node2" href="$classVector3D.html" title="3D Vector with x, y and z coordinates" alt="" coords="29,5,143,200"/>
+</map>

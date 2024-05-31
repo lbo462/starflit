@@ -1,0 +1,4 @@
+<map id="SmartMotors::update" name="SmartMotors::update">
+<area shape="rect" id="node1" title="This method should be called at each frame iteration to update sub&#45;modules." alt="" coords="197,5,356,32"/>
+<area shape="rect" id="node2" href="$classRescueBot.html#a247ac45550a832441704db293099fc88" title="Updates the robot to make it move." alt="" coords="5,5,149,32"/>
+</map>

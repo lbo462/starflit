@@ -1,0 +1,4 @@
+<map id="SmartMotors::stop" name="SmartMotors::stop">
+<area shape="rect" id="node1" title="Stop every motors." alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node2" href="$classMotors.html#a453e43aaa11a1f41ebe0164b9eabc1d0" title="Stop all motors." alt="" coords="196,5,299,32"/>
+</map>

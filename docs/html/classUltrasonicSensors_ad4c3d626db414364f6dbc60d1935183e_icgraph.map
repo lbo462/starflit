@@ -1,0 +1,10 @@
+<map id="UltrasonicSensors::getDistance" name="UltrasonicSensors::getDistance">
+<area shape="rect" id="node1" title="Get the distance in centimeter for a given pin (ie, given sensor)" alt="" coords="1051,49,1197,90"/>
+<area shape="rect" id="node2" href="$classUltrasonicSensors.html#a1e8a46c001314f21f4c2d50d95abecde" title="Get the distance with any front object." alt="" coords="856,15,1003,57"/>
+<area shape="rect" id="node8" href="$classUltrasonicSensors.html#ada888cb4ac0a8073f983ae7bb3b8ad73" title="Get the distance with any rear object." alt="" coords="856,81,1003,122"/>
+<area shape="rect" id="node3" href="$classUltrasonicSensors.html#a1868b6ef3a5c881a920fa92f629405e3" title="Check that no collision is to occur." alt="" coords="661,49,808,90"/>
+<area shape="rect" id="node4" href="$classRescueBot.html#a34529639af931020a1c92726359b46ba" title="Avoid any collision by making some wiggy&#45;jiggy moves." alt="" coords="393,5,613,32"/>
+<area shape="rect" id="node5" href="$classRescueBot.html#a99d7f364cfe13ae9f949865b3853e30b" title="Make random moves to explore the space." alt="" coords="197,56,345,83"/>
+<area shape="rect" id="node7" href="$classRescueBot.html#af4fbd8ea9063b997186454b9b08204bf" title="Scan the environnement to see if there are obstacles out of its detection cone." alt="" coords="207,107,336,133"/>
+<area shape="rect" id="node6" href="$classRescueBot.html#a247ac45550a832441704db293099fc88" title="Updates the robot to make it move." alt="" coords="5,81,149,108"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="SmartMotors::goBackward" name="SmartMotors::goBackward">
+<area shape="rect" id="node1" title="Makes the robots going backward until something else stops it." alt="" coords="5,56,200,83"/>
+<area shape="rect" id="node2" href="$classSmartMotors.html#a72755fcf20c7d56b49fc1551fb737919" title="Resets the SetPoint for the PID." alt="" coords="248,5,436,32"/>
+<area shape="rect" id="node3" href="$classMotors.html#a9549ac8c6593f0e9dbba3dea4bf242fb" title=" " alt="" coords="259,56,425,83"/>
+<area shape="rect" id="node4" href="$classMotors.html#a6577d8ca67aad7b80e81aee35120037e" title="Makes the motor turn." alt="" coords="254,107,430,133"/>
+</map>

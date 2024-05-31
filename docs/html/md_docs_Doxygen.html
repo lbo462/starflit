@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Starflit128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Starflit
    </div>
@@ -67,11 +68,13 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Here, we use the famously know <b>Doxygen</b> to generate out documentation.</p>
-<p>To use it properly, install it for your OS by following the instruction on their <a href="https://www.doxygen.nl/i">website</a>. Then, use the <code>Doxyfile</code> file to generate the documentation.</p>
+<p>To use it properly, install it for your OS by following the instruction on their <a href="https://www.doxygen.nl/i">website</a>.</p>
+<p>In order to generate the graphs as well, one should have the <code>dot</code> command available. For that purpose, install <a href="https://graphviz.org/download/">Graphviz</a> and make sure it's reachable before you call Doxygen.</p>
+<p>Then, use the <code>Doxyfile</code> file to generate the documentation.</p>
 <blockquote class="doxtable">
 <p>On Linux, call <code>doxygen Doxyfile</code> at the root of this project. </p>
 </blockquote>
-<p>It will create / update the folder called <code>docs/</code> that will contain the generated doc. Open <code>docs/html/index.html</code> in your browser to read through it. </p>
+<p>It will create / update the folder <code>docs/html/</code> that will contain the generated doc. Open <code>docs/html/index.html</code> in your browser to read through it. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

@@ -1,0 +1,13 @@
+<map id="RescueBot::scan" name="RescueBot::scan">
+<area shape="rect" id="node1" title="Scan the environnement to see if there are obstacles out of its detection cone." alt="" coords="5,187,135,214"/>
+<area shape="rect" id="node2" href="$classUltrasonicSensors.html#a1868b6ef3a5c881a920fa92f629405e3" title="Check that no collision is to occur." alt="" coords="207,71,353,112"/>
+<area shape="rect" id="node6" href="$classSmartMotors.html#a32b28d7c3c43a809097346ef3881d890" title="Makes the robots going backward until something else stops it." alt="" coords="183,162,377,189"/>
+<area shape="rect" id="node10" href="$classSmartMotors.html#a8d17616bf31eb062fce8ef2043d77bf0" title="Makes the robots turning left until something else stops it." alt="" coords="198,213,362,239"/>
+<area shape="rect" id="node11" href="$classSmartMotors.html#a29e48163e54c079160c93137c6f0042c" title="Makes the robots turning right until something else stops it." alt="" coords="193,263,367,290"/>
+<area shape="rect" id="node3" href="$classUltrasonicSensors.html#a1e8a46c001314f21f4c2d50d95abecde" title="Get the distance with any front object." alt="" coords="446,5,593,47"/>
+<area shape="rect" id="node5" href="$classUltrasonicSensors.html#ada888cb4ac0a8073f983ae7bb3b8ad73" title="Get the distance with any rear object." alt="" coords="446,71,593,112"/>
+<area shape="rect" id="node4" href="$classUltrasonicSensors.html#ad4c3d626db414364f6dbc60d1935183e" title="Get the distance in centimeter for a given pin (ie, given sensor)" alt="" coords="661,39,808,80"/>
+<area shape="rect" id="node7" href="$classSmartMotors.html#a72755fcf20c7d56b49fc1551fb737919" title="Resets the SetPoint for the PID." alt="" coords="425,137,613,163"/>
+<area shape="rect" id="node8" href="$classMotors.html#a9549ac8c6593f0e9dbba3dea4bf242fb" title=" " alt="" coords="436,187,603,214"/>
+<area shape="rect" id="node9" href="$classMotors.html#a6577d8ca67aad7b80e81aee35120037e" title="Makes the motor turn." alt="" coords="431,238,607,265"/>
+</map>

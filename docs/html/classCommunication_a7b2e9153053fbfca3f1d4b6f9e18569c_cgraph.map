@@ -1,0 +1,5 @@
+<map id="Communication::setup" name="Communication::setup">
+<area shape="rect" id="node1" title="Sets&#45;up all the internal modules of this instance, as defined on built." alt="" coords="5,31,175,57"/>
+<area shape="rect" id="node2" href="$classBluetooth.html#a516098a7ba08864166276acf72aabcdf" title=" " alt="" coords="223,5,352,32"/>
+<area shape="rect" id="node3" href="$classRadio.html#a46f079f86ab0e7e83a4521c35eaa9aff" title="Set&#45;up the radio." alt="" coords="236,56,339,83"/>
+</map>

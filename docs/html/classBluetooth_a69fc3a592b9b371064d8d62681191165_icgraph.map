@@ -1,0 +1,6 @@
+<map id="Bluetooth::send" name="Bluetooth::send">
+<area shape="rect" id="node1" title="Send a buffer content by writing it on the bluetooth pipe." alt="" coords="660,5,784,32"/>
+<area shape="rect" id="node2" href="$classCommunication.html#a151841f810afe81c51fcf05a1520e14e" title="Send a raw buffer a given module." alt="" coords="448,5,612,32"/>
+<area shape="rect" id="node3" href="$classCommunication.html#a6913f9782ec2562e658602a9b9b0b7f2" title="Same as send but parse the string to do the lazy job you won&#39;t do." alt="" coords="197,5,400,32"/>
+<area shape="rect" id="node4" href="$classRescueBot.html#a247ac45550a832441704db293099fc88" title="Updates the robot to make it move." alt="" coords="5,5,149,32"/>
+</map>

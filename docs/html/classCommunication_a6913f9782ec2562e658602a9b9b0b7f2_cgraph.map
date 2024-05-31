@@ -1,0 +1,6 @@
+<map id="Communication::sendString" name="Communication::sendString">
+<area shape="rect" id="node1" title="Same as send but parse the string to do the lazy job you won&#39;t do." alt="" coords="5,31,208,57"/>
+<area shape="rect" id="node2" href="$classCommunication.html#a151841f810afe81c51fcf05a1520e14e" title="Send a raw buffer a given module." alt="" coords="256,31,420,57"/>
+<area shape="rect" id="node3" href="$classBluetooth.html#a69fc3a592b9b371064d8d62681191165" title="Send a buffer content by writing it on the bluetooth pipe." alt="" coords="468,5,592,32"/>
+<area shape="rect" id="node4" href="$classRadio.html#aedf6d6c72f2e46fdd566c6c5090f78c9" title="Send a buffer content by writing it on the radio pipe." alt="" coords="481,56,579,83"/>
+</map>

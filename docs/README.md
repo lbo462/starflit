@@ -10,6 +10,8 @@ You will find documentation for:
 
 This documentation aims to be as exhaustive as possible so that whoever is interested will be able to build on this project seamlessly.
 
+> If you're reading this on the HTML documentation, check the __Related pages__ to have the list of all the documentations.
+
 Have fun building 👷‍♂️👷‍♀️!
 
 ## Detailed list

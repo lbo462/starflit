@@ -1,0 +1,9 @@
+<map id="AxelGyroSensor::setup" name="AxelGyroSensor::setup">
+<area shape="rect" id="node1" title="Absolute position of the sensor, obtained by integrating twice during update()" alt="" coords="5,56,175,83"/>
+<area shape="rect" id="node2" href="$classAxelGyroSensor.html#afa4b46ac8bffe060f567d89829358372" title="Calibrate the sensors." alt="" coords="223,56,413,83"/>
+<area shape="rect" id="node3" href="$classAxelGyroSensor.html#a2f74f9176daa7fccde1ea4ffafb67f69" title="Get the mean values of the sensor." alt="" coords="461,5,687,32"/>
+<area shape="rect" id="node5" href="$classAxelGyroSensor.html#a2ff86ae0deebefd95105ff31ac9912cb" title=" " alt="" coords="463,56,685,83"/>
+<area shape="rect" id="node7" href="$classVector3D.html#a94f8979c02a45b721eca6886c148af99" title="Get the printable and plottable string version of this vector." alt="" coords="504,107,644,133"/>
+<area shape="rect" id="node4" href="$classAxelGyroSensor.html#af1fa1f3e65d8f798c8be0ca7bed77b29" title="Read raw values from the sensors." alt="" coords="736,5,947,32"/>
+<area shape="rect" id="node6" href="$classAxelGyroSensor.html#a7ffada27967e69cbc991403b43ec38d8" title=" " alt="" coords="735,56,948,83"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="AxelGyroSensor::getRawAxel" name="AxelGyroSensor::getRawAxel">
+<area shape="rect" id="node1" title="Read raw values from the sensors." alt="" coords="1128,31,1339,57"/>
+<area shape="rect" id="node2" href="$classAxelGyroSensor.html#a2f74f9176daa7fccde1ea4ffafb67f69" title="Get the mean values of the sensor." alt="" coords="849,5,1074,32"/>
+<area shape="rect" id="node7" href="$classAxelGyroSensor.html#aa7fa2f4e0f3ca4dd92aee81b8c267ec8" title="Read raw values from the sensors ..." alt="" coords="843,56,1080,83"/>
+<area shape="rect" id="node3" href="$classAxelGyroSensor.html#afa4b46ac8bffe060f567d89829358372" title="Calibrate the sensors." alt="" coords="604,5,795,32"/>
+<area shape="rect" id="node4" href="$classAxelGyroSensor.html#a55d8cf7651aaafe8b1b966212dcab7d1" title="Absolute position of the sensor, obtained by integrating twice during update()" alt="" coords="387,5,556,32"/>
+<area shape="rect" id="node5" href="$classSmartMotors.html#a67cff6d4c5d474374d00d51ccc4fc230" title="Setup function, to be called when setting all up, required for the instance methods to work properly." alt="" coords="188,5,339,32"/>
+<area shape="rect" id="node6" href="$classRescueBot.html#a264bbc526fb178bc6050380769032292" title="Set&#45;up the pins mode." alt="" coords="5,5,140,32"/>
+<area shape="rect" id="node8" href="$classAxelGyroSensor.html#a4d609e060369e25d95690df030bdadd3" title="Update the sensors sense of time so that is&#39;s able to correctly compute positions and speed." alt="" coords="610,56,789,83"/>
+<area shape="rect" id="node9" href="$classSmartMotors.html#a3bac0f8d95f7bc13de70d716b1a6ab92" title="This method should be called at each frame iteration to update sub&#45;modules." alt="" coords="392,56,551,83"/>
+<area shape="rect" id="node10" href="$classRescueBot.html#a247ac45550a832441704db293099fc88" title="Updates the robot to make it move." alt="" coords="191,56,335,83"/>
+</map>

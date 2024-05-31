@@ -1,0 +1,6 @@
+<map id="AxelGyroSensor::calibrate" name="AxelGyroSensor::calibrate">
+<area shape="rect" id="node1" title="Calibrate the sensors." alt="" coords="604,5,795,32"/>
+<area shape="rect" id="node2" href="$classAxelGyroSensor.html#a55d8cf7651aaafe8b1b966212dcab7d1" title="Absolute position of the sensor, obtained by integrating twice during update()" alt="" coords="387,5,556,32"/>
+<area shape="rect" id="node3" href="$classSmartMotors.html#a67cff6d4c5d474374d00d51ccc4fc230" title="Setup function, to be called when setting all up, required for the instance methods to work properly." alt="" coords="188,5,339,32"/>
+<area shape="rect" id="node4" href="$classRescueBot.html#a264bbc526fb178bc6050380769032292" title="Set&#45;up the pins mode." alt="" coords="5,5,140,32"/>
+</map>

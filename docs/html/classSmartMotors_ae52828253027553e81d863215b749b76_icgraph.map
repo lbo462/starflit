@@ -1,0 +1,9 @@
+<map id="SmartMotors::stop" name="SmartMotors::stop">
+<area shape="rect" id="node1" title="Stop every motors." alt="" coords="672,56,815,83"/>
+<area shape="rect" id="node2" href="$classRescueBot.html#a34529639af931020a1c92726359b46ba" title="Avoid any collision by making some wiggy&#45;jiggy moves." alt="" coords="404,5,624,32"/>
+<area shape="rect" id="node5" href="$classSmartMotors.html#a67cff6d4c5d474374d00d51ccc4fc230" title="Setup function, to be called when setting all up, required for the instance methods to work properly." alt="" coords="439,56,589,83"/>
+<area shape="rect" id="node7" href="$classSmartMotors.html#a3bac0f8d95f7bc13de70d716b1a6ab92" title="This method should be called at each frame iteration to update sub&#45;modules." alt="" coords="197,107,356,133"/>
+<area shape="rect" id="node3" href="$classRescueBot.html#a99d7f364cfe13ae9f949865b3853e30b" title="Make random moves to explore the space." alt="" coords="203,5,351,32"/>
+<area shape="rect" id="node4" href="$classRescueBot.html#a247ac45550a832441704db293099fc88" title="Updates the robot to make it move." alt="" coords="5,56,149,83"/>
+<area shape="rect" id="node6" href="$classRescueBot.html#a264bbc526fb178bc6050380769032292" title="Set&#45;up the pins mode." alt="" coords="209,56,344,83"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Communication::setup" name="Communication::setup">
+<area shape="rect" id="node1" title="Sets&#45;up all the internal modules of this instance, as defined on built." alt="" coords="188,5,357,32"/>
+<area shape="rect" id="node2" href="$classRescueBot.html#a264bbc526fb178bc6050380769032292" title="Set&#45;up the pins mode." alt="" coords="5,5,140,32"/>
+</map>
