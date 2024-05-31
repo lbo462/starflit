@@ -30,5 +30,5 @@ Congratulations, you now have full access to your RPi 🎉🎉.
 Don't forget to update your packages:
 
 ```bash
-sudo apt-get update && apt-get upgrade
+sudo apt-get update && sudo apt-get upgrade
 ```

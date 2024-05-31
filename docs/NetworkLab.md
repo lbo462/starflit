@@ -17,7 +17,7 @@ In the `cmdline.txt` file in the boot partition, add the following line: `ip=192
 
 Connect both your computer and the RPi to the switch. You should now be able to connect to it via SSH with the aforementioned IP.
 
-> Once connected, don't forget to `sudo apt-get update && apt-get upgrade`.
+> Once connected, don't forget to `sudo apt-get update && sudo apt-get upgrade`.
 
 For the connection to the internet, we will be connecting to the Eduroam network via Wifi. It is a WPA2 network configured with PEAP / MSCHAPv2 authentication (this is import because this creates many complications...).
 
