@@ -1,0 +1,19 @@
+digraph "RescueBot"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="RescueBot",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Main class that holds the logic and glue every modules to control the robot efficiently."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" smartMotors" ,fontname="Helvetica"];
+  Node2 [label="SmartMotors",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSmartMotors.html",tooltip="Smart motors is abstract representation of motors monitored via control engineer."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" motors" ,fontname="Helvetica"];
+  Node3 [label="Motors",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMotors.html",tooltip="This class is aimed to control motors, nothing more."];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" axelgyro" ,fontname="Helvetica"];
+  Node4 [label="AxelGyroSensor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAxelGyroSensor.html",tooltip="It's used to control the Accelerometer and the Gyroscope of the robot."];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" angle\naxelOffset\ncomplementaryFilter\lOutput\ngyroOffset\npreAngle" ,fontname="Helvetica"];
+  Node5 [label="Vector3D",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classVector3D.html",tooltip="3D Vector with x, y and z coordinates"];
+  Node6 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" radio" ,fontname="Helvetica"];
+  Node6 [label="Radio",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRadio.html",tooltip="Enables read-write radio communication through the RF24 antennas."];
+  Node7 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" ultrasonicSensors" ,fontname="Helvetica"];
+  Node7 [label="UltrasonicSensors",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classUltrasonicSensors.html",tooltip="UltrasonicSensors are compose of two sensors that are used to detect collisions."];
+}
