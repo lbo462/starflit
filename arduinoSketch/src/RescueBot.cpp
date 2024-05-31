@@ -115,7 +115,7 @@ void RescueBot::collisionAvoidance()
     {
         // ... but verify that we won't collide rear objects.
         if(!ultrasonicSensors.collisionDetection(false, true))
-            smartMotors.goBackward();
+            smartMotors.goBackward(200);
         // If something's behind, just stop.
         else
             smartMotors.stop();
@@ -149,9 +149,25 @@ void RescueBot::explore()
      */
     if(smartMotors.toldToForward)
     {
-        if(!ultrasonicSensors.collisionDetection(true, false))
-            smartMotors.goForward();
+        /**
+         * When the robot is fast, it happens that it falls.
+         * To avoid this, we implement here a "slowing down" kind of thing.
+         * To that purpose, we check that the collision will occur before it occurs
+         *  and we start to slow down.
+         */
+        if(!ultrasonicSensors.collisionDetection(true, false, 60))
+            smartMotors.goForward(255);
+
+        else if(!ultrasonicSensors.collisionDetection(true, false, 50))
+            smartMotors.goForward(200);
+
+        else if(!ultrasonicSensors.collisionDetection(true, false, 40))
+            smartMotors.goForward(150);
+
+        else if(!ultrasonicSensors.collisionDetection(true, false, 30))
+            smartMotors.goForward(100);
+
         else
-            smartMotors.goBackward();
+            smartMotors.goBackward(100);  // Will enter collision avoidance at next iteration
     }
 }
