@@ -25,7 +25,7 @@ void SmartMotors::update()
     if(toldToRight || toldToLeft)
     {
         // Stop the motors when the current angle matches the aimed one. 
-        if(abs(axelgyro.angle.z - aimedAngle) < abs(ANGLE_ERROR_ALLOWED))
+        if(abs(axelgyro.preAngle.z - aimedAngle) < abs(ANGLE_ERROR_ALLOWED))
         {
             // This also resets the variables `toldToRight` and `toldToLeft`
             stop();
@@ -35,7 +35,7 @@ void SmartMotors::update()
         // Otherwise, turn right if told so ...
         else if(toldToRight)
         {
-            if(axelgyro.angle.z > aimedAngle)
+            if(axelgyro.preAngle.z > aimedAngle)
             {
                 motors.turnRightWheel(false, TURNING_SPEED);
                 motors.turnLeftWheel(true, TURNING_SPEED);
@@ -51,7 +51,7 @@ void SmartMotors::update()
         // ... or turn left if told so.
         else if(toldToLeft)
         {
-            if(axelgyro.angle.z < aimedAngle)
+            if(axelgyro.preAngle.z < aimedAngle)
             {
                 motors.turnRightWheel(true, TURNING_SPEED);
                 motors.turnLeftWheel(false, TURNING_SPEED);
@@ -147,7 +147,7 @@ void SmartMotors::turnRight(float angle)
     /** Update the aimed angle only if the function wasn't already called previously. */
     if(!toldToRight)
     {
-        aimedAngle = fmod(axelgyro.angle.z - angle, 2*PI);
+        aimedAngle = axelgyro.preAngle.z - angle;
     }
 
     // Update the command variables
@@ -162,7 +162,7 @@ void SmartMotors::turnLeft(float angle)
     /** Update the aimed angle only if the function wasn't already called previously. */
     if(!toldToLeft)
     {
-        aimedAngle = fmod(axelgyro.angle.z + angle, 2*PI);
+        aimedAngle = axelgyro.preAngle.z + angle;
     }
 
     // Update the command variables
