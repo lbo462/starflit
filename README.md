@@ -110,3 +110,15 @@ in the header of the opened `.ino` file.
 and clicking the `Serial Monitor` tab.
 Make sure to select the right port and speed (which is `9600`) and click
 `Start Monitoring`.
+
+## Generating the documentation
+
+Here, we use the famously know __Doxygen__ to generate out documentation.
+
+To use it properly, install it for your OS by following the instruction on their [website](https://www.doxygen.nl/i).
+Then, use the `Doxyfile` file to generate the documentation.
+
+> On Linux, call `doxygen Doxyfile` at the root of this project.
+
+It will create / update the folder called `docs/` that will contain the generated doc.
+Open `docs/html/index.html` in your browser to read through it.

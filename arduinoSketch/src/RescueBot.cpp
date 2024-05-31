@@ -1,242 +1,157 @@
 #include "RescueBot.h"
 
 
-RescueBot::RescueBot()
-{
-    /**
-     * Function constructor is moved to the method setup()
-     * This is not for no reason, please, leave it that way
-     * `setup()` should be called during global setup
-     */
-}
+RescueBot::RescueBot() {}
 
-RescueBot::~RescueBot()
-{
-
-}
+RescueBot::~RescueBot() {}
 
 void RescueBot::setup()
 {
-    pinMode(mrp, OUTPUT);
-    pinMode(mrm, OUTPUT);
-    pinMode(mlp, OUTPUT);
-    pinMode(mlm, OUTPUT);
-
-    // Sensors set-up
+    smartMotors.setup();
     ultrasonicSensors.setup();
-    axelgyro.setup();
-
-    // Radio setup
     radio.setup();
-
-    // Simple sanitize check, cut off the motors
-    stop();
-
-    // Set an initial pretty low speed
-    setSpeed(192);
 }
 
 void RescueBot::update()
-{    
-    axelgyro.update();
-    explore();
-}
-
-void RescueBot::stop()
 {
-    digitalWrite(mrp, 0);
-    digitalWrite(mrm, 0);
-    digitalWrite(mlp, 0);
-    digitalWrite(mlm, 0);
+    unsigned long currentMillis = millis();
+    smartMotors.update();
 
-    isGoingForward_ = false;
-    isGoingBackward_ = false;
-    isTurningRight_ = false;
-    isTurningLeft_ = false;
-}
+    /** 
+     * Do the moves !
+     * 
+     *   _O/
+     *     \ 
+     *     /\_ 
+     *     \  ` 
+     *     `   
+     */
 
-void RescueBot::setSpeed(int speed)
-{
-    Wire.beginTransmission(40);
-    Wire.write(17);
-    Wire.write(speed);
-    Wire.endTransmission();
-}
-
-void RescueBot::turnRight_()
-{
-    digitalWrite(mrp, 0);
-    digitalWrite(mrm, 1);
-    digitalWrite(mlp, 0);
-    digitalWrite(mlm, 1);
-
-    isGoingForward_ = false;
-    isGoingBackward_ = false;
-    isTurningRight_ = true;
-    isTurningLeft_ = false;
-}
-
-bool RescueBot::turnRight()
-{
-    turnRight_();
-    return true;
-}
-
-void RescueBot::turnLeft_()
-{
-    digitalWrite(mrp, 1);
-    digitalWrite(mrm, 0);
-    digitalWrite(mlp, 1);
-    digitalWrite(mlm, 0);
-
-    isGoingForward_ = false;
-    isGoingBackward_ = false;
-    isTurningRight_ = false;
-    isTurningLeft_ = true;
-}
-
-bool RescueBot::turnLeft()
-{
-    turnLeft_();
-    return true;
-}
-
-void RescueBot::goForward_()
-{
-    digitalWrite(mrp, 0);
-    digitalWrite(mrm, 1);
-    digitalWrite(mlp, 1);
-    digitalWrite(mlm, 0);
-
-    isGoingForward_ = true;
-    isGoingBackward_ = false;
-    isTurningRight_ = false;
-    isTurningLeft_ = false;
-}
-
-bool RescueBot::goForward()
-{
-    if(!ultrasonicSensors.collisionDetection(true, false))
+    /** Check if it's time to scan or if we're actually scanning */
+    if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
-        goForward_();
-        return true;
+        scan();
     }
-    stop();
-    return false;
-}
 
-void RescueBot::goBackward_()
-{
-    digitalWrite(mrp, 1);
-    digitalWrite(mrm, 0);
-    digitalWrite(mlp, 0);
-    digitalWrite(mlm, 1);
-
-    isGoingForward_ = false;
-    isGoingBackward_ = true;
-    isTurningRight_ = false;
-    isTurningLeft_ = false;
-}
-
-bool RescueBot::goBackward()
-{
-    if(!ultrasonicSensors.collisionDetection(false, true))
+    else
     {
-        goBackward_();
-        return true;
+        explore();
     }
-    stop();
-    return false;
-}
-
-bool RescueBot::setRandomDirection()
-{  
-    bool couldTurn;
-
-    if (random(2) == 0) {
-        couldTurn = turnLeft();
-    } else {
-        couldTurn = turnRight();
-    }
-    return couldTurn;
 }
 
 void RescueBot::scan()
 {
+    /** Set appropriate state */
+    if(!scanning)
+        scanning = true;
 
-    if (ultrasonicSensors.collisionDetection(true, false,50)) {
-        collisionAvoidance();
+    if(ultrasonicSensors.collisionDetection(true, false))
+    {
+        /** Exit scanning to enter collision avoidance at next iteration */
+        smartMotors.goBackward();
+        scanning = false, scannedRight = false, scannedLeft = false;
+        previousScan = millis();
         return;
     }
 
-    stop();
-    delay(250);
-    turnRight();
-    delay(250);
+    /**
+     * The robots is currently turning, let it turn in peace until it stops! 
+     * Note that we verified previously that the robot won't collide with any front object.
+     */
+    if(smartMotors.toldToRight || smartMotors.toldToLeft)
+        return;
 
-    if (ultrasonicSensors.collisionDetection(true, false,50)) {
-        collisionAvoidance();
+    if(scannedRight && scannedLeft)
+    {
+        /**
+         * We finished the scan, hence we can go back to normal state.
+         * But first, one needs to get back to its initial position
+         */
+        smartMotors.turnRight(PI/4);
+
+        /** Exit scanning */
+        scanning = false, scannedRight = false, scannedLeft = false;
+        previousScan = millis();
         return;
     }
 
-    stop();
-    delay(250);
-    turnLeft();
-    delay(500);
-    if (ultrasonicSensors.collisionDetection(true, false,50)) {
-        collisionAvoidance();
-        return;
+    if(!(scannedRight || scannedLeft))
+    {
+        /**
+         * Here, we enter the scanning process.
+         * We never scanned anything, hence we scan right (arbitrary choice)
+         */
+        smartMotors.turnRight(PI/4);
+
+        /**
+         * We just commanded the scan but we already set the `scannedRight` to true.
+         * This is because we won't check its value until it stopped turning.
+         */
+        scannedRight = true;
     }
-    stop();
-    delay(250);
-    turnRight();
-    delay(250);
-    stop();
+    else if(scannedRight)
+    {
+        // We scanned right so now, we scan left
+        smartMotors.turnLeft(PI/2);
+        scannedLeft = true;
+    }
 }
-
 
 void RescueBot::collisionAvoidance()
 {
-    // Go backward until the front object is 80 cm away  
-    if(ultrasonicSensors.collisionDetection(true, false, 80)) {
-        goBackward();
+    // The robots is currently turning, let it turn in peace until it stops!
+    if(smartMotors.toldToRight || smartMotors.toldToLeft)
+        return;
+
+    // If we've stop, it means we're able to go forward and exit collision avoidance.
+    if(smartMotors.stopped())
+    {
+        smartMotors.goForward();
+        return;
     }
 
-    // Now, turn until there's no front object at 100 cm
-    else if(ultrasonicSensors.collisionDetection(true, false, 100)) {
-        if(!isTurningLeft() && !isTurningRight())
-            setRandomDirection();
+    // Back away until the front object is 80 cm away  
+    if(ultrasonicSensors.collisionDetection(true, false, 80))
+    {
+        // ... but verify that we won't collide rear objects.
+        if(!ultrasonicSensors.collisionDetection(false, true))
+            smartMotors.goBackward();
+        // If something's behind, just stop.
+        else
+            smartMotors.stop();
     }
 
-    // Then continue forward
-    else {
-        goForward();
+    // If no object is to be seen in front, make a turn
+    else
+    {
+        if(!(smartMotors.toldToRight || smartMotors.toldToLeft))
+        {
+            // Set a new random direction, and make a full turn
+            if (random(2) == 0)
+                smartMotors.turnRight(PI/2);
+            else
+                smartMotors.turnLeft(PI/2);
+        }
+        // else, do nothing and let it turn
     }
 }
 
 void RescueBot::explore()
 {
+    if(!smartMotors.toldToForward)
+    {
+        collisionAvoidance();
+    }
 
-    unsigned long scanCurrentMillis = millis();  // Récupère le temps actuel
-
-    if (scanCurrentMillis - scanPreviousMillis >= scanInterval) {  // Vérifie si l'intervalle est écoulé
-
-        // Appelle la fonction scan()
-        scan();
-
-        // Réinitialise le temps de la dernière exécution de scan()
-        scanPreviousMillis = millis(); 
-
-    } else {
-        if(!isGoingForward())
-        {
-            // If we're not going forward it means that we're a state that requires collision avoidance
-            collisionAvoidance();
-        }
+    /**
+     * It's possible that `collisionAvoidance()` changed the `toldToForward` state.
+     * In that case, try to go forward.
+     */
+    if(smartMotors.toldToForward)
+    {
+        if(!ultrasonicSensors.collisionDetection(true, false))
+            smartMotors.goForward();
         else
-        {   
-            goForward();
-        }
-    } 
-
+            smartMotors.goBackward();
+    }
 }
