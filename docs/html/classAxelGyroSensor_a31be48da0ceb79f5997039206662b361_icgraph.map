@@ -1,6 +1,0 @@
-<map id="AxelGyroSensor::getOffsetedGyro" name="AxelGyroSensor::getOffsetedGyro">
-<area shape="rect" id="node1" title=" " alt="" coords="631,5,871,32"/>
-<area shape="rect" id="node2" href="$classAxelGyroSensor.html#a4d609e060369e25d95690df030bdadd3" title="Update the sensors sense of time so that is&#39;s able to correctly compute positions and speed." alt="" coords="404,5,583,32"/>
-<area shape="rect" id="node3" href="$classSmartMotors.html#a3bac0f8d95f7bc13de70d716b1a6ab92" title="This method should be called at each frame iteration to update sub&#45;modules." alt="" coords="197,5,356,32"/>
-<area shape="rect" id="node4" href="$classRescueBot.html#a247ac45550a832441704db293099fc88" title="Updates the robot to make it move." alt="" coords="5,5,149,32"/>
-</map>

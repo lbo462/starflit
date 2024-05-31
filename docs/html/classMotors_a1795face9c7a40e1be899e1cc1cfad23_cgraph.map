@@ -1,4 +1,0 @@
-<map id="Motors::setup" name="Motors::setup">
-<area shape="rect" id="node1" title="Set&#45;up the pins mode." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node2" href="$classMotors.html#a453e43aaa11a1f41ebe0164b9eabc1d0" title="Stop all motors." alt="" coords="164,5,267,32"/>
-</map>

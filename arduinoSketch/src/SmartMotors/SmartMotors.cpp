@@ -21,7 +21,7 @@ void SmartMotors::update()
     // Update angle and position
     axelgyro.update();
 
-    /** Now we do the moves we're required to do, such as turning */
+    // Now we do the moves we're required to do, such as turning
     if(toldToRight || toldToLeft)
     {
         // Stop the motors when the current angle matches the aimed one. 
@@ -68,7 +68,7 @@ void SmartMotors::update()
 
 void SmartMotors::pidSetpoint(double setpoint)
 {
-    /**
+    /*
      * This weird code resets the internal sums
      * of the PID object.
      * If not done, the setPoint won't work properly.
@@ -77,7 +77,7 @@ void SmartMotors::pidSetpoint(double setpoint)
     pid.Run(axelgyro.angle.z);
     pid.SetTunings(KP, KI, KD);
 
-    /** Finally set the setpoint */
+    // Finally set the setpoint
     pid.Setpoint(setpoint);
 }
 
@@ -96,7 +96,7 @@ void SmartMotors::goForward(int speed)
 {
     if(!toldToForward)
     {
-        /**
+        /*
          * Defines the setPoint for the "forward" direction.
          * This is done only when the smartMotors where first told to go forward.
          * The setPoint do not change until a new order arrives.
@@ -121,7 +121,7 @@ void SmartMotors::goBackward(int speed)
 {
     if(!toldToBackward)
     {
-        /**
+        /*
          * Defines the setPoint for the "backward" direction.
          * This is done only when the smartMotors where first told to go forward.
          * The setPoint do not change until a new order arrives.
@@ -144,7 +144,7 @@ void SmartMotors::goBackward(int speed)
 
 void SmartMotors::turnRight(float angle)
 {
-    /** Update the aimed angle only if the function wasn't already called previously. */
+    // Update the aimed angle only if the function wasn't already called previously
     if(!toldToRight)
     {
         aimedAngle = axelgyro.preAngle.z - angle;
@@ -159,7 +159,7 @@ void SmartMotors::turnRight(float angle)
 
 void SmartMotors::turnLeft(float angle)
 {
-    /** Update the aimed angle only if the function wasn't already called previously. */
+    // Update the aimed angle only if the function wasn't already called previously
     if(!toldToLeft)
     {
         aimedAngle = axelgyro.preAngle.z + angle;

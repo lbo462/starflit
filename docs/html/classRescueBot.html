@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classRescueBot.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,7 +84,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -100,8 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a247ac45550a832441704db293099fc88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRescueBot.html#a247ac45550a832441704db293099fc88">update</a> ()</td></tr>
 <tr class="memdesc:a247ac45550a832441704db293099fc88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the robot to make it move.  <a href="classRescueBot.html#a247ac45550a832441704db293099fc88">More...</a><br /></td></tr>
 <tr class="separator:a247ac45550a832441704db293099fc88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4fbd8ea9063b997186454b9b08204bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRescueBot.html#af4fbd8ea9063b997186454b9b08204bf">scan</a> ()</td></tr>
-<tr class="memdesc:af4fbd8ea9063b997186454b9b08204bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scan the environnement to see if there are obstacles out of its detection cone.  <a href="classRescueBot.html#af4fbd8ea9063b997186454b9b08204bf">More...</a><br /></td></tr>
+<tr class="memitem:af4fbd8ea9063b997186454b9b08204bf"><td class="memItemLeft" align="right" valign="top"><a id="af4fbd8ea9063b997186454b9b08204bf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRescueBot.html#af4fbd8ea9063b997186454b9b08204bf">scan</a> ()</td></tr>
+<tr class="memdesc:af4fbd8ea9063b997186454b9b08204bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scan the environnement to see if there are obstacles out of its detection cone. <br /></td></tr>
 <tr class="separator:af4fbd8ea9063b997186454b9b08204bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dcf6337bb6a9f47ed5ca527d0ee8b78"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRescueBot.html#a5dcf6337bb6a9f47ed5ca527d0ee8b78">isScanning</a> ()</td></tr>
 <tr class="memdesc:a5dcf6337bb6a9f47ed5ca527d0ee8b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether we're currently scanning or not.  <a href="classRescueBot.html#a5dcf6337bb6a9f47ed5ca527d0ee8b78">More...</a><br /></td></tr>
@@ -167,8 +190,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>scannedLeft</b> = fal
 
 <p>Make random moves to explore the space. </p>
 <p>Aware of collisions and won't break walls ! </p>
-<p>It's possible that <code><a class="el" href="classRescueBot.html#a34529639af931020a1c92726359b46ba" title="Avoid any collision by making some wiggy-jiggy moves.">collisionAvoidance()</a></code> changed the <code>toldToForward</code> state. In that case, try to go forward.</p>
-<p>When the robot is fast, it happens that it falls. To avoid this, we implement here a "slowing down" kind of thing. To that purpose, we check that the collision will occur before it occurs and we start to slow down.</p>
 
 </div>
 </div>
@@ -197,32 +218,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>scannedLeft</b> = fal
 
 <p>Tells whether we're currently scanning or not. </p>
 <p>Returns the value of the private attribute <code>scanning</code>. We don't want this attribute to be public since we don't want it modified outside this class. Instead, we define it private and allow reading write through this method. This makes the <code>scanning</code> attribute read-only. </p>
-
-</div>
-</div>
-<a id="af4fbd8ea9063b997186454b9b08204bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4fbd8ea9063b997186454b9b08204bf">&#9670;&nbsp;</a></span>scan()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void RescueBot::scan </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Scan the environnement to see if there are obstacles out of its detection cone. </p>
-<p>Set appropriate state</p>
-<p>Exit scanning to enter collision avoidance at next iteration</p>
-<p>The robots is currently turning, let it turn in peace until it stops! Note that we verified previously that the robot won't collide with any front object.</p>
-<p>We finished the scan, hence we can go back to normal state. But first, one needs to get back to its initial position</p>
-<p>Exit scanning</p>
-<p>Here, we enter the scanning process. We never scanned anything, hence we scan right (arbitrary choice)</p>
-<p>We just commanded the scan but we already set the <code>scannedRight</code> to true. This is because we won't check its value until it stopped turning.</p>
 
 </div>
 </div>
@@ -263,10 +258,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>scannedLeft</b> = fal
 
 <p>Updates the robot to make it move. </p>
 <p>To be called at each frame. </p>
-<p>Do the moves !</p>
-<p>_O/ \ /_ \ <code> </code> <br  />
-</p>
-<p>Check if it's time to scan or if we're actually scanning</p>
 
 </div>
 </div>
@@ -301,9 +292,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>scannedLeft</b> = fal
 <li>arduinoSketch/src/RescueBot.cpp</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classRescueBot.html">RescueBot</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

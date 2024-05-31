@@ -1,4 +1,0 @@
-<map id="AxelGyroSensor::getMeanAccel" name="AxelGyroSensor::getMeanAccel">
-<area shape="rect" id="node1" title="Get the mean values of the sensor." alt="" coords="5,5,231,32"/>
-<area shape="rect" id="node2" href="$classAxelGyroSensor.html#af1fa1f3e65d8f798c8be0ca7bed77b29" title="Read raw values from the sensors." alt="" coords="279,5,489,32"/>
-</map>

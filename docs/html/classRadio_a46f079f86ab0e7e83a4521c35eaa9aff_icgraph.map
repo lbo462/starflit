@@ -1,5 +1,0 @@
-<map id="Radio::setup" name="Radio::setup">
-<area shape="rect" id="node1" title="Set&#45;up the radio." alt="" coords="405,5,508,32"/>
-<area shape="rect" id="node2" href="$classCommunication.html#a7b2e9153053fbfca3f1d4b6f9e18569c" title="Sets&#45;up all the internal modules of this instance, as defined on built." alt="" coords="188,5,357,32"/>
-<area shape="rect" id="node3" href="$classRescueBot.html#a264bbc526fb178bc6050380769032292" title="Set&#45;up the pins mode." alt="" coords="5,5,140,32"/>
-</map>

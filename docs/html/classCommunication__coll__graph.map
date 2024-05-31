@@ -1,5 +1,0 @@
-<map id="Communication" name="Communication">
-<area shape="rect" id="node1" title="Communication module." alt="" coords="51,204,212,369"/>
-<area shape="rect" id="node2" href="$classBluetooth.html" title="Allows Bluetooth communication through the HC&#45;06 module." alt="" coords="5,13,127,134"/>
-<area shape="rect" id="node3" href="$classRadio.html" title="Enables read&#45;write radio communication through the RF24 antennas." alt="" coords="151,5,245,141"/>
-</map>

@@ -17,7 +17,7 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
-    /** 
+    /*
      * Do the moves !
      * 
      *   _O/
@@ -27,7 +27,7 @@ void RescueBot::update()
      *     `   
      */
 
-    /** Check if it's time to scan or if we're actually scanning */
+    // Check if it's time to scan or if we're actually scanning
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
         scan();
@@ -41,20 +41,20 @@ void RescueBot::update()
 
 void RescueBot::scan()
 {
-    /** Set appropriate state */
+    // Set appropriate state
     if(!scanning)
         scanning = true;
 
     if(ultrasonicSensors.collisionDetection(true, false))
     {
-        /** Exit scanning to enter collision avoidance at next iteration */
+        // Exit scanning to enter collision avoidance at next iteration
         smartMotors.goBackward();
         scanning = false, scannedRight = false, scannedLeft = false;
         previousScan = millis();
         return;
     }
 
-    /**
+    /*
      * The robots is currently turning, let it turn in peace until it stops! 
      * Note that we verified previously that the robot won't collide with any front object.
      */
@@ -63,13 +63,13 @@ void RescueBot::scan()
 
     if(scannedRight && scannedLeft)
     {
-        /**
+        /*
          * We finished the scan, hence we can go back to normal state.
          * But first, one needs to get back to its initial position
          */
         smartMotors.turnRight(PI/4);
 
-        /** Exit scanning */
+        // Exit scanning
         scanning = false, scannedRight = false, scannedLeft = false;
         previousScan = millis();
         return;
@@ -77,13 +77,13 @@ void RescueBot::scan()
 
     if(!(scannedRight || scannedLeft))
     {
-        /**
+        /*
          * Here, we enter the scanning process.
          * We never scanned anything, hence we scan right (arbitrary choice)
          */
         smartMotors.turnRight(PI/4);
 
-        /**
+        /*
          * We just commanded the scan but we already set the `scannedRight` to true.
          * This is because we won't check its value until it stopped turning.
          */
@@ -143,13 +143,13 @@ void RescueBot::explore()
         collisionAvoidance();
     }
 
-    /**
+    /*
      * It's possible that `collisionAvoidance()` changed the `toldToForward` state.
      * In that case, try to go forward.
      */
     if(smartMotors.toldToForward)
     {
-        /**
+        /*
          * When the robot is fast, it happens that it falls.
          * To avoid this, we implement here a "slowing down" kind of thing.
          * To that purpose, we check that the collision will occur before it occurs

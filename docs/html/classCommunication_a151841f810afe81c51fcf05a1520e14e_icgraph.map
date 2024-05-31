@@ -1,5 +1,0 @@
-<map id="Communication::send" name="Communication::send">
-<area shape="rect" id="node1" title="Send a raw buffer a given module." alt="" coords="448,5,612,32"/>
-<area shape="rect" id="node2" href="$classCommunication.html#a6913f9782ec2562e658602a9b9b0b7f2" title="Same as send but parse the string to do the lazy job you won&#39;t do." alt="" coords="197,5,400,32"/>
-<area shape="rect" id="node3" href="$classRescueBot.html#a247ac45550a832441704db293099fc88" title="Updates the robot to make it move." alt="" coords="5,5,149,32"/>
-</map>

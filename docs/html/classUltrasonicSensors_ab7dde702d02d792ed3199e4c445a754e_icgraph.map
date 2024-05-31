@@ -1,4 +1,0 @@
-<map id="UltrasonicSensors::setup" name="UltrasonicSensors::setup">
-<area shape="rect" id="node1" title="Set&#45;up the pins mode To be called on global setup Note that pins can be modified before setup if need..." alt="" coords="188,5,335,47"/>
-<area shape="rect" id="node2" href="$classRescueBot.html#a264bbc526fb178bc6050380769032292" title="Set&#45;up the pins mode." alt="" coords="5,13,140,39"/>
-</map>

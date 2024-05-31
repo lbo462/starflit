@@ -1,8 +1,0 @@
-<map id="AxelGyroSensor::calibrate" name="AxelGyroSensor::calibrate">
-<area shape="rect" id="node1" title="Calibrate the sensors." alt="" coords="5,56,196,83"/>
-<area shape="rect" id="node2" href="$classAxelGyroSensor.html#a2f74f9176daa7fccde1ea4ffafb67f69" title="Get the mean values of the sensor." alt="" coords="244,5,469,32"/>
-<area shape="rect" id="node4" href="$classAxelGyroSensor.html#a2ff86ae0deebefd95105ff31ac9912cb" title=" " alt="" coords="246,56,467,83"/>
-<area shape="rect" id="node6" href="$classVector3D.html#a94f8979c02a45b721eca6886c148af99" title="Get the printable and plottable string version of this vector." alt="" coords="287,107,427,133"/>
-<area shape="rect" id="node3" href="$classAxelGyroSensor.html#af1fa1f3e65d8f798c8be0ca7bed77b29" title="Read raw values from the sensors." alt="" coords="519,5,729,32"/>
-<area shape="rect" id="node5" href="$classAxelGyroSensor.html#a7ffada27967e69cbc991403b43ec38d8" title=" " alt="" coords="517,56,731,83"/>
-</map>

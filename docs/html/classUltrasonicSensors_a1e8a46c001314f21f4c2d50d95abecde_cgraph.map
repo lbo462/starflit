@@ -1,4 +1,0 @@
-<map id="UltrasonicSensors::getFrontDistance" name="UltrasonicSensors::getFrontDistance">
-<area shape="rect" id="node1" title="Get the distance with any front object." alt="" coords="5,5,152,47"/>
-<area shape="rect" id="node2" href="$classUltrasonicSensors.html#ad4c3d626db414364f6dbc60d1935183e" title="Get the distance in centimeter for a given pin (ie, given sensor)" alt="" coords="200,5,347,47"/>
-</map>

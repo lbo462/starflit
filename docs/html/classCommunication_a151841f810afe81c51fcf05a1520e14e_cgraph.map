@@ -1,5 +1,0 @@
-<map id="Communication::send" name="Communication::send">
-<area shape="rect" id="node1" title="Send a raw buffer a given module." alt="" coords="5,31,169,57"/>
-<area shape="rect" id="node2" href="$classBluetooth.html#a69fc3a592b9b371064d8d62681191165" title="Send a buffer content by writing it on the bluetooth pipe." alt="" coords="217,5,341,32"/>
-<area shape="rect" id="node3" href="$classRadio.html#aedf6d6c72f2e46fdd566c6c5090f78c9" title="Send a buffer content by writing it on the radio pipe." alt="" coords="230,56,329,83"/>
-</map>

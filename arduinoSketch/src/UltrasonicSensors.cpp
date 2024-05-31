@@ -1,25 +1,15 @@
 #include "UltrasonicSensors.h"
 
 
-UltrasonicSensors::UltrasonicSensors()
-{
-    /**
-     * Function constructor is moved to the method setup()
-     * This is not for no reason, please, leave it that way
-     * `setup()` should be called during global setup
-     */
-}
+UltrasonicSensors::UltrasonicSensors() {}
 
-UltrasonicSensors::~UltrasonicSensors()
-{
-
-}
+UltrasonicSensors::~UltrasonicSensors() {}
 
 void UltrasonicSensors::setup()
 {
     pinMode(trig1, OUTPUT);
     pinMode(trig2, OUTPUT);
-    pinMode(echo, OUTPUT); // ECHO is used as output for RCB_LEDS_WS2812
+    pinMode(echo, OUTPUT);
 }
 
 unsigned int UltrasonicSensors::getDistance(int trigPin)

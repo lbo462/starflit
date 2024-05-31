@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('UltrasonicSensors_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +84,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_31a9fa9a7b10fd5c0776428d861b62ef.html">arduinoSketch</a></li><li class="navelem"><a class="el" href="dir_d8d5c908174eb9095882fd11493c13a2.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">UltrasonicSensors.h</div>  </div>
@@ -80,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classUltrasonicSensors.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classUltrasonicSensors.html">UltrasonicSensors</a></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <a class="code" href="classUltrasonicSensors.html#a0c5c1233a35e6e0c2adb071707c51926">UltrasonicSensors</a>();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <a class="code" href="classUltrasonicSensors.html">UltrasonicSensors</a>();</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        ~<a class="code" href="classUltrasonicSensors.html">UltrasonicSensors</a>();</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classUltrasonicSensors.html#ab7dde702d02d792ed3199e4c445a754e">setup</a>();</div>
@@ -99,17 +117,20 @@ $(function() {
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassUltrasonicSensors_html"><div class="ttname"><a href="classUltrasonicSensors.html">UltrasonicSensors</a></div><div class="ttdoc">UltrasonicSensors are compose of two sensors that are used to detect collisions.</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.h:13</div></div>
-<div class="ttc" id="aclassUltrasonicSensors_html_a0c5c1233a35e6e0c2adb071707c51926"><div class="ttname"><a href="classUltrasonicSensors.html#a0c5c1233a35e6e0c2adb071707c51926">UltrasonicSensors::UltrasonicSensors</a></div><div class="ttdeci">UltrasonicSensors()</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:4</div></div>
-<div class="ttc" id="aclassUltrasonicSensors_html_a1868b6ef3a5c881a920fa92f629405e3"><div class="ttname"><a href="classUltrasonicSensors.html#a1868b6ef3a5c881a920fa92f629405e3">UltrasonicSensors::collisionDetection</a></div><div class="ttdeci">bool collisionDetection(bool fromFront, bool fromRear, unsigned int distance=30)</div><div class="ttdoc">Check that no collision is to occur.</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:50</div></div>
-<div class="ttc" id="aclassUltrasonicSensors_html_a1e8a46c001314f21f4c2d50d95abecde"><div class="ttname"><a href="classUltrasonicSensors.html#a1e8a46c001314f21f4c2d50d95abecde">UltrasonicSensors::getFrontDistance</a></div><div class="ttdeci">unsigned int getFrontDistance()</div><div class="ttdoc">Get the distance with any front object.</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:40</div></div>
+<div class="ttc" id="aclassUltrasonicSensors_html_a1868b6ef3a5c881a920fa92f629405e3"><div class="ttname"><a href="classUltrasonicSensors.html#a1868b6ef3a5c881a920fa92f629405e3">UltrasonicSensors::collisionDetection</a></div><div class="ttdeci">bool collisionDetection(bool fromFront, bool fromRear, unsigned int distance=30)</div><div class="ttdoc">Check that no collision is to occur.</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:40</div></div>
+<div class="ttc" id="aclassUltrasonicSensors_html_a1e8a46c001314f21f4c2d50d95abecde"><div class="ttname"><a href="classUltrasonicSensors.html#a1e8a46c001314f21f4c2d50d95abecde">UltrasonicSensors::getFrontDistance</a></div><div class="ttdeci">unsigned int getFrontDistance()</div><div class="ttdoc">Get the distance with any front object.</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:30</div></div>
 <div class="ttc" id="aclassUltrasonicSensors_html_a9bd77e843632bf818b9e79c5ed5ff678"><div class="ttname"><a href="classUltrasonicSensors.html#a9bd77e843632bf818b9e79c5ed5ff678">UltrasonicSensors::echo</a></div><div class="ttdeci">const int echo</div><div class="ttdoc">Sensor pins.</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.h:43</div></div>
-<div class="ttc" id="aclassUltrasonicSensors_html_ab7dde702d02d792ed3199e4c445a754e"><div class="ttname"><a href="classUltrasonicSensors.html#ab7dde702d02d792ed3199e4c445a754e">UltrasonicSensors::setup</a></div><div class="ttdeci">void setup()</div><div class="ttdoc">Set-up the pins mode To be called on global setup Note that pins can be modified before setup if need...</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:18</div></div>
-<div class="ttc" id="aclassUltrasonicSensors_html_ad4c3d626db414364f6dbc60d1935183e"><div class="ttname"><a href="classUltrasonicSensors.html#ad4c3d626db414364f6dbc60d1935183e">UltrasonicSensors::getDistance</a></div><div class="ttdeci">unsigned int getDistance(int trigPin)</div><div class="ttdoc">Get the distance in centimeter for a given pin (ie, given sensor)</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:25</div></div>
-<div class="ttc" id="aclassUltrasonicSensors_html_ada888cb4ac0a8073f983ae7bb3b8ad73"><div class="ttname"><a href="classUltrasonicSensors.html#ada888cb4ac0a8073f983ae7bb3b8ad73">UltrasonicSensors::getRearDistance</a></div><div class="ttdeci">unsigned int getRearDistance()</div><div class="ttdoc">Get the distance with any rear object.</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:45</div></div>
+<div class="ttc" id="aclassUltrasonicSensors_html_ab7dde702d02d792ed3199e4c445a754e"><div class="ttname"><a href="classUltrasonicSensors.html#ab7dde702d02d792ed3199e4c445a754e">UltrasonicSensors::setup</a></div><div class="ttdeci">void setup()</div><div class="ttdoc">Set-up the pins mode To be called on global setup Note that pins can be modified before setup if need...</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:8</div></div>
+<div class="ttc" id="aclassUltrasonicSensors_html_ad4c3d626db414364f6dbc60d1935183e"><div class="ttname"><a href="classUltrasonicSensors.html#ad4c3d626db414364f6dbc60d1935183e">UltrasonicSensors::getDistance</a></div><div class="ttdeci">unsigned int getDistance(int trigPin)</div><div class="ttdoc">Get the distance in centimeter for a given pin (ie, given sensor)</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:15</div></div>
+<div class="ttc" id="aclassUltrasonicSensors_html_ada888cb4ac0a8073f983ae7bb3b8ad73"><div class="ttname"><a href="classUltrasonicSensors.html#ada888cb4ac0a8073f983ae7bb3b8ad73">UltrasonicSensors::getRearDistance</a></div><div class="ttdeci">unsigned int getRearDistance()</div><div class="ttdoc">Get the distance with any rear object.</div><div class="ttdef"><b>Definition:</b> UltrasonicSensors.cpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_31a9fa9a7b10fd5c0776428d861b62ef.html">arduinoSketch</a></li><li class="navelem"><a class="el" href="dir_d8d5c908174eb9095882fd11493c13a2.html">src</a></li><li class="navelem"><b>UltrasonicSensors.h</b></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

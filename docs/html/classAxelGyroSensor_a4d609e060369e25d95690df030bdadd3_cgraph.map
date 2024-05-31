@@ -1,9 +1,0 @@
-<map id="AxelGyroSensor::update" name="AxelGyroSensor::update">
-<area shape="rect" id="node1" title="Update the sensors sense of time so that is&#39;s able to correctly compute positions and speed." alt="" coords="5,81,184,108"/>
-<area shape="rect" id="node2" href="$classAxelGyroSensor.html#aca351ce29e437e1cbb2a952fa4622468" title="Fetch the angle from raw data." alt="" coords="243,5,461,32"/>
-<area shape="rect" id="node3" href="$classAxelGyroSensor.html#af30c8c8c4b816598f17a429980a48d4d" title=" " alt="" coords="241,56,463,83"/>
-<area shape="rect" id="node4" href="$classAxelGyroSensor.html#aa7fa2f4e0f3ca4dd92aee81b8c267ec8" title="Read raw values from the sensors ..." alt="" coords="233,107,471,133"/>
-<area shape="rect" id="node6" href="$classAxelGyroSensor.html#a31be48da0ceb79f5997039206662b361" title=" " alt="" coords="232,157,472,184"/>
-<area shape="rect" id="node5" href="$classAxelGyroSensor.html#af1fa1f3e65d8f798c8be0ca7bed77b29" title="Read raw values from the sensors." alt="" coords="521,107,732,133"/>
-<area shape="rect" id="node7" href="$classAxelGyroSensor.html#a7ffada27967e69cbc991403b43ec38d8" title=" " alt="" coords="520,157,733,184"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="RescueBot::explore" name="RescueBot::explore">
-<area shape="rect" id="node1" title="Make random moves to explore the space." alt="" coords="197,5,345,32"/>
-<area shape="rect" id="node2" href="$classRescueBot.html#a247ac45550a832441704db293099fc88" title="Updates the robot to make it move." alt="" coords="5,5,149,32"/>
-</map>
