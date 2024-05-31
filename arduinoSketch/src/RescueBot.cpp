@@ -17,7 +17,7 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
-    //Serial.println(comm.sendString("Hey", {CommunicationModule::radio}));
+    Serial.println(comm.sendString("Hey", {CommunicationModule::bluetooth}));
 
     /** 
      * Do the moves !

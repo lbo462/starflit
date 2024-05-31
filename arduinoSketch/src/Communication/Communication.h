@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <Array.h>
 #include "Radio.h"
+#include "Bluetooth.h"
 
 
 /**
@@ -59,6 +60,9 @@ class Communication
 
         /** Communication through RF24 radio. */
         Radio radio = Radio();
+
+        /** Bluetooth communication. */
+        Bluetooth bluetooth = Bluetooth();
 
 };
 

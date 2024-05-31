@@ -18,6 +18,7 @@ void Communication::setup()
         {
         case CommunicationModule::all:
             radio.setup();
+            bluetooth.setup();
             break;
 
         case CommunicationModule::radio:
@@ -25,7 +26,7 @@ void Communication::setup()
             break;
 
         case CommunicationModule::bluetooth:
-            // TODO
+            bluetooth.setup();
             break;
         
         default:
@@ -64,7 +65,9 @@ bool Communication::send(const void *buf, byte len, CommModules modules)
         switch (mod)
         {
         case CommunicationModule::all:
-            sent = sent && radio.send(buf, len) && true;
+            sent = sent 
+                && radio.send(buf, len) 
+                && bluetooth.send((char *)buf);
             break;
 
         case CommunicationModule::radio:
@@ -72,7 +75,7 @@ bool Communication::send(const void *buf, byte len, CommModules modules)
             break;
         
         default:
-            sent = false;  /// Unknown comm module
+            sent = sent && bluetooth.send((char *)buf);
             break;
         }
     }
