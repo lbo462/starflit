@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.9.1-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -9,6 +10,18 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeParagraphLink.init()
+</script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
@@ -19,6 +32,7 @@
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -118,8 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9549ac8c6593f0e9dbba3dea4bf242fb"><td class="memItemLeft" align="right" valign="top"><a id="a9549ac8c6593f0e9dbba3dea4bf242fb"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>turnLeftWheel</b> (bool forward, int voltage)</td></tr>
 <tr class="separator:a9549ac8c6593f0e9dbba3dea4bf242fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a453e43aaa11a1f41ebe0164b9eabc1d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotors.html#a453e43aaa11a1f41ebe0164b9eabc1d0">stop</a> ()</td></tr>
-<tr class="memdesc:a453e43aaa11a1f41ebe0164b9eabc1d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop all motors.  <a href="classMotors.html#a453e43aaa11a1f41ebe0164b9eabc1d0">More...</a><br /></td></tr>
+<tr class="memitem:a453e43aaa11a1f41ebe0164b9eabc1d0"><td class="memItemLeft" align="right" valign="top"><a id="a453e43aaa11a1f41ebe0164b9eabc1d0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotors.html#a453e43aaa11a1f41ebe0164b9eabc1d0">stop</a> ()</td></tr>
+<tr class="memdesc:a453e43aaa11a1f41ebe0164b9eabc1d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop all motors. <br /></td></tr>
 <tr class="separator:a453e43aaa11a1f41ebe0164b9eabc1d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
@@ -158,26 +173,6 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><b>motorLM</b> =9</
 
 <p>Set-up the pins mode. </p>
 <p>To be called on global setup. </p>
-
-</div>
-</div>
-<a id="a453e43aaa11a1f41ebe0164b9eabc1d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a453e43aaa11a1f41ebe0164b9eabc1d0">&#9670;&nbsp;</a></span>stop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Motors::stop </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Stop all motors. </p>
-<p>Avoid falling forward. Does not work as well as expected for high speed value ... TODO This should be revised.</p>
 
 </div>
 </div>
