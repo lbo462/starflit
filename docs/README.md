@@ -1,8 +1,11 @@
-# Starflit: the Strandbeest fleet - Documentation index
+# Starflit: the Strandbeest fleet
+
+- Github repository at [https://github.com/lbo462/starflit](https://github.com/lbo462/starflit).
+- Documentation Pages at [https://lbo462.github.io/starflit](https://lbo462.github.io/starflit).
 
 This project aims to automate a fleet of Strandbeest-like robots.
 
-_Inspiration from [https://www.strandbeest.com/](https://www.strandbeest.com/)_
+_Inspiration from [https://www.strandbeest.com/](https://www.strandbeest.com/)_.
 
 Here lies all the documentation for the project.
 You will find documentation for:
