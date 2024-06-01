@@ -1,4 +1,8 @@
-# Docs index
+# Starflit: the Strandbeest fleet - Documentation index
+
+This project aims to automate a fleet of Strandbeest-like robots.
+
+_Inspiration from [https://www.strandbeest.com/](https://www.strandbeest.com/)_
 
 Here lies all the documentation for the project.
 You will find documentation for:
@@ -14,7 +18,7 @@ Have fun building 👷‍♂️👷‍♀️!
 
 ## Detailed list
 
-Here's the list of all the document files and folder that you'll find here:
+If you're reading this outside of [Github Pages](https://lbo462.github.io/starflit/), here's the list of all the document files and folder that you'll find here:
 
 - `NetworkLab.md` describes the network set-up we needed to configure and develop on the RPis.
 - `InitializeRPis.md` describes how we instantiated the RPis to work on them.
@@ -23,6 +27,8 @@ Here's the list of all the document files and folder that you'll find here:
 - `Doxygen.md` describes how to auto-generate the `html` doc.
 
 ### /resources
+
+__Check the content of this folder in the [GitHub repo](https://github.com/lbo462/starflit/tree/master/docs/resources)__.
 
 This folder contains:
 
