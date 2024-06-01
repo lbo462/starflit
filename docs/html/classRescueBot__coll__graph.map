@@ -1,9 +1,0 @@
-<map id="RescueBot" name="RescueBot">
-<area shape="rect" id="node1" title="Main class that holds the logic and glue every modules to control the robot efficiently." alt="" coords="191,1085,359,1309"/>
-<area shape="rect" id="node2" href="$classSmartMotors.html" title="Smart motors is abstract representation of motors monitored via control engineer." alt="" coords="51,725,193,1023"/>
-<area shape="rect" id="node3" href="$classMotors.html" title="This class is aimed to control motors, nothing more." alt="" coords="5,402,153,597"/>
-<area shape="rect" id="node4" href="$classAxelGyroSensor.html" title="It&#39;s used to control the Accelerometer and the Gyroscope of the robot." alt="" coords="177,336,339,663"/>
-<area shape="rect" id="node5" href="$classVector3D.html" title="3D Vector with x, y and z coordinates" alt="" coords="201,5,315,200"/>
-<area shape="rect" id="node6" href="$classRadio.html" title="Enables read&#45;write radio communication through the RF24 antennas." alt="" coords="217,799,333,949"/>
-<area shape="rect" id="node7" href="$classUltrasonicSensors.html" title="UltrasonicSensors are compose of two sensors that are used to detect collisions." alt="" coords="357,777,532,971"/>
-</map>
