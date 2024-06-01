@@ -22,13 +22,6 @@ Here's the list of all the document files and folder that you'll find here:
 - `DevEnv.md` describes what development environment we use and work on.
 - `Doxygen.md` describes how to auto-generate the `html` doc.
 
-### /html
-
-The content of the folder is auto-generated through Doxygen.
-The process is described in `Doxygen.md`.
-
-Open the file `docs/html/index.html` to see all the docs in your browser.
-
 ### /resources
 
 This folder contains:

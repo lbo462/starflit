@@ -13,3 +13,7 @@ Then, use the `Doxyfile` file to generate the documentation.
 
 It will create / update the folder `docs/html/` that will contain the generated doc.
 Open `docs/html/index.html` in your browser to read through it.
+
+> The folder `docs/html` is ignored by git and should stay that way.
+> Instead, the doc is generated through Github Actions and deployed on [Github Pages](https://lbo462.github.io/starflit/).
+> See the file `.github/workflows/static.yml` to explore the deeps of the job doing this magic trick.
