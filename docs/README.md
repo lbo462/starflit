@@ -1,4 +1,4 @@
-# Starflit: the Strandbeest fleet
+# The Strandbeest fleet
 
 - Github repository at [https://github.com/lbo462/starflit](https://github.com/lbo462/starflit).
 - Documentation Pages at [https://lbo462.github.io/starflit](https://lbo462.github.io/starflit).
