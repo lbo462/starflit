@@ -21,13 +21,13 @@ Have fun building 👷‍♂️👷‍♀️!
 
 ## Detailed list
 
-If you're reading this outside of [Github Pages](https://lbo462.github.io/starflit/), here's the list of all the document files and folder that you'll find here:
+Here's the list of all the document files and folder that you'll find here:
 
-- [NetworkLab.md](NetworkLab.md) describes the network set-up we needed to configure and develop on the RPis.
-- `InitializeRPis.md` describes how we instantiated the RPis to work on them.
-- `GitAndGitHub.md` describes how we work with Git and GitHub.
-- `DevEnv.md` describes what development environment we use and work on.
-- `Doxygen.md` describes how to auto-generate the `html` doc.
+- [NetworkLab.md](NetworkLab.md) describes the network setup we needed to configure and develop on the RPis.
+- [InitializeRPis.md](InitializeRPis.md) describes how we instantiated the RPis to work on them.
+- [GitAndGitHub.md](GitAndGitHub.md) describes how we work with Git and GitHub.
+- [DevEnv.md](DevEnv.md) describes what development environment we use and work on.
+- [Doxygen.md](Doxygen.md) describes how to auto-generate the `html` doc.
 
 ### /resources
 
@@ -35,6 +35,5 @@ __Check the content of this folder in the [GitHub repo](https://github.com/lbo46
 
 This folder contains:
 
-- `datasheets`: All the datasheets of the hardware component we used.
-- `schematics`: The electronic schematics (in two parts) of the strandbeest robot
-as they were given to us.
+- [datasheets](https://github.com/lbo462/starflit/tree/master/docs/resources/datasheets): All the datasheets of the hardware component we used.
+- [schematics](https://github.com/lbo462/starflit/tree/master/docs/resources/shematics): The electronic schematics (in two parts) of the strandbeest robot as they were given to us.
