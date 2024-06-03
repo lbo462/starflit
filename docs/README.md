@@ -23,7 +23,7 @@ Have fun building 👷‍♂️👷‍♀️!
 
 If you're reading this outside of [Github Pages](https://lbo462.github.io/starflit/), here's the list of all the document files and folder that you'll find here:
 
-- `NetworkLab.md` describes the network set-up we needed to configure and develop on the RPis.
+- [NetworkLab.md](NetworkLab.md) describes the network set-up we needed to configure and develop on the RPis.
 - `InitializeRPis.md` describes how we instantiated the RPis to work on them.
 - `GitAndGitHub.md` describes how we work with Git and GitHub.
 - `DevEnv.md` describes what development environment we use and work on.
