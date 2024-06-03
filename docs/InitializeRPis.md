@@ -7,8 +7,9 @@ In order to work with a Raspberry Pi, you first need to format a micro SD card w
 The steps to do so are the following:
 
 - download the [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
-- follow the steps in the UI
-- in our case, we need to set custom settings in order to enable SSH, click on "Edit Settings"
+- choose the version of the RPi your are using (3 model B in our case)
+- choose which OS you want to use (RaspbianOS 64 bit in our case)
+- next, we need to set custom settings in order to enable SSH, click on "Edit Settings"
 - set a hostname, username and password and locale settings according to your region
 - in the "Services" tab, click on "enable SSH" and "Use password authentication"
 - in the "Options" tab, disable "Enable telemetry" (we don't want anyone spying on us 🕵️‍♂️)
