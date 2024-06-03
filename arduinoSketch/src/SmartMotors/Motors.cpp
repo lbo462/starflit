@@ -21,7 +21,7 @@ void Motors::stop()
     digitalWrite(motorLP, LOW);
     digitalWrite(motorLM, LOW);
 
-    /**
+    /*
      * Avoid falling forward.
      * Does not work as well as expected for high speed value ...
      * TODO This should be revised.

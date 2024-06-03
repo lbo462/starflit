@@ -49,7 +49,7 @@ bool AxelGyroSensor::calibrate(
         Vector3D axelValue = meanAxel - axelOffset;
         Vector3D gyroValue = meanGyro - gyroOffset;
 
-        /**
+        /*
          * Now, we verify that the value we read match the allowed errors
          * If this verification fails, we update the offset with the mean
          * If the verification passes, consider the sensor ready and calibrated!
@@ -132,7 +132,7 @@ void AxelGyroSensor::update()
         0.98 * (complementaryFilterOutput.z + degrees(gyro.z)) + 0.02 * degrees(axel.z)
     );
 
-    /** Actually update the angle */
+    // Actually update the angle!
 
     // Create a "pre-angle" from our calculations.
     // This pre-angle features negatives that will be removed next.
