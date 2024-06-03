@@ -192,7 +192,7 @@ You can check that everything is running smoothly by looking at the log file def
 Lastly, enable the service so that it runs on reboot:
 
 ```bash
-sudo systemctl enable wpa_supplicant.sevice
+sudo systemctl enable wpa_supplicant.service
 ```
 
 Congratulations, the lab is up and ready to go 🎉🍾🍾🍾🍾.
