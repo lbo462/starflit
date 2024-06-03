@@ -13,7 +13,7 @@ To build this lab, you will need:
 
 In order to configure a RPi as a router, you will first need to flash RaspbianOS on a microSD card. Instructions to do so can be found here [InitializeRPis](InitializeRPis.md#format-the-micro-sd-card).
 
-In the `cmdline.txt` file in the boot partition, add the following line: `ip=192.168.1.254`.
+Once the micro SD card is flashed, in the `cmdline.txt` file in the boot partition, add the following line: `ip=192.168.1.254`.
 
 Connect both your computer and the RPi to the switch. You should now be able to connect to it via SSH with the aforementioned IP.
 
@@ -28,7 +28,8 @@ For the connection to the internet, we will be connecting to the Eduroam network
 2. Insert the following configuration:
 
 ```bash
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev                                               update_config=1
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
 ap_scan=1
 network={
 ssid="eduroam"
@@ -64,7 +65,7 @@ The RPi (router) should now be able to connect to Eduroam. You can test it by ru
 sudo /sbin/wpa_supplicant -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 ```
 
-You can make sure the router is connected with this command `wpa_cli status`.
+You can make sure the router is connected with this command `wpa_cli status` (or `iwconfig`).
 
 ### DHCP configuration
 
@@ -116,7 +117,7 @@ Activate NAT Masquerade with `iptables`:
 
 You can check your configuration with `sudo iptables -t nat -L`.
 
-#### Default route
+#### Default route (MIGHT NOT BE NEEDED ANYMORE)
 
 Delete the current default route:
 
@@ -134,20 +135,64 @@ Your packets should now be routed correctly 📦.
 
 ### Run everything on startup
 
-We don't want to manually connect the router to the Wifi and configure the default routes everytime we turn the router on. To solve this problem, we are going to create a service that will run on startup, as well as a script to configure the default route.
+We don't want to manually connect the router to the Wifi and configure the default routes everytime we turn the router on. To solve this problem, we are going to create a simple systemd service that will run on startup. This service will call the `wpa_setup.sh` script which does all the heavy lifting. 
+
+`wpa_supplicant.service`:
 
 ```bash
 [Unit]
-Description=WPA supplicant
+Description=Auto connect to eduroam
 Wants=network.target
 After=network.target
 [Service]
 Type=simple
-ExecStartPre=/sbin/ip link set wlan0 up
-ExecStart=/home/router/setup_wpa.sh
+ExecStart=/home/router/wpa_setup.sh
 RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 ```
 
-<!-- TODO: add scripts -->
+`wpa_setup.sh`:
+
+```bash
+#!/bin/bash
+
+# Log file path
+LOG_FILE="/home/router/events.log"
+
+# Bring the interface up
+sudo /sbin/ip link set wlan0 up
+echo "$(date): Brought wlan0 up" >> $LOG_FILE
+
+# Start wpa_supplicant in the background (-B option)
+sudo /sbin/wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+echo "$(date): Started wpa_supplicant" >> $LOG_FILE
+
+# Wait for a bit to ensure connection
+sleep 10
+
+# Log iwconfig output
+/sbin/iwconfig >> $LOG_FILE
+echo "---------------------------------------" >> $LOG_FILE
+
+# Request an IP address
+sudo /sbin/dhclient wlan0
+echo "$(date): dhclient ok" >> $LOG_FILE
+
+# Wait to ensure IP is assigned
+sleep 10
+
+# Log current IP addresses
+/sbin/ip a >> $LOG_FILE
+echo "---------------------------------------" >> $LOG_FILE
+```
+
+You can check that everything is running smoothly by looking at the log file defined in the `LOG_FILE` variable.
+
+Lastly, enable the service so that it runs on reboot:
+
+```bash
+sudo systemctl enable wpa_supplicant.sevice
+```
+
+Congratulations, the lab is up and ready to go 🎉🍾🍾🍾🍾.
