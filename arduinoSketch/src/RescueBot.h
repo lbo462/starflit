@@ -28,8 +28,8 @@ class RescueBot
         /** Ultrasonic sensors used to detect incoming collisions */
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
-        /** Create a `Communication` instance with all the communication modules. */
-        Communication comm = Communication(CommModules {CommunicationModule::all});
+        /** Create a `Communication` instance that will fit all the communication modules. */
+        Communication comm = Communication();
 
         /**
          * Set-up the pins mode.

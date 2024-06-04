@@ -1,12 +1,14 @@
 #include "Communication.h"
 
 
-Communication::Communication(CommModules modules)
+Communication::Communication() {}
+
+Communication::~Communication() {}
+
+void Communication::setModules(const CommModules modules)
 {
     activatedModules = modules;
 }
-
-Communication::~Communication() {}
 
 void Communication::setup()
 {
@@ -16,20 +18,16 @@ void Communication::setup()
 
         switch (mod)
         {
-        case CommunicationModule::all:
-            radio.setup();
-            bluetooth.setup();
-            break;
-
         case CommunicationModule::radio:
             radio.setup();
             break;
 
-        case CommunicationModule::bluetooth:
-            bluetooth.setup();
+        case CommunicationModule::serial:
+            serial.begin(115200);
             break;
-        
-        default:
+
+        case CommunicationModule::bluetooth:
+            bluetooth.begin(38400);
             break;
         }
     }
@@ -43,9 +41,7 @@ void Communication::update()
 
         switch (mod)
         {
-        case CommunicationModule::all:
-            /* Nothing to update here ... */
-            break;
+        /* Nothing to update here ... */
         
         default:
             break;
@@ -53,7 +49,7 @@ void Communication::update()
     }
 }
 
-bool Communication::send(const void *buf, byte len, CommModules modules)
+bool Communication::send(const void *buf, byte len, CommModules modules, bool asASCII)
 {
     /* Whether the message was delivered or not. */
     bool sent = true;
@@ -64,20 +60,27 @@ bool Communication::send(const void *buf, byte len, CommModules modules)
 
         switch (mod)
         {
-        case CommunicationModule::all:
-            sent = sent 
-                && radio.send(buf, len) 
-                && bluetooth.send((char *)buf);
-            break;
-
         case CommunicationModule::radio:
             sent = sent && radio.send(buf, len);
             break;
+
+        case CommunicationModule::serial:
+            if(asASCII)
+                sent = sent && serial.print((char *)buf);
+            else
+                sent = sent && serial.write((char *)buf);
+            break;
         
-        default:
-            sent = sent && bluetooth.send((char *)buf);
+        case CommunicationModule::bluetooth:
+            if(asASCII)
+                sent = sent && bluetooth.print((char *)buf);
+            else
+                sent = sent && bluetooth.write((char *)buf);
             break;
         }
+
+        // Add a small delay to wait for the sending to be done
+        delay(10);
     }
     return sent;
 }

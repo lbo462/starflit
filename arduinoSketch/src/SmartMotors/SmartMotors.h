@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <PID_v2.h>
 
+#include "../Communication/Communication.h"
 #include "Motors.h"
 #include "AxelGyroSensor.h"
 
@@ -112,6 +113,10 @@ class SmartMotors
          * Default is `-1` and indicate that no angle is aimed (maybe the robot isn't turning).
          */
         float aimedAngle = -1;
+
+        /** Comes with a radio module to output its things */
+        Communication comm = Communication();
+
 };
 
 #endif

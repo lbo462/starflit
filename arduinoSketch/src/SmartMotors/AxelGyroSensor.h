@@ -42,15 +42,13 @@ class AxelGyroSensor
          */
         Vector3D angle = Vector3D();
 
-        /** Absolute position of the sensor, obtained by integrating twice during `update()` */
-        //Vector3D position = Vector3D();
-
         /**
          * Set-up the pins mode.
          * To be called on global setup.
          * Note that pins can be modified before setup if needed
+         * @return true if was able to calibrate, false otherwise
          */ 
-        void setup();
+        bool setup();
 
         /**
          * Update the sensors sense of time so that is's able

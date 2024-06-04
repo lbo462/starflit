@@ -9,6 +9,14 @@ void RescueBot::setup()
 {
     smartMotors.setup();
     ultrasonicSensors.setup();
+
+    // Add the communication modules
+    CommModules modules = CommModules {};
+    modules.push_back(CommunicationModule::radio);
+    modules.push_back(CommunicationModule::serial);
+    modules.push_back(CommunicationModule::bluetooth);
+    comm.setModules(modules);
+
     comm.setup();
 }
 
@@ -17,7 +25,7 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
-    Serial.println(comm.sendString("Hey", {CommunicationModule::bluetooth}));
+    comm.sendString("Hey\n", {CommunicationModule::serial});
 
     /** 
      * Do the moves !

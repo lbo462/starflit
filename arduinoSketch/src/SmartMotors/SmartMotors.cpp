@@ -6,8 +6,18 @@ SmartMotors::~SmartMotors() {}
 
 void SmartMotors::setup()
 {
+    // Set-up radio
+    comm.setModules({CommunicationModule::radio});
+    comm.setup();
+
     motors.setup();
-    axelgyro.setup();
+
+    comm.sendString("Calibrating sensors ...", {CommunicationModule::radio});
+    if(axelgyro.setup())
+        comm.sendString("Sensors calibrated", {CommunicationModule::radio});
+    else
+        comm.sendString("Impossible to calibrate, continuing anyway ...", {CommunicationModule::radio});
+
 
     pid.SetMode(AUTOMATIC);
     pid.SetOutputLimits(-255, 255);

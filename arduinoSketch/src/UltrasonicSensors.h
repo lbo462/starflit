@@ -5,7 +5,7 @@
 
 
 /**
- * UltrasonicSensors are compose of two sensors that are used to detect collisions.
+ * These sensors are composed of two sensors that are used to detect collisions.
  * One is used for the front side and the other for the rear size.
  * One should call `setup()` once.
  */
