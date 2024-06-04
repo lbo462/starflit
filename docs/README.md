@@ -25,7 +25,7 @@ Here's the list of all the document files and folder that you'll find here:
 
 - [NetworkLab.md](NetworkLab.md) describes the network setup we needed to configure and develop on the RPis.
 - [InitializeRPis.md](InitializeRPis.md) describes how we instantiated the RPis to work on them.
-- [GitAndGitHub.md](GitAndGitHub.md) describes how we work with Git and GitHub.
+- [GitAndGithub.md](GitAndGithub.md) describes how we work with Git and GitHub.
 - [DevEnv.md](DevEnv.md) describes what development environment we use and work on.
 - [Doxygen.md](Doxygen.md) describes how to auto-generate the `html` doc.
 
