@@ -32,12 +32,12 @@ void RescueBot::update()
     // Check if it's time to scan or if we're actually scanning
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
-        scan();
+        // scan();
     }
 
     else
     {
-        explore();
+        // explore();
     }
 }
 

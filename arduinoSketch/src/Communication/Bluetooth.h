@@ -4,6 +4,15 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
+/**
+ * Speed of the bluetooth communication.
+ * Note that the Serial communication takes place on the default
+ * pins (0 and 1).
+ * Hence, one shall not write at that speed !
+ * It's reserved for the Bluetooth module.
+ */
+#define BT_BAUD 38400
+
 
 /** Allows Bluetooth communication through the HC-06 module */
 class Bluetooth
@@ -23,7 +32,7 @@ class Bluetooth
 
     private:
         /** Serial object to write on the bluetooth channel. */
-        SoftwareSerial serial = SoftwareSerial(30, 31);
+        SoftwareSerial serial = SoftwareSerial(0, 1);
 
 };
 

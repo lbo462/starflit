@@ -7,10 +7,10 @@ Bluetooth::~Bluetooth() {}
 
 void Bluetooth::setup()
 {
-    serial.begin(38400);
+    serial.begin(BT_BAUD);
 }
 
 bool Bluetooth::send(const char *msg)
 {
-    return serial.write(msg) > 0;
+    return serial.print(msg) > 0;
 }

@@ -44,7 +44,7 @@ void Communication::update()
         switch (mod)
         {
         case CommunicationModule::all:
-            /** Nothing to update here ... */
+            /* Nothing to update here ... */
             break;
         
         default:
@@ -55,7 +55,7 @@ void Communication::update()
 
 bool Communication::send(const void *buf, byte len, CommModules modules)
 {
-    /** Whether the message was delivered or not. */
+    /* Whether the message was delivered or not. */
     bool sent = true;
 
     for(int i = 0; i < modules.size(); i++)
@@ -84,5 +84,5 @@ bool Communication::send(const void *buf, byte len, CommModules modules)
 
 const void *Communication::recv(byte len, CommunicationModule module)
 {
-    /** TODO */
+    /* TODO */
 }
