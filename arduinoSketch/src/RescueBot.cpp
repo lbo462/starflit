@@ -24,8 +24,9 @@ void RescueBot::update()
 {
     unsigned long currentMillis = millis();
     smartMotors.update();
-
-    comm.sendString("Hey\n", {CommunicationModule::serial});
+    
+    const char *buf = "lol";
+    comm.send(buf, sizeof(buf), {CommunicationModule::serial});
 
     /** 
      * Do the moves !

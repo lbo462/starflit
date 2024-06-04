@@ -6,11 +6,11 @@ SmartMotors::~SmartMotors() {}
 
 void SmartMotors::setup()
 {
+    motors.setup();
+
     // Set-up radio
     comm.setModules({CommunicationModule::radio});
     comm.setup();
-
-    motors.setup();
 
     comm.sendString("Calibrating sensors ...", {CommunicationModule::radio});
     if(axelgyro.setup())
