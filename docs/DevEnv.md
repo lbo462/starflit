@@ -6,7 +6,7 @@ To do so, copy paste the libraries into a folder named `libraries` in the Arduin
 This folder is probably located under `Documents\` on Windows or `~/Arduino` on linux.
 Otherwise, check or change its location in the preferences in the Arduino IDE.
 
-`cp libraries/* ~/Arduino/libraries/` on linux to install the libraries.
+`cp arduino/libraries/* ~/Arduino/libraries/` on linux to install the libraries.
 
 ## Better use VSCode
 
