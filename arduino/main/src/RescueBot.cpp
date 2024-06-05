@@ -25,7 +25,7 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
     
-    const char *buf = "lol";
+    const char buf[] = {0x61, 'b', 'c', 'd', 'e', EOT};
     comm.send(buf, sizeof(buf), {CommunicationModule::serial});
 
     /** 

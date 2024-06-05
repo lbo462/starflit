@@ -6,6 +6,8 @@
 #include <SoftwareSerial.h>
 #include "Radio.h"
 
+#define EOT 0x04
+
 /**
  * Defines all the communication modules available through instances of the `Communication` class.
  */

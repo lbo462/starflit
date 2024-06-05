@@ -2,6 +2,8 @@ from typing import ContextManager
 from contextlib import contextmanager
 from serial import Serial
 
+EOT = b"\x04"
+
 
 class SerialInterface:
     """
@@ -30,7 +32,12 @@ class SerialInterface:
         self._serial.close()
 
     def recv(self) -> bytes:
-        return self._serial.read()
+        """
+        Get a full frame from the serial connection.
+        The frame ends with a EOT.
+        This function blocks the code execution until EOT is received from the serial.
+        """
+        return self._serial.read_until(EOT)
 
 
 @contextmanager
