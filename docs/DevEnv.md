@@ -41,17 +41,38 @@ and clicking the `Serial Monitor` tab.
 Make sure to select the right port and speed (which is `115200` or `9600`) and click
 `Start Monitoring`.
 
-## Python
+## Raspberry PI 3 - Python
 
 In terms of IDE, I recommend Pycharm but VSCode does the trick.
 
-Working with python is easy but it's required to be mindful!
+Working with python is easy, but it's required to be mindful!
+
+> We use `black` for the linting.
+> If you're using Pycharm, you should configure it to run on save.
+> Otherwise, you're highly encouraged to run `python -m black .` before commiting changes!
+
+### Install Pycharm Professional Edition
+
+As said previously, VSCode is ok for python development, but Pycharm is awesome.
+
+To install Pycharm, go to their website at
+[https://www.jetbrains.com/pycharm/download/](https://www.jetbrains.com/pycharm/download/).
+You can download their toolbox, but I'd rather install Pycharm standalone since I won't use the other IDEs.
+
+Follow the steps to install it for your OS at
+[https://www.jetbrains.com/help/pycharm/installation-guide.html#standalone](https://www.jetbrains.com/help/pycharm/installation-guide.html#standalone).
+
+Now, note that as you're probably a student, you have a __free Pycharm Pro license__ !
+To activate it, create an account with your student email address and voilà !
+
+When asked to activate the license, just log to your account and you now have access to Pycharm Professional Edition.
 
 ### Create a python virtual env
 
 For that purpose, make sure that you have python installed on your computer.
 
-> On Linux, make sure that you have the python-venv package corresponding to your python version (such as `python3.10-venv`).
+> On Linux, make sure that you have the python-venv package corresponding to your python version
+> (such as `python3.10-venv`).
 
 Then, just follow this tutorial: [https://docs.python.org/3/library/venv.html](https://docs.python.org/3/library/venv.html)
 
@@ -80,3 +101,58 @@ pip freeze > requirements.txt  # add it to the list of dependencies
 ```
 
 If you're on Windows, copy-paste the output of `pip freeze` into `requirements.txt`.
+
+### Remote developing on the Raspberry PI 3
+
+While VSCode and Pycharm allows you to open a remote IDE through SSH,
+you'll soon find out that RPi 3 are pretty slow, hence remote developing becomes complicated.
+And thus, the title was clickbait and we won't be doing remote developing ^^
+
+The workaround to that issue lies in [rsync](https://linux.die.net/man/1/rsync).
+_Please make sure that it's installed for you._
+
+For those unfamiliar with rsync, rsync is a tool that allows file synchronization through SSH.
+
+Since only the python code will run on the RPi, one only need to copy its content on the remote RPi.
+
+Here's the "marche à suivre":
+
+- Log through SSH to your remote RPi.
+If you have no idea on how to do so, check [NetworkLab.md](NetworkLab.md).
+
+- Create a folder named `starflit`:
+```sh
+cd ~  # go to your home directory
+mkdir starflit
+```
+
+- Now, log out from SSH and copy the content of the python folder from your computer:
+```
+cd python/  # enter the python folder (if not already the working dir)
+rsync -Pru ./ strandbeest1:/home/<user>/starflit/
+```
+
+- Log back through SSH and go the `starflit` folder created and check that the files are present:
+```
+cd starflit/
+ls -lacv  # should display the content of your python folder
+```
+
+#### Fastening the process
+
+The above process is long and do not require to be done at every change.
+
+Most of the time, you do not need to test the code on the RPi since you can just plug
+the Arduino card on a port of your computer and run the code.
+
+Still, if you need to test your features on the RPi, keep two terminals open:
+- One on your computer in the `python` folder,
+- the other on the remote in the `starflit` folder.
+
+Once you made your changes, just run this command on your first terminal:
+
+```sh
+rsync -Pru ./ strandbeest1:/home/<user>/starflit/
+```
+
+And the code will be updated on the other side, so you just have to run it on the second terminal.
