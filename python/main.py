@@ -1,5 +1,9 @@
+from serial_interface import get_serial
+
+
 def main():
-    print("Hello world")
+    with get_serial("/dev/ttyUSB5", 115200) as ser:
+        print(ser.recv())
 
 
 if __name__ == "__main__":
