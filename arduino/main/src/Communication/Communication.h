@@ -81,13 +81,13 @@ class Communication
          * Plus, to avoid block coding for too long when nothing is received,
          * this function features a timer of 5 seconds that will end the listening
          * and return nothing.
+         * @param buf Filled with a frame of bytes received from the module.
          * @param len Max length to read.
          * But will stop if EOT if encountered before.
-         * Default is 5000 (ie, a big value).
-         * @return A frame of bytes received from the module.
-         * Returns NULL if nothing was received.
+         * Default is 1000 (ie, a big value).
+         * @return The length of the frame received. -1 if nothing received
          */
-        const byte *recv(byte len = 5000);
+        int recv(char *buf, byte len = 1000);
 
     private:
         /** Communication through RF24 radio. */

@@ -6,8 +6,7 @@ def main():
     with get_serial("/dev/ttyUSB0", 115200) as ser:
         while True:
             ser.send(b"Hello world")
-            print("sent!")
-            sleep(2)
+            sleep(1)
 
 
 if __name__ == "__main__":

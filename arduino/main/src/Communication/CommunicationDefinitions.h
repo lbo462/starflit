@@ -52,11 +52,10 @@ bool Communication<module>::send(const void *buf, byte len, bool asASCII)
 }
 
 template<CommunicationModule module>
-const byte *Communication<module>::recv(byte len)
+int Communication<module>::recv(char *buf, byte len)
 {
     unsigned long timerLength = 5000;  // milliseconds
     unsigned long timerStart = millis();
-    char buf[len];
 
     String m;
 
@@ -72,19 +71,12 @@ const byte *Communication<module>::recv(byte len)
                 size_t index = 0;
                 while (index < len) {
                     int c = serial.read();
-                    m = "Got : ";
-                    m += (char)c;
+                    m = (char)c;
                     radio.send(m.c_str(), m.length());
-
                     if (c < 0 || c == EOT) break;
-                    buf[index] = (char)c;
-                    index++;
+                    buf[index++] = (char)c;
                 }
-
-                m = "Over : ";
-                m += buf;
-                radio.send(m.c_str(), m.length());
-                return buf;
+                return index;
             }
             break;
 
@@ -96,17 +88,8 @@ const byte *Communication<module>::recv(byte len)
             }
             break;
         }
-
-        /*
-         * Return the buf without cutting the last byte
-         * because we reached the max len and no EOT was to be seen.
-         */
-        if(sizeof(buf) >= len)
-        {
-            return buf;
-        }
     }
-    return NULL;
+    return -1;
 }
 
 #endif

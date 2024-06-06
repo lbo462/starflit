@@ -19,9 +19,16 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
-    const byte *recv = serial.recv();
-    if(recv != NULL)
-        radio.sendString("I just received : " + String((char *)recv) + String(sizeof(recv)));
+    char *buf = new char[20];
+    int len = serial.recv(buf);
+    if(len > 0)
+    {
+        char *msg = new char[len];
+        strcpy(msg, buf);
+        radio.sendString(String("I just received : ") + String(msg));
+        free(msg);
+    }
+    free(buf);
     
     //const char buf[] = {0x61, 'b', 'c', 'd', 'e', EOT};
     //comm.send(buf, sizeof(buf), {CommunicationModule::serial});

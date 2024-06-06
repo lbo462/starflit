@@ -44,6 +44,7 @@ class SerialInterface:
         This function auto adds a EOT byte at the end of the sequence.
         """
         sequence = msg + EOT
+        print(sequence)
         self._serial.write(sequence)
 
 
