@@ -108,8 +108,19 @@ class Communication
         inline bool sendString(String msg, CommModules modules)
             { return send(msg.c_str(), msg.length(), modules, true); };
 
-        /** TODO */
-        const void *recv(byte len, CommunicationModule module);
+        /**
+         * Receive data from the given module.
+         * In order to stop, this functions waits to receive a EOT.
+         * Plus, to avoid block coding for too long when nothing is received,
+         * this function features a timer of 5 seconds that will end the listening
+         * and return nothing.
+         * @param len Max length to read.
+         * But will stop if EOT if encountered before.
+         * Default is 5000 (ie, a big value).
+         * @param module A single module from which one reads.
+         * @return A frame of bytes received from the module.
+         */
+        const byte *recv(CommunicationModule module, byte len = 5000);
 
     private:
         /** List of every activated communication modules for this `Communication` instance. */

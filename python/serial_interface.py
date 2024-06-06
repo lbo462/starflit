@@ -12,13 +12,7 @@ class SerialInterface:
     """
     Interfaces with the Arduino card through serial communication.
     ! Do not call directly !
-    Instead, use the `get_serial()` context manager as such:
-
-    ```python
-    with get_serial(port, baud) as ser:
-        ser.send("Hello world")
-        # do many other things with ser ...
-    ```
+    Instead, use the `get_serial()` context manager:
     """
 
     def __init__(self, port: str, baud: int):
@@ -39,15 +33,33 @@ class SerialInterface:
         Get a full frame from the serial connection.
         The frame ends with a EOT.
         This function blocks the code execution until EOT is received from the serial.
+        :return: A bytes object containing the received data, with the EOT removed.
         """
-        return self._serial.read_until(EOT)
+        return self._serial.read_until(EOT)[:-1]
+
+    def send(self, msg: bytes):
+        """
+        Send a message to the serial connection.
+        The message is sent as an array of bytes.
+        This function auto adds a EOT byte at the end of the sequence.
+        """
+        sequence = msg + EOT
+        self._serial.write(sequence)
 
 
 @contextmanager
 def get_serial(port: str, baud: int) -> ContextManager[SerialInterface]:
+    """
+    Get a temporary serial interface.
+    To use as follows:
+
+    with get_serial(...) as ser:
+        ser.send(b'Hello world')
+    """
     ser = SerialInterface(port, baud)
     ser.open()
     yield ser
     ser.close()
+
 
 ## @}

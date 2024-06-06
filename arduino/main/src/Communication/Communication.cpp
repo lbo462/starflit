@@ -85,7 +85,51 @@ bool Communication::send(const void *buf, byte len, CommModules modules, bool as
     return sent;
 }
 
-const void *Communication::recv(byte len, CommunicationModule module)
+const byte *Communication::recv(CommunicationModule module, byte len)
 {
-    /* TODO */
+    unsigned long timerLength = 5000;  // milliseconds
+    unsigned long timerStart = millis();
+    byte *buf;
+
+    while(millis() - timerLength < 5000)
+    {
+        String m1;
+        switch (module)
+        {
+        case CommunicationModule::serial:
+            serial.listen();
+
+            if(serial.available())
+            {
+                m1 = "Available !";
+                radio.send(m1.c_str(), m1.length());
+
+                serial.readBytesUntil(EOT, buf, len);
+
+                m1 = "Received ";
+                m1 += String((char *)buf);
+                radio.send(m1.c_str(), m1.length());
+                
+                return buf;
+            }
+            break;
+
+        case CommunicationModule::bluetooth:
+            if(serial.available())
+            {
+                serial.readBytesUntil(EOT, buf, len);
+                return buf;
+            }
+            break;
+        }
+
+        /*
+         * Return the buf without cutting the last byte
+         * because we reached the max len and no EOT was to be seen.
+         */
+        if(sizeof(buf) >= len)
+        {
+            return buf;
+        }
+    }
 }

@@ -24,9 +24,12 @@ void RescueBot::update()
 {
     unsigned long currentMillis = millis();
     smartMotors.update();
+
+    const byte *recv = comm.recv(CommunicationModule::serial);
+    //comm.sendString(String((char *)recv), {CommunicationModule::radio});
     
-    const char buf[] = {0x61, 'b', 'c', 'd', 'e', EOT};
-    comm.send(buf, sizeof(buf), {CommunicationModule::serial});
+    //const char buf[] = {0x61, 'b', 'c', 'd', 'e', EOT};
+    //comm.send(buf, sizeof(buf), {CommunicationModule::serial});
 
     /** 
      * Do the moves !
