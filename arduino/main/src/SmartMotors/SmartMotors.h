@@ -117,7 +117,7 @@ class SmartMotors
         float aimedAngle = -1;
 
         /** Comes with a radio module to output its things */
-        Communication comm = Communication();
+        Communication<CommunicationModule::radio> radio = Communication<CommunicationModule::radio>();
 
 };
 

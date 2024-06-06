@@ -10,14 +10,8 @@ void RescueBot::setup()
     smartMotors.setup();
     ultrasonicSensors.setup();
 
-    // Add the communication modules
-    CommModules modules = CommModules {};
-    modules.push_back(CommunicationModule::radio);
-    modules.push_back(CommunicationModule::serial);
-    modules.push_back(CommunicationModule::bluetooth);
-    comm.setModules(modules);
-
-    comm.setup();
+    serial.setup();
+    radio.setup();
 }
 
 void RescueBot::update()
@@ -25,8 +19,9 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
-    const byte *recv = comm.recv(CommunicationModule::serial);
-    //comm.sendString(String((char *)recv), {CommunicationModule::radio});
+    const byte *recv = serial.recv();
+    if(recv != NULL)
+        radio.sendString("I just received : " + String((char *)recv) + String(sizeof(recv)));
     
     //const char buf[] = {0x61, 'b', 'c', 'd', 'e', EOT};
     //comm.send(buf, sizeof(buf), {CommunicationModule::serial});

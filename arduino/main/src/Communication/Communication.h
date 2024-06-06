@@ -31,12 +31,6 @@ enum CommunicationModule {
     bluetooth = 2,
 };
 
-/** Number of element of the `CommunicationModule` enum. */
-const int COMM_MODULES_AMOUNT = 3;
-
-/** Array of `CommunicationModule` enum originated values. */
-typedef Array<CommunicationModule, COMM_MODULES_AMOUNT> CommModules;
-
 /** 
  * Communication module.
  * Contains instances of class that allows external communications.
@@ -52,61 +46,34 @@ typedef Array<CommunicationModule, COMM_MODULES_AMOUNT> CommModules;
  * 
  * - serial
  * - bluetooth
+ * 
+ *  ╱|、
+ * (˚ˎ 。7  
+ * |、˜〵 
+ * じしˍ,)ノ
  */
+template<CommunicationModule module>
 class Communication
 {
     public:
-        /**
-         * Due to Arduino array limitation (or maybe a lack of skill),
-         * we're unable to create this class with a `CommModules` as parameter.
-         * Hence, one should add the modules by hand by calling `setModules()`.
-         * 
-         * If one wants to dive with me in the details, let's talk.
-         * In fact, we do are capable of creating instance class with `CommModules` as parameters
-         * since that's what we're doing with `setModules()`.
-         * But what's we're unable to do is to create instances of this class as we wished in
-         * the `*.h` files because that would imply to create Array instance in the passed
-         * parameters for this constructor.
-         * Instead, we prefer to call a function such as `setModules()` in the `*.cpp` files,
-         * just before calling `setup()`.
-         * And just because you took time to read this, here's a cute ASCII art :
-         * 
-         *  ╱|、
-         * (˚ˎ 。7  
-         * |、˜〵          You're nice <3
-         * じしˍ,)ノ
-         */
         Communication();
         ~Communication();
 
-        /** Sets-up all the internal modules of this instance, as defined on built. */
+        /** Sets-up the internal module of this instance */
         void setup();
-
-        /**
-         * Sets the modules for this instance.
-         * Does not setup the instances.
-         * Therefore, one should call this method before calling `setup()`
-         */
-        void setModules(const CommModules modules);
-
-        /** Updates all the internal modules of this instance, as defined on built. */
-        void update();
 
         /**
          * Send a raw buffer a given module.
          * @param buf Buffer to transmit
          * @param len sizeof(buf)
-         * @param modules Modules to send the buffer with.
-         * Items must be members of the `CommunicationModule` array given to the constructor.
          * @param asASCII Send bytes as text. Default is false
          * @return True if the payload was delivered successfully false if not.
-         * If at least one module couldn't send the message, `false` is returned.
          */
-        bool send(const void *buf, byte len, CommModules modules, bool asASCII = false);
+        bool send(const void *buf, byte len, bool asASCII = false);
 
         /** Same as `send` but parse the string and send as ASCII to do the lazy job you won't do. */
-        inline bool sendString(String msg, CommModules modules)
-            { return send(msg.c_str(), msg.length(), modules, true); };
+        inline bool sendString(String msg)
+            { return send(msg.c_str(), msg.length(), true); };
 
         /**
          * Receive data from the given module.
@@ -117,15 +84,12 @@ class Communication
          * @param len Max length to read.
          * But will stop if EOT if encountered before.
          * Default is 5000 (ie, a big value).
-         * @param module A single module from which one reads.
          * @return A frame of bytes received from the module.
+         * Returns NULL if nothing was received.
          */
-        const byte *recv(CommunicationModule module, byte len = 5000);
+        const byte *recv(byte len = 5000);
 
     private:
-        /** List of every activated communication modules for this `Communication` instance. */
-        CommModules activatedModules;
-
         /** Communication through RF24 radio. */
         Radio radio = Radio();
 
@@ -136,6 +100,8 @@ class Communication
         SoftwareSerial serial = SoftwareSerial(0, 1);  // RX, TX
 
 };
+
+#include "CommunicationDefinitions.h"
 
 #endif
 
