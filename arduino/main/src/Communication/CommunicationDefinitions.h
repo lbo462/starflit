@@ -57,8 +57,6 @@ int Communication<module>::recv(char *buf, byte len)
     unsigned long timerLength = 5000;  // milliseconds
     unsigned long timerStart = millis();
 
-    String m;
-
     while(millis() - timerStart < 5000)
     {
         switch (module)
@@ -71,8 +69,6 @@ int Communication<module>::recv(char *buf, byte len)
                 size_t index = 0;
                 while (index < len) {
                     int c = serial.read();
-                    m = (char)c;
-                    radio.send(m.c_str(), m.length());
                     if (c < 0 || c == EOT) break;
                     buf[index++] = (char)c;
                 }
@@ -81,12 +77,10 @@ int Communication<module>::recv(char *buf, byte len)
             break;
 
         case CommunicationModule::bluetooth:
-            if(serial.available())
-            {
-                //serial.readBytesUntil(EOT, buf, len);
-                //return buf;
-            }
-            break;
+            return -1;
+
+        default:
+            return -1;
         }
     }
     return -1;

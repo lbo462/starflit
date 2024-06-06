@@ -26,6 +26,7 @@ void RescueBot::update()
         char *msg = new char[len];
         strcpy(msg, buf);
         radio.sendString(String("I just received : ") + String(msg));
+        free(buf);
         free(msg);
     }
     free(buf);
