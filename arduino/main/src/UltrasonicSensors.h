@@ -1,3 +1,5 @@
+/// @addtogroup Arduino
+/// @{
 #ifndef ultrasonic_h
 #define ultrasonic_h
 
@@ -47,3 +49,5 @@ class UltrasonicSensors
 };
 
 #endif
+
+/// @} 

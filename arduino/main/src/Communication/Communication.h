@@ -1,3 +1,5 @@
+/// @addtogroup Arduino
+/// @{
 #ifndef communication_h
 #define communication_h
 
@@ -94,7 +96,7 @@ class Communication
          * Send a raw buffer a given module.
          * @param buf Buffer to transmit
          * @param len sizeof(buf)
-         * @param module Modules to send the buffer with.
+         * @param modules Modules to send the buffer with.
          * Items must be members of the `CommunicationModule` array given to the constructor.
          * @param asASCII Send bytes as text. Default is false
          * @return True if the payload was delivered successfully false if not.
@@ -125,3 +127,5 @@ class Communication
 };
 
 #endif
+
+/// @}

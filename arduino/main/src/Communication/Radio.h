@@ -1,3 +1,5 @@
+/// @addtogroup Arduino
+/// @{
 #ifndef radio_h
 #define radio_h
 
@@ -35,3 +37,5 @@ class Radio
 };
 
 #endif
+
+/// @}

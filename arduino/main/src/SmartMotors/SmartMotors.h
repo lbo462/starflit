@@ -1,3 +1,5 @@
+/// @addtogroup Arduino
+/// @{
 #ifndef smart_motors_h
 #define smart_motors_h
 
@@ -120,3 +122,5 @@ class SmartMotors
 };
 
 #endif
+
+/// @}

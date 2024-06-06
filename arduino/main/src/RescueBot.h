@@ -1,3 +1,5 @@
+/// @addtogroup Arduino
+/// @{
 #ifndef rescue_bot_h
 #define rescue_bot_h
 
@@ -82,3 +84,5 @@ class RescueBot
 };
 
 #endif
+
+/// @}

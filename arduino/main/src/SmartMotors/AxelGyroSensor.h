@@ -1,3 +1,5 @@
+/// @addtogroup Arduino
+/// @{
 #ifndef axelgyro_h
 #define axelgyro_h
 
@@ -119,3 +121,5 @@ class AxelGyroSensor
 };
 
 #endif
+
+/// @}

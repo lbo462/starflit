@@ -1,3 +1,6 @@
+## @addtogroup Python Python
+## @{
+
 from typing import ContextManager
 from contextlib import contextmanager
 from serial import Serial
@@ -46,3 +49,5 @@ def get_serial(port: str, baud: int) -> ContextManager[SerialInterface]:
     ser.open()
     yield ser
     ser.close()
+
+## @}
