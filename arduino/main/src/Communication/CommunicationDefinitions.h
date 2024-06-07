@@ -72,7 +72,7 @@ int Communication<module>::recv(char *buf, int len)
                     int c = serial.read();
 
                     // Search for the STX byte to start the reading
-                    if(c == STX)
+                    if(!readingFrame && c == STX)
                     {
                         readingFrame = true;
                         continue;  // Continue to avoid adding the STX byte to the frame
@@ -80,7 +80,7 @@ int Communication<module>::recv(char *buf, int len)
 
 
                     // Avoid code being stuck here!
-                    if (c < 0 || c == ETX) break;
+                    if (c < 0 || (c == ETX && readingFrame)) break;
 
                     // Continue parsing iff we're in the frame
                     // Otherwise, continue searching for the STX byte

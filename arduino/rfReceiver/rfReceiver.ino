@@ -20,6 +20,8 @@ void loop() {
     char text[64] = "";
     radio.read(&text, sizeof(text));
 
+    Serial.print("HEX > ");
+
     /** Print the HEX version of the msg received */
     for(int i = 0; i < sizeof(text); i++)
     {

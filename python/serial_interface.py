@@ -50,6 +50,7 @@ class SerialInterface:
         This function auto adds a ETX byte at the end of the sequence
         and an STX at its beginning.
         """
+        print(msg)
         sequence = STX + msg + ETX
         self._serial.write(sequence)
 

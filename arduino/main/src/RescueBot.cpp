@@ -22,7 +22,7 @@ void RescueBot::update()
     serial.withRecv(
         RECEIVED_FRAME_LENGTH, [&](char *frame) {
             //radio.sendString(String("I just received : ") + String(frame));
-            //radio.send(frame, RECEIVED_FRAME_LENGTH);
+            radio.send(frame, RECEIVED_FRAME_LENGTH);
             RPIFrame rpiFrame = parser.parse(frame);
             radio.sendString(
                 String("Object detected : ")
