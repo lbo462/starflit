@@ -1,4 +1,4 @@
-/// @addtogroup Arduino
+/// @addtogroup ArduinoUtils
 /// @{
 #ifndef vector3d_h
 #define vector3d_h

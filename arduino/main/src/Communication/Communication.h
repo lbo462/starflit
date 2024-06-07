@@ -89,6 +89,9 @@ class Communication
          */
         int recv(char *buf, byte len = 1000);
 
+        template<class F>
+        void withRecv(F && f);
+
     private:
         /** Communication through RF24 radio. */
         Radio radio = Radio();

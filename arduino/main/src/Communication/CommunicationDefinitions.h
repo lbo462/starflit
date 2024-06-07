@@ -86,4 +86,20 @@ int Communication<module>::recv(char *buf, byte len)
     return -1;
 }
 
+template<CommunicationModule module>
+template<class F>
+void Communication<module>::withRecv(F && f)
+{
+    char *buf = new char[20];
+    int len = recv(buf);
+    if(len > 0)
+    {
+        char *msg = new char[len];
+        strcpy(msg, buf);
+        f(msg);
+        free(msg);
+    }
+    free(buf);
+}
+
 #endif
