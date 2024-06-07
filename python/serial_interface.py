@@ -5,7 +5,8 @@ from typing import ContextManager
 from contextlib import contextmanager
 from serial import Serial
 
-EOT = b"\x04"
+STX = b"\x02"
+ETX = b"\x03"
 
 
 class SerialInterface:
@@ -31,19 +32,25 @@ class SerialInterface:
     def recv(self) -> bytes:
         """
         Get a full frame from the serial connection.
-        The frame ends with a EOT.
+        The frame ends with a ETX and start with STX.
         This function blocks the code execution until EOT is received from the serial.
-        :return: A bytes object containing the received data, with the EOT removed.
+        :return: A bytes object containing the received data, with the STX and ETX removed.
         """
-        return self._serial.read_until(EOT)[:-1]
+
+        # Empty the buffer until an STX byte is received.
+        while self._serial.read() != STX:
+            ...
+
+        return self._serial.read_until(ETX)[:-1]
 
     def send(self, msg: bytes):
         """
         Send a message to the serial connection.
         The message is sent as an array of bytes.
-        This function auto adds a EOT byte at the end of the sequence.
+        This function auto adds a ETX byte at the end of the sequence
+        and an STX at its beginning.
         """
-        sequence = msg + EOT
+        sequence = STX + msg + ETX
         print(sequence)
         self._serial.write(sequence)
 

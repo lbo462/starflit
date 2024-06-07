@@ -8,7 +8,8 @@
 #include <SoftwareSerial.h>
 #include "Radio.h"
 
-#define EOT 0x04
+#define STX 0x02
+#define ETX 0x03
 
 /**
  * Defines all the communication modules available through instances of the `Communication` class.
@@ -90,8 +91,13 @@ class Communication
          * `
          * 
          * Note that the signature `[&](char *frame)` should be respected!
+         * The frame object is a list of char (aka unsigned byte) that were gotten
+         * from the module, between a STX and ETX byte.
+         * These bytes (STX and ETX) are not included in the frame.
+         * This frame can be read and parsed by the `FrameParser`.
+         * 
          * @param maxLength Maximum length to receive.
-         * Please, provide with the expected length of the message
+         * Please, provide with the expected length of the message.
          */
         template<class F>
         void withRecv(int maxLength, F && f);

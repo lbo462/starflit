@@ -16,8 +16,12 @@ void setup() {
 
 void loop() {
   if (radio.available()) {
-    char text[128] = "";
+    char text[32] = "";
     radio.read(&text, sizeof(text));
+
+    for(int i = 0; i < sizeof(text); i++)
+      Serial.print(text[i], HEX);
+    Serial.print(" => ");
     Serial.println(text);
   }
 }

@@ -62,15 +62,31 @@ int Communication<module>::recv(char *buf, int len)
         switch (module)
         {
         case CommunicationModule::serial:
-            serial.listen();
-
+            serial.listen();  // This is undocumented on the Arduino doc but is mandatory ...
             if(serial.available())
             {
+                // Says if we're currently reading a frame.
+                bool readingFrame = false;
+
                 size_t index = 0;
                 while (index < len) {
                     int c = serial.read();
-                    if (c < 0 || c == EOT) break;
-                    buf[index++] = (char)c;
+
+                    // Search for the STX byte to start the reading
+                    if(c == STX)
+                    {
+                        readingFrame = true;
+                        continue;  // Continue to avoid adding the STX byte to the frame
+                    }
+
+
+                    // Avoid code being stuck here!
+                    if (c < 0 || c == ETX) break;
+
+                    // Continue parsing iff we're in the frame
+                    // Otherwise, continue searching for the STX byte
+                    if(readingFrame)
+                        buf[index++] = (char)c;
                 }
                 return index;
             }
@@ -94,10 +110,8 @@ void Communication<module>::withRecv(int maxLength, F && f)
     int len = recv(buf, maxLength);
     if(len > 0)
     {
-        char *msg = new char[len];
-        strcpy(msg, buf);
-        f(msg);
-        free(msg);
+        radio.send(buf, len);
+        f(buf);
     }
     free(buf);
 }
