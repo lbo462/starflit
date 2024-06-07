@@ -104,6 +104,7 @@ class Communication
          * If the STX byte is not received, nothing else will be!
          * 
          * @param maxLength Maximum length to receive.
+         * @param f The function to execute, as described above.
          * Please, provide with the expected length of the message.
          */
         template<class F>
