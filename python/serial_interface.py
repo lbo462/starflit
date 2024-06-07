@@ -51,7 +51,6 @@ class SerialInterface:
         and an STX at its beginning.
         """
         sequence = STX + msg + ETX
-        print(sequence)
         self._serial.write(sequence)
 
 

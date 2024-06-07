@@ -62,8 +62,6 @@ class FrameParser
          * @return A fully usable RPIFrame object!
          */
         RPIFrame parse(char *frame);
-
-    private:
 };
 
 #endif

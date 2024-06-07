@@ -26,6 +26,10 @@ void RescueBot::update()
             RPIFrame rpiFrame = parser.parse(frame);
             radio.sendString(
                 String("Object detected : ")
+                //+ String((int)(frame[0] << 8))
+                //+ F("+")
+                //+ String((int)(static_cast<unsigned char>(frame[1])))
+                //+ F("=")
                 + String(rpiFrame.xObjectPosition)
                 + F(",")
                 + String(rpiFrame.yObjectPosition)

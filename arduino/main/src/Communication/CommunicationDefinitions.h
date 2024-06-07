@@ -12,7 +12,6 @@ Communication<module>::~Communication() {}
 template<CommunicationModule module>
 void Communication<module>::setup()
 {
-    radio.setup();
     switch (module)
         {
         case CommunicationModule::radio:
@@ -110,7 +109,8 @@ void Communication<module>::withRecv(int maxLength, F && f)
     int len = recv(buf, maxLength);
     if(len > 0)
     {
-        radio.send(buf, len);
+        // That's where the function passed in parameters is executed!
+        // `buf` contains the received frame.
         f(buf);
     }
     free(buf);

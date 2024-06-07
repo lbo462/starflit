@@ -15,13 +15,30 @@ void setup() {
 }
 
 void loop() {
-  if (radio.available()) {
-    char text[32] = "";
+  if (radio.available())
+  {
+    char text[64] = "";
     radio.read(&text, sizeof(text));
 
+    /** Print the HEX version of the msg received */
     for(int i = 0; i < sizeof(text); i++)
+    {
       Serial.print(text[i], HEX);
-    Serial.print(" => ");
-    Serial.println(text);
+      if(i < sizeof(text) - 1)
+        Serial.print(".");
+    }
+
+    Serial.println();
+
+    /** Print it as ASCII */
+    if(String(text).length() > 0)
+    {
+      Serial.print(String(text).length());
+      Serial.print(" char(s) > '");
+      Serial.print(String(text));
+      Serial.print("'");
+      Serial.println();
+    }
+
   }
 }
