@@ -52,7 +52,7 @@ bool Communication<module>::send(const void *buf, byte len, bool asASCII)
 }
 
 template<CommunicationModule module>
-int Communication<module>::recv(char *buf, byte len)
+int Communication<module>::recv(char *buf, int len)
 {
     unsigned long timerLength = 5000;  // milliseconds
     unsigned long timerStart = millis();
@@ -88,10 +88,10 @@ int Communication<module>::recv(char *buf, byte len)
 
 template<CommunicationModule module>
 template<class F>
-void Communication<module>::withRecv(F && f)
+void Communication<module>::withRecv(int maxLength, F && f)
 {
-    char *buf = new char[20];
-    int len = recv(buf);
+    char *buf = new char[maxLength];
+    int len = recv(buf, maxLength);
     if(len > 0)
     {
         char *msg = new char[len];

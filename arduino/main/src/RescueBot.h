@@ -9,6 +9,7 @@
 #include "SmartMotors/SmartMotors.h"
 #include "UltrasonicSensors.h"
 #include "Communication/Communication.h"
+#include "FrameParser.h"
 
 /** Time between two scans */
 #define SCAN_INTERVAL 5000
@@ -84,8 +85,10 @@ class RescueBot
          * the robot did scan on right or left. 
          */
         bool scannedRight = false, scannedLeft = false;
+
+        /** Parses the received frames from the Communication module */
+        FrameParser parser = FrameParser();
 };
 
 #endif
-
 /// @}

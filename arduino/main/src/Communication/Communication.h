@@ -76,21 +76,25 @@ class Communication
             { return send(msg.c_str(), msg.length(), true); };
 
         /**
-         * Receive data from the given module.
-         * In order to stop, this functions waits to receive a EOT.
-         * Plus, to avoid block coding for too long when nothing is received,
-         * this function features a timer of 5 seconds that will end the listening
-         * and return nothing.
-         * @param buf Filled with a frame of bytes received from the module.
-         * @param len Max length to read.
-         * But will stop if EOT if encountered before.
-         * Default is 1000 (ie, a big value).
-         * @return The length of the frame received. -1 if nothing received
+         * Mimics the behaviour of python's context manager.
+         * Receives a message, give to the wrapped function and free the buffers.
+         * 
+         * Here's an how to use it:
+         * 
+         * `
+         * serial.withRecv(
+         *   RECEIVED_FRAME_LENGTH, [&](char *frame) {
+         *       // do stuff with the frame object
+         *   }
+         * );
+         * `
+         * 
+         * Note that the signature `[&](char *frame)` should be respected!
+         * @param maxLength Maximum length to receive.
+         * Please, provide with the expected length of the message
          */
-        int recv(char *buf, byte len = 1000);
-
         template<class F>
-        void withRecv(F && f);
+        void withRecv(int maxLength, F && f);
 
     private:
         /** Communication through RF24 radio. */
@@ -101,6 +105,23 @@ class Communication
 
         /** Standard serial communication. Same as `Serial`, but a bit more professional. */
         SoftwareSerial serial = SoftwareSerial(0, 1);  // RX, TX
+
+        /**
+         * Receive data from the given module.
+         * 
+         * THIS IS PRIVATE!
+         * Instead, use `withRecv()`.
+         * 
+         * In order to stop, this functions waits to receive a EOT.
+         * Plus, to avoid block coding for too long when nothing is received,
+         * this function features a timer of 5 seconds that will end the listening
+         * and return nothing.
+         * @param buf Filled with a frame of bytes received from the module.
+         * @param len Max length to read.
+         * But will stop if EOT if encountered before.
+         * @return The length of the frame received. -1 if nothing received
+         */
+        int recv(char *buf, int len);
 
 };
 

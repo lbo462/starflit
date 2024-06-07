@@ -20,8 +20,17 @@ void RescueBot::update()
     smartMotors.update();
 
     serial.withRecv(
-        [&](char *msg) {
-            radio.sendString(String("I just received : ") + String(msg));
+        RECEIVED_FRAME_LENGTH, [&](char *frame) {
+            radio.sendString(String("I just received : ") + String(frame));
+            radio.send(frame, 1);radio.send(frame, 2);
+            radio.send(frame, 3);radio.send(frame, 4);
+            RPIFrame rpiFrame = parser.parse(frame);
+            radio.sendString(
+                String("Object detected : ")
+                + String(rpiFrame.xObjectPosition)
+                + F(",")
+                + String(rpiFrame.yObjectPosition)
+            );
         }
     );
     
