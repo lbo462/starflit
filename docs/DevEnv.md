@@ -102,6 +102,40 @@ pip freeze > requirements.txt  # add it to the list of dependencies
 
 If you're on Windows, copy-paste the output of `pip freeze` into `requirements.txt`.
 
+### Actually executing the code
+
+#### Environment variables
+
+Are you here because you didn't create the `.env` file ?
+
+The `.env` file contains your environment variables for the project.
+It's ignore by git since everyone can have a different environment and that some private data
+might lie is there.
+
+In order to be able to execute the code, one have to create this file in the `python/` folder.
+
+Hopefully, this doc is up-to-date and here's the list of the variables you'll have to declare in this file:
+- `SERIAL_PORT` : The full path to the port to which the Arduino is connected ;
+- `SERIAL_BAUD` : The speed of the serial transmission.
+
+Here's an example of this file for my Linux setup:
+
+`.env`
+```
+SERIAL_PORT=/dev/ttyUSB0
+SERIAL_BAUD=115200
+```
+
+#### Run the code
+
+If came down to here, you should be ready to execute the code.
+
+Be sure to have read all the prerequisites above beforehand!
+
+In your python venv, run the command : `python main.py`.
+
+Voilà!
+
 ### Remote developing on the Raspberry PI 3
 
 While VSCode and Pycharm allows you to open a remote IDE through SSH,
