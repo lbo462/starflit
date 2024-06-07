@@ -5,6 +5,8 @@ from typing import ContextManager
 from contextlib import contextmanager
 from serial import Serial
 
+from frame import OutGoingFrame
+
 STX = b"\x02"
 ETX = b"\x03"
 
@@ -29,30 +31,29 @@ class SerialInterface:
         """Closes the communication"""
         self._serial.close()
 
-    def recv(self) -> bytes:
+    def send_frame(self, frame: OutGoingFrame):
         """
-        Get a full frame from the serial connection.
-        The frame ends with a ETX and start with STX.
-        This function blocks the code execution until EOT is received from the serial.
-        :return: A bytes object containing the received data, with the STX and ETX removed.
+        Sends a frame to the serial port.
+        The frame is transformed into a byte array and sent to the serial port
+        via the `_send()` method.
         """
+        return self._send(
+            b"".join(
+                [
+                    frame.x_object_position.to_bytes(2, "big", signed=True),
+                    frame.y_object_position.to_bytes(2, "big", signed=True),
+                ]
+            )
+        )
 
-        # Empty the buffer until an STX byte is received.
-        while self._serial.read() != STX:
-            ...
-
-        return self._serial.read_until(ETX)[:-1]
-
-    def send(self, msg: bytes):
+    def _send(self, msg: bytes):
         """
         Send a message to the serial connection.
         The message is sent as an array of bytes.
         This function auto adds a ETX byte at the end of the sequence
         and an STX at its beginning.
         """
-        print(msg)
-        sequence = STX + msg + ETX
-        self._serial.write(sequence)
+        self._serial.write(STX + msg + ETX)
 
 
 @contextmanager

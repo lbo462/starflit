@@ -1,20 +1,30 @@
+import os
+from dotenv import load_dotenv
+
+from frame import OutGoingFrame
 from serial_interface import get_serial
-from time import sleep
+
+# Remember to read the doc!
+try:
+    with open(".env", "r") as _:
+        ...
+except FileNotFoundError:
+    print(
+        "Please, create a .env file in the same folder as this file. Check the docs / DevEnv.md"
+    )
+    exit(1)
+
+load_dotenv()
 
 
 def main():
-    with get_serial("/dev/ttyUSB0", 115200) as ser:
-        while True:
+    outgoing_frame = OutGoingFrame(
+        x_object_position=512,
+        y_object_position=-128,
+    )
 
-            x = 512
-            y = 511
-            print(f"{x}, {y}")
-            m = [
-                x.to_bytes(2, "big", signed=True),
-                y.to_bytes(2, "big", signed=True),
-            ]
-            ser.send(b"".join(m))
-            sleep(0.1)
+    with get_serial(os.getenv("SERIAL_PORT"), os.getenv("SERIAL_BAUD")) as ser:
+        ser.send_frame(outgoing_frame)
 
 
 if __name__ == "__main__":
