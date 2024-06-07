@@ -19,26 +19,18 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
+    // Careful because this will block the code for 5s if no frame is received!
     serial.withRecv(
         RECEIVED_FRAME_LENGTH, [&](char *frame) {
-            //radio.sendString(String("I just received : ") + String(frame));
-            radio.send(frame, RECEIVED_FRAME_LENGTH);
             RPIFrame rpiFrame = parser.parse(frame);
             radio.sendString(
                 String("Object detected : ")
-                //+ String((int)(frame[0] << 8))
-                //+ F("+")
-                //+ String((int)(static_cast<unsigned char>(frame[1])))
-                //+ F("=")
                 + String(rpiFrame.xObjectPosition)
                 + F(",")
                 + String(rpiFrame.yObjectPosition)
             );
         }
     );
-    
-    //const char buf[] = {0x61, 'b', 'c', 'd', 'e', EOT};
-    //comm.send(buf, sizeof(buf), {CommunicationModule::serial});
 
     /** 
      * Do the moves !

@@ -96,6 +96,13 @@ class Communication
          * These bytes (STX and ETX) are not included in the frame.
          * This frame can be read and parsed by the `FrameParser`.
          * 
+         * Plus, the wrapped function won't be called if no frame was received.
+         * But it will still block the code executive during the timer of the `recv()` function.
+         * 
+         * WARNING !
+         * This function is only able to receive a frame squished between an STX and an ETX.
+         * If the STX byte is not received, nothing else will be!
+         * 
          * @param maxLength Maximum length to receive.
          * Please, provide with the expected length of the message.
          */
