@@ -1,3 +1,6 @@
+## @addtogroup Python Python
+## @{
+
 from dataclasses import dataclass
 
 
@@ -16,3 +19,6 @@ class OutGoingFrame:
     """
     Specifies the position of the recognized object on the y-axis.
     """
+
+## @}
+

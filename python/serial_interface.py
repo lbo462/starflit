@@ -62,8 +62,10 @@ def get_serial(port: str, baud: int) -> ContextManager[SerialInterface]:
     Get a temporary serial interface.
     To use as follows:
 
+    ```python
     with get_serial(...) as ser:
         ser.send(b'Hello world')
+    ```
     """
     ser = SerialInterface(port, baud)
     ser.open()
