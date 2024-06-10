@@ -47,7 +47,6 @@ class AxelGyroSensor
         /**
          * Set-up the pins mode.
          * To be called on global setup.
-         * Note that pins can be modified before setup if needed
          * @return true if was able to calibrate, false otherwise
          */ 
         bool setup();

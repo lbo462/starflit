@@ -54,8 +54,8 @@ class FrameParser
 
         /**
          * Parse a frame and return an instance of RPIFame.
-         * Here, we're not demanding a length since the frame should have the expected length,
-         * defined by 
+         * Here, we're not demanding a length since the frame should have the expected length
+         * defined by `RECEIVED_FRAME_LENGTH`.
          * @param frame An "parsable" array of raw bytes.
          * "parsable" means that it should be filled with the correct data
          * to build a RPIFrame object.
