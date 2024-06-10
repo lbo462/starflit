@@ -9,6 +9,8 @@ void RescueBot::setup()
 {
     smartMotors.setup();
     ultrasonicSensors.setup();
+
+    serial.setup();
     radio.setup();
 }
 
@@ -17,7 +19,20 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
-    /*
+    // Careful because this will block the code for 5s if no frame is received!
+    serial.withRecv(
+        RECEIVED_FRAME_LENGTH, [&](char *frame) {
+            RPIFrame rpiFrame = parser.parse(frame);
+            radio.sendString(
+                String("Object detected : ")
+                + String(rpiFrame.xObjectPosition)
+                + F(",")
+                + String(rpiFrame.yObjectPosition)
+            );
+        }
+    );
+
+    /** 
      * Do the moves !
      * 
      *   _O/
@@ -30,12 +45,12 @@ void RescueBot::update()
     // Check if it's time to scan or if we're actually scanning
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
-        scan();
+        // scan();
     }
 
     else
     {
-        explore();
+        // explore();
     }
 }
 

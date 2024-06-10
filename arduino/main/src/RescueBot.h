@@ -1,3 +1,5 @@
+/// @addtogroup Arduino
+/// @{
 #ifndef rescue_bot_h
 #define rescue_bot_h
 
@@ -6,7 +8,8 @@
 
 #include "SmartMotors/SmartMotors.h"
 #include "UltrasonicSensors.h"
-#include "Radio.h"
+#include "Communication/Communication.h"
+#include "FrameParser.h"
 
 /** Time between two scans */
 #define SCAN_INTERVAL 5000
@@ -28,8 +31,11 @@ class RescueBot
         /** Ultrasonic sensors used to detect incoming collisions */
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
-        /** Plugged some RF24 antennas and use the radio class instance to send messages to space! */
-        Radio radio = Radio();
+        /** Serial communication */
+        Communication<CommunicationModule::serial> serial = Communication<CommunicationModule::serial>();
+
+        /** Radio communication */
+        Communication<CommunicationModule::radio> radio = Communication<CommunicationModule::radio>();
 
         /**
          * Set-up the pins mode.
@@ -79,6 +85,10 @@ class RescueBot
          * the robot did scan on right or left. 
          */
         bool scannedRight = false, scannedLeft = false;
+
+        /** Parses the received frames from the Communication module */
+        FrameParser parser = FrameParser();
 };
 
 #endif
+/// @}

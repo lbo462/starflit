@@ -20,9 +20,3 @@ bool Radio::send(const void *buf, byte len)
     // Send the message
     return radio.write(buf, len);
 }
-
-bool Radio::sendString(String msg)
-{
-    const char *buf = msg.c_str();
-    return send(buf, msg.length());
-}

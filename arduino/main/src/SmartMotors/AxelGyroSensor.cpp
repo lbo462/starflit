@@ -4,13 +4,9 @@
 AxelGyroSensor::AxelGyroSensor() {}
 AxelGyroSensor::~AxelGyroSensor() {}
 
-void AxelGyroSensor::setup()
+bool AxelGyroSensor::setup()
 {
-    if(!mpu.begin())
-    {
-        Serial.println("Impossible to load axelgyro, check wires.");
-        exit(1);
-    }
+    mpu.begin();
 
     mpu_temp = mpu.getTemperatureSensor();
     mpu_temp->printSensorDetails();
@@ -21,12 +17,7 @@ void AxelGyroSensor::setup()
     mpu_gyro = mpu.getGyroSensor();
     mpu_gyro->printSensorDetails();
 
-    Serial.println("Calibrating sensors ... do not move!");
-    if(calibrate() != 0)
-    {
-        Serial.println("Impossible to calibrate sensors but continuing anyway ...");
-    }
-    Serial.println("Calibrated sensors!");
+    return calibrate();
 }
 
 bool AxelGyroSensor::calibrate(
@@ -54,8 +45,6 @@ bool AxelGyroSensor::calibrate(
          * If this verification fails, we update the offset with the mean
          * If the verification passes, consider the sensor ready and calibrated!
          */
-
-        Serial.println(axelValue.toString());
 
         if(abs(axelValue.x) > abs(allowedAccelError.x))
             axelOffset.x = meanAxel.x;

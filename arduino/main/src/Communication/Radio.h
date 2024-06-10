@@ -1,3 +1,5 @@
+/// @addtogroup Arduino
+/// @{
 #ifndef radio_h
 #define radio_h
 
@@ -26,13 +28,6 @@ class Radio
          */
         bool send(const void *buf, byte len);
 
-        /**
-         * Send a string message by writing it on the radio pipe
-         * @param msg A string (from Arduino) to send
-         * @return True if the payload was delivered successfully false if not
-         */
-        bool sendString(String msg);
-
     private:
         /** Radio object from the RF24 module to handle communication with the antennas */
         RF24 radio = RF24(A1, A0);
@@ -42,3 +37,5 @@ class Radio
 };
 
 #endif
+
+/// @}

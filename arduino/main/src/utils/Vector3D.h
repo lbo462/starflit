@@ -1,3 +1,5 @@
+/// @addtogroup ArduinoUtils
+/// @{
 #ifndef vector3d_h
 #define vector3d_h
 
@@ -30,3 +32,5 @@ class Vector3D
 };
 
 #endif
+
+/// @} 
