@@ -82,13 +82,13 @@ class Communication
          * 
          * Here's an how to use it:
          * 
-         * `
+         * ```
          * serial.withRecv(
          *   RECEIVED_FRAME_LENGTH, [&](char *frame) {
          *       // do stuff with the frame object
          *   }
          * );
-         * `
+         * ```
          * 
          * Note that the signature `[&](char *frame)` should be respected!
          * The frame object is a list of char (aka unsigned byte) that were gotten
