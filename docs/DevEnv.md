@@ -109,10 +109,10 @@ If you're on Windows, copy-paste the output of `pip freeze` into `requirements.t
 Are you here because you didn't create the `.env` file ?
 
 The `.env` file contains your environment variables for the project.
-It's ignore by git since everyone can have a different environment and that some private data
-might lie is there.
+It's ignored by git since everyone can have a different environment and that some private data
+might lie in there.
 
-In order to be able to execute the code, one have to create this file in the `python/` folder.
+In order to be able to execute the code, one has to create this file in the `python/` folder.
 
 Hopefully, this doc is up-to-date and here's the list of the variables you'll have to declare in this file:
 - `SERIAL_PORT` : The full path to the port to which the Arduino is connected ;
@@ -128,7 +128,7 @@ SERIAL_BAUD=115200
 
 #### Run the code
 
-If came down to here, you should be ready to execute the code.
+If you came down to here, you should be ready to execute the code.
 
 Be sure to have read all the prerequisites above beforehand!
 
@@ -138,9 +138,9 @@ Voilà!
 
 ### Remote developing on the Raspberry PI 3
 
-While VSCode and Pycharm allows you to open a remote IDE through SSH,
+While VSCode and Pycharm allow you to open a remote IDE through SSH,
 you'll soon find out that RPi 3 are pretty slow, hence remote developing becomes complicated.
-And thus, the title was clickbait and we won't be doing remote developing ^^
+And thus, the title was clickbait, and we won't be doing remote developing ^^
 
 The workaround to that issue lies in [rsync](https://linux.die.net/man/1/rsync).
 _Please make sure that it's installed for you._
@@ -174,7 +174,7 @@ ls -lacv  # should display the content of your python folder
 
 #### Fastening the process
 
-The above process is long and do not require to be done at every change.
+The above process is long and does not require to be done at every change.
 
 Most of the time, you do not need to test the code on the RPi since you can just plug
 the Arduino card on a port of your computer and run the code.
