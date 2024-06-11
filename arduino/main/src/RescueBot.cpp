@@ -232,5 +232,5 @@ void RescueBot::explore()
 
 void RescueBot::leds()
 {
-    
+    Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, ledPin, NEO_GRB + NEO_KHZ800);
 }
