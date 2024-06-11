@@ -5,6 +5,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include <Adafruit_NeoPixel.h>
 
 #include "SmartMotors/SmartMotors.h"
 #include "UltrasonicSensors.h"
@@ -71,6 +72,11 @@ class RescueBot
          */
         void explore();
 
+        /**
+         * Controls the leds on top of the robot.
+         */
+        void leds();
+
     private:
         /** Tells if the RPI was initialized. */
         bool RPIInitialized = false;
@@ -98,6 +104,11 @@ class RescueBot
 
         /** Configures the camera positions */
         CameraPosition camPosition = CameraPosition();
+        
+        /** Params to control the LEDs */
+        const int ledPin 2
+        const int numLeds 33
+        const int brightness 50
 };
 
 #endif
