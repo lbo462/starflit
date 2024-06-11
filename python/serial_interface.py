@@ -24,7 +24,7 @@ class SerialInterface:
         self._serial.baudrate = baud
 
     def open(self):
-        """Open the communication"""
+        """Opens the communication"""
         self._serial.open()
 
     def close(self):

@@ -1,12 +1,13 @@
 import os
 from dotenv import load_dotenv
 import argparse
+from time import sleep
 
 from picamera2 import Picamera2, Preview
 
 from frame import OutGoingFrame
 from serial_interface import get_serial
-from image_recognition import run_inference, lowresSize
+from object_detector import ObjectDetector
 
 
 
@@ -22,8 +23,11 @@ except FileNotFoundError:
 
 load_dotenv()
 
+normalSize = (640, 480)
+lowresSize = (320, 240)
 
 def main():
+
     # Parses the arguments given in the command line
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', help='Path of the detection model.', required=True)
@@ -47,15 +51,23 @@ def main():
     while True:
         buf = picam2.capture_buffer('lores')
         greyscale_img = buf[:stride * lowresSize[1]].reshape((lowresSize[1], stride))
-        coord = run_inference(args.model, args.label ,args.threads, greyscale_img)
+        
+        object_detector = ObjectDetector("stop sign", normalSize, lowresSize)
 
-        outgoing_frame = OutGoingFrame(
-            x_object_position=coord[0],
-            y_object_position=coord[1],
-        )
+        coord = object_detector.run_inference(args.model, args.label ,args.threads, greyscale_img)
+
+        if coord:
+            outgoing_frame = OutGoingFrame(
+                x_object_position=coord[0],
+                y_object_position=coord[1],
+            )
+        else:
+            outgoing_frame = False           
 
         with get_serial(os.getenv("SERIAL_PORT"), os.getenv("SERIAL_BAUD")) as ser:
-            ser.send_frame(outgoing_frame)
+            if outgoing_frame:
+                ser.send_frame(outgoing_frame)
+                print(outgoing_frame.x_object_position, outgoing_frame.y_object_position)
 
 
 if __name__ == "__main__":
