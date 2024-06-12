@@ -106,9 +106,8 @@ class RescueBot
         CameraPosition camPosition = CameraPosition();
         
         /** Params to control the LEDs */
-        const int ledPin 2
-        const int numLeds 33
-        const int brightness 50
+        const int ledPin=2, numLeds=33, brightness=50;
+        
 };
 
 #endif
