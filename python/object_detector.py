@@ -83,7 +83,7 @@ class ObjectDetector:
             score = detected_score[0][i]
             class_id = int(detected_classes[0][i])
             if self.object == labels[class_id]:
-                if score > 0.8:
+                if score > 0.1:
                     top, left, bottom, right = detected_boxes[0][i]
                     xmin = left * initial_w
                     ymin = bottom * initial_h

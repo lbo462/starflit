@@ -48,24 +48,23 @@ def main():
     picam2.start()
 
     # Converts buffer data to grey scale and runs inference
-    while True:
-        buf = picam2.capture_buffer('lores')
-        greyscale_img = buf[:stride * lowresSize[1]].reshape((lowresSize[1], stride))
-        
-        object_detector = ObjectDetector("stop sign", normalSize, lowresSize)
+    with get_serial(os.getenv("SERIAL_PORT"), os.getenv("SERIAL_BAUD")) as ser:
+        while True:
+            buf = picam2.capture_buffer('lores')
+            greyscale_img = buf[:stride * lowresSize[1]].reshape((lowresSize[1], stride))
+            
+            object_detector = ObjectDetector("laptop", normalSize, lowresSize)
 
-        coord = object_detector.run_inference(args.model, args.label ,args.threads, greyscale_img)
+            coord = object_detector.run_inference(args.model, args.label ,args.threads, greyscale_img)
 
-        if coord:
-            outgoing_frame = OutGoingFrame(
-                x_object_position=coord[0],
-                y_object_position=coord[1],
-            )
-        else:
-            outgoing_frame = False           
+            outgoing_frame = None
+            if coord:
+                outgoing_frame = OutGoingFrame(
+                    x_object_position=coord[0],
+                    y_object_position=coord[1],
+                )          
 
-        with get_serial(os.getenv("SERIAL_PORT"), os.getenv("SERIAL_BAUD")) as ser:
-            if outgoing_frame:
+            if outgoing_frame is not None:
                 ser.send_frame(outgoing_frame)
                 print(outgoing_frame.x_object_position, outgoing_frame.y_object_position)
 

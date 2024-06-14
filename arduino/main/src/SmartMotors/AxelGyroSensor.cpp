@@ -17,7 +17,14 @@ bool AxelGyroSensor::setup()
     mpu_gyro = mpu.getGyroSensor();
     mpu_gyro->printSensorDetails();
 
-    return calibrate();
+    if(calibrate() != 0)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 bool AxelGyroSensor::calibrate(
