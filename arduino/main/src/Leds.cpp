@@ -61,3 +61,14 @@ void Leds::backwardBlink(char* color, int interval)
     ledStrip.show();
     delay(interval);
 }
+
+void Leds::initializing()
+{
+    uint32_t colorValue = getColor("magenta");
+    for (int i = 0; i < ledStrip.numPixels(); i++)
+    {
+        ledStrip.fill(colorValue, 0, i);
+        ledStrip.show();
+        delay(200);
+    }
+}

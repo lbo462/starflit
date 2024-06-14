@@ -7,10 +7,12 @@ RescueBot::~RescueBot() {}
 
 void RescueBot::setup()
 {
+    ledStrip.setup();
     smartMotors.setup();
     ultrasonicSensors.setup();
     camPosition.setup();
     ledStrip.setup();
+
 
     serial.setup();
     radio.setup();
@@ -18,8 +20,8 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
-    // Makes the LED strip blink red every 300ms.
-    ledStrip.forwardBlink("red", 300);
+    ledStrip.initializing();
+
     unsigned long currentMillis = millis();
     smartMotors.update();
 
@@ -93,8 +95,7 @@ void RescueBot::update()
     {
         scan();
     }
-
-    else
+    else 
     {
         explore();
     }
@@ -199,6 +200,7 @@ void RescueBot::collisionAvoidance()
 
 void RescueBot::explore()
 {
+    ledStrip.blink("blue", 500);
 
     if(!smartMotors.toldToForward)
     {
@@ -233,4 +235,3 @@ void RescueBot::explore()
             smartMotors.goBackward(100);  // Will enter collision avoidance at next iteration
     }
 }
-

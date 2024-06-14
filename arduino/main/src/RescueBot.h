@@ -95,7 +95,7 @@ class RescueBot
         unsigned long previousScan = 0;
 
         /**
-         * Get rewritten during the scan and tells if
+         * Gets rewritten during the scan and tells if
          * the robot did scan on right or left. 
          */
         bool scannedRight = false, scannedLeft = false;
@@ -108,6 +108,9 @@ class RescueBot
         
         /** Params to control the LEDs */
         const int ledPin=2, numLeds=33, brightness=50;
+        
+        /** Is an object detected or not \'O'/ */
+        bool objectDetected = false;
         
 };
 

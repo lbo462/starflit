@@ -40,6 +40,13 @@ class Leds
         void backwardBlink(char* color, int interval);
 
         /**
+         * TODO
+         */
+        void batteryVoltage();
+
+        void initializing();
+
+        /**
          * Given the color name, returns it's `uint32_t` representation.
          * Call this method to access the read only color definitions.
          */
@@ -69,10 +76,11 @@ class Leds
         /**
          * Key value pair of all the colors associated with their `uint32_t` representation.
          */
-        Colors colors[3] = {
+        Colors colors[4] = {
             {"red", ledStrip.Color(255, 0, 0)},
             {"green", ledStrip.Color(0, 255, 0)},
-            {"blue", ledStrip.Color(0, 0, 255)}
+            {"blue", ledStrip.Color(0, 0, 255)},
+            {"magenta", ledStrip.Color(255, 0, 255)},
         };
 
 };
