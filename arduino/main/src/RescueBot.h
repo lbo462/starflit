@@ -5,13 +5,16 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <Adafruit_NeoPixel.h>
 
 #include "SmartMotors/SmartMotors.h"
 #include "UltrasonicSensors.h"
 #include "Communication/Communication.h"
 #include "FrameParser.h"
+<<<<<<< HEAD
 #include "CameraPosition.h"
+=======
+#include "Leds.h"
+>>>>>>> e0bbb29 (led class)
 
 /** Time between two scans */
 #define SCAN_INTERVAL 5000
@@ -32,6 +35,8 @@ class RescueBot
 
         /** Ultrasonic sensors used to detect incoming collisions */
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
+
+        Leds ledStrip = Leds();
 
         /** Serial communication */
         Communication<CommunicationModule::serialModule> serial = Communication<CommunicationModule::serialModule>();
@@ -71,11 +76,6 @@ class RescueBot
          * Aware of collisions and won't break walls !
          */
         void explore();
-
-        /**
-         * Controls the leds on top of the robot.
-         */
-        void leds();
 
     private:
         /** Tells if the RPI was initialized. */

@@ -10,6 +10,7 @@ void RescueBot::setup()
     smartMotors.setup();
     ultrasonicSensors.setup();
     camPosition.setup();
+    ledStrip.setup();
 
     serial.setup();
     radio.setup();
@@ -19,7 +20,6 @@ void RescueBot::update()
 {
     unsigned long currentMillis = millis();
     smartMotors.update();
-    leds();
 
     if(!RPIInitialized)
     {
@@ -197,6 +197,8 @@ void RescueBot::collisionAvoidance()
 
 void RescueBot::explore()
 {
+    
+
     if(!smartMotors.toldToForward)
     {
         collisionAvoidance();
@@ -231,21 +233,3 @@ void RescueBot::explore()
     }
 }
 
-void RescueBot::leds()
-{
-    Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, ledPin, NEO_GRB + NEO_KHZ800);// probably needs to move to setup
-    strip.begin(); // this too
-
-    while (1)
-    {
-        strip.setBrightness(brightness);
-        strip.show();
-        uint32_t red = strip.Color(0, 255 ,0);
-        strip.fill(red);
-        strip.show();
-        delay(200);
-        strip.setBrightness(0);
-        strip.show();
-        delay(200);
-    }
-}
