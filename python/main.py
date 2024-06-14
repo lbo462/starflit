@@ -53,7 +53,7 @@ def main():
             buf = picam2.capture_buffer('lores')
             greyscale_img = buf[:stride * lowresSize[1]].reshape((lowresSize[1], stride))
             
-            object_detector = ObjectDetector("laptop", normalSize, lowresSize)
+            object_detector = ObjectDetector("stop sign", normalSize, lowresSize)
 
             coord = object_detector.run_inference(args.model, args.label ,args.threads, greyscale_img)
 
