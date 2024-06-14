@@ -36,6 +36,7 @@ class RescueBot
         /** Ultrasonic sensors used to detect incoming collisions */
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
+        /** LED strip on top of the robot used to provide feedback on the state of the robot. */
         Leds ledStrip = Leds();
 
         /** Serial communication */

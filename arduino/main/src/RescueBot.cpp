@@ -18,6 +18,8 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
+    // Makes the LED strip blink red every 300ms.
+    ledStrip.forwardBlink("red", 300);
     unsigned long currentMillis = millis();
     smartMotors.update();
 
@@ -197,7 +199,6 @@ void RescueBot::collisionAvoidance()
 
 void RescueBot::explore()
 {
-    ledStrip.still(100);
 
     if(!smartMotors.toldToForward)
     {
