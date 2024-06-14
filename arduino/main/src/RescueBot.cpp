@@ -197,7 +197,7 @@ void RescueBot::collisionAvoidance()
 
 void RescueBot::explore()
 {
-    
+    ledStrip.still(100);
 
     if(!smartMotors.toldToForward)
     {
