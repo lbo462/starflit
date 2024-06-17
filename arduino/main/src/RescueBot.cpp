@@ -13,14 +13,12 @@ void RescueBot::setup()
     camPosition.setup();
     ledStrip.setup();
 
-
     serial.setup();
     radio.setup();
 }
 
 void RescueBot::update()
 {
-    ledStrip.initializing();
 
     unsigned long currentMillis = millis();
     smartMotors.update();
@@ -103,6 +101,7 @@ void RescueBot::update()
 
 void RescueBot::scan()
 {
+    ledStrip.blink("red", 200);
     // Set appropriate state
     if(!scanning)
         scanning = true;
@@ -178,6 +177,7 @@ void RescueBot::collisionAvoidance()
         // ... but verify that we won't collide rear objects.
         if(!ultrasonicSensors.collisionDetection(false, true))
             smartMotors.goBackward(200);
+
         // If something's behind, just stop.
         else
             smartMotors.stop();
@@ -200,6 +200,7 @@ void RescueBot::collisionAvoidance()
 
 void RescueBot::explore()
 {
+    ledStrip.initializing();
     ledStrip.blink("blue", 500);
 
     if(!smartMotors.toldToForward)
