@@ -152,7 +152,7 @@ Since only the python code will run on the RPi, one only need to copy its conten
 Here's the "marche à suivre":
 
 - Log through SSH to your remote RPi.
-If you have no idea on how to do so, check [NetworkLab.md](NetworkLab.md).
+If you have no idea on how to do so, check [NetworkLab.md](NetworkLab.md) and [InitializeRPis.md](InitializeRPis.md).
 
 - Create a folder named `starflit`:
 ```sh

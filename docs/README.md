@@ -28,6 +28,8 @@ Here's the list of all the document files and folder that you'll find here:
 - [GitAndGithub.md](GitAndGithub.md) describes how we work with Git and GitHub.
 - [DevEnv.md](DevEnv.md) describes what development environment we use and work on.
 - [Doxygen.md](Doxygen.md) describes how to auto-generate the `html` doc.
+- [RunningNNOnRPIs.md](RunningNNOnRPIs.md) describes how to run a neural network on a RPI, for our particular case.
+- [TransferLearning.md](TransferLearning.md) describes how to fine tune a pre-trained model.
 
 ### /resources
 
