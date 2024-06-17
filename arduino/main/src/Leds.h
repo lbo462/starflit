@@ -22,7 +22,7 @@ class Leds
         /**
          * Makes the LED strip on top of the robot blink a certain color at a certain speed.
          */
-        void blink(char* color, int interval);
+        void blink(char* color, int interval, unsigned long time);
 
         /**
          * Makes the LED strip on top of the robot light up a certain color.
@@ -32,19 +32,22 @@ class Leds
         /**
          * Blinks only the forward half of the strip
          */
-        void forwardBlink(char* color, int interval);
+        void forwardBlink(char* color, int interval, unsigned long time);
 
         /**
          * Blinks only the backward half of the strip
          */
-        void backwardBlink(char* color, int interval);
+        void backwardBlink(char* color, int interval, unsigned long time);
 
         /**
          * TODO
          */
         void batteryVoltage();
-
-        void initializing();
+        
+        /**
+         * Initializing sequence that plays while the robot is waiting for the RPi to initialize.
+         */
+        void initializing(int interval, unsigned long time);
 
         /**
          * Given the color name, returns it's `uint32_t` representation.
@@ -65,6 +68,9 @@ class Leds
          * Params to control the LEDs.
          */
         const int ledPin=2, numLeds=33, brightness=50;
+
+        int ledIsOn = 0;
+        unsigned long previousLedMillis = 0;
 
         Adafruit_NeoPixel ledStrip = Adafruit_NeoPixel(numLeds, ledPin, NEO_GRB + NEO_KHZ800);
 

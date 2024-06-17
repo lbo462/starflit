@@ -101,7 +101,6 @@ void RescueBot::update()
 
 void RescueBot::scan()
 {
-    ledStrip.blink("red", 200);
     // Set appropriate state
     if(!scanning)
         scanning = true;
@@ -200,9 +199,6 @@ void RescueBot::collisionAvoidance()
 
 void RescueBot::explore()
 {
-    ledStrip.initializing();
-    ledStrip.blink("blue", 500);
-
     if(!smartMotors.toldToForward)
     {
         collisionAvoidance();
