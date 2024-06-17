@@ -20,5 +20,5 @@ class OutGoingFrame:
     Specifies the position of the recognized object on the y-axis.
     """
 
-## @}
 
+## @}
