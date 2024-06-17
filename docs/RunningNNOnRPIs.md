@@ -134,7 +134,7 @@ You can do it by following these steps:
 
 <!--TODO-->
 
-For the folowing specific models, follow the links : 
+For the folowing specific models, follow these links : 
 
 - yolov8 : https://docs.ultralytics.com/integrations/tflite/#installation 
 
@@ -268,6 +268,3 @@ It allows us to quickly benchmark the inference time of a model on a raspberry p
 ## BONUS
 
 <!--TODO-->
-
-
-
