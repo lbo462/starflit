@@ -91,7 +91,7 @@ int Communication<module>::recv(char *buf, int len)
             }
             break;
 
-        case CommunicationModule::bluetooth:
+        case CommunicationModule::radio:
             return -1;
 
         default:

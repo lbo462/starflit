@@ -126,13 +126,13 @@ class Communication
          * THIS IS PRIVATE!
          * Instead, use `withRecv()`.
          * 
-         * In order to stop, this functions waits to receive a EOT.
+         * In order to stop, this functions waits to receive a ETX.
          * Plus, to avoid block coding for too long when nothing is received,
          * this function features a timer of 5 seconds that will end the listening
          * and return nothing.
          * @param buf Filled with a frame of bytes received from the module.
          * @param len Max length to read.
-         * But will stop if EOT if encountered before.
+         * But will stop if ETX if encountered before.
          * @return The length of the frame received. -1 if nothing received
          */
         int recv(char *buf, int len);

@@ -28,6 +28,19 @@ class Radio
          */
         bool send(const void *buf, byte len);
 
+        /**
+         * Receive data from the radio.
+         * In order to stop, this functions waits to receive a ETX.
+         * Plus, to avoid block coding for too long when nothing is received,
+         * this function features a timer of 5 seconds that will end the listening
+         * and return nothing.
+         * @param buf Filled with a frame of bytes received from the module.
+         * @param len Max length to read.
+         * But will stop if ETX if encountered before.
+         * @return The length of the frame received. -1 if nothing received
+         */
+        int recv(char *buf, int len);
+
     private:
         /** Radio object from the RF24 module to handle communication with the antennas */
         RF24 radio = RF24(A1, A0);
