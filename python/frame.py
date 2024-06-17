@@ -10,14 +10,26 @@ class OutGoingFrame:
     Specifies the content of an outgoing frame.
     """
 
-    x_object_position: int
+    initialized: bool
     """
-    Specifies the position of the recognized object on the x-axis.
+    Tells is the RPI is actually initialized or not.
     """
 
-    y_object_position: int
+    object_detected: bool
+    """
+    Tells if the RPI detected an object or not.
+    """
+
+    x_object_position: int = 0
+    """
+    Specifies the position of the recognized object on the x-axis.
+    Default is 0 when no object is detected.
+    """
+
+    y_object_position: int = 0
     """
     Specifies the position of the recognized object on the y-axis.
+    Default is 0 when no object is detected.
     """
 
 

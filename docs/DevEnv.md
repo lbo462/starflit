@@ -178,14 +178,7 @@ cd starflit/
 ls -lacv  # should display the content of your python folder
 ```
 
-#### Fastening the process
-
-The above process is long and does not require to be done at every change.
-
-Most of the time, you do not need to test the code on the RPi since you can just plug
-the Arduino card on a port of your computer and run the code.
-
-Still, if you need to test your features on the RPi, keep two terminals open:
+Once everything has been set up once, you can keep two terminals open:
 - One on your computer in the `python` folder,
 - the other on the remote in the `starflit` folder.
 

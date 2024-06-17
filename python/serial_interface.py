@@ -36,10 +36,15 @@ class SerialInterface:
         Sends a frame to the serial port.
         The frame is transformed into a byte array and sent to the serial port
         via the `_send()` method.
+
+        One converts bytes using `bytes((variable,))` since `bytes(variables)` does not output what we need.
+        One converts signed int into two bytes, using big endian.
         """
         return self._send(
             b"".join(
                 [
+                    bytes((frame.initialized,)),
+                    bytes((frame.object_detected,)),
                     frame.x_object_position.to_bytes(2, "big", signed=True),
                     frame.y_object_position.to_bytes(2, "big", signed=True),
                 ]

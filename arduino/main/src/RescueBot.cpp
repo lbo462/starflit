@@ -22,6 +22,7 @@ void RescueBot::update()
     if(!RPIInitialized)
     {
         // TODO @marsia do your LEDs thing here.
+        radio.sendString("RPI isn't ready ...");
     }
 
     // Wait to received a frame from the serial communication
@@ -30,9 +31,13 @@ void RescueBot::update()
     serial.withRecv(
         RECEIVED_RPI_FRAME_LENGTH, [&](char *frame) {
             RPIFrame rpiFrame = parser.parseRPI(frame);
-
-            // Updates the RPI initialized
-            RPIInitialized = rpiFrame.initialized;
+            if(rpiFrame.initialized && !RPIInitialized)
+            {
+                radio.sendString("RPI is now ready!");
+                
+                // Updates the RPI initialized
+                RPIInitialized = rpiFrame.initialized;
+            }
 
             // Check object detection
             if(rpiFrame.objectDetected)
