@@ -10,6 +10,11 @@ Otherwise, check or change its location in the preferences in the Arduino IDE.
 
 `cp arduino/libraries/* ~/Arduino/libraries/` on linux to install the libraries.
 
+> [!note]
+> If you're using Linux, you'll have to add your user to the `dialout` group :
+>
+> `sudo usermod -a -G dialout <user>`
+
 ### Better use VSCode
 
 The Arduino IDE lacks the major features of a professional IDE.
@@ -76,7 +81,13 @@ For that purpose, make sure that you have python installed on your computer.
 
 Then, just follow this tutorial: [https://docs.python.org/3/library/venv.html](https://docs.python.org/3/library/venv.html)
 
-> If you name your venv other than `venv`, make sure to add it to the `.gitignore` file !
+> [!important]
+> Since you're installing your virtual environment on a raspberry PI and not and
+> on your personal computer, you have to pass an extra argument when creating it :
+> 
+> `python -m venv venv --system-site-packages`
+>
+> _If you name your venv other than `venv`, make sure to add it to the `.gitignore` file !_
 
 You're ready to install dependencies now!
 

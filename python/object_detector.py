@@ -1,29 +1,37 @@
 ## @addtogroup Python Python
 ## @{
 
+from typing import Tuple
 import tflite_runtime.interpreter as tflite
 import cv2
 import numpy as np
 
+class InvalidClass(Exception):
+    """The selected object is not inside the labels file"""
 
 class ObjectDetector:
     """
     Detects the object that is defined when the class is initiated.
     """
 
-    def __init__(self, object: str, normalSize: int, lowresSize: int) -> None:
-        self.object = object
-        self.normalSize = normalSize
-        self.lowresSize = lowresSize
+    def __init__(self, objekt: str, model_path: str, labels_filepath: str, low_res_size: Tuple) -> None:
+        self._object = objekt
+        self._model_path = model_path
+        self._labels_filepath = labels_filepath
+        self._low_res_size = low_res_size
+
+        with open(self._labels_filepath, 'r') as f:
+            if objekt not in f.read():
+                raise InvalidClass(f"The object '{objekt}' is not inside the labels file")
 
     def calculate_box_center_and_normalize(
         self, xmin: float, xmax: float, ymin: float, ymax: float
     ):
         """
         First, calculates the center of the box returned by the model.
-        Then, normalizes the x and y axis to be between -lowresSize/2 and lowresSize/2.
+        Then, normalizes the x and y-axis to be between -low_res_size/2 and low_res_size/2.
         """
-        x_frame, y_frame = self.lowresSize
+        x_frame, y_frame = self._low_res_size
         center = [abs(xmax - xmin) / 2, abs(ymax - ymin) / 2]
         normalized = [
             int((center[0] - (x_frame / 2))),
@@ -31,12 +39,12 @@ class ObjectDetector:
         ]
         return normalized
 
-    def run_inference(self, model, labels, threads, image):
+    def run_inference(self, image, threads: int = 3):
         """
         Runs the inference.
         """
 
-        with open(labels, "r") as f:
+        with open(self._labels_filepath, "r") as f:
             labels = {}
             lines = f.readlines()
             for line in lines:
@@ -44,7 +52,7 @@ class ObjectDetector:
                 labels[int(split[0])] = split[1]
 
         # Initializes the interpreter and allocates tensors (mandatory)
-        interpreter = tflite.Interpreter(model_path=model, num_threads=threads)
+        interpreter = tflite.Interpreter(model_path=self._model_path, num_threads=threads)
         interpreter.allocate_tensors()
 
         # Gets input and output details to define image size and detected classes
@@ -86,7 +94,7 @@ class ObjectDetector:
         for i in range(int(num_boxes)):
             score = detected_score[0][i]
             class_id = int(detected_classes[0][i])
-            if self.object == labels[class_id]:
+            if self._object == labels[class_id]:
                 if score > 0.1:
                     top, left, bottom, right = detected_boxes[0][i]
                     xmin = left * initial_w

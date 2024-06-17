@@ -22,29 +22,28 @@ except FileNotFoundError:
 
 load_dotenv()
 
-normalSize = (640, 480)
-lowresSize = (320, 240)
+LOW_RES_SIZE = (320, 240)
 
 
 def main():
 
     # Parses the arguments given in the command line
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", help="Path of the detection model.", required=True)
-    parser.add_argument("--label", help="Path of the labels file.")
+    parser.add_argument("-m", "--model", help="Path of the detection model.", required=True)
+    parser.add_argument("-l", "--label", help="Path of the labels file.", required=True)
     parser.add_argument(
         "--threads",
         help="Number of threads used to run the model.",
         type=int,
-        required=True,
+        default=3,
     )
+    parser.add_argument("-o", "--obj", help="The object to search for.", required=True)
     args = parser.parse_args()
 
     # Creates an instance of the picamera and configures it
     picam2 = Picamera2()
-    config = picam2.create_preview_configuration(lores={"size": lowresSize})
+    config = picam2.create_preview_configuration(lores={"size": LOW_RES_SIZE})
     picam2.configure(config)
-    # picam2.start_preview(Preview.QT)
 
     # Gets the length of each row of the image in bytes
     stride = picam2.stream_configuration("lores")["stride"]
@@ -52,19 +51,17 @@ def main():
     # Starts streaming
     picam2.start()
 
-    # Converts buffer data to grey scale and runs inference
+    # Create an object detector instance
+    object_detector = ObjectDetector(args.obj, args.model, args.label, LOW_RES_SIZE)
+
     with get_serial(os.getenv("SERIAL_PORT"), os.getenv("SERIAL_BAUD")) as ser:
         while True:
+            # Converts buffer data to grey scale and runs inference
             buf = picam2.capture_buffer("lores")
-            greyscale_img = buf[: stride * lowresSize[1]].reshape(
-                (lowresSize[1], stride)
+            greyscale_img = buf[: stride * LOW_RES_SIZE[1]].reshape(
+                (LOW_RES_SIZE[1], stride)
             )
-
-            object_detector = ObjectDetector("stop sign", normalSize, lowresSize)
-
-            coord = object_detector.run_inference(
-                args.model, args.label, args.threads, greyscale_img
-            )
+            coord = object_detector.run_inference(greyscale_img, threads=args.threads)
 
             outgoing_frame = None
             if coord:
