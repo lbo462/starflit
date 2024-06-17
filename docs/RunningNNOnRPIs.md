@@ -78,8 +78,6 @@ The `tflite-runtime` `pip` package isn't available for `x86_64` machines running
 
 > Don't worry, we won't be reinventing the wheel, we'll just be building it 😀 (cause we're building a python wheel, get it 😀😀😀🔫).
 
-> Wow, tes blagues Boris c'est chaud :/
-
 All of the detailed instructions are available [here](https://www.tensorflow.org/lite/guide/build_cmake_pip), but here's the gist:
 
 1. Install `Cmake`:
