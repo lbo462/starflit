@@ -8,3 +8,6 @@ pyserial==3.5
 python-dotenv==1.0.1
 tomli==2.0.1
 typing_extensions==4.12.1
+tflite-runtime==2.14.0
+opencv-python-headless==4.10.0.82
+numpy==1.24.2

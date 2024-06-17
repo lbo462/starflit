@@ -10,6 +10,8 @@ Otherwise, check or change its location in the preferences in the Arduino IDE.
 
 `cp arduino/libraries/* ~/Arduino/libraries/` on linux to install the libraries.
 
+> If you're using Linux, you'll have to add your user to the _dialout_ group with `sudo usermod -a -G dialout <user>`
+
 ### Better use VSCode
 
 The Arduino IDE lacks the major features of a professional IDE.
@@ -19,7 +21,7 @@ You'll find the extension by typing `Arduino` in the VSCode search extension fie
 (`Ctrl+Shift+X`) and clicking the one provided by Microsoft.
 
 __Before going any further__ ...
-Open the `.ino` file and select in your IDE footer:
+open the `.ino` file and select in your IDE footer:
 
 - the board: `Arduino UNO` (install __Arduino AVR__ board if necessary)
 - the port: the one on which you're connecting the robot
@@ -76,7 +78,12 @@ For that purpose, make sure that you have python installed on your computer.
 
 Then, just follow this tutorial: [https://docs.python.org/3/library/venv.html](https://docs.python.org/3/library/venv.html)
 
-> If you name your venv other than `venv`, make sure to add it to the `.gitignore` file !
+> Since you're installing your virtual environment on a raspberry PI and not and
+> on your personal computer, you have to pass an extra argument when creating it :
+> 
+> `python -m venv venv --system-site-packages`
+>
+> _If you name your venv other than `venv`, make sure to add it to the `.gitignore` file !_
 
 You're ready to install dependencies now!
 
@@ -120,7 +127,6 @@ Hopefully, this doc is up-to-date and here's the list of the variables you'll ha
 
 Here's an example of this file for my Linux setup:
 
-`.env`
 ```
 SERIAL_PORT=/dev/ttyUSB0
 SERIAL_BAUD=115200
