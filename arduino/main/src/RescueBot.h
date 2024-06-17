@@ -71,6 +71,9 @@ class RescueBot
         void explore();
 
     private:
+        /** Tells if the RPI was initialized. */
+        bool RPIInitialized = false;
+
         /**
          * Tells whether we're currently scanning or not.
          * See `isScanning()` for more details.

@@ -19,20 +19,42 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
+    if(!RPIInitialized)
+    {
+        // TODO @marsia do your LEDs thing here.
+    }
+
+    // Wait to received a frame from the serial communication
     // Careful because this will block the code for 5s if no frame is received!
+    smartMotors.stop();  // Stop the motors while receiving a frame ...
     serial.withRecv(
-        RECEIVED_FRAME_LENGTH, [&](char *frame) {
-            RPIFrame rpiFrame = parser.parse(frame);
-            radio.sendString(
-                String("Object detected : ")
-                + String(rpiFrame.xObjectPosition)
-                + F(",")
-                + String(rpiFrame.yObjectPosition)
-            );
+        RECEIVED_RPI_FRAME_LENGTH, [&](char *frame) {
+            RPIFrame rpiFrame = parser.parseRPI(frame);
+
+            // Updates the RPI initialized
+            RPIInitialized = rpiFrame.initialized;
+
+            // Check object detection
+            if(rpiFrame.objectDetected)
+            {
+                radio.sendString(
+                    String("Object detected : ")
+                    + String(rpiFrame.xObjectPosition)
+                    + F(",")
+                    + String(rpiFrame.yObjectPosition)
+                );
+            }
         }
     );
 
-    /** 
+    // If the RPI isn't ready, just don't move
+    if(!RPIInitialized)
+    {
+        smartMotors.stop();
+        return;
+    }
+
+    /*
      * Do the moves !
      * 
      *   _O/
