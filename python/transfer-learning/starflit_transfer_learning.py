@@ -53,11 +53,11 @@
 # In[ ]:
 
 
-import os
-from google.colab import drive
+# import os
+# from google.colab import drive
 
-drive.mount("/content/drive")
-os.chdir("/content/drive/MyDrive/Colab Notebooks/LeavesDataset")
+# drive.mount("/content/drive")
+# os.chdir("/content/drive/MyDrive/Colab Notebooks/LeavesDataset")
 
 
 # ## Dependencies
@@ -206,26 +206,26 @@ loss, accuracy = model.evaluate(validation_generator)
 print(f"Validation loss: {loss}")
 print(f"Validation accuracy: {accuracy}")
 
-acc = history.history["accuracy"]
-val_acc = history.history["val_accuracy"]
-loss = history.history["loss"]
-val_loss = history.history["val_loss"]
+# acc = history.history["accuracy"]
+# val_acc = history.history["val_accuracy"]
+# loss = history.history["loss"]
+# val_loss = history.history["val_loss"]
 
-epochs_range = range(len(acc))
+# epochs_range = range(len(acc))
 
-plt.figure(figsize=(8, 8))
-plt.subplot(1, 2, 1)
-plt.plot(epochs_range, acc, label="Training Accuracy")
-plt.plot(epochs_range, val_acc, label="Validation Accuracy")
-plt.legend(loc="lower right")
-plt.title("Training and Validation Accuracy")
-
-plt.subplot(1, 2, 2)
-plt.plot(epochs_range, loss, label="Training Loss")
-plt.plot(epochs_range, val_loss, label="Validation Loss")
-plt.legend(loc="upper right")
-plt.title("Training and Validation Loss")
-plt.show()
+# plt.figure(figsize=(8, 8))
+# plt.subplot(1, 2, 1)
+# plt.plot(epochs_range, acc, label="Training Accuracy")
+# plt.plot(epochs_range, val_acc, label="Validation Accuracy")
+# plt.legend(loc="lower right")
+# plt.title("Training and Validation Accuracy")
+#
+# plt.subplot(1, 2, 2)
+# plt.plot(epochs_range, loss, label="Training Loss")
+# plt.plot(epochs_range, val_loss, label="Validation Loss")
+# plt.legend(loc="upper right")
+# plt.title("Training and Validation Loss")
+# plt.show()
 
 
 # ## Fine-tuning
@@ -280,23 +280,23 @@ loss, accuracy = model.evaluate(validation_generator)
 print(f"Validation loss: {loss}")
 print(f"Validation accuracy: {accuracy}")
 
-acc = history_fine.history["accuracy"]
-val_acc = history_fine.history["val_accuracy"]
-loss = history_fine.history["loss"]
-val_loss = history_fine.history["val_loss"]
+# acc = history_fine.history["accuracy"]
+# val_acc = history_fine.history["val_accuracy"]
+# loss = history_fine.history["loss"]
+# val_loss = history_fine.history["val_loss"]
 
-epochs_range = range(len(acc))
+# epochs_range = range(len(acc))
 
-plt.figure(figsize=(8, 8))
-plt.subplot(1, 2, 1)
-plt.plot(epochs_range, acc, label="Training Accuracy")
-plt.plot(epochs_range, val_acc, label="Validation Accuracy")
-plt.legend(loc="lower right")
-plt.title("Training and Validation Accuracy")
-
-plt.subplot(1, 2, 2)
-plt.plot(epochs_range, loss, label="Training Loss")
-plt.plot(epochs_range, val_loss, label="Validation Loss")
-plt.legend(loc="upper right")
-plt.title("Training and Validation Loss")
-plt.show()
+# plt.figure(figsize=(8, 8))
+# plt.subplot(1, 2, 1)
+# plt.plot(epochs_range, acc, label="Training Accuracy")
+# plt.plot(epochs_range, val_acc, label="Validation Accuracy")
+# plt.legend(loc="lower right")
+# plt.title("Training and Validation Accuracy")
+#
+# plt.subplot(1, 2, 2)
+# plt.plot(epochs_range, loss, label="Training Loss")
+# plt.plot(epochs_range, val_loss, label="Validation Loss")
+# plt.legend(loc="upper right")
+# plt.title("Training and Validation Loss")
+# plt.show()
