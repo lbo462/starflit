@@ -32,10 +32,10 @@ class RescueBot
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
         /** Serial communication */
-        Communication<CommunicationModule::serial> serial = Communication<CommunicationModule::serial>();
+        Communication<CommunicationModule::serialModule> serial = Communication<CommunicationModule::serialModule>();
 
         /** Radio communication */
-        Communication<CommunicationModule::radio> radio = Communication<CommunicationModule::radio>();
+        Communication<CommunicationModule::radioModule> radio = Communication<CommunicationModule::radioModule>();
 
         /**
          * Set-up the pins mode.

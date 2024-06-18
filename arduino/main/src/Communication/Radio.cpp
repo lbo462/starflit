@@ -23,14 +23,19 @@ bool Radio::send(const void *buf, byte len)
 
 int Radio::recv(char *buf, int len)
 {
+    // Make the radio to work as a receiver
     radio.startListening();
+    
     if(radio.available())
     {
         bool readingFrame = false;
 
         size_t index = 0;
         while (index < len) {
-            radio.read(&buf, len);
+            // Read a single char from the buffer
+            char *smallBuffer;
+            radio.read(&smallBuffer, 1);
+            char c = (char)smallBuffer;
 
             // Search for the STX byte to start the reading
             if(!readingFrame && c == STX)
@@ -49,4 +54,6 @@ int Radio::recv(char *buf, int len)
                 buf[index++] = (char)c;
         }
         return index;
+    }
+    return -1;
 }

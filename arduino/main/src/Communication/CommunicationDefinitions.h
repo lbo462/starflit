@@ -14,16 +14,12 @@ void Communication<module>::setup()
 {
     switch (module)
         {
-        case CommunicationModule::radio:
+        case CommunicationModule::radioModule:
             radio.setup();
             break;
 
-        case CommunicationModule::serial:
+        case CommunicationModule::serialModule:
             serial.begin(115200);
-            break;
-
-        case CommunicationModule::bluetooth:
-            bluetooth.begin(38400);
             break;
         }
 }
@@ -33,70 +29,54 @@ bool Communication<module>::send(const void *buf, byte len, bool asASCII)
 {
     switch (module)
     {
-    case CommunicationModule::radio:
+    case CommunicationModule::radioModule:
         return radio.send(buf, len);
     
-    case CommunicationModule::serial:
+    case CommunicationModule::serialModule:
         if(asASCII)
             return serial.print((char *)buf);
         else
             return serial.write((char *)buf);
-
-    case CommunicationModule::bluetooth:
-        if(asASCII)
-            return bluetooth.print((char *)buf);
-        else
-            return bluetooth.write((char *)buf);
     }
 }
 
 template<CommunicationModule module>
 int Communication<module>::recv(char *buf, int len)
 {
-    unsigned long timerLength = 5000;  // milliseconds
-    unsigned long timerStart = millis();
-
-    while(millis() - timerStart < 5000)
+    switch (module)
     {
-        switch (module)
+    case CommunicationModule::serialModule:
+        serial.listen();  // This is undocumented on the Arduino doc but is mandatory ...
+        if(serial.available())
         {
-        case CommunicationModule::serial:
-            serial.listen();  // This is undocumented on the Arduino doc but is mandatory ...
-            if(serial.available())
-            {
-                // Says if we're currently reading a frame.
-                bool readingFrame = false;
+            // Says if we're currently reading a frame.
+            bool readingFrame = false;
 
-                size_t index = 0;
-                while (index < len) {
-                    int c = serial.read();
+            size_t index = 0;
+            while (index < len) {
+                int c = serial.read();
 
-                    // Search for the STX byte to start the reading
-                    if(!readingFrame && c == STX)
-                    {
-                        readingFrame = true;
-                        continue;  // Continue to avoid adding the STX byte to the frame
-                    }
-
-
-                    // Avoid code being stuck here!
-                    if (c < 0 || (c == ETX && readingFrame)) break;
-
-                    // Continue parsing iff we're in the frame
-                    // Otherwise, continue searching for the STX byte
-                    if(readingFrame)
-                        buf[index++] = (char)c;
+                // Search for the STX byte to start the reading
+                if(!readingFrame && c == STX)
+                {
+                    readingFrame = true;
+                    continue;  // Continue to avoid adding the STX byte to the frame
                 }
-                return index;
+
+                // Avoid code being stuck here!
+                if (c < 0 || (c == ETX && readingFrame)) break;
+
+                // Continue parsing iff we're in the frame
+                // Otherwise, continue searching for the STX byte
+                if(readingFrame)
+                    buf[index++] = (char)c;
             }
-            break;
-
-        case CommunicationModule::radio:
-            return -1;
-
-        default:
-            return -1;
+            return index;
         }
+        break;
+
+    case CommunicationModule::radioModule:
+        return radio.recv(buf, len);
     }
     return -1;
 }

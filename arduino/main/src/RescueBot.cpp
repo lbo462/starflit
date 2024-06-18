@@ -25,10 +25,8 @@ void RescueBot::update()
         radio.sendString("RPI isn't ready ...");
     }
 
-    // Wait to received a frame from the serial communication
-    // Careful because this will block the code for 5s if no frame is received!
     smartMotors.stop();  // Stop the motors while receiving a frame ...
-    serial.withRecv(
+    serial.withRecv(  // Actually receive the frame from the RPI
         RECEIVED_RPI_FRAME_LENGTH, [&](char *frame) {
             RPIFrame rpiFrame = parser.parseRPI(frame);
             if(rpiFrame.initialized && !RPIInitialized)
