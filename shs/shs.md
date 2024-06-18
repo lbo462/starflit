@@ -1,4 +1,4 @@
-# Rapport SHS Starflit Serach and rescue
+# Rapport SHS Starflit Search and rescue
 
 ## Introduction
 
