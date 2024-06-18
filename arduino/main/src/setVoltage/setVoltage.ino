@@ -14,9 +14,9 @@ void setup(){
     Wire.begin();
     Serial.begin(115200);
     Wire.beginTransmission(40); // Adress of Max5434 with L suffix (Max5434LEZT+T)                         
-    Wire.write(MAX5434_VREG_COMMAND);
+    Wire.write(MAX5434_VREG_COMMAND); //writing in the volatile memory
     Wire.write(voltage_array[6]<<3);   
-    Wire.write(MAX5434_VREGXNVREG_COMMAND);              
+    Wire.write(MAX5434_VREGXNVREG_COMMAND); //writing in the non-volatile memory        
     Wire.write(0); 
     Wire.endTransmission();     // stop transmitting 
     delay(2000);
@@ -28,5 +28,5 @@ void loop(){
     analogWrite(motorRP, 70);   
     analogWrite(motorRM, 0);   
 
-    Serial.println(3.0 * analogRead(A7) * (5.0/1023.0));
+    Serial.println(3.0 * analogRead(A7) * (5.0/1023.0)); //get the actual voltage. A7 is the pin v_motors
 }
