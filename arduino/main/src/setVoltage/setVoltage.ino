@@ -1,6 +1,6 @@
 #include <Wire.h>
 
-#define MAX5434_VREG_COMMAND 17  //write ti volatile register ; wiper position update
+#define MAX5434_VREG_COMMAND 17  //write to volatile register ; wiper position update
 #define MAX5434_NVREG_COMMAND 33  //write to non volatile register ; wiper position unchanged
 #define MAX5434_NVREGXVREG_COMMAND 97  //byte transfert from non volatile register to volatile register ; wiper position update
 #define MAX5434_VREGXNVREG_COMMAND 81  //byte transfert from volatile register to non volatile register
@@ -14,9 +14,9 @@ void setup(){
     Wire.begin();
     Serial.begin(115200);
     Wire.beginTransmission(40); // Adress of Max5434 with L suffix (Max5434LEZT+T)                         
-    Wire.write(MAX5434_VREG_COMMAND);             // sends value byte  
-    Wire.write(voltage_array[6]<<3);             // sends value byte  
-    Wire.write(MAX5434_VREGXNVREG_COMMAND);             // sends value byte  
+    Wire.write(MAX5434_VREG_COMMAND);
+    Wire.write(voltage_array[6]<<3);   
+    Wire.write(MAX5434_VREGXNVREG_COMMAND);              
     Wire.write(0); 
     Wire.endTransmission();     // stop transmitting 
     delay(2000);
