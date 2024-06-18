@@ -1,3 +1,5 @@
+# Set voltage script
+
 This is the script that is meant to set the voltage value (=speed) in the register Max5434. 
 We write the value in the volatile memory, then we save it to the non-volatile memory. 
 
