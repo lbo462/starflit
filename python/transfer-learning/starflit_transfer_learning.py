@@ -48,16 +48,16 @@
 #
 # In the following codeblock, edit the path to match the path to your dataset.
 # You can check the files structures by clicking files and searching for the folder named content at the root of the file system.
-# Here, I placed my dataset in a folder named Colab Notebooks :
+# Here, I placed my `dataset` folder in a folder named Colab Notebooks :
 
 # In[ ]:
 
 
 # import os
 # from google.colab import drive
-
+#
 # drive.mount("/content/drive")
-# os.chdir("/content/drive/MyDrive/Colab Notebooks/LeavesDataset")
+# os.chdir("/content/drive/MyDrive/Colab Notebooks/dataset")
 
 
 # ## Dependencies
@@ -94,8 +94,10 @@ from tensorflow.keras.applications import MobileNetV3Large
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow import lite as tflite
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
 # ## Feature extraction
@@ -117,17 +119,21 @@ train_datagen = ImageDataGenerator(
     zoom_range=0.2,
     horizontal_flip=True,
     fill_mode="nearest",
-    validation_split=0.001,  # Keep only a part of the dataset, represented as a percent (between 0 and 1)
+    validation_split=0.5,  # Keep only a part of the dataset, represented as a percent (between 0 and 1)
 )
 
 # Extract train dataset
 train_generator = train_datagen.flow_from_directory(
-    "./", target_size=(224, 224), batch_size=32, class_mode="binary", subset="training"
+    "./dataset",
+    target_size=(224, 224),
+    batch_size=32,
+    class_mode="binary",
+    subset="training",
 )
 
 # Extract validation dataset
 validation_generator = train_datagen.flow_from_directory(
-    "./",
+    "./dataset",
     target_size=(224, 224),
     batch_size=32,
     class_mode="binary",
@@ -173,6 +179,38 @@ for layer in base_model.layers:
 model.compile(optimizer=Adam(), loss="binary_crossentropy", metrics=["accuracy"])
 
 
+# Now, we prepare an early stopping, so that the training will stop if no improvement is to occur between three consecutive epochs.
+#
+# We also prepare a [model checkpoint](https://www.tensorflow.org/tutorials/keras/save_and_load#save_checkpoints_during_training) callback
+# so that we will be able to continue our training even the execution stops randomly.
+
+# In[ ]:
+
+
+early_stopping = EarlyStopping(monitor="loss", patience=3)
+model_checkpoint = ModelCheckpoint(
+    filepath="checkpoints/cp.weights.h5",
+    monitor="val_accuracy",
+    mode="max",
+    save_best_only=True,
+    save_weights_only=True,
+)
+
+
+# __IF THE PREVIOUS TRAINING WAS INTERRUPTED__, you can load the previous weights with this:
+
+# In[ ]:
+
+
+# model.load_weights('checkpoints/cp.ckpt')
+#
+# print("Model restored, evaluating ...")
+# loss, accuracy = model.evaluate(validation_generator)
+#
+# print(f'Validation loss: {loss}')
+# print(f'Validation accuracy: {accuracy}')
+
+
 # And now is the time we actually train the model.
 #
 # The following codeblock will probably last for long, and that's why we have trouble running this notebook where we want :'(
@@ -180,7 +218,12 @@ model.compile(optimizer=Adam(), loss="binary_crossentropy", metrics=["accuracy"]
 # In[ ]:
 
 
-history = model.fit(train_generator, epochs=1000, validation_data=validation_generator)
+history = model.fit(
+    train_generator,
+    epochs=1000,
+    validation_data=validation_generator,
+    callbacks=[early_stopping, model_checkpoint],
+)
 
 
 # And now, we have our trained model, tuned to our dataset.
@@ -206,25 +249,25 @@ loss, accuracy = model.evaluate(validation_generator)
 print(f"Validation loss: {loss}")
 print(f"Validation accuracy: {accuracy}")
 
-# acc = history.history["accuracy"]
-# val_acc = history.history["val_accuracy"]
-# loss = history.history["loss"]
-# val_loss = history.history["val_loss"]
-
+# acc = history.history['accuracy']
+# val_acc = history.history['val_accuracy']
+# loss = history.history['loss']
+# val_loss = history.history['val_loss']
+#
 # epochs_range = range(len(acc))
-
+#
 # plt.figure(figsize=(8, 8))
 # plt.subplot(1, 2, 1)
-# plt.plot(epochs_range, acc, label="Training Accuracy")
-# plt.plot(epochs_range, val_acc, label="Validation Accuracy")
-# plt.legend(loc="lower right")
-# plt.title("Training and Validation Accuracy")
+# plt.plot(epochs_range, acc, label='Training Accuracy')
+# plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+# plt.legend(loc='lower right')
+# plt.title('Training and Validation Accuracy')
 #
 # plt.subplot(1, 2, 2)
-# plt.plot(epochs_range, loss, label="Training Loss")
-# plt.plot(epochs_range, val_loss, label="Validation Loss")
-# plt.legend(loc="upper right")
-# plt.title("Training and Validation Loss")
+# plt.plot(epochs_range, loss, label='Training Loss')
+# plt.plot(epochs_range, val_loss, label='Validation Loss')
+# plt.legend(loc='upper right')
+# plt.title('Training and Validation Loss')
 # plt.show()
 
 
@@ -280,23 +323,50 @@ loss, accuracy = model.evaluate(validation_generator)
 print(f"Validation loss: {loss}")
 print(f"Validation accuracy: {accuracy}")
 
-# acc = history_fine.history["accuracy"]
-# val_acc = history_fine.history["val_accuracy"]
-# loss = history_fine.history["loss"]
-# val_loss = history_fine.history["val_loss"]
-
+# acc = history_fine.history['accuracy']
+# val_acc = history_fine.history['val_accuracy']
+# loss = history_fine.history['loss']
+# val_loss = history_fine.history['val_loss']
+#
 # epochs_range = range(len(acc))
-
+#
 # plt.figure(figsize=(8, 8))
 # plt.subplot(1, 2, 1)
-# plt.plot(epochs_range, acc, label="Training Accuracy")
-# plt.plot(epochs_range, val_acc, label="Validation Accuracy")
-# plt.legend(loc="lower right")
-# plt.title("Training and Validation Accuracy")
+# plt.plot(epochs_range, acc, label='Training Accuracy')
+# plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+# plt.legend(loc='lower right')
+# plt.title('Training and Validation Accuracy')
 #
 # plt.subplot(1, 2, 2)
-# plt.plot(epochs_range, loss, label="Training Loss")
-# plt.plot(epochs_range, val_loss, label="Validation Loss")
-# plt.legend(loc="upper right")
-# plt.title("Training and Validation Loss")
+# plt.plot(epochs_range, loss, label='Training Loss')
+# plt.plot(epochs_range, val_loss, label='Validation Loss')
+# plt.legend(loc='upper right')
+# plt.title('Training and Validation Loss')
 # plt.show()
+
+
+# ## Convert the model to tflite
+#
+# All the models we have exported are under the Keras models format : `.h5`.
+#
+# But our strandbeest should be fed with `.tflite` files.
+# Thus, we convert our model here:
+
+# In[ ]:
+
+
+# Convert tuned model
+converter = tflite.TFLiteConverter.from_keras_model_file("mobilenetv3_tuned.h5")
+model = converter.convert()
+with open("mobilenetv3_tuned.tflite", "wb") as f:
+    f.write(model)
+
+
+# In[ ]:
+
+
+# Convert fine-tuned model
+converter = tflite.TFLiteConverter.from_keras_model_file("mobilenetv3_fine_tuned.h5")
+model = converter.convert()
+with open("mobilenetv3_fine_tuned.tflite", "wb") as f:
+    f.write(model)

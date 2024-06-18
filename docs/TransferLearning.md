@@ -90,7 +90,7 @@ In order to run your transfer learning on your custom dataset, you should defini
 and arrange it in the way you need.
 Note that this notebook can easily be read on VSCode or Pycharm, but can also be uploaded on Google Colab.
 
-> To run the model training, we copied the dataset and the python version of the notebook on the CITI computer via `scp`.
+> To run the model training, we copied the dataset and the python version of the notebook on the CITI computer via `rsync`.
 
 To use the fine-tuned model on the strandbeest,
 download the file on the strandbeest and select it while running the main script.
@@ -101,3 +101,8 @@ download the file on the strandbeest and select it while running the main script
 > 
 > You're free to edit the generated python version and run the code in a virtual env,
 > installing all the dependencies in it.
+> 
+> You should remove (or comment) :
+> - The Google colab part
+> - The non-python commands
+> - If no GUI's available, the plotting with matplotlib
