@@ -1,4 +1,4 @@
-# Rapport SHS Starflit Search and rescue
+# SHS - Sciences Humaines et Sociales
 
 ## Introduction
 
