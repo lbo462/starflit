@@ -265,7 +265,7 @@ model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy']
 
 early_stopping = EarlyStopping(monitor="loss", patience=3)
 model_checkpoint = ModelCheckpoint(
-    filepath='checkpoints/cp.weights.keras',
+    filepath='checkpoints/cp.weights.h5',
     monitor='val_accuracy',
     mode='max',
     save_best_only=True,
@@ -279,7 +279,7 @@ model_checkpoint = ModelCheckpoint(
 
 
 if previous_training_interrupted:
-    model.load_weights('checkpoints/cp.weights.keras')
+    model.load_weights('checkpoints/cp.weights.h5')
 
     print("Model restored, evaluating ...")
     loss, accuracy = model.evaluate(validation_generator)
