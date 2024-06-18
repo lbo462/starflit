@@ -1,3 +1,5 @@
+*.zip
+
 .vscode
 .idea
 
@@ -6,3 +8,4 @@ __pycache__
 .env
 
 docs/html
+python/transfer-learning/dataset
