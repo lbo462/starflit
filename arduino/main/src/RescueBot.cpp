@@ -22,7 +22,7 @@ void RescueBot::update()
     if(!RPIInitialized)
     {
         // TODO @marsia do your LEDs thing here.
-        radio.sendString("RPI isn't ready ...");
+        radio.sendString("RPI not initialized");
     }
 
     smartMotors.stop();  // Stop the motors while receiving a frame ...
@@ -31,27 +31,38 @@ void RescueBot::update()
             RPIFrame rpiFrame = parser.parseRPI(frame);
             if(rpiFrame.initialized && !RPIInitialized)
             {
-                radio.sendString("RPI is now ready!");
-                
                 // Updates the RPI initialized
                 RPIInitialized = rpiFrame.initialized;
+
+                radio.sendString("RPI initialized");
             }
 
             // Check object detection
             if(rpiFrame.objectDetected)
             {
-                radio.sendString(
-                    String("Object detected : ")
-                    + String(rpiFrame.xObjectPosition)
-                    + F(",")
-                    + String(rpiFrame.yObjectPosition)
-                );
+                // Send the information to everyone
+                char *strandFrame = new char[RECEIVED_STRAND_FRAME_LENGTH];
+                parser.buildStrand(strandFrame, true);
+                radio.send(strandFrame, sizeof(strandFrame));
+                objectFound = true;
             }
         }
     );
 
-    // If the RPI isn't ready, just don't move
-    if(!RPIInitialized)
+    if(!objectFound)
+    {
+        radio.withRecv(
+            RECEIVED_STRAND_FRAME_LENGTH, [&](char *frame) {
+                StrandFrame strandFrame = parser.parseStrand(frame);
+                radio.sendString("Someone found something!");
+                objectFound = strandFrame.objectFound;
+            }
+        );
+    }
+    
+
+    // If the RPI isn't ready or if the object was found, just don't move and exit
+    if(!RPIInitialized  || objectFound)
     {
         smartMotors.stop();
         return;

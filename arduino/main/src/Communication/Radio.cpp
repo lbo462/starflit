@@ -25,10 +25,18 @@ int Radio::recv(char *buf, int len)
 {
     // Make the radio to work as a receiver
     radio.startListening();
-    
+
     if(radio.available())
     {
-        bool readingFrame = false;
+        // Read a single char from the buffer ...
+        // ... to check for a STX
+        char *smallBuffer;
+        radio.read(&smallBuffer, 1);
+        char c = (char)smallBuffer;
+
+        // If there's no STX, we poped in the middle of nowhere, so exit
+        if(c != STX)
+            return -1;
 
         size_t index = 0;
         while (index < len) {
@@ -37,21 +45,11 @@ int Radio::recv(char *buf, int len)
             radio.read(&smallBuffer, 1);
             char c = (char)smallBuffer;
 
-            // Search for the STX byte to start the reading
-            if(!readingFrame && c == STX)
-            {
-                readingFrame = true;
-                continue;  // Continue to avoid adding the STX byte to the frame
-            }
-
-
             // Avoid code being stuck here!
-            if (c < 0 || (c == ETX && readingFrame)) break;
+            if (c < 0 || c == ETX) break;
 
-            // Continue parsing iff we're in the frame
-            // Otherwise, continue searching for the STX byte
-            if(readingFrame)
-                buf[index++] = (char)c;
+            // Continue parsing and keep that byte in the buffer
+            buf[index++] = (char)c;
         }
         return index;
     }

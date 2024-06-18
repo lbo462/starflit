@@ -3,6 +3,8 @@
 #ifndef frame_parser_h
 #define frame_parser_h
 
+#include "Communication/Constants.h"
+
 /**
  * Expected frame length in reception from the RPI.
  * If a received does not match this size, you might be missing something.
@@ -95,6 +97,13 @@ class FrameParser
          * @return A fully usable StrandFrame object!
          */
         StrandFrame parseStrand(char *frame);
+
+        /**
+         * Builds a StrandFrame instance in the given buffer.
+         * Fills the buffer with a sendable StrandFrame.
+         * @return The frame size
+         */
+        void buildStrand(char *buf, bool objectFound);
 };
 
 #endif

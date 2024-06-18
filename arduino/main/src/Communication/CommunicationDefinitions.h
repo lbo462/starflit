@@ -49,27 +49,20 @@ int Communication<module>::recv(char *buf, int len)
         serial.listen();  // This is undocumented on the Arduino doc but is mandatory ...
         if(serial.available())
         {
-            // Says if we're currently reading a frame.
-            bool readingFrame = false;
+            int c = serial.read();
+            if(c != STX)
+                return -1;
 
             size_t index = 0;
             while (index < len) {
                 int c = serial.read();
 
-                // Search for the STX byte to start the reading
-                if(!readingFrame && c == STX)
-                {
-                    readingFrame = true;
-                    continue;  // Continue to avoid adding the STX byte to the frame
-                }
-
                 // Avoid code being stuck here!
-                if (c < 0 || (c == ETX && readingFrame)) break;
+                if (c < 0 || c == ETX) break;
 
                 // Continue parsing iff we're in the frame
                 // Otherwise, continue searching for the STX byte
-                if(readingFrame)
-                    buf[index++] = (char)c;
+                buf[index++] = (char)c;
             }
             return index;
         }
