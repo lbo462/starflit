@@ -72,7 +72,7 @@ class RescueBot
 
     private:
         /** Tells if the RPI was initialized.. */
-        bool RPIInitialized = false;
+        bool RPIInitialized = true;
 
         /** Tells if the object was found. */
         bool objectFound = false;

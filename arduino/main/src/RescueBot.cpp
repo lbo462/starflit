@@ -18,11 +18,17 @@ void RescueBot::update()
 {
     unsigned long currentMillis = millis();
     smartMotors.update();
+    // Send the information to everyone
+    char *strandFrame = parser.buildStrand(true);
+    radio.send(strandFrame, sizeof(strandFrame));
+    Serial.println(strandFrame);
+    objectFound = true;
+    delay(1000);
 
     if(!RPIInitialized)
     {
         // TODO @marsia do your LEDs thing here.
-        radio.sendString("RPI not initialized");
+        //radio.sendString("RPI not initialized");
     }
 
     serial.withRecv(  // Actually receive the frame from the RPI
@@ -37,14 +43,14 @@ void RescueBot::update()
             }
 
             // Check object detection
-            if(rpiFrame.objectDetected)
+            /*if(rpiFrame.objectDetected)
             {
                 // Send the information to everyone
-                char *strandFrame = new char[RECEIVED_STRAND_FRAME_LENGTH];
-                parser.buildStrand(strandFrame, true);
+                char *strandFrame = new char[RECEIVED_STRAND_FRAME_LENGTH + 2];
+                parser.buildStrand(true);
                 radio.send(strandFrame, sizeof(strandFrame));
                 objectFound = true;
-            }
+            }*/
         }
     );
 

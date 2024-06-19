@@ -4,6 +4,7 @@
 #define frame_parser_h
 
 #include "Communication/Constants.h"
+#include <Arduino.h>
 
 /**
  * Expected frame length in reception from the RPI.
@@ -103,7 +104,7 @@ class FrameParser
          * Fills the buffer with a sendable StrandFrame.
          * @return The frame size
          */
-        void buildStrand(char *buf, bool objectFound);
+        char* buildStrand(bool objectFound);
 };
 
 #endif

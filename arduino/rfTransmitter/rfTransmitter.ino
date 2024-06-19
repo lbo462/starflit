@@ -3,16 +3,14 @@
 #include <RF24.h>
 
 // Create an RF24 object
-RF24 radio(7, 8); // CE, CSN pins (adjust these as per your wiring)
+RF24 radio(A1, A0); // CE, CSN pins (adjust these as per your wiring)
 
 // Address for the RF24 communication
-const byte address[6] = "00001";
-const char receivingMessage[] = "receiving";
-bool isReceiving = false;
+const byte address[6] = {0x1C,0xCE,0xCC,0xCE,0xCC};
 
 void setup() {
   // Start the serial communication
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   // Initialize the RF24 module
   radio.begin();
@@ -22,41 +20,12 @@ void setup() {
 }
 
 void loop() {
-  // Check if there is data available on the serial port
-  if (Serial.available() > 0) {
-    // Read the data from the serial port
-    String data = Serial.readStringUntil('\n');
-    
-    // Ensure the data is not empty
-    if (data.length() > 0) {
-      // Convert the string to a char array
-      char charArray[data.length() + 1];
-      data.toCharArray(charArray, data.length() + 1);
-      
-      // Send the data via RF24
-      if (radio.write(&charArray, sizeof(charArray))) {
-        Serial.println("Data sent successfully");
-      } else {
-        Serial.println("Failed to send data");
-      }
-      
-      // Send "receiving" message
-      if (!isReceiving) {
-        isReceiving = true;
-      }
-    }
-  } else {
-    if (isReceiving) {
-      isReceiving = false;
-    }
-  }
+char buf[] = {
+    0x02,0x01,0x03
+  };
 
-  // Send "receiving" status while receiving data
-  if (isReceiving) {
-    if (radio.write(&receivingMessage, sizeof(receivingMessage))) {
-      Serial.println("Status: receiving");
-    } else {
-      Serial.println("Failed to send status");
-    }
-  }
+  Serial.print("Sent " + String(buf));
+  radio.write(&buf, sizeof(buf));
+
+  delay(1000);
 }
