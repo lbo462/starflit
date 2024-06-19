@@ -100,11 +100,12 @@ class FrameParser
         StrandFrame parseStrand(char *frame);
 
         /**
-         * Builds a StrandFrame instance in the given buffer.
-         * Fills the buffer with a sendable StrandFrame.
-         * @return The frame size
+         * Builds a StrandFrame instance to send.
+         * @param len Size of the frame. should be fed with `RECEIVED_STRAND_FRAME_LENGTH`.
+         * @param objectFound a boolean telling if the object was found.
+         * @return The frame to send, as a buffer.
          */
-        char* buildStrand(bool objectFound);
+        char* buildStrand(int len, bool objectFound);
 };
 
 #endif
