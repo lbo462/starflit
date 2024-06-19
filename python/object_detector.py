@@ -41,7 +41,7 @@ class ObjectDetector:
         center = [abs(xmax - xmin) / 2, abs(ymax - ymin) / 2]
         normalized = [
             int((center[0] - (x_frame / 2))),
-            int((center[0] - (y_frame / 2))),
+            int((center[1] - (y_frame / 2))),
         ]
         return normalized
 

@@ -21,7 +21,7 @@ void setup() {
    * Still, one might want to develop here, when the RPi isn't there.
    * That's why there's the line below that you can uncomment,
    * 
-   * ************ AS FAR AS YOU COMMENT IT BACK ! *************** 
+   * ************ AS LONG AS YOU COMMENT IT BACK ! *************** 
    *
    *  Thank you!
    */

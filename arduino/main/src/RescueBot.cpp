@@ -25,7 +25,6 @@ void RescueBot::update()
         radio.sendString("RPI not initialized");
     }
 
-    smartMotors.stop();  // Stop the motors while receiving a frame ...
     serial.withRecv(  // Actually receive the frame from the RPI
         RECEIVED_RPI_FRAME_LENGTH, [&](char *frame) {
             RPIFrame rpiFrame = parser.parseRPI(frame);
@@ -62,7 +61,7 @@ void RescueBot::update()
     
 
     // If the RPI isn't ready or if the object was found, just don't move and exit
-    if(!RPIInitialized  || objectFound)
+    if(!RPIInitialized || objectFound)
     {
         smartMotors.stop();
         return;
@@ -81,12 +80,12 @@ void RescueBot::update()
     // Check if it's time to scan or if we're actually scanning
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
-        // scan();
+         scan();
     }
 
     else
     {
-        // explore();
+         explore();
     }
 }
 
