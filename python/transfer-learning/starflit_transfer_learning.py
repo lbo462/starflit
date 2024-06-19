@@ -310,7 +310,19 @@ history = model.fit(
 # In[ ]:
 
 
+print("Saving model ...")
 model.save('mobilenetv3_tuned.keras')
+
+# Convert to tflite model
+"""  For some reason, this make the program crash
+try:
+    converter = tflite.TFLiteConverter.from_keras_model(model)
+    tflite_model = converter.convert()
+    with open('mobilenetv3_tuned.tflite' , 'wb') as f:
+        f.write(tflite_model)
+except Exception as e:
+    print(f"Couldn't save model as .tflite : {e}")
+"""
 
 
 # ### Testing tuned model
@@ -389,7 +401,19 @@ history_fine = model.fit(
 # In[ ]:
 
 
+print("Saving model ...")
 model.save('mobilenetv3_fine_tuned.keras')
+
+# Convert to tflite model
+""" For some reason, this make the program crash
+try:
+    converter = tflite.TFLiteConverter.from_keras_model(model)
+    tflite_model = converter.convert()
+    with open('mobilenetv3_fine_tuned.tflite' , 'wb') as f:
+        f.write(tflite_model)
+except Exception as e:
+    print(f"Couldn't save model as .tflite : {e}")
+"""
 
 
 # ### Testing fine-tuned model
@@ -425,31 +449,4 @@ if gui_available:
     plt.legend(loc='upper right')
     plt.title('Training and Validation Loss')
     plt.show()
-
-
-# ## Convert the model to tflite
-# 
-# All the models we have exported are under the Keras models format : `.h5`.
-# 
-# But our strandbeest should be fed with `.tflite` files.
-# Thus, we convert our model here:
-
-# In[ ]:
-
-
-# Convert the tuned model
-converter = tflite.TFLiteConverter.from_keras_model_file('mobilenetv3_tuned.keras')
-model = converter.convert()
-with open('mobilenetv3_tuned.tflite' , 'wb') as f:
-    f.write(model)
-
-
-# In[ ]:
-
-
-# Convert the fine-tuned model
-converter = tflite.TFLiteConverter.from_keras_model_file('mobilenetv3_fine_tuned.keras')
-model = converter.convert()
-with open('mobilenetv3_fine_tuned.tflite' , 'wb') as f:
-    f.write(model)
 
