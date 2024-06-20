@@ -18,15 +18,6 @@ void RescueBot::update()
 {
     unsigned long currentMillis = millis();
     smartMotors.update();
-    // Send the information to everyone
-    char *strandFrame = new char[RECEIVED_STRAND_FRAME_LENGTH + 2];
-    parser.buildStrand(strandFrame, RECEIVED_STRAND_FRAME_LENGTH, true);
-    Serial.println(strandFrame[0], HEX);
-    Serial.println(strandFrame[1], HEX);
-    Serial.println(strandFrame[2], HEX);
-    radio.send(strandFrame, RECEIVED_STRAND_FRAME_LENGTH + 2);
-    objectFound = true;
-    delay(1000);
 
     if(!RPIInitialized)
     {
@@ -46,14 +37,17 @@ void RescueBot::update()
             }
 
             // Check object detection
-            /*if(rpiFrame.objectDetected)
+            if(rpiFrame.objectDetected)
             {
                 // Send the information to everyone
                 char *strandFrame = new char[RECEIVED_STRAND_FRAME_LENGTH + 2];
-                parser.buildStrand(true);
-                radio.send(strandFrame, sizeof(strandFrame));
-                objectFound = true;
-            }*/
+                parser.buildStrand(strandFrame, RECEIVED_STRAND_FRAME_LENGTH, true);
+                Serial.println(strandFrame[0], HEX);
+                Serial.println(strandFrame[1], HEX);
+                Serial.println(strandFrame[2], HEX);
+                radio.send(strandFrame, RECEIVED_STRAND_FRAME_LENGTH + 2);
+                objectFound = true;   
+            }
         }
     );
 
@@ -62,7 +56,10 @@ void RescueBot::update()
         radio.withRecv(
             RECEIVED_STRAND_FRAME_LENGTH, [&](char *frame) {
                 StrandFrame strandFrame = parser.parseStrand(frame);
-                radio.sendString("Someone found something!");
+                if (strandFrame.objectFound)
+                {
+                    radio.sendString("Someone found something!");
+                }
                 objectFound = strandFrame.objectFound;
             }
         );
@@ -89,12 +86,12 @@ void RescueBot::update()
     // Check if it's time to scan or if we're actually scanning
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
-         scan();
+        scan();
     }
 
     else
     {
-         explore();
+        explore();
     }
 }
 

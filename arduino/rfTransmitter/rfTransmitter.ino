@@ -3,7 +3,7 @@
 #include <RF24.h>
 
 // Create an RF24 object
-RF24 radio(A1, A0); // CE, CSN pins (adjust these as per your wiring)
+RF24 radio(7, 8); // CE, CSN pins (adjust these as per your wiring)
 
 // Address for the RF24 communication
 const byte address[6] = {0x1C,0xCE,0xCC,0xCE,0xCC};
@@ -17,15 +17,17 @@ void setup() {
   radio.openWritingPipe(address);
   radio.setPALevel(RF24_PA_MIN);
   radio.stopListening();
-}
 
-void loop() {
-char buf[] = {
+  char buf[] = {
     0x02,0x01,0x03
   };
 
   Serial.print("Sent " + String(buf));
   radio.write(&buf, sizeof(buf));
+}
+
+void loop() {
+
 
   delay(1000);
 }

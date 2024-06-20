@@ -9,6 +9,7 @@ void Radio::setup()
 {
     radio.begin();
     radio.openWritingPipe(address);
+    radio.openReadingPipe(0, address);
     radio.setPALevel(RF24_PA_MIN);
 }
 
@@ -28,28 +29,21 @@ int Radio::recv(char *buf, int len)
 
     if(radio.available())
     {
-        // Read a single char from the buffer ...
-        // ... to check for a STX
-        char *smallBuffer;
-        radio.read(&smallBuffer, 1);
-        char c = (char)smallBuffer;
+        char buffer[len + 2] = "";
+        radio.read(&buffer, len + 2);
 
         // If there's no STX, we poped in the middle of nowhere, so exit
-        if(c != STX)
+        if(buffer[0] != STX)
             return -1;
 
         size_t index = 0;
         while (index < len) {
-            // Read a single char from the buffer
-            char *smallBuffer;
-            radio.read(&smallBuffer, 1);
-            char c = (char)smallBuffer;
 
             // Avoid code being stuck here!
-            if (c < 0 || c == ETX) break;
+            if (buffer[index] < 0 || buffer[index] == ETX) break;
 
             // Continue parsing and keep that byte in the buffer
-            buf[index++] = (char)c;
+            buf[index++] = (char)buffer[index];
         }
         return index;
     }

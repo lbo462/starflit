@@ -59,6 +59,7 @@ StrandFrame FrameParser::parseStrand(char *frame)
 {
     StrandFrame strandFrame;
     strandFrame.objectFound = (bool)frame[0];
+    Serial.println(frame[0], HEX);
 
     return strandFrame;
 }
