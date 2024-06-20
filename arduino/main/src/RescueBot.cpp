@@ -19,9 +19,12 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
     // Send the information to everyone
-    char *strandFrame = parser.buildStrand(true);
-    radio.send(strandFrame, sizeof(strandFrame));
-    Serial.println(strandFrame);
+    char *strandFrame = new char[RECEIVED_STRAND_FRAME_LENGTH + 2];
+    parser.buildStrand(strandFrame, RECEIVED_STRAND_FRAME_LENGTH, true);
+    Serial.println(strandFrame[0], HEX);
+    Serial.println(strandFrame[1], HEX);
+    Serial.println(strandFrame[2], HEX);
+    radio.send(strandFrame, RECEIVED_STRAND_FRAME_LENGTH + 2);
     objectFound = true;
     delay(1000);
 

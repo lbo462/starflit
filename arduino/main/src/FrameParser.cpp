@@ -63,13 +63,9 @@ StrandFrame FrameParser::parseStrand(char *frame)
     return strandFrame;
 }
 
-char* FrameParser::buildStrand(int len, bool objectFound)
+void FrameParser::buildStrand(char* buf, int len, bool objectFound)
 {
-    char buf[len + 2] = {
-        STX,
-        objectFound ? (char)0x1 : (char)0x0,
-        ETX
-    };
-
-    return buf;
+    buf[0] = STX;
+    buf[1] = objectFound ? (char)0x1 : (char)0x0;
+    buf[2] = ETX;
 }

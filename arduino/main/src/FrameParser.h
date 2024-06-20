@@ -105,7 +105,7 @@ class FrameParser
          * @param objectFound a boolean telling if the object was found.
          * @return The frame to send, as a buffer.
          */
-        char* buildStrand(int len, bool objectFound);
+        void buildStrand(char *buf, int len, bool objectFound);
 };
 
 #endif
