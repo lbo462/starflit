@@ -135,19 +135,19 @@ void Leds::rainbow(int interval, unsigned long time)
     {
         previousLedMillis = time;
 
-        // Increments firstPixelHue and reset if necessary
-        firstPixelHue += 256;
-        if (firstPixelHue >= 5 * 65536)
+        // Increments firstPixelHueState and reset if necessary
+        firstPixelHueState += 256;
+        if (firstPixelHueState >= 5 * 65536)
         {
-            firstPixelHue = 0;
+            firstPixelHueState = 0;
         }
 
         // Updates the colors of the pixels
-        for (int i = 0; i < strip.numPixels(); i++)
+        for (int i = 0; i < ledStrip.numPixels(); i++)
         { 
-            int pixelHue = firstPixelHue + (i * 65536L / strip.numPixels());
-            strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue)));
+            int pixelHue = firstPixelHueState + (i * 65536L / ledStrip.numPixels());
+            ledStrip.setPixelColor(i, ledStrip.gamma32(ledStrip.ColorHSV(pixelHue)));
         }
-        strip.show();
+        ledStrip.show();
     }
 }

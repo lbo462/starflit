@@ -79,17 +79,15 @@ class RescueBot
          */
         void explore();
 
-        /**
-         * Controls the leds on top of the robot.
-         */
-        //void leds();
-
     private:
         /** Tells if the RPI was initialized. */
         bool RPIInitialized = false;
 
         /** Tells if the object was found. */
         bool objectFound = false;
+
+        /** Is an object detected or not \'O'/ */
+        bool objectDetected = false;
 
         /**
          * Tells whether we're currently scanning or not.
@@ -108,6 +106,7 @@ class RescueBot
 
         /** Parses the received frames from the Communication module */
         FrameParser parser = FrameParser();
+<<<<<<< HEAD
 
         /** Configures the camera positions */
         CameraPosition camPosition = CameraPosition();
@@ -118,6 +117,8 @@ class RescueBot
         /** Is an object detected or not \'O'/ */
         bool objectDetected = false;
         
+=======
+>>>>>>> fa2c5af (nearly works as intended)
 };
 
 #endif
