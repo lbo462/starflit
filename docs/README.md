@@ -19,19 +19,7 @@ This documentation aims to be as exhaustive as possible so that whoever is inter
 
 Have fun building 👷‍♂️👷‍♀️!
 
-## Detailed list
-
-Here's the list of all the document files and folder that you'll find here:
-
-- [NetworkLab.md](NetworkLab.md) describes the network setup we needed to configure and develop on the RPis.
-- [InitializeRPis.md](InitializeRPis.md) describes how we instantiated the RPis to work on them.
-- [GitAndGithub.md](GitAndGithub.md) describes how we work with Git and GitHub.
-- [DevEnv.md](DevEnv.md) describes what development environment we use and work on.
-- [Doxygen.md](Doxygen.md) describes how to auto-generate the `html` doc.
-- [RunningNNOnRPIs.md](RunningNNOnRPIs.md) describes how to run a neural network on a RPI, for our particular case.
-- [TransferLearning.md](TransferLearning.md) describes how to fine tune a pre-trained model.
-
-### /resources
+## Resources
 
 __Check the content of this folder in the [GitHub repo](https://github.com/lbo462/starflit/tree/master/docs/resources)__.
 
