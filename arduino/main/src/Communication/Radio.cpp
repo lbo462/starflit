@@ -31,7 +31,7 @@ int Radio::recv(char *buf, int len)
     {
         // Raw buffer read from the radio
         char receivedBuf[len + 2] = "";
-        radio.read(&buffer, len + 2);
+        radio.read(&receivedBuf, len + 2);
 
         // If there's no STX at the start of our buffer, we poped in the middle of nowhere, so exit
         if(receivedBuf[0] != STX)
