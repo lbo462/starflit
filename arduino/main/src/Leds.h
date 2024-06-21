@@ -49,7 +49,7 @@ class Leds
         void initializing(int interval, unsigned long time);
 
         /**
-         * Simple reimplementation of the ra
+         * Rainbow animation ~\'o'/~ ~\'o'/~ ~\'o'/~
          */
         void rainbow(int interval, unsigned long time);
 
