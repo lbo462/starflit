@@ -49,6 +49,11 @@ class Leds
         void initializing(int interval, unsigned long time);
 
         /**
+         * Simple reimplementation of the ra
+         */
+        void rainbow(int interval, unsigned long time);
+
+        /**
          * Given the color name as a string, returns it's `uint32_t` representation.
          * This method is used so that a simple string can be provided as a parameter
          * 
@@ -75,9 +80,14 @@ class Leds
         int ledIsOn = 0;
 
         /**
-         * Keeps track of the last 
+         * Keeps track of the last display by the LEDs.
          */
         unsigned long previousLedMillis = 0;
+
+        /**
+         * Keeps track of the last hue color displayed by the rainbow method.
+         */
+        long firstPixelHueState = 0;
 
         /**
          * ledStrip object initialization.
