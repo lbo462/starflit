@@ -27,6 +27,7 @@ void RescueBot::update()
     {
         // TODO @marsia do your LEDs thing here.
         radio.sendString("RPI not initialized");
+        ledStrip.initializing(50, currentMillis);
     }
 
     serial.withRecv(  // Actually receive the frame from the RPI
@@ -47,7 +48,8 @@ void RescueBot::update()
                 char *strandFrame = new char[parser.getStrandFrameLen()];
                 parser.buildStrand(strandFrame, true);
                 radio.send(strandFrame, sizeof(strandFrame));
-                objectFound = true;   
+                objectFound = true;
+                ledStrip.blink("green", 200, currentMillis);
             }
         }
     );
@@ -62,6 +64,7 @@ void RescueBot::update()
                 if (strandFrame.objectFound)
                 {
                     radio.sendString("Someone found something!");
+                    ledStrip.rainbow(500, currentMillis)
                 }
 
                 // Update internal state
@@ -92,10 +95,12 @@ void RescueBot::update()
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
         scan();
+        ledStrip.blink("red", 200, currentMillis);
     }
     else 
     {
         explore();
+        ledStrip.blink("blue", 500, currentMillis);
     }
 }
 
