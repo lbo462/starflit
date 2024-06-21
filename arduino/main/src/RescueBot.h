@@ -32,10 +32,10 @@ class RescueBot
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
 
         /** Serial communication */
-        Communication<CommunicationModule::serial> serial = Communication<CommunicationModule::serial>();
+        Communication<CommunicationModule::serialModule> serial = Communication<CommunicationModule::serialModule>();
 
         /** Radio communication */
-        Communication<CommunicationModule::radio> radio = Communication<CommunicationModule::radio>();
+        Communication<CommunicationModule::radioModule> radio = Communication<CommunicationModule::radioModule>();
 
         /**
          * Set-up the pins mode.
@@ -71,6 +71,12 @@ class RescueBot
         void explore();
 
     private:
+        /** Tells if the RPI was initialized.. */
+        bool RPIInitialized = false;
+
+        /** Tells if the object was found. */
+        bool objectFound = false;
+
         /**
          * Tells whether we're currently scanning or not.
          * See `isScanning()` for more details.

@@ -3,8 +3,10 @@
 #ifndef frame_parser_h
 #define frame_parser_h
 
+#include "Communication/Constants.h"
+
 /**
- * Expected frame length in reception.
+ * Expected frame length in reception from the RPI.
  * If a received does not match this size, you might be missing something.
  * If it's too short, the parser will fill the RPIFrame with misleading values.
  * But IMHO, it should be no problem to have it longer, but that's not an excuse to be lazy!
@@ -17,23 +19,45 @@
  * ... or else
  * 
  * ON TOP ON THE HAT,
- * (int) have a length of 2 bytes, so each int attributes counts for two.
+ * `int` have a length of 2 bytes, so each int attributes counts for two.
  * This goes for other attributes as well.
  * Use `sizeof()` to know the size of each variable type.
  * 
  * Also note that this variable is not used by the parser, but used by the one using the parser,
  * as a length parameter
  */
-#define RECEIVED_FRAME_LENGTH 4
+#define RECEIVED_RPI_FRAME_LENGTH 4
 
 /**
- * Defines the parsed content a received frame.
+ * Length of a frame received from an other strandbeest.
+ * For more details about frame lengths, check `RECEIVED_RPI_FRAME_LENGTH`.
+ */
+#define RECEIVED_STRAND_FRAME_LENGTH 1
+
+/**
+ * Defines the parsed content a frame from received the RPI shell.
  * Should match the python side.
  */
 struct RPIFrame
 {
-    int xObjectPosition;
-    int yObjectPosition;
+    /** Is the RPI initialized ? */
+    bool initialized;
+
+    /** Was an object detected ? */
+    bool objectDetected;
+
+    /** Position of the detected object. */
+    signed int xObjectPosition;
+    signed int yObjectPosition;
+};
+
+/**
+ * Defines the parsed content of a frame received from an other strandbeest.
+ */
+struct StrandFrame
+{
+    /** Was the searched object found ? */
+    bool objectFound;
 };
 
 /**
@@ -53,15 +77,41 @@ class FrameParser
         ~FrameParser();
 
         /**
-         * Parse a frame and return an instance of RPIFame.
+         * Parse a frame received from the RPI and return an instance of RPIFame.
          * Here, we're not demanding a length since the frame should have the expected length
-         * defined by `RECEIVED_FRAME_LENGTH`.
+         * defined by `RECEIVED_RPI_FRAME_LENGTH`.
          * @param frame An "parsable" array of raw bytes.
          * "parsable" means that it should be filled with the correct data
          * to build a RPIFrame object.
          * @return A fully usable RPIFrame object!
          */
-        RPIFrame parse(char *frame);
+        RPIFrame parseRPI(char *frame);
+
+        /**
+         * Parse a frame received from an other strandbeest and return an instance of StrandFrame.
+         * Here, we're not demanding a length since the frame should have the expected length
+         * defined by `RECEIVED_STRAND_FRAME_LENGTH`.
+         * @param frame An "parsable" array of raw bytes.
+         * "parsable" means that it should be filled with the correct data
+         * to build a StrandFrame object.
+         * @return A fully usable StrandFrame object!
+         */
+        StrandFrame parseStrand(char *frame);
+
+        /**
+         * Builds a StrandFrame instance to send.
+         * @param buf Buffer to fill with the frame.
+         * @param objectFound a boolean telling if the object was found.
+         */
+        void buildStrand(char *buf, bool objectFound);
+
+        /**
+         * Returns the size of a strand frame we send.
+         * This is different from `RECEIVED_STRAND_FRAME_LENGTH` since we're adding
+         * an STX and ETX byte to it. Plus, we might have some channel coding one day.
+         * This should be used to create a buffer to be filled with `buildStrand()`.
+         */
+        int getStrandFrameLen();
 };
 
 #endif

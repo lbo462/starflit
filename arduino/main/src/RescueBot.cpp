@@ -19,20 +19,62 @@ void RescueBot::update()
     unsigned long currentMillis = millis();
     smartMotors.update();
 
-    // Careful because this will block the code for 5s if no frame is received!
-    serial.withRecv(
-        RECEIVED_FRAME_LENGTH, [&](char *frame) {
-            RPIFrame rpiFrame = parser.parse(frame);
-            radio.sendString(
-                String("Object detected : ")
-                + String(rpiFrame.xObjectPosition)
-                + F(",")
-                + String(rpiFrame.yObjectPosition)
-            );
+    if(!RPIInitialized)
+    {
+        // TODO @marsia do your LEDs thing here.
+        radio.sendString("RPI not initialized");
+    }
+
+    serial.withRecv(  // Actually receive the frame from the RPI
+        RECEIVED_RPI_FRAME_LENGTH, [&](char *frame) {
+            RPIFrame rpiFrame = parser.parseRPI(frame);
+            if(rpiFrame.initialized && !RPIInitialized)
+            {
+                // Updates the RPI initialized
+                RPIInitialized = rpiFrame.initialized;
+
+                radio.sendString("RPI initialized");
+            }
+
+            // Check object detection
+            if(rpiFrame.objectDetected)
+            {
+                // Send the information to everyone that the RPI found something
+                char *strandFrame = new char[parser.getStrandFrameLen()];
+                parser.buildStrand(strandFrame, true);
+                radio.send(strandFrame, sizeof(strandFrame));
+                objectFound = true;   
+            }
         }
     );
 
-    /** 
+    if(!objectFound)
+    {
+        radio.withRecv(
+            RECEIVED_STRAND_FRAME_LENGTH, [&](char *frame) {
+                StrandFrame strandFrame = parser.parseStrand(frame);
+
+                // Just for debugging, alert via radio
+                if (strandFrame.objectFound)
+                {
+                    radio.sendString("Someone found something!");
+                }
+
+                // Update internal state
+                objectFound = strandFrame.objectFound;
+            }
+        );
+    }
+    
+
+    // If the RPI isn't ready or if the object was found, just don't move and exit
+    if(!RPIInitialized || objectFound)
+    {
+        smartMotors.stop();
+        return;
+    }
+
+    /*
      * Do the moves !
      * 
      *   _O/
@@ -45,12 +87,12 @@ void RescueBot::update()
     // Check if it's time to scan or if we're actually scanning
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
-        // scan();
+        scan();
     }
 
     else
     {
-        // explore();
+        explore();
     }
 }
 

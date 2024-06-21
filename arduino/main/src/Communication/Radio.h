@@ -5,6 +5,7 @@
 
 #include <Arduino.h>
 #include <RF24.h>
+#include "Constants.h"
 
 
 /** Enables read-write radio communication through the RF24 antennas */
@@ -27,6 +28,16 @@ class Radio
          * @return True if the payload was delivered successfully false if not
          */
         bool send(const void *buf, byte len);
+
+        /**
+         * Receive data from the radio.
+         * In order to stop, this functions waits to receive an ETX.
+         * @param buf Filled with a frame of bytes received from the module.
+         * @param len Max length to read.
+         * But will stop if ETX if encountered before.
+         * @return The length of the frame received. -1 if nothing's received
+         */
+        int recv(char *buf, int len);
 
     private:
         /** Radio object from the RF24 module to handle communication with the antennas */

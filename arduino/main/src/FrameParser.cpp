@@ -4,9 +4,12 @@ FrameParser::FrameParser() {}
 
 FrameParser::~FrameParser() {}
 
-RPIFrame FrameParser::parse(char *frame)
+RPIFrame FrameParser::parseRPI(char *frame)
 {
     RPIFrame rpiFrame;
+
+    rpiFrame.initialized = (bool)frame[0];
+    rpiFrame.objectDetected = (bool)frame[1];
 
     /*
      * Hey, you!
@@ -46,8 +49,29 @@ RPIFrame FrameParser::parse(char *frame)
      * from the two bytes `frame[i]` and `frame[i+1]`.
      * The order is important, and we're doing big endian here.
      */
-    rpiFrame.xObjectPosition = (signed int)(frame[0] << 8) + (unsigned char)frame[1];
-    rpiFrame.yObjectPosition = (signed int)(frame[2] << 8) + (unsigned char)frame[3];
+    rpiFrame.xObjectPosition = (signed int)(frame[2] << 8) + (unsigned char)frame[3];
+    rpiFrame.yObjectPosition = (signed int)(frame[4] << 8) + (unsigned char)frame[5];
 
     return rpiFrame;
+}
+
+StrandFrame FrameParser::parseStrand(char *frame)
+{
+    StrandFrame strandFrame;
+    strandFrame.objectFound = (bool)frame[0];
+
+    return strandFrame;
+}
+
+void FrameParser::buildStrand(char* buf, bool objectFound)
+{
+    buf[0] = STX;
+    buf[1] = objectFound ? (char)0x1 : (char)0x0;
+    buf[2] = ETX;
+}
+
+int FrameParser::getStrandFrameLen()
+{
+    // We add 2 bytes, corresponding to the STX and ETX bytes.
+    return RECEIVED_STRAND_FRAME_LENGTH + 2;
 }

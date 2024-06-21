@@ -6,30 +6,24 @@
 #include <Arduino.h>
 #include <Array.h>
 #include <SoftwareSerial.h>
+#include "Constants.h"
 #include "Radio.h"
 
-#define STX 0x02
-#define ETX 0x03
+
 
 /**
  * Defines all the communication modules available through instances of the `Communication` class.
  */
 enum CommunicationModule {
     /** Communication through RF24 radio. */
-    radio = 0,
+    radioModule = 0,
 
     /**
      * Classic serial communication.
      * Note that one can't work with multiple serial module at a time.
      * This is due to the hardware wiring: all the serial are wired on the same pins ...
      */
-    serial = 1,
-    
-    /**
-     * Communication through bluetooth (bluetooth).
-     * This doesn't work well with `serial`.
-     */
-    bluetooth = 2,
+    serialModule = 1,
 };
 
 /** 
@@ -46,12 +40,8 @@ enum CommunicationModule {
  * The default pins are __RX = 0__ and __TX = 1__ and they're used by the following modules:
  * 
  * - serial
- * - bluetooth
- * 
- *  ╱|、
- * (˚ˎ 。7  
- * |、˜〵 
- * じしˍ,)ノ
+ * - bluetooth (not implemented)
+ * - maybe the wi-fi (TODO one needs to test this)
  */
 template<CommunicationModule module>
 class Communication
@@ -104,8 +94,9 @@ class Communication
          * If the STX byte is not received, nothing else will be!
          * 
          * @param maxLength Maximum length to receive.
-         * @param f The function to execute, as described above.
          * Please, provide with the expected length of the message.
+         * @param f The function to execute, as described above.
+         * This function gets executed iff a frame is available!
          */
         template<class F>
         void withRecv(int maxLength, F && f);
@@ -113,9 +104,6 @@ class Communication
     private:
         /** Communication through RF24 radio. */
         Radio radio = Radio();
-
-        /** Bluetooth communication. */
-        SoftwareSerial bluetooth = SoftwareSerial(0, 1);  // RX, TX
 
         /** Standard serial communication. Same as `Serial`, but a bit more professional. */
         SoftwareSerial serial = SoftwareSerial(0, 1);  // RX, TX
@@ -126,14 +114,12 @@ class Communication
          * THIS IS PRIVATE!
          * Instead, use `withRecv()`.
          * 
-         * In order to stop, this functions waits to receive a EOT.
-         * Plus, to avoid block coding for too long when nothing is received,
-         * this function features a timer of 5 seconds that will end the listening
-         * and return nothing.
+         * This function is triggered only if the module has something to read.
+         * In order to stop, this functions waits to receive an ETX.
          * @param buf Filled with a frame of bytes received from the module.
          * @param len Max length to read.
-         * But will stop if EOT if encountered before.
-         * @return The length of the frame received. -1 if nothing received
+         * But will stop if ETX if encountered before.
+         * @return The length of the frame received. -1 if nothing's received
          */
         int recv(char *buf, int len);
 

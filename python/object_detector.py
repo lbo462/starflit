@@ -6,23 +6,29 @@ import tflite_runtime.interpreter as tflite
 import cv2
 import numpy as np
 
+
 class InvalidClass(Exception):
     """The selected object is not inside the labels file"""
+
 
 class ObjectDetector:
     """
     Detects the object that is defined when the class is initiated.
     """
 
-    def __init__(self, objekt: str, model_path: str, labels_filepath: str, low_res_size: Tuple) -> None:
+    def __init__(
+        self, objekt: str, model_path: str, labels_filepath: str, low_res_size: Tuple
+    ) -> None:
         self._object = objekt
         self._model_path = model_path
         self._labels_filepath = labels_filepath
         self._low_res_size = low_res_size
 
-        with open(self._labels_filepath, 'r') as f:
+        with open(self._labels_filepath, "r") as f:
             if objekt not in f.read():
-                raise InvalidClass(f"The object '{objekt}' is not inside the labels file")
+                raise InvalidClass(
+                    f"The object '{objekt}' is not inside the labels file"
+                )
 
     def calculate_box_center_and_normalize(
         self, xmin: float, xmax: float, ymin: float, ymax: float
@@ -35,7 +41,7 @@ class ObjectDetector:
         center = [abs(xmax - xmin) / 2, abs(ymax - ymin) / 2]
         normalized = [
             int((center[0] - (x_frame / 2))),
-            int((center[0] - (y_frame / 2))),
+            int((center[1] - (y_frame / 2))),
         ]
         return normalized
 
@@ -52,7 +58,9 @@ class ObjectDetector:
                 labels[int(split[0])] = split[1]
 
         # Initializes the interpreter and allocates tensors (mandatory)
-        interpreter = tflite.Interpreter(model_path=self._model_path, num_threads=threads)
+        interpreter = tflite.Interpreter(
+            model_path=self._model_path, num_threads=threads
+        )
         interpreter.allocate_tensors()
 
         # Gets input and output details to define image size and detected classes
