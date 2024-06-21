@@ -29,21 +29,21 @@ int Radio::recv(char *buf, int len)
 
     if(radio.available())
     {
-        char buffer[len + 2] = "";
+        // Raw buffer read from the radio
+        char receivedBuf[len + 2] = "";
         radio.read(&buffer, len + 2);
 
-        // If there's no STX, we poped in the middle of nowhere, so exit
-        if(buffer[0] != STX)
+        // If there's no STX at the start of our buffer, we poped in the middle of nowhere, so exit
+        if(receivedBuf[0] != STX)
             return -1;
 
         size_t index = 0;
         while (index < len) {
+            // Exit when one find an ETX byte (which is not included in the frame)
+            if (receivedBuf[index] == ETX) break;
 
-            // Avoid code being stuck here!
-            if (buffer[index] < 0 || buffer[index] == ETX) break;
-
-            // Continue parsing and keep that byte in the buffer
-            buf[index++] = (char)buffer[index];
+            // Continue parsing and keep a byte in the buffer (frame)
+            buf[index++] = (char)receivedBuf[index];
         }
         return index;
     }
