@@ -22,7 +22,7 @@ void RescueBot::update()
     if(!RPIInitialized)
     {
         // TODO @marsia do your LEDs thing here.
-        //radio.sendString("RPI not initialized");
+        radio.sendString("RPI not initialized");
     }
 
     serial.withRecv(  // Actually receive the frame from the RPI
@@ -39,13 +39,10 @@ void RescueBot::update()
             // Check object detection
             if(rpiFrame.objectDetected)
             {
-                // Send the information to everyone
-                char *strandFrame = new char[RECEIVED_STRAND_FRAME_LENGTH + 2];
-                parser.buildStrand(strandFrame, RECEIVED_STRAND_FRAME_LENGTH, true);
-                Serial.println(strandFrame[0], HEX);
-                Serial.println(strandFrame[1], HEX);
-                Serial.println(strandFrame[2], HEX);
-                radio.send(strandFrame, RECEIVED_STRAND_FRAME_LENGTH + 2);
+                // Send the information to everyone that the RPI found something
+                char *strandFrame = new char[parser.getStrandFrameLen()];
+                parser.buildStrand(strandFrame, true);
+                radio.send(strandFrame, sizeof(strandFrame));
                 objectFound = true;   
             }
         }
@@ -56,10 +53,14 @@ void RescueBot::update()
         radio.withRecv(
             RECEIVED_STRAND_FRAME_LENGTH, [&](char *frame) {
                 StrandFrame strandFrame = parser.parseStrand(frame);
+
+                // Just for debugging, alert via radio
                 if (strandFrame.objectFound)
                 {
                     radio.sendString("Someone found something!");
                 }
+
+                // Update internal state
                 objectFound = strandFrame.objectFound;
             }
         );

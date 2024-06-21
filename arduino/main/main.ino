@@ -25,7 +25,7 @@ void setup() {
    *
    *  Thank you!
    */
-  Serial.begin(115200);
+  //Serial.begin(115200);
 
   Wire.begin();  // I2C communication
 

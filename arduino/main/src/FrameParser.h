@@ -4,7 +4,6 @@
 #define frame_parser_h
 
 #include "Communication/Constants.h"
-#include <Arduino.h>
 
 /**
  * Expected frame length in reception from the RPI.
@@ -101,11 +100,18 @@ class FrameParser
 
         /**
          * Builds a StrandFrame instance to send.
-         * @param len Size of the frame. should be fed with `RECEIVED_STRAND_FRAME_LENGTH`.
+         * @param buf Buffer to fill with the frame.
          * @param objectFound a boolean telling if the object was found.
-         * @return The frame to send, as a buffer.
          */
-        void buildStrand(char *buf, int len, bool objectFound);
+        void buildStrand(char *buf, bool objectFound);
+
+        /**
+         * Returns the size of a strand frame we send.
+         * This is different from `RECEIVED_STRAND_FRAME_LENGTH` since we're adding
+         * an STX and ETX byte to it. Plus, we might have some channel coding one day.
+         * This should be used to create a buffer to be filled with `buildStrand()`.
+         */
+        int getStrandFrameLen();
 };
 
 #endif

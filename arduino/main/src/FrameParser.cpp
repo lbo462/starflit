@@ -59,14 +59,19 @@ StrandFrame FrameParser::parseStrand(char *frame)
 {
     StrandFrame strandFrame;
     strandFrame.objectFound = (bool)frame[0];
-    Serial.println(frame[0], HEX);
 
     return strandFrame;
 }
 
-void FrameParser::buildStrand(char* buf, int len, bool objectFound)
+void FrameParser::buildStrand(char* buf, bool objectFound)
 {
     buf[0] = STX;
     buf[1] = objectFound ? (char)0x1 : (char)0x0;
     buf[2] = ETX;
+}
+
+int FrameParser::getStrandFrameLen()
+{
+    // We add 2 bytes, corresponding to the STX and ETX bytes.
+    return RECEIVED_STRAND_FRAME_LENGTH + 2;
 }

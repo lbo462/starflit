@@ -18,16 +18,18 @@ void setup() {
   radio.setPALevel(RF24_PA_MIN);
   radio.stopListening();
 
+  // Will be execute only once:
   char buf[] = {
-    0x02,0x01,0x03
+    0x02,  // STX byte
+    0x01,  // Says the object was found
+    0x03   // ETX byte
   };
 
-  Serial.print("Sent " + String(buf));
+  Serial.print("Sent ");
+  Serial.print(buf, HEX)
   radio.write(&buf, sizeof(buf));
 }
 
 void loop() {
-
-
-  delay(1000);
+  // do nothing
 }
