@@ -232,3 +232,4 @@ void RescueBot::explore()
             smartMotors.goBackward(100);  // Will enter collision avoidance at next iteration
     }
 }
+

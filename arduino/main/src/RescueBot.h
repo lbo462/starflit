@@ -5,6 +5,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+//#include <Adafruit_NeoPixel.h>
 
 #include "SmartMotors/SmartMotors.h"
 #include "UltrasonicSensors.h"
@@ -77,6 +78,11 @@ class RescueBot
          * Aware of collisions and won't break walls !
          */
         void explore();
+
+        /**
+         * Controls the leds on top of the robot.
+         */
+        //void leds();
 
     private:
         /** Tells if the RPI was initialized. */
