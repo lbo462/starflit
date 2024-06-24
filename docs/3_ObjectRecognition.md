@@ -467,3 +467,19 @@ Mobilenet was the more effective so we pre-
 
 **2. Fine-tune yolov8 model on our computers**
 
+So we've picked Mobilenetv3_Large model, and now what ? 
+Now, let's fine-tune it. 
+
+DON'T follow [Tensorflow's documentation](https://www.tensorflow.org/tutorials/images/transfer_learning?hl=fr). Follow the [Keras'](https://keras.io/guides/transfer_learning/) one instead. 
+
+#### Import your own dataset
+
+Importing your own dataset can be tricky, we tested many things : 
+
+- **Google drive** : A dataset is too big to be imported on a drive, it may fill it. 
+- **kaggle**: You need to be authentified.
+- **Hugging face** : 
+- **Google Cloud Storage** : 
+
+**3. Run our fine-tuned model on the rasp**
+
