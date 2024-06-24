@@ -63,7 +63,7 @@ For example, imagine we want to move like this:
 - the round is the robot
 - the stars represent landmarks
 
-![Project Logo](../assets/SLAMIntendedMovement.png)
+![](assets/SLAMIntendedMovement.png)
 *[Youtube : SLAM-course-1](https://www.youtube.com/watch?v=wVsfCnyt5jA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=3)*
 
 The problem is that we have a lot of uncertainty:
@@ -80,7 +80,7 @@ The problem is that we have a lot of uncertainty:
 
 Our robot doesn't move as intended and doesn't describe exactly the reality. So the real movement of the robot compared to the movement intended looks like this:
 
-![Project Logo](../assets/SLAMDeviation.png)
+![](assets/SLAMDeviation.png)
 *[Youtube : SLAM-course-1](https://www.youtube.com/watch?v=wVsfCnyt5jA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=3)*
 
 It leads the robot to miss the landmark, and therefore, to miscreate the map.
@@ -88,25 +88,25 @@ It leads the robot to miss the landmark, and therefore, to miscreate the map.
 *Your robot will most likely always deviate, even a little bit, except in very specific situations (on a rail for example).*
 
 One way to represent the map is to evaluate the level of uncertainty of the position and of landmarks:
-![Project Logo](../assets/SLAMHardProblem.png)
+![](assets/SLAMHardProblem.png)
 *[Slides : SLAM-fastslam](http://ais.informatik.uni-freiburg.de/teaching/ss13/robotics/slides/14-slam-fastslam.pdf)*
 
 ### Misinterpretation 
 
 Another problem is that our robot can misinterpret the landmarks:
 
-![Project Logo](../assets/SLAMHardProblem2.png)
+![](assets/SLAMHardProblem2.png)
 *[Slides : SLAM-fastslam](http://ais.informatik.uni-freiburg.de/teaching/ss13/robotics/slides/14-slam-fastslam.pdf)*
 
 ## Our case
 
 In our case, we have strandbeests that have legs:
 
-![Photo Strandbeest](../assets/strandbeest.png)
+![Photo Strandbeest](assets/strandbeest.png)
 
 The major inconvenience with this is that it brings randomness in the movement. For example, when we start the Strandbeest and its right leg is in a specific position, the whole robot will deviate to the right. In the context of SLAM, where the more precise you are the better, this is a major problem.
 
-![Photo Strandbeest](../assets/SLAMLandmarks.png)
+![](assets/SLAMLandmarks.png)
 *[Slides : SLAM-fastslam](http://ais.informatik.uni-freiburg.de/teaching/ss13/robotics/slides/14-slam-fastslam.pdf)*
 
 We didn't accomplish perfect control engineering. 
@@ -120,8 +120,8 @@ One solution would be to do better than us:
 In our case, we don't want to have a map on each robot. We want to have a shared map of the environment that the swarm shares.
 
 To do that you would have to implement **multi-agent SLAM** :
- - [Research paper : C-SAM Multi-Robot SLAM ](https://www.researchgate.net/figure/Two-robots-rendezvous-after-exploration-The-individually-created-maps-are-shared-and_fig1_224318651)
-  - [Research paper: Multi-agent SLAM](https://rpg.ifi.uzh.ch/docs/thesis_Cieslewski_final.pdf)
+- [Research paper : C-SAM Multi-Robot SLAM ](https://www.researchgate.net/figure/Two-robots-rendezvous-after-exploration-The-individually-created-maps-are-shared-and_fig1_224318651)
+- [Research paper: Multi-agent SLAM](https://rpg.ifi.uzh.ch/docs/thesis_Cieslewski_final.pdf)
 
 
 ## What to do 
@@ -129,10 +129,10 @@ To do that you would have to implement **multi-agent SLAM** :
 In the Links section, you can inspire yourself with the Github repositories and other links. We would recommend starting by researching the subject, and then trying the [Github: Arduino SLAM using ultrasonic sensors](https://github.com/PatelVatsalB21/Ultrasonic-SLAM).
 
 ## Links 
- - [Research paper: SLAM in weak environment information applications using Swarm robots](https://www.researchgate.net/publication/379134679_SLAM_in_Weak_Environment_Information_Applications_using_Swarm_Robots)
- - [Github: Arduino SLAM using ultrasonic sensors](https://github.com/PatelVatsalB21/Ultrasonic-SLAM)
- - [Youtube: SLAM-course-1](https://www.youtube.com/watch?v=wVsfCnyt5jA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=3)
- - [Slides: SLAM-fastslam](http://ais.informatik.uni-freiburg.de/teaching/ss13/robotics/slides/14-slam-fastslam.pdf)
- - [Research paper: Multi-agent SLAM](https://rpg.ifi.uzh.ch/docs/thesis_Cieslewski_final.pdf)
- - [Github: SLAM on Raspberry PI](https://github.com/AdroitAnandAI/SLAM-on-Raspberry-Pi?tab=readme-ov-file)
- - [Research paper : C-SAM Multi-Robot SLAM ](https://www.researchgate.net/figure/Two-robots-rendezvous-after-exploration-The-individually-created-maps-are-shared-and_fig1_224318651)
+- [Research paper: SLAM in weak environment information applications using Swarm robots](https://www.researchgate.net/publication/379134679_SLAM_in_Weak_Environment_Information_Applications_using_Swarm_Robots)
+- [Github: Arduino SLAM using ultrasonic sensors](https://github.com/PatelVatsalB21/Ultrasonic-SLAM)
+- [Youtube: SLAM-course-1](https://www.youtube.com/watch?v=wVsfCnyt5jA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=3)
+- [Slides: SLAM-fastslam](http://ais.informatik.uni-freiburg.de/teaching/ss13/robotics/slides/14-slam-fastslam.pdf)
+- [Research paper: Multi-agent SLAM](https://rpg.ifi.uzh.ch/docs/thesis_Cieslewski_final.pdf)
+- [Github: SLAM on Raspberry PI](https://github.com/AdroitAnandAI/SLAM-on-Raspberry-Pi?tab=readme-ov-file)
+- [Research paper : C-SAM Multi-Robot SLAM ](https://www.researchgate.net/figure/Two-robots-rendezvous-after-exploration-The-individually-created-maps-are-shared-and_fig1_224318651)
