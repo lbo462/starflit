@@ -27,7 +27,7 @@ Convolutions are operators that show the resemblance between two things. That's 
 
 >If you want to dig into that, take a look at your TIP courses. 
 
-![](/md//uploads/fc9c69e8076ac616dfc1aa101.png)
+![](assets/fc9c69e8076ac616dfc1aa101.png)
 
 
 ### Frameworks
@@ -61,9 +61,7 @@ The three main most popular model types are:
 
 Before you go any further, you need to setup a python environment with the necessary packages so that you can start programming. Programming directly on the RPi directly isn't a very good idea for many reasons, one of which being that training the NN will take A LOT of time.
 
-> [!warning]
 > This tutorial has been tested on `Ubuntu 24.04 LTS` on an `x86_64` machine, with `Python 3.12.3`. Some steps might differ and some packages might not be available/up to date on other plateforms/distributions.
-
 
 #### Installing Tensorflow
 
@@ -117,13 +115,11 @@ To be able to use the `picamera2` package in your python virtual env, you will n
 virtualenv venv --system-site-packages
 ```
 
-### Training a model
-
 ### Transforming a model from one format to another
 
 This is actually quite easy.You first need to convert your model to the ONNX format.ONNX grant you a great interoperability between models format. 
 
-![](/md//uploads/fc9c69e8076ac616dfc1aa100.png)
+![](assets/fc9c69e8076ac616dfc1aa100.png)
 
 > ONNX (Open Neural Network eXchange) is an open standard used to represent machine learning algorithms.
 
@@ -133,15 +129,14 @@ Here are the links for the most used models (We haven't try them though):
 - PyTorch to tflite : https://github.com/sithu31296/PyTorch-ONNX-TFLite
 - Tflite to PyTorch : https://www.geeksforgeeks.org/how-to-convert-a-tensorflow-model-to-pytorch/
 - PyTorch to Keras : https://medium.com/analytics-vidhya/pytorch-to-keras-using-onnx-71d98258ad76
-- 
 
 For the folowing specific models, follow these links (We tested these):
 
 - yolov8 : https://docs.ultralytics.com/integrations/tflite/#installation 
-
 - yolov5 : https://docs.ultralytics.com/yolov5/tutorials/model_export/#colab-pro-cpu. 
 
-If you have an error like this : 
+If you have an error like this :
+
 ```bash
 export yolov5 to tflite error: missing attribute 'value' LLVM ERROR: Failed to infer result type(s). Aborted
 ```
@@ -151,14 +146,14 @@ You may encounter some problems with tensorflow 2.16. So you need to downgrade t
 pip uninstall tensorflow
 pip install "tensorflow==2.15.0"
 ```
+
 - Mobilenetv3 : https://www.kaggle.com/models/google/mobilenet-v3/tfLite/small-075-224-classification. You will find all the MobilenetV3 models downloadable in tflite. 
 
 ### Setting up the RPi
 
-
 #### Installing the necessary dependencies/packages
 
-<!-- Install via requirements but also explain all the trouble shooting steps -->
+<!--TODO Install via requirements but also explain all the trouble shooting steps -->
 
 ### Running inference
 
@@ -198,7 +193,7 @@ The recall is the ratio of the number of all the objects the model could have de
 
  #### Precision-Recall Curve
  
- The AP is the area under the PR curve.
+The AP is the area under the PR curve.
 ![](https://miro.medium.com/v2/resize:fit:750/format:webp/0*IIP5_lTXigXMViiu.png)
 
 #### IoU
@@ -234,17 +229,16 @@ Caracteristics of the tested models:
 - Trained dataset: [coco](https://cocodataset.org)
 - Framework: tflite
 
-| Name               | Size (Mb) | Parameters (Millions) | Accuracy  (AP)     | Inference (s) | Flops |
-| ------------------ | --------- | --------------------- | -------------- | ------------- | ----- |
-| MobileNetV2        | 6.1       | 4.3                   | 22.1         | 0.08          | 0.32  |
-| MobileNetV3 S      | 8.21      | 1.5                   | 16.1         | 0.02          | 0.02  |
-| MobileNetV3 L      | 16        | 5                     | 22           | 0.055         | 0.23  |
-| YoloV5 Nano        | 3.85      | 1.9                   | 28    | 0.52          | 4.5   |
-| YoloV5 S           | 14.57     | 7.2                   | 37.4  | 3.4           | 16.5  |
-| Yolov8 N float16   | 6.4       |                       | 37    | 0.8           | 8.7   |
-| Yolov8 N float32   | 12.86     |                       | 37    | 0.97          | 8.7   |
-| EfficientDet-lite0 | 4.4       |      3.2                 | 26           | 0.19          |       |
-
+| Name               | Size (Mb) | Parameters (Millions) | Accuracy (AP) | Inference (s) | Flops |
+| ------------------ | --------- | --------------------- | ------------- | ------------- | ----- |
+| MobileNetV2        | 6.1       | 4.3                   | 22.1          | 0.08          | 0.32  |
+| MobileNetV3 S      | 8.21      | 1.5                   | 16.1          | 0.02          | 0.02  |
+| MobileNetV3 L      | 16        | 5                     | 22            | 0.055         | 0.23  |
+| YoloV5 Nano        | 3.85      | 1.9                   | 28            | 0.52          | 4.5   |
+| YoloV5 S           | 14.57     | 7.2                   | 37.4          | 3.4           | 16.5  |
+| Yolov8 N float16   | 6.4       |                       | 37            | 0.8           | 8.7   |
+| Yolov8 N float32   | 12.86     |                       | 37            | 0.97          | 8.7   |
+| EfficientDet-lite0 | 4.4       | 3.2                   | 26            | 0.19          |       |
 
 ### How to get your **Inference Time**
 
@@ -256,13 +250,13 @@ It allows us to quickly benchmark the inference time of a model on a raspberry p
 
 ### How to get your **Accuracy**
 
-
+<!-- TODO -->
 
 ## Transfer learning and fine-tuning
 
 > Note that this part exist because we made research and tried to fine-tune
 > a model, but we couldn't be able to finish the process in the given time.
-> This documentation contains some informations that could be useful for
+> This documentation contains some information that could be useful for
 > future projects.
 
 You might already have heard of _fine-tuning_ to train a pre-existing model 
@@ -366,16 +360,15 @@ concerning importing hugging face datasets, and that a
 bit of documentation. Hopefully, it was merged by the time you're reading 
 this.
 
-
 ## Methodology
 
 *This section outlines our method and challenges to help you avoid similar issues.*
 
 ### Initial Approach
 
-We needed to make a model run on a raspberrypi and fine-tune it to recognize healthy or diseased leaves. 
+We needed to make a model run on a RPI and fine-tune it to recognize healthy or diseased leaves. 
 
-With some research, we saw that yolo models were the most efficent to object recognition. 
+With some research, we saw that yolo models were the most efficient to object recognition. 
 
 So the method was simple : 
 1. Run the yolov8 demo on a rasp
@@ -394,19 +387,18 @@ We first wanted to test the camera environnement.
 ```
 (-n stands for no preview. You might encounter problems with the preview, but we give you a tool to visualize it).
 
->If you're on Windows, you might have problems to visualize the photos. When you connect with ssh, make sure to make the joint with the X11 agent. 
->```bash 
->ssh user@domain -X
->```
+> If you're on Windows, you might have problems to visualize the photos. When you connect with ssh, make sure to make the joint with the X11 agent using the `-X` option as such : `ssh <user>@<domain> -X`.
 
 Use "feh" to visualize the photo : 
 
 ```bash
 sudo apt install feh
 ```
+
 #### Run yolov8 on the rasp
 
 ##### Predict an image (not a live video)
+
 First, update packages list, install pip and upgrade to latest.
 
 ```bash
@@ -415,7 +407,7 @@ sudo apt install python3-pip -y
 pip install -U pip
 ```
 
-Then install ultralytics (they developped yolov8).
+Then install ultralytics (they developed yolov8).
 
 ```bash
 pip install ultralytics[export]
@@ -426,6 +418,7 @@ Reboot the device
 ```bash
 sudo reboot
 ```
+
 Convert Model to NCNN and Run Inference
 
 ```bash
@@ -438,12 +431,13 @@ yolo predict model='yolov8n_ncnn_model' source='https://ultralytics.com/images/b
 
 The output of that is the source image with bounding box that identifies each object. 
 
->NB : you can take whatever "source" you want, even locally. 
+> NB : you can take whatever "source" you want, even locally. 
 
 ⚠️Make sure the image sizes are 640x640 maximum.
 
-![](/md//uploads/9f32524e6765c337a39003b06.png)
->Pretty good, huh 😎
+![](assets/9f32524e6765c337a39003b06.png)
+
+> Pretty good, huh 😎
 
 ##### Inference with camera
 
@@ -460,7 +454,7 @@ yolo predict model=yolov8n.pt source="tcp://127.0.0.1:8888"
 ```
 
 With that, we didn't see what the camera recoded but we had a text feedback like : 2 persons 0.8 probability, 1 smartphone 0.2 probability. And it was quite accurate. 
-⚠️**Issue :** But the performance wasn't good. We had 1/4 FPS (1 image every 4 seconds). Yolov8 did not work for us. 
+⚠️ **Issue :** But the performance wasn't good. We had 1/4 FPS (1 image every 4 seconds). Yolov8 did not work for us. 
 ❓What model to choose now ??? Time for benchmark
 
 ##### Looking for another model
@@ -472,3 +466,4 @@ We found yolov5 and mobilenet and tested them following that doc : https://githu
 Mobilenet was the more effective so we pre-
 
 **2. Fine-tune yolov8 model on our computers**
+

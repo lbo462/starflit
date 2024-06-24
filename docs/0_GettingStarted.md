@@ -18,14 +18,13 @@ where you'll be able to work on your version of the Starflit project.
 > You are free to rename the project.
 
 But you might do not want to fork the project and start your version from
-scratch, but that would make us sad. Anyway, you'll find in the
-[Appendix](Appendix.md#How-to-work-with-git-and-GitHub), a section about
-working with Git and GitHub. If you are already used to work with it, you
-might do not need to look into it. But if you're not, you're highly encouraged 
-to! Plus, that will give you an idea of how the starflit crew worked with git 
-and GitHub.
+scratch, but that would make us sad. Anyway, you'll find in the appendix a
+section about working with Git and GitHub. If you are already used to work
+with it, you might do not need to look into it. But if you're not, you're
+highly encouraged to! Plus, that will give you an idea of how the starflit
+crew worked with git and GitHub.
 
-## Install the Arduino development environment
+## Arduino development environment
 
 First things first, you'll have to install some things on your personal
 computer. If you have a Linux computer, use it! That will help you a lot for
@@ -77,16 +76,15 @@ installed it.
 
 `cp arduino/libraries/* ~/Arduino/libraries/` on Linux to install the libraries.
 
----
+<br>
 
 Back to the extension configuration ...
 
 In the file header, you should see new buttons. Here are the actions you'll 
 often need to do while developing:
 
-- `Verify` (aka `Compile`) is accessible via a button that appears in the 
-header of the opened `.ino` file. __Also accessible through
-`Ctrl+Shift+i`__.
+- Verify: `Ctrl+Shift+i` (aka _Compile_) is accessible via a button that appears in the 
+header of the opened `.ino` file.
 
 > You can do this action any time to check that your code compiles correctly.
 > It also refreshes the VSCode interpreter, so feel free to use it 
@@ -94,11 +92,12 @@ header of the opened `.ino` file. __Also accessible through
 >
 > __You will need to have installed the dependencies beforehand !__
 >
-> If you're using Linux, you'll have to add your user to the _dialout_ group > with `sudo usermod -a -G dialout <user>` to run the code. You might need to 
+> If you're using Linux, you'll have to add your user to the _dialout_ group
+> with `sudo usermod -a -G dialout <user>` to run the code. You might need to 
 > restart your computer in order to take effect. Use `groups` to check.
 
-- `Upload` is accessible the same way via a button that appear in the header 
-of the opened `.ino` file. __Also accessible through `Ctrl+Shift+u`__.
+- Upload: `Ctrl+Shift+u` is accessible the same way via a button that appear in the header 
+of the opened `.ino` file.
 
 > Before uploading your code, you want to plug the strandbeest to your
 > computer on the dev interface (the other interface is used to charge the
@@ -109,7 +108,7 @@ of the opened `.ino` file. __Also accessible through `Ctrl+Shift+u`__.
 > `.ino` file and clicking `Upload` will still upload the configured old
 > program!
  
-- `Serial Monitoring` is accessible via the shortcut `Ctrl+Shift+M` 
+- Serial Monitoring is accessible via the shortcut `Ctrl+Shift+M` 
 and clicking the `Serial Monitor` tab.
 Make sure to select the right port and speed (which is `115200` or `9600`) and click
 `Start Monitoring`.
@@ -361,6 +360,8 @@ In terms of IDE, I recommend Pycharm but VSCode does the trick.
 
 Working with python is easy, but it's required to be mindful!
 
+> [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+>
 > We use `black` for the linting.
 > If you're using Pycharm, you should configure it to run on save.
 > Otherwise, you're highly encouraged to run `python -m black .` before commiting changes!
@@ -388,14 +389,15 @@ access to Pycharm Professional Edition.
 ### Remote developing on the Raspberry PI 3
 
 While VSCode and Pycharm allow you to open a remote IDE through SSH,
-you'll soon find out that RPi 3 are pretty slow, hence remote developing becomes complicated. And thus, the title was clickbait, and we won't be doing 
+you'll soon find out that RPi 3 are pretty slow, hence remote developing
+becomes complicated. And thus, the title was clickbait, and we won't be doing 
 remote developing ^^
 
 The workaround to that issue lies in
 [rsync](https://linux.die.net/man/1/rsync). _Please make sure that it's 
 installed for you._
 
-For those unfamiliar with rsync, rsync is a tool that allows file 
+For those unfamiliar with rsync, rsync is a cool tool that allows file 
 synchronization through SSH.
 
 Since only the python code will run on the RPi, one only need to copy its 
@@ -447,7 +449,8 @@ Then, just follow this tutorial:
 [https://docs.python.org/3/library/venv.html](https://docs.python.org/3/library/venv.html)
 
 > Since you're installing your virtual environment on a raspberry PI and not
-> on your personal computer, you have to pass an extra argument when creating > it :
+> on your personal computer, you have to pass an extra argument when creating
+> it :
 > 
 > `python -m venv venv --system-site-packages`
 >

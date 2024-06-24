@@ -39,7 +39,7 @@ script in the `Arduino` folder of our git repository, that is to be upload on
 an Arduino card on which RF24 antennas are plugged.
 
 This will print to serial everything that is received on the radio, like a
-huge man in the ~~Lidl~~ middle.
+huge man in the middle.
 
 ## How to do better
 

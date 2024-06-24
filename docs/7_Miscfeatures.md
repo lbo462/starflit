@@ -52,3 +52,89 @@ If you need more detail about the specific implementation of each method, you ar
 ### The one where we discuss potential paths of improvement
 
 Other than implement additional animations, I don't see what could be improved since there really isn't a lot of complicated logic. 
+
+---
+
+## Communication Raspberry - Arduino
+
+The strandbeest is composed of an Arduino card, and a Raspberry. The
+Arduino holds all the logic, and the Raspberry is the one watching
+the camera, observing and searching what it's asked to search. Once
+the Raspberry found the object, it should alert the Arduino that will
+take action. Hence, the Raspberry is sending data to the Arduino, but
+the Arduino do not need to send anything.
+
+### Implementation
+
+In order to achieve such a thing, we chose to make use of the serial
+communication between the two devices, by plugging an USB cables on
+the two.
+
+A frame object is defined on the two devices: using Python on the RPI
+and using C++ on the Arduino. This frame class in called
+`OutGoingFrame` in the RPI, and `RPIFrame` on the Arduino. The RPI
+builds an `OutGoingFrame` and send it through the serial, using an
+instance of the `SerialInterface` class.
+
+> The `SerialInterface` class allows to send `OutGoingFrame` to the
+> serial port. The `OutGoingFrame` instance is parsed and transformed
+> to bytes. It's then squished between an STX and an ETX and finally,
+> wrote to serial.
+>
+> > The STX and ETX bytes of used to detect start and end of a frame
+> > during the parsing.
+
+The Arduino reads constantly the reception buffer of its serial port
+using the `Communcation<serialModule>` class. When it detects a
+frame, it passes it to a parser of type `FrameParser` that parses
+the char array into a usable instance of `RPIFrame` holding all the
+information sent by the RPI.
+
+### Current problems
+
+For some reason, the communication seems unstable at this point. The
+fact is that the Arduino doesn't always receive the same data as the
+one sent by the RPI. It's correct __most of the time__, but not
+always. That has become a real problem for booleans having big
+impacts on the behavior on the robot. This arose with the attribute
+`objectDetected`:
+
+> When the strandbeest finds an object, it stops and alert the
+> others. We definitely do not want to that the Arduino receives
+> the information that its Raspberry found an object if it did not!
+
+### Ameliorations
+
+To solve the discussed problem, one could  implement some channel
+encoding, with data duplication.
+
+### Encountered problems
+
+At the start, we thought that having the communication between the
+two using serial communication was a poorly chosen option, and that
+because it would occupy the serial dev port on the Arduino, making
+the development a bit more painful since it would require to unplug
+the cable many times, and that it would prevent developers from
+having the serial monitor for debugging.
+
+Our first option, was bluetooth communication. Even if it would
+have required a bit more complexity due to the pairing process, it
+could have avoided the problem described above. Turns out, that a
+non-negligible problem came to our line of sight:
+
+__The bluetooth module is wired on the serial bus.__
+
+In other words, one can't use the the serial and the bluetooth
+simultaneously. Thus, our initial problem will remain with the
+bluetooth module.
+
+> Several tests were made by us in order to work on the serial
+> bus at different speed, but always resulted with interferences.
+
+One could have created a virtual switch in order to allow writing
+on the bus in certain time slot for serial and bluetooth, but we
+preferred not to do so, and just use the serial between the RPI
+and the Arduino, despite the problem described above ...
+
+> Note that we didn't explore the option of Wi-Fi communication,
+> but it also seems that it's wired on the serial bus ...

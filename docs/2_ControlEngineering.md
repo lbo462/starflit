@@ -1,6 +1,5 @@
 # Control engineering
 
-
 Our beloved strandbeest are so specials, because they don't own wheels, but
 ... things ? Because of this, they don't go very straight. And, in order to
 have cleaner and less random moving, we decided to implement some control
@@ -9,9 +8,9 @@ engineering.
 > __Control engineering__ or __control systems engineering__ is an
 > engineering discipline that deals with control systems, applying control
 > theory to design equipment and systems withdesired behaviors in control
-> environments.[^control_engineering]
+> environments.[^1]
 
-[^control_engineering]: engineering.case.edu. Case Western Reserve University.
+[^1]: engineering.case.edu. Case Western Reserve University.
 20 November 2015. Retrieved 27 June 2017.
 
 One will notice that control engineering isn't that useful for random
