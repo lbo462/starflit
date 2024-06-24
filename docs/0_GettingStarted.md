@@ -492,17 +492,13 @@ ignored by git since everyone can have a different environment and that some pri
 In order to be able to execute the code, one has to create this file in the 
 same folder as the python code, where it's executed.
 
+Use `cp default.env .env` to create it with the default values.
+Update the variables inside it to match your environment.
+
 Hopefully, this doc is up-to-date and here's the list of the variables you'll 
 have to declare in this file:
 - `SERIAL_PORT` : The full path to the port to which the Arduino is connected
 - `SERIAL_BAUD` : The speed of the serial transmission
-
-Here's an example of this file:
-
-```
-SERIAL_PORT=/dev/ttyUSB0
-SERIAL_BAUD=115200
-```
 
 #### Run the code
 

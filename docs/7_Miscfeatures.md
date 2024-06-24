@@ -1,7 +1,8 @@
 # Miscellaneous features
 
-Welcome to the misc. features. Here, you'll find every code related features that we couldn't sort, but felt the need to talk about. You're encouraged to 
-use the sidebar in order to navigate here.
+Welcome to the misc. features. Here, you'll find every code related
+features that we couldn't sort, but felt the need to talk about.
+You're encouraged to use the sidebar in order to navigate here.
 
 ## LEDs
 

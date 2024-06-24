@@ -240,7 +240,7 @@ Caracteristics of the tested models:
 | Yolov8 N float32   | 12.86     |                       | 37            | 0.97          | 8.7   |
 | EfficientDet-lite0 | 4.4       | 3.2                   | 26            | 0.19          |       |
 
-### How to get your **Inference Time**
+### How to get your Inference Time
 
 The tool we are using for benchmarking the inference of the different models is the following:
 
@@ -248,7 +248,7 @@ https://www.tensorflow.org/lite/performance/measurement
 
 It allows us to quickly benchmark the inference time of a model on a raspberry pi.
 
-### How to get your **Accuracy**
+### How to get your Accuracy
 
 <!-- TODO -->
 
@@ -455,7 +455,7 @@ yolo predict model=yolov8n.pt source="tcp://127.0.0.1:8888"
 
 With that, we didn't see what the camera recoded but we had a text feedback like : 2 persons 0.8 probability, 1 smartphone 0.2 probability. And it was quite accurate. 
 ⚠️ **Issue :** But the performance wasn't good. We had 1/4 FPS (1 image every 4 seconds). Yolov8 did not work for us. 
-❓What model to choose now ??? Time for benchmark
+❓ What model to choose now ??? Time for benchmark
 
 ##### Looking for another model
 

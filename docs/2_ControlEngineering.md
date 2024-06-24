@@ -57,8 +57,8 @@ class to have a visual overview of this.
 > You can find an UML diagram for every class of this project, in the section
 > `Modules` or `Class List`.
 
-You might notice that the class also holds an instance of `Communication<radioModule>`. It's only used for debugging issues, like saying
-when the sensors are calibrating.
+You might notice that the class also holds an instance of `Communication<radioModule>`.
+It's only used for debugging issues, like saying when the sensors are calibrating.
 
 # Problems left
 
