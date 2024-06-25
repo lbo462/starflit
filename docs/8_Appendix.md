@@ -201,7 +201,7 @@ can find the raw version on the GitHub in the folder `docs/`.
 In order to work as a team on these documentation, we hosted a collaborative 
 markdown editor tool, named [CodiMD](https://github.com/hackmdio/codimd) on a 
 server we owned. It helped us to have a similar workflow as Google Doc, but 
-for markdown documentation writting.
+for markdown documentation writing.
 
 ---
 

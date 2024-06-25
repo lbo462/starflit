@@ -77,7 +77,7 @@ useful.
 __Why add some mapping ?__
 
 First things, because it's very cool. Second thing, one could
-imagine a scenario in which the stranbeest will be aware of its
+imagine a scenario in which the stranbeests will be aware of its
 environment to improve its searching process.
 
 Plus, the mapping process should be a shared process between all
@@ -107,7 +107,7 @@ Therefore, we couldn't end up with a fully functional transfer
 learning process.
 
 This could improve the project is a significative way since it
-would add some flexibility about what the strandbeest could be
+would add some flexibility about what the strandbeests could be
 detecting.
 
 If you're trying to implement this, try reading what we tried
@@ -116,9 +116,9 @@ first, and what we recommend in the object recognition doc.
 
 ## Add some arms
 
-Haven't you always wished to see the strandbeest with some arms ?
+Haven't you always wished to see the strandbeests with some arms ?
 This is definitely the option I prefer. Find a way to add arms
-to the strandbeest and make so that it's able to grab the object
+to the strandbeests and make so that it's able to grab the object
 it's searching. It would be a very useful and cool feature to
 have, right ?
 
@@ -132,7 +132,7 @@ people.
 ---
 
 If you want to add all of this, we might see one day, a fleet
-of strandbeest searching for lost items, drawing a map in real
+of strandbeests searching for lost items, drawing a map in real
 time of the area, and bringing back lots of treasures in no time!
 
 Have fun~
