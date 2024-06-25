@@ -12,7 +12,7 @@ __SLAM__ : Simultaneous localization and mapping
 
 This part of the project has for objective to implement a shared map for the Strandbeests.
 
- We want the strandbeests to :
+ We want the strandbeests to:
  - explore an unknown environment
  - create a map of this environment
  - share their map with the swarm
@@ -29,7 +29,7 @@ SLAM is not a specific algorithm, nor an application. It's a term to designate t
 
 SLAM asks to simultaneously localize the robot in its environment and to create the map of this environment. It is a complex problem, because in order to know the position of the robot, one needs to have the map of the environment.
 
-**There exist many types and methods of SLAM implementation:** 
+**There exists many types and methods of SLAM implementation:** 
 
 - **Bayesian Filters**: Used to estimate the robot's position while accounting for uncertainties. The main filters include the Extended Kalman Filter (EKF) and the Particle Filter 
   - Extended Kalman Filter (EKF-SLAM)
@@ -78,7 +78,7 @@ The problem is that we have a lot of uncertainty:
 
 ### Deviation
 
-Our robot doesn't move as intended and doesn't describe exactly the reality. So the real movement of the robot compared to the movement intended looks like this:
+Our robot doesn't move as intended and doesn't describe exactly the reality. So the real movement of the robot compared to the intended movement looks like this:
 
 ![](assets/SLAMDeviation.png)
 *[Youtube : SLAM-course-1](https://www.youtube.com/watch?v=wVsfCnyt5jA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=3)*
