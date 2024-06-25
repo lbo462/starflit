@@ -2,9 +2,9 @@
 
 Being here for you means that you probably read all the other
 documentation, or that you are ready to do so. Here, we'll cover
-what could be done in order to continue the project from we left
-it, together with some ideas and technical details of how to do
-so.
+what could be done in order to continue the project from where we
+left it, together with some ideas and technical details of how to
+do so.
 
 First things first, if you want to start where we left of, you
 should [fork](https://en.wikipedia.org/wiki/Fork) our GitHub repo
