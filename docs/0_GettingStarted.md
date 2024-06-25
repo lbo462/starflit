@@ -507,6 +507,14 @@ have read all the prerequisites above beforehand!
 
 In your python venv, run the command : `python main.py`.
 
+You'll have to pass some arguments to the command above. To
+see which ones, run `python main.py -h`. Note that you'll
+have to give it the model, which is the `.tflite` file, 
+and a list of labels, which is `labels.txt`.
+
+> If you've done some fine-tuning, you could change the
+> model with a different `.tflite` file.
+
 Voilà!
 
 #### Fastening the process
