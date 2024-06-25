@@ -64,6 +64,9 @@ One could also imagine replacing the legs with tank
 tracks. This will make it have cleaner movements, easier to
 control through control engineering.
 
+Here's an example on AliExpress : 
+https://fr.aliexpress.com/item/32996181258.html
+
 ## Add some mapping
 
 The Starflit crew actually couldn't implement any form of mapping

@@ -117,7 +117,7 @@ Make sure to select the right port and speed (which is `115200` or `9600`) and c
 
 ### Why?
 
-You'll now notice that we also have a Raspberry PI (RPI) on the strandbeest.
+You'll now notice that we also have a Raspberry PI (RPi) on the strandbeest.
 Hence, we need to set-up quite some things to develop on these.
 
 This lab was configured to be able to configure the RPis via SSH, without needing to connect them to a monitor.
@@ -330,9 +330,9 @@ sudo systemctl enable wpa_supplicant.service
 
 Congratulations, the lab is up and ready to go 🎉🍾🍾🍾🍾.
 
-#### Connect the RPI via SSH
+#### Connect the RPi via SSH
 
-Now that the network lab is up, you can connect to the RPI through SSH.
+Now that the network lab is up, you can connect to the RPi through SSH.
 
 Connect the RPi to the network. It should receive an IP address in the same subnet as your PC via DHCP. If you don't have access to the network router to figure out the IP, you can use [Nmap](https://nmap.org/download.html) or [Advanced IP Scanner](https://www.advanced-ip-scanner.com/) to scan the network and discover the IP of your RPi.
 Once you have the IP, connect to it via SSH using the following command:
@@ -353,7 +353,7 @@ sudo apt-get update && sudo apt-get upgrade
 
 ## Python development environment
 
-Now that we have a full access to our RPI through SSH, it's time to install
+Now that we have a full access to our RPi through SSH, it's time to install
 the development environment.
 
 In terms of IDE, I recommend Pycharm but VSCode does the trick.
@@ -364,7 +364,7 @@ Working with python is easy, but it's required to be mindful!
 >
 > We use `black` for the linting.
 > If you're using Pycharm, you should configure it to run on save.
-> Otherwise, you're highly encouraged to run `python -m black .` before commiting changes!
+> Otherwise, you're highly encouraged to run `python -m black .` before committing changes!
 
 ### Install Pycharm Professional Edition
 
@@ -451,7 +451,7 @@ Then, just follow this tutorial:
 > Since you're installing your virtual environment on a raspberry PI and not
 > on your personal computer, you have to pass an extra argument when creating
 > it :
-> 
+>
 > `python -m venv venv --system-site-packages`
 >
 > This will add the dependencies from the Raspberry PI into your environment.
@@ -518,7 +518,7 @@ When testing your features on the RPi, keep two terminals open:
 Once you made your changes, just run this command on your first terminal:
 
 ```sh
-rsync -Pru ./ strandbeest1:/home/<user>/starflit/
+rsync -Pru ./ strandbeest1:/home/$USER/starflit/
 ```
 
 And the code will be updated on the other side, so you just have to run it on 

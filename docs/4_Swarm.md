@@ -20,7 +20,7 @@ boolean indicating if an object was found.
 > alert its mates.
 
 In order to build and parse these frame, we wrote the class `FrameParser`. It
-also handles other kind of frames, like the ones exchanged from the RPI and 
+also handles other kind of frames, like the ones exchanged from the RPi and 
 the Arduino controller.
 
 To explain in simple terms, the `RescueBot` that found the object creates 

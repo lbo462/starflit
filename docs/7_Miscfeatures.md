@@ -71,9 +71,9 @@ In order to achieve such a thing, we chose to make use of the serial
 communication between the two devices, by plugging an USB cables on
 the two.
 
-A frame object is defined on the two devices: using Python on the RPI
+A frame object is defined on the two devices: using Python on the RPi
 and using C++ on the Arduino. This frame class in called
-`OutGoingFrame` in the RPI, and `RPIFrame` on the Arduino. The RPI
+`OutGoingFrame` in the RPi, and `RPIFrame` on the Arduino. The RPi
 builds an `OutGoingFrame` and send it through the serial, using an
 instance of the `SerialInterface` class.
 
@@ -89,13 +89,13 @@ The Arduino reads constantly the reception buffer of its serial port
 using the `Communcation<serialModule>` class. When it detects a
 frame, it passes it to a parser of type `FrameParser` that parses
 the char array into a usable instance of `RPIFrame` holding all the
-information sent by the RPI.
+information sent by the RPi.
 
 ### Current problems
 
 For some reason, the communication seems unstable at this point. The
 fact is that the Arduino doesn't always receive the same data as the
-one sent by the RPI. It's correct __most of the time__, but not
+one sent by the RPi. It's correct __most of the time__, but not
 always. That has become a real problem for booleans having big
 impacts on the behavior on the robot. This arose with the attribute
 `objectDetected`:
@@ -134,7 +134,7 @@ bluetooth module.
 
 One could have created a virtual switch in order to allow writing
 on the bus in certain time slot for serial and bluetooth, but we
-preferred not to do so, and just use the serial between the RPI
+preferred not to do so, and just use the serial between the RPi
 and the Arduino, despite the problem described above ...
 
 > Note that we didn't explore the option of Wi-Fi communication,

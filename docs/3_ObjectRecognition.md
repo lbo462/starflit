@@ -366,7 +366,7 @@ this.
 
 ### Initial Approach
 
-We needed to make a model run on a RPI and fine-tune it to recognize healthy or diseased leaves. 
+We needed to make a model run on a RPi and fine-tune it to recognize healthy or diseased leaves. 
 
 With some research, we saw that yolo models were the most efficient to object recognition. 
 
