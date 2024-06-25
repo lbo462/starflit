@@ -478,9 +478,9 @@ DON'T follow [Tensorflow's documentation](https://www.tensorflow.org/tutorials/i
 Importing your own dataset can be tricky, we tested many things : 
 
 - **Google drive** : A dataset is too big to be imported on a drive, it may fill it. 
-- **kaggle**: You need to be authentified.
-- **Hugging face** : 
-- **Google Cloud Storage** : 
+- **kaggle**: You need to be authenticated.
+- **Hugging face** : Problems importing the dataset with tfds.
+- **Google Cloud Storage** : Same problems as in local ...
 
-<!-- **3. Run our fine-tuned model on the rasp** -->
+We still struggle to fine-tune the model. We seem to have compatibility problems between our fine-tuned model in tflite and the model expected by the object detection script. We don't know where the problem comes from.
 
