@@ -6,7 +6,7 @@ a bit overwhelming at the start. If you are, let's begin the diving!
 
 ## Git and Github
 
-The starflit project owns its GitHub repository at
+The starflit project has its GitHub repository at
 [https://github.com/lbo462/starflit](https://github.com/lbo462/starflit).
 If you want to start your project where we left ours, you should
 [fork](https://en.wikipedia.org/wiki/Fork) this repository into your own
@@ -17,7 +17,7 @@ where you'll be able to work on your version of the Starflit project.
 
 > You are free to rename the project.
 
-But you might do not want to fork the project and start your version from
+But you might not want to fork the project and start your version from
 scratch, but that would make us sad. Anyway, you'll find in the appendix a
 section about working with Git and GitHub. If you are already used to work
 with it, you might do not need to look into it. But if you're not, you're
@@ -31,9 +31,11 @@ computer. If you have a Linux computer, use it! That will help you a lot for
 the rest. If you don't, you will still be able to work with Windows, but with
 a bit more pain. If you're on Mac, the process should be similar, but we haven't tested.
 
+> Or one could use a VM.
+
 As you might have guessed, we're working on Arduino. Hopefully, the one
-reading this, have already worked with Arduino and is familiar with the
-Arduino environment. Otherwise, you'll have troubles reading through this.
+reading this, has already worked with Arduino and is familiar with the
+Arduino environment. Otherwise, you'll have trouble reading through this.
 We do not aim to write an Arduino tutorial, but a "Starflit tutorial".
 
 Usually while working with Arduino, one should install the Arduino IDE when 

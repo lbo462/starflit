@@ -1,6 +1,6 @@
 # Control engineering
 
-Our beloved strandbeest are so specials, because they don't own wheels, but
+Our beloved strandbeests are so special, because they don't have wheels, but
 ... things ? Because of this, they don't go very straight. And, in order to
 have cleaner and less random moving, we decided to implement some control
 engineering.
@@ -14,7 +14,7 @@ engineering.
 20 November 2015. Retrieved 27 June 2017.
 
 One will notice that control engineering isn't that useful for random
-exploration. But we actually knew that we would need this later on, for stuffs
+exploration. But we actually knew that we would need this later on, for stuff
 like mapping, or any other features that require non-random moves.
 
 # Implementation
@@ -24,7 +24,7 @@ of what a [PID controller](https://en.wikipedia.org/wiki/Proportional%E2%80%93in
 If you don't, please follow the link above to understand its principle.
 
 We retrieve the acceleration data from the accelerometer and the gyroscope.
-- The accelerometer the gives linear acceleration, on the x, y and z axis ;
+- The accelerometer gives linear acceleration, on the x, y and z axis ;
 - The gyroscope gives the rotational speed:
 [pitch, yaw and roll](https://en.wikipedia.org/wiki/Aircraft_principal_axes).
 
@@ -65,11 +65,11 @@ It's only used for debugging issues, like saying when the sensors are calibratin
 Well ... it's not that perfect, in fact. Our strandbeest doesn't walk much
 straight when asked. Maybe it's because we badly chose our PID coefficients
 or maybe that our sensors aren't that great after all. The best it can do is
-going straight for some time (about 5 meters at its best) when going fast
+go straight for some time (about 5 meters at its best) when going fast
 enough. At slow speed, our control engineering sucks.
 
 On top of that, the angle retrieved from integration is not very precise, and
-drifts with time, which lead us to the next section ...
+drifts with time, which leads us to the next section ...
 
 # How to do better
 
