@@ -38,14 +38,14 @@ you're doing. It will help you have a clearer view of what you're
 doing and will help others to work and help you. And this makes
 a project maintainable and live through the years!
 
-## Technical improving
+## Technical improvements
 
 There are many ways to improve this project on a technical basis.
 In every section of the documentation of the project, you should
 find a section about potential improvements that could be made
 for these particular sections.
 
-Here are few examples:
+Here are a few examples:
 - Add some LIDAR sensors to better the exploration and mapping.
 - Implement a complementary or a Kalman filter for the control
 engineering.
@@ -53,7 +53,7 @@ engineering.
 different objects.
 - etc ...
 
-## Hardware upgrading
+## Hardware upgrades
 
 The strandbeest have multiple sensors that can be upgraded, like
 the ultrasonic sensors or the gyroscope. Upgrading them will
@@ -70,7 +70,7 @@ https://fr.aliexpress.com/item/32996181258.html
 ## Add some mapping
 
 The Starflit crew actually couldn't implement any form of mapping
-within the given time. But we had time to make some research
+within the given time. But we had time to do some research
 about it, and write a full document concatenating what we found
 useful.
 
@@ -81,12 +81,12 @@ imagine a scenario in which the stranbeests will be aware of its
 environment to improve its searching process.
 
 Plus, the mapping process should be a shared process between all
-the robots, so that all the robots are building a same map,
+the robots, so that all the robots are building the same map,
 preferably using no central unit to avoid SPOF.
 
-Plus, if the robots use to have a map, one will be able to add
-path algorithm so that they're able to reach pinned points, such
-as the location of a found object.
+If the robots have a map, one will be able to add path algorithms
+so that they're able to reach pinned points, such as the location
+of a found object.
 
 __Be aware!__
 
@@ -102,9 +102,9 @@ This is a tricky, yet very cool feature to implement.
 ## Add some fine-tuning
 
 There's a whole documentation about fine-tuning in the object
-recognition as this has been a non-negligible part of our work.
-Therefore, we couldn't end up with a fully functional transfer
-learning process.
+recognition documentation as this has been a non-negligible
+part of our work. Therefore, we couldn't end up with a fully
+functional transfer learning process.
 
 This could improve the project is a significative way since it
 would add some flexibility about what the strandbeests could be
@@ -120,7 +120,7 @@ Haven't you always wished to see the strandbeests with some arms ?
 This is definitely the option I prefer. Find a way to add arms
 to the strandbeests and make so that it's able to grab the object
 it's searching. It would be a very useful and cool feature to
-have, right ?
+have, right?
 
 This would require a nice implementation of image segmentation
 and a great control engineering system.

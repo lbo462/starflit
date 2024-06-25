@@ -188,11 +188,7 @@ You can configure environment variables like so:
 export MYVAR='myPassword'
 ```
 
-If you want it to be permanent:
-
-```bash
-#TODO
-```
+If you want it to be permanent, add it to the `.bashrc` file or the corresponding file for your shell.
 
 The RPi (router) should now be able to connect to Eduroam. You can test it by running the following command:
 

@@ -1,6 +1,6 @@
 # Object recognition
 
-For the project to work we need the Strandbeests to identify people in distress. Our Strandbeests have cameras and Raspberry Pis, so we can use Object Recognition. This is a challenge because we have limited compute power.
+For the project to work we need the Strandbeests to identify people in distress. Our Strandbeests have cameras and Raspberry Pis, so we can use Object Recognition. This is a challenge because we have limited computing power.
 
 ## Introduction to neural networks
 
@@ -8,7 +8,7 @@ Running a neural network (referred to as **NN** from now on) on a RaspberryPi is
 
 However, these challenges can be overcome, leading to very interesting results, and makes us realize that a RPi is in fact a quite capable little computer.
 
-For this project, our goal was to run an object detection NN in order for our Strandbeest to detect a specific object (a leaf in our case) when exploring a room.
+For this project, our goal was to run an object detection NN in order for our Strandbeests to detect a specific object (a leaf in our case) when exploring a room.
 
 > The words "NN" (Neural Network) and "model" will be used interchangeably from now on, as one commonly refers to the mathematical representation and the latter, the code representation.
 
@@ -18,7 +18,7 @@ In machine learning, a neural network is a model inspired by the structure of th
 
 A neural network (NN) consists of connected units or nodes called artificial neurons. 
 
-A NN is organized in layers. Usually, an input and an output layer and one ore many hidden layers. The hidden layers are the layers that do operations (convolution, pooling, dense, ...). 
+A NN is organized in layers. Usually, an input and an output layer and one or many hidden layers. The hidden layers are the layers that do operations (convolution, pooling, dense, ...). 
 
 There are several types of Neural Networks, but for computer vision, Convolutional Neural Networks are the most common. 
 
@@ -109,7 +109,7 @@ If you run the `pip list` command, you should now see `tflite-runtime` listed.
 
 #### Installing picamera2 (for development only ⚠)
 
-The `picamera2` dependency is natively installed  on RPis. Thus, you don't need to install it. **However**, in order to develop on another plateform than a RPi, you will need to install the `picamera2` `pip` package and the libcamera package (a verifier).
+The `picamera2` dependency is natively installed  on RPis. Thus, you don't need to install it. **However**, in order to develop on another plateform than a RPi, you will need to install the `picamera2` `pip` package and the libcamera package.
 
 To be able to use the `picamera2` package in your python virtual env, you will need to pass the `--system-site-packages` argument when you create it:
 
@@ -125,19 +125,19 @@ This is actually quite easy.You first need to convert your model to the ONNX for
 
 > ONNX (Open Neural Network eXchange) is an open standard used to represent machine learning algorithms.
 
-The general method is : OriginModel → ONNX → DestinationModel
+The general method is: OriginModel → ONNX → DestinationModel
 
 Here are the links for the most used models (We haven't try them though): 
-- PyTorch to tflite : https://github.com/sithu31296/PyTorch-ONNX-TFLite
-- Tflite to PyTorch : https://www.geeksforgeeks.org/how-to-convert-a-tensorflow-model-to-pytorch/
-- PyTorch to Keras : https://medium.com/analytics-vidhya/pytorch-to-keras-using-onnx-71d98258ad76
+- PyTorch to tflite: https://github.com/sithu31296/PyTorch-ONNX-TFLite
+- Tflite to PyTorch: https://www.geeksforgeeks.org/how-to-convert-a-tensorflow-model-to-pytorch/
+- PyTorch to Keras: https://medium.com/analytics-vidhya/pytorch-to-keras-using-onnx-71d98258ad76
 
 For the folowing specific models, follow these links (We tested these):
 
 - yolov8 : https://docs.ultralytics.com/integrations/tflite/#installation 
 - yolov5 : https://docs.ultralytics.com/yolov5/tutorials/model_export/#colab-pro-cpu. 
 
-If you have an error like this :
+If you have an error like this:
 
 ```bash
 export yolov5 to tflite error: missing attribute 'value' LLVM ERROR: Failed to infer result type(s). Aborted
@@ -213,7 +213,7 @@ When the 2 boxes have no shared pixels, the IoU = 0.
 
 The higher AP, the better, the max being 100%.
 
-*Recall that the AP depends of the context and of the dataset that the model has been trained on. 
+*Recall that the AP depends on the context and of the dataset that the model has been trained on. 
 For example, for a model trained on the COCO dataset, a very good AP is (currently) 40. In opposition, for the dataset PASCAL VOC, which is less complex, the best models can go to scores of 70.*
 
 #### FLOPs (Floating-point Operations per second)
@@ -250,14 +250,10 @@ https://www.tensorflow.org/lite/performance/measurement
 
 It allows us to quickly benchmark the inference time of a model on a raspberry pi.
 
-<!-- ### How to get your Accuracy -->
-
-<!-- TODO -->
-
 ## Transfer learning and fine-tuning
 
-> Note that this part exist because we made research and tried to fine-tune
-> a model, but we couldn't be able to finish the process in the given time.
+> Note that this part exists because we made research and tried to fine-tune
+> a model, but we weren't able to finish the process in the given time.
 > This documentation contains some information that could be useful for
 > future projects.
 
@@ -282,13 +278,13 @@ Instead, we followed the Keras documentation at
 [https://keras.io/guides/transfer_learning/](https://keras.io/guides/transfer_learning/).
 
 Theses docs contains all the knowledge you need to continue reading this.
-Please, take a bit of your time to read at least one of the twos in order to
+Please, take a bit of your time to read at least one of the two in order to
 understand the process of transfer learning and fine-tuning.
 
 ### Starflit's transfer learning objectives
 
 Our save-and-rescue little animated strandbeest have the objective of 
-recognizing an object in two different states : _healthy_ or _unhealthy_.
+recognizing an object in two different states: _healthy_ or _unhealthy_.
 Here, we chose that this object will be leaves 🍃.
 
 > As you might know, there's no much use of recognizing heathly leaves from 
@@ -300,11 +296,11 @@ Here, we chose that this object will be leaves 🍃.
 
 In order to use a custom dataset for the transfer learning, we tryed using 
 [HuggingFace 🤗](https://huggingface.co/), which is pretty similar to
-GitHub, but fitted for the AI.
+GitHub, but fitted for AI.
 
 Here, we'll only use it to host our dataset.
 
-> WARNING! If you plan on using HuggingFace to host dataset for Tensorflow/
+> WARNING! If you plan on using HuggingFace to host a dataset for Tensorflow/
 > Keras, be aware that you should be using only lower case characters (and no 
 > `-`) in your user name and the dataset's name. This comes from the fact 
 > that [tfds](https://www.tensorflow.org/datasets/overview) parses camel case
@@ -372,7 +368,7 @@ We needed to make a model run on a RPi and fine-tune it to recognize healthy or 
 
 With some research, we saw that yolo models were the most efficient to object recognition. 
 
-So the method was simple : 
+So the method was simple:
 1. Run the yolov8 demo on a rasp
 2. Fine-tune yolov8 model on our computers
 3. Run our fine-tuned model on the rasp
@@ -432,7 +428,7 @@ yolo export model=yolov8n.pt format=ncnn  # creates 'yolov8n_ncnn_model'
 yolo predict model='yolov8n_ncnn_model' source='https://ultralytics.com/images/bus.jpg'
 ```
 
-The output of that is the source image with bounding box that identifies each object. 
+The output of that is the source image with bounding boxes that identifies each object. 
 
 > NB : you can take whatever "source" you want, even locally. 
 
@@ -488,4 +484,4 @@ We still struggle to fine-tune the model. We seem to have compatibility problems
 
 If you plan on using Tensorflow, you might want to
 try with Tensorflow 2.15. Or you can use Pytorch.
-You will avoid yourself a shitload of problem.
+You will avoid yourself a shitload of problems.

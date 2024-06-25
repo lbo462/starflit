@@ -145,7 +145,7 @@ and updated at each iteration in `loop()`.
 
 ## Generating the documentation
 
-Here, we use the famously know [Doxygen](https://www.doxygen.nl) to generate
+Here, we use the famously known [Doxygen](https://www.doxygen.nl) to generate
 the documentation. In addition, we use
 [doxygen-awesome](https://jothepro.github.io/doxygen-awesome-css/)
 for the styling, and __Github Actions__ to upload the documentation on Github
@@ -200,7 +200,7 @@ can find the raw version on the GitHub in the folder `docs/`.
 
 In order to work as a team on these documentation, we hosted a collaborative 
 markdown editor tool, named [CodiMD](https://github.com/hackmdio/codimd) on a 
-server we owned. It helped us to have a similar workflow as Google Doc, but 
+server we owned. It helped us to have a similar workflow as Google Docs, but 
 for markdown documentation writing.
 
 ---

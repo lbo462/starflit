@@ -23,8 +23,8 @@ That being said, the goal was to create a color code that would reflect the stat
 The code that has been implemented is the following:
 
  - magenta "loading like" animation while the robot is waiting for the RPi to initialize
- - blue slow blinking when the robot is in an exploring state (cf. **ADD LINK**)
- - red fast blinking when the robot is in a scanning state (cf. **ADD LINK**)
+ - blue slow blinking when the robot is in an exploring state
+ - red fast blinking when the robot is in a scanning state
  - green fast blinking when the robot has found the specified object
  - rainbow animation whe the robot receives the information that the specified object has been detected.
 
@@ -61,17 +61,17 @@ Other than implement additional animations, I don't see what could be improved s
 The strandbeest is composed of an Arduino card, and a Raspberry. The
 Arduino holds all the logic, and the Raspberry is the one watching
 the camera, observing and searching what it's asked to search. Once
-the Raspberry found the object, it should alert the Arduino that will
-take action. Hence, the Raspberry is sending data to the Arduino, but
-the Arduino do not need to send anything.
+the Raspberry has found the object, it should alert the Arduino that
+will take action. Hence, the Raspberry is sending data to the Arduino,
+but the Arduino does not need to send anything.
 
 ### Implementation
 
 In order to achieve such a thing, we chose to make use of the serial
-communication between the two devices, by plugging an USB cables on
+communication between the two devices, by plugging a USB cable on
 the two.
 
-A frame object is defined on the two devices: using Python on the RPi
+A frame object is defined on both devices: using Python on the RPi
 and using C++ on the Arduino. This frame class in called
 `OutGoingFrame` in the RPi, and `RPIFrame` on the Arduino. The RPi
 builds an `OutGoingFrame` and send it through the serial, using an
@@ -101,12 +101,12 @@ impacts on the behavior on the robot. This arose with the attribute
 `objectDetected`:
 
 > When the strandbeest finds an object, it stops and alert the
-> others. We definitely do not want to that the Arduino receives
-> the information that its Raspberry found an object if it did not!
+> others. We definitely do not want the Arduino to receive the
+> information that its Raspberry found an object if it did not!
 
 ### Ameliorations
 
-To solve the discussed problem, one could  implement some channel
+To solve the discussed problem, one could implement some channel
 encoding, with data duplication.
 
 ### Encountered problems
@@ -125,12 +125,12 @@ non-negligible problem came to our line of sight:
 
 __The bluetooth module is wired on the serial bus.__
 
-In other words, one can't use the the serial and the bluetooth
+In other words, one can't use the serial and the bluetooth
 simultaneously. Thus, our initial problem will remain with the
 bluetooth module.
 
 > Several tests were made by us in order to work on the serial
-> bus at different speed, but always resulted with interferences.
+> bus at different speeds, but always resulted with interferences.
 
 One could have created a virtual switch in order to allow writing
 on the bus in certain time slot for serial and bluetooth, but we
