@@ -46,9 +46,9 @@ if (currentMillis - previousLedMillis >= interval)
 
 > `currentMillis` is the time since the program has started in ms, `previousMillis` the last time le LEDs blinked in ms and `interval` the desired time in between blinks, in ms as well. 
 
-This will allow the program to continue to run normally until enough time has passed to change the state of the LEDs. This is the same logic that has been implemented in the `update()` method of `RescueBot.cpp` to have the `scan()` method run periodically.
+This will allow the program to continue to run normally until enough time has passed to change the state of the LEDs. This is the same logic that has been implemented in the `update()` method of `RescueBot` to have the `scan()` method run periodically.
 
-If you need more detail about the specific implementation of each method, you are encouraged to go take a look at the code documentation available [here](). 
+If you need more detail about the specific implementation of each method, you are encouraged to go take a look at the code documentation for the `Leds` class. 
 
 ### The one where we discuss potential paths of improvement
 
@@ -86,7 +86,7 @@ instance of the `SerialInterface` class.
 > > during the parsing.
 
 The Arduino reads constantly the reception buffer of its serial port
-using the `Communcation<serialModule>` class. When it detects a
+using the `Communication<serialModule>` class. When it detects a
 frame, it passes it to a parser of type `FrameParser` that parses
 the char array into a usable instance of `RPIFrame` holding all the
 information sent by the RPi.

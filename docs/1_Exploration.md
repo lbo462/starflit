@@ -6,7 +6,7 @@ The goal was to implement random exploration for robots, ensuring they do not co
 
 ## Implementation
 
-*In this part, we explain the implementation. For the code, please refer to `Ultrasonicsensors.cpp` and `RescueBot.cpp`.*
+*In this part, we explain the implementation. For the code, please refer to `UltrasonicSensors` and `RescueBot`.*
 
 To achieve this, the robots need to perform Collision Detection and Collision Avoidance using ultrasonic sensors (yeah our robots are both [half and full duplex](https://www.ionos.fr/digitalguide/serveur/know-how/csmaca-carrier-sense-multiple-access-with-collision-avoidance/) 😎).
 
