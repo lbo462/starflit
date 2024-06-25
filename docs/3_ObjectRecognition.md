@@ -1,5 +1,7 @@
 # Object recognition
 
+For the project to work we need the Strandbeests to identify people in distress. Our Strandbeests have cameras and Raspberry Pis, so we can use Object Recognition. This is a challenge because we have limited compute power.
+
 ## Introduction to neural networks
 
 Running a neural network (referred to as **NN** from now on) on a RaspberryPi is quite an interesting project which involves many challenges mainly related to the VERY limited computing capacity of these nano computers.
@@ -484,3 +486,6 @@ Importing your own dataset can be tricky, we tested many things :
 
 We still struggle to fine-tune the model. We seem to have compatibility problems between our fine-tuned model in tflite and the model expected by the object detection script. We don't know where the problem comes from.
 
+If you plan on using Tensorflow, you might want to
+try with Tensorflow 2.15. Or you can use Pytorch.
+You will avoid yourself a shitload of problem.
