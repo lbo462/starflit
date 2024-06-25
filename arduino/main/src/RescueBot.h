@@ -71,7 +71,7 @@ class RescueBot
         void explore();
 
     private:
-        /** Tells if the RPI was initialized.. */
+        /** Tells if the RPI was initialized. */
         bool RPIInitialized = false;
 
         /** Tells if the object was found. */
