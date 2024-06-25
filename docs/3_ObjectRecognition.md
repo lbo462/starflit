@@ -25,7 +25,7 @@ There are several types of Neural Networks, but for computer vision, Convolution
 CNNs are largely used for treating images because it breaks the images into blocks and pulls out the patterns of the image. 
 Convolutions are operators that show the resemblance between two things. That's how we can detect contours for example. 
 
->If you want to dig into that, take a look at your TIP courses. 
+> If you want to dig into that, take a look at your TIP courses. 
 
 ![](assets/fc9c69e8076ac616dfc1aa101.png)
 
@@ -149,13 +149,13 @@ pip install "tensorflow==2.15.0"
 
 - Mobilenetv3 : https://www.kaggle.com/models/google/mobilenet-v3/tfLite/small-075-224-classification. You will find all the MobilenetV3 models downloadable in tflite. 
 
-### Setting up the RPi
+<!-- ### Setting up the RPi -->
 
-#### Installing the necessary dependencies/packages
+<!-- #### Installing the necessary dependencies/packages -->
 
 <!--TODO Install via requirements but also explain all the trouble shooting steps -->
 
-### Running inference
+<!-- ### Running inference -->
 
 <!--TODO describe the process of running inference on raspberry pi with tflite runtime-->
 
@@ -248,7 +248,7 @@ https://www.tensorflow.org/lite/performance/measurement
 
 It allows us to quickly benchmark the inference time of a model on a raspberry pi.
 
-### How to get your Accuracy
+<!-- ### How to get your Accuracy -->
 
 <!-- TODO -->
 
@@ -380,6 +380,7 @@ As you will see, things didn't turn out as expected.
 **1. Run yolov8 demo on rasp**
 
 #### Take a photo with the Camera
+
 We first wanted to test the camera environnement. 
 
 ```bash
@@ -395,7 +396,7 @@ Use "feh" to visualize the photo :
 sudo apt install feh
 ```
 
-#### Run yolov8 on the rasp
+<!-- TODO #### Run yolov8 on the rasp -->
 
 ##### Predict an image (not a live video)
 
@@ -433,7 +434,7 @@ The output of that is the source image with bounding box that identifies each ob
 
 > NB : you can take whatever "source" you want, even locally. 
 
-⚠️Make sure the image sizes are 640x640 maximum.
+⚠️ Make sure the image sizes are 640x640 maximum.
 
 ![](assets/9f32524e6765c337a39003b06.png)
 
@@ -481,5 +482,5 @@ Importing your own dataset can be tricky, we tested many things :
 - **Hugging face** : 
 - **Google Cloud Storage** : 
 
-**3. Run our fine-tuned model on the rasp**
+<!-- **3. Run our fine-tuned model on the rasp** -->
 

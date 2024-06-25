@@ -7,7 +7,7 @@ engineering.
 
 > __Control engineering__ or __control systems engineering__ is an
 > engineering discipline that deals with control systems, applying control
-> theory to design equipment and systems withdesired behaviors in control
+> theory to design equipment and systems with desired behaviors in control
 > environments.[^1]
 
 [^1]: engineering.case.edu. Case Western Reserve University.

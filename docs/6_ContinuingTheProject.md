@@ -33,7 +33,7 @@ writing python code, check the python best practices. Be clean,
 be thoughtful, be professional.
 
 But most of all, __write documentation at any step of the__
-__project!__. Whenever you're doing something, write down what
+__project!__ Whenever you're doing something, write down what
 you're doing. It will help you have a clearer view of what you're
 doing and will help others to work and help you. And this makes
 a project maintainable and live through the years!
@@ -45,13 +45,13 @@ In every section of the documentation of the project, you should
 find a section about potential improvements that could be made
 for these particular sections.
 
-Here are few example:
-- Add some LIDAR sensors to better the exploration and mapping
+Here are few examples:
+- Add some LIDAR sensors to better the exploration and mapping.
 - Implement a complementary or a Kalman filter for the control
 engineering.
 - Fine-tune a model to run on the Raspberry PI to detect
 different objects.
-- etc.
+- etc ...
 
 ## Hardware upgrading
 
