@@ -107,7 +107,7 @@ of the opened `.ino` file.
 > footer whenever you want to change the program. Just opening an other 
 > `.ino` file and clicking `Upload` will still upload the configured old
 > program!
- 
+
 - Serial Monitoring is accessible via the shortcut `Ctrl+Shift+M` 
 and clicking the `Serial Monitor` tab.
 Make sure to select the right port and speed (which is `115200` or `9600`) and click
@@ -129,7 +129,22 @@ To build this lab, you will need:
 
 ### Instructions
 
-In order to configure a RPi as a router, you will first need to flash RaspbianOS on a microSD card. Instructions to do so can be found here [InitializeRPis](InitializeRPis.md#format-the-micro-sd-card).
+#### Format the micro SD card
+
+In order to work with a Raspberry Pi, you first need to format a micro SD card with the Raspbian OS (or any other OS you are comfortable with).
+
+The steps to do so are the following:
+
+- download the [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
+- choose the version of the RPi your are using (3 model B in our case)
+- choose which OS you want to use (RaspbianOS 64 bit in our case)
+- next, we need to set custom settings in order to enable SSH, click on "Edit Settings"
+- set a hostname, username and password and locale settings according to your region
+- in the "Services" tab, click on "enable SSH" and "Use password authentication"
+- in the "Options" tab, disable "Enable telemetry" (we don't want anyone spying on us 🕵️‍♂️)
+- click on "Save", "Yes" and "Yes" again. Wait a couple of minutes and everything should be good to go 👍.
+
+<br>
 
 Once the micro SD card is flashed, in the `cmdline.txt` file in the boot partition, add the following line: `ip=192.168.1.254`.
 
@@ -315,24 +330,9 @@ sudo systemctl enable wpa_supplicant.service
 
 Congratulations, the lab is up and ready to go 🎉🍾🍾🍾🍾.
 
-## Initialize a RPI and connect to it via SSH
+#### Connect the RPI via SSH
 
-### Format the micro SD card
-
-In order to work with a Raspberry Pi, you first need to format a micro SD card with the Raspbian OS (or any other OS you are comfortable with).
-
-The steps to do so are the following:
-
-- download the [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
-- choose the version of the RPi your are using (3 model B in our case)
-- choose which OS you want to use (RaspbianOS 64 bit in our case)
-- next, we need to set custom settings in order to enable SSH, click on "Edit Settings"
-- set a hostname, username and password and locale settings according to your region
-- in the "Services" tab, click on "enable SSH" and "Use password authentication"
-- in the "Options" tab, disable "Enable telemetry" (we don't want anyone spying on us 🕵️‍♂️)
-- click on "Save", "Yes" and "Yes" again. Wait a couple of minutes and everything should be good to go 👍.
-
-### Connect via SSH
+Now that the network lab is up, you can connect to the RPI through SSH.
 
 Connect the RPi to the network. It should receive an IP address in the same subnet as your PC via DHCP. If you don't have access to the network router to figure out the IP, you can use [Nmap](https://nmap.org/download.html) or [Advanced IP Scanner](https://www.advanced-ip-scanner.com/) to scan the network and discover the IP of your RPi.
 Once you have the IP, connect to it via SSH using the following command:
