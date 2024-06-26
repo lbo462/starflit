@@ -97,7 +97,7 @@ class RescueBot
         FrameParser parser = FrameParser();
 
         /** Configures the camera positions */
-        CameraPosition cam = CameraPosition();
+        CameraPosition camPosition = CameraPosition();
 };
 
 #endif

@@ -9,7 +9,7 @@ void RescueBot::setup()
 {
     smartMotors.setup();
     ultrasonicSensors.setup();
-    cam.setup();
+    camPosition.setup();
 
     serial.setup();
     radio.setup();
