@@ -108,10 +108,6 @@ class RescueBot
         
         /** Params to control the LEDs */
         const int ledPin=2, numLeds=33, brightness=50;
-        
-        /** Is an object detected or not \'O'/ */
-        bool objectDetected = false;
-
 };
 
 #endif
