@@ -3,11 +3,11 @@
 #       ~ INSTALL SCRIPT FOR RPi ~
 #
 #   This is to be executed on a freshly flashed RPi.
-#   It installs all the necessary component to control
+#   It installs all the necessary components to control
 #   the strandbeest to do some object recognition.
 #
-#   It also install the systemd so that the python
-#   script that exhanges data with the Arduino gets
+#   It also installs the systemd so that the python
+#   script that exchanges data with the Arduino gets
 #   executed during the RPi boot.
 #
 

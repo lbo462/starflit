@@ -544,7 +544,7 @@ the `starflit.service` to run at boot.
 > [systemd](https://wiki.debian.org/systemd).
 
 To get the file on the RPi, make sure it has access to the Internet, and pull
-it for GitHub with curl.
+it from GitHub with curl.
 
 ```sh
 curl -v https://raw.githubusercontent.com/lbo462/starflit/master/raspberry/install.sh -o install.sh
