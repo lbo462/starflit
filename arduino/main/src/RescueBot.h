@@ -10,6 +10,7 @@
 #include "UltrasonicSensors.h"
 #include "Communication/Communication.h"
 #include "FrameParser.h"
+#include "CameraPosition.h"
 
 /** Time between two scans */
 #define SCAN_INTERVAL 5000
@@ -94,6 +95,9 @@ class RescueBot
 
         /** Parses the received frames from the Communication module */
         FrameParser parser = FrameParser();
+
+        /** Configures the camera positions */
+        CameraPosition cam = CameraPosition();
 };
 
 #endif
