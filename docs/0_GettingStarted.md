@@ -413,7 +413,7 @@ mkdir starflit
 
 - Now, log out from SSH and copy the content of the python folder from your computer:
 ```
-cd python/  # enter the python folder (if not already the working dir)
+cd raspberry/python/  # enter the python folder (if not already the working dir)
 rsync -Pru ./ strandbeest1:/home/<user>/starflit/
 ```
 
@@ -565,14 +565,16 @@ You can restart the service with
 And you can check the logs with
 `journalctl -u starflit.service -f`.
 
-> You can undo what the install script did with the uninstall script:
->
-> ```sh
-> curl -v https://raw.githubusercontent.com/lbo462/starflit/master/raspberry/uninstall.sh -o uninstall.sh
-> 
-> chmod +x uninstall.sh
-> ./uninstall.sh
-> ```
+__Uninstall 😭__
+
+You can undo what the install script did with the uninstall script:
+
+```sh
+curl -v https://raw.githubusercontent.com/lbo462/starflit/master/raspberry/uninstall.sh -o uninstall.sh
+
+chmod +x uninstall.sh
+./uninstall.sh
+```
 
 ---
 
