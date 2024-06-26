@@ -5,7 +5,6 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-//#include <Adafruit_NeoPixel.h>
 
 #include "SmartMotors/SmartMotors.h"
 #include "UltrasonicSensors.h"

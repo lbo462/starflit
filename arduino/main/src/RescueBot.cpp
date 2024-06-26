@@ -8,6 +8,7 @@ RescueBot::~RescueBot() {}
 void RescueBot::setup()
 {
     ledStrip.setup();
+    ledStrip.starflitRedToBlue();
     smartMotors.setup();
     ultrasonicSensors.setup();
     camPosition.setup();
@@ -26,7 +27,7 @@ void RescueBot::update()
     if(!RPIInitialized)
     {
         radio.sendString("RPI not initialized");
-        ledStrip.initializing(50, currentMillis);
+        ledStrip.initializing(50);
     }
 
     serial.withRecv(  // Actually receive the frame from the RPI

@@ -1,10 +1,18 @@
 /// @addtogroup Arduino
 /// @{
-#ifndef Leds_h
-#define Leds_h
+#ifndef leds_h
+#define leds_h
 
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
+
+/**
+ * Structure for the Colors data type which associates a color name with its `uint32_t` representation.
+ */
+struct Colors {
+    const char* color;
+    uint32_t colorValue;
+};
 
 class Leds
 {
@@ -19,12 +27,12 @@ class Leds
         void setup();
 
         /**
-         * Makes the LED strip on top of the robot blink a certain color at a certain speed.
+         * Makes the LED strip on top of the robot blink a certain color (e.g. "starflit red") at a certain speed.
          */
         void blink(char* color, int interval, unsigned long time);
 
         /**
-         * Makes the LED strip on top of the robot light up a certain color.
+         * Makes the LED strip on top of the robot light up a certain color (e.g. "starflit red").
          */
         void still(char* color);
 
@@ -46,7 +54,7 @@ class Leds
         /**
          * Initializing sequence that plays while the robot is waiting for the RPi to initialize.
          */
-        void initializing(int interval, unsigned long time);
+        void initializing(int interval);
 
         /**
          * Rainbow animation ~\'o'/~ ~\'o'/~ ~\'o'/~
@@ -54,9 +62,13 @@ class Leds
         void rainbow(int interval, unsigned long time);
 
         /**
+         * Animation on robot startup.
+         */
+        void starflitRedToBlue();
+
+        /**
          * Given the color name as a string, returns it's `uint32_t` representation.
          * This method is used so that a simple string can be provided as a parameter
-         * 
          */
         inline uint32_t getColor(const char* color) 
         {
@@ -95,21 +107,13 @@ class Leds
         Adafruit_NeoPixel ledStrip = Adafruit_NeoPixel(numLeds, ledPin, NEO_GRB + NEO_KHZ800);
 
         /**
-         * Structure for the Colors data type which associates a color name with its `uint32_t` representation.
-         */
-        struct Colors {
-            const char* color;
-            uint32_t colorValue;
-        };
-
-        /**
          * Key value pairs of all the colors you can use associated with their `uint32_t` representation.
          * Feel free to add additional colors based on your needs.
          */
         Colors colors[4] = {
-            {"red", ledStrip.Color(255, 0, 0)},
+            {"starflit red", ledStrip.Color(255, 0, 0)},
             {"green", ledStrip.Color(0, 255, 0)},
-            {"blue", ledStrip.Color(0, 0, 255)},
+            {"starflit blue", ledStrip.Color(43, 22, 190)},
             {"magenta", ledStrip.Color(255, 0, 255)}
         };
 };
