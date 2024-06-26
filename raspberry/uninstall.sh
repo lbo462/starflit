@@ -13,3 +13,6 @@ sudo systemctl disable starflit.service
 
 # Remove the starflit folder from /opt
 rm -vfr /opt/starflit/*
+
+echo "🛬 Starflit uninstalled 😭"
+echo ""

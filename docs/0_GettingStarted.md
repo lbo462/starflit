@@ -565,6 +565,15 @@ You can restart the service with
 And you can check the logs with
 `journalctl -u starflit.service -f`.
 
+> You can undo what the install script did with the uninstall script:
+>
+> ```sh
+> curl -v https://raw.githubusercontent.com/lbo462/starflit/master/raspberry/uninstall.sh -o uninstall.sh
+> 
+> chmod +x uninstall.sh
+> ./uninstall.sh
+> ```
+
 ---
 
 If you came down to here, well done. You're now officialy promoted as a
