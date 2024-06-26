@@ -1,53 +1,58 @@
+import logging
+from cysystemd import journal
+
+log = logging.getLogger('starflit')
+log.addHandler(journal.JournaldLogHandler())
+log.setLevel(logging.INFO)
+log.info("Starting Starflit program ...")
+
 import os
 from dotenv import load_dotenv
 import argparse
 
-from picamera2 import Picamera2, Preview
+from picamera2 import Picamera2
+
 
 from frame import OutGoingFrame
 from serial_interface import get_serial
 from object_detector import ObjectDetector
 
-
-# Remember to read the doc!
-try:
-    with open(".env", "r") as _:
-        ...
-except FileNotFoundError:
-    print(
-        "Please, create a .env file in the same folder as this file. Check the docs / DevEnv.md"
-    )
-    exit(1)
-
-load_dotenv()
-
 LOW_RES_SIZE = (320, 240)
 
 
 def main():
+    # Parses the arguments given in the command line
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--env-file", help="Path of the .env file.", default="./.env")
+    parser.add_argument(
+        "-m", "--model", help="Path of the detection model.", required=True
+    )
+    parser.add_argument("-l", "--label", help="Path of the labels file.", required=True)
+    parser.add_argument(
+        "--threads",
+        help="Number of threads used to run the model.",
+        type=int,
+        default=3,
+    )
+    parser.add_argument("-o", "--obj", help="The object to search for.", required=True)
+    args = parser.parse_args()
+
+    # Check .env file
+    try:
+        with open(args.env_file, "r") as _:
+            ...
+    except FileNotFoundError:
+        log.error(
+            "Please, create a .env file in the same folder as this file, or precise its location using --env-file"
+        )
+        exit(1)
+
+    load_dotenv()
+
     # First things first, open the serial monitor, as this can take quite some time ...
     with get_serial(os.getenv("SERIAL_PORT"), os.getenv("SERIAL_BAUD")) as ser:
         # Say we're not ready yet ...
         ser.send_frame(OutGoingFrame(initialized=False, object_detected=False))
-
-        # Parses the arguments given in the command line
-        parser = argparse.ArgumentParser()
-        parser.add_argument(
-            "-m", "--model", help="Path of the detection model.", required=True
-        )
-        parser.add_argument(
-            "-l", "--label", help="Path of the labels file.", required=True
-        )
-        parser.add_argument(
-            "--threads",
-            help="Number of threads used to run the model.",
-            type=int,
-            default=3,
-        )
-        parser.add_argument(
-            "-o", "--obj", help="The object to search for.", required=True
-        )
-        args = parser.parse_args()
 
         # Creates an instance of the picamera and configures it
         picam2 = Picamera2()
@@ -81,7 +86,7 @@ def main():
                     x_object_position=coord[0],
                     y_object_position=coord[1],
                 )
-                print(f"Detected {args.obj} at ({coord[0]}, {coord[1]})")
+                log.info(f"Detected {args.obj} at ({coord[0]}, {coord[1]})")
             else:
                 outgoing_frame = OutGoingFrame(initialized=True, object_detected=False)
 
