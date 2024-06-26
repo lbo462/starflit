@@ -8,11 +8,12 @@
 #
 
 # Stop and disable the starflit service
+echo "Stopping service ..."
 sudo systemctl stop starflit.service
+echo "Disabling service ..."
 sudo systemctl disable starflit.service
 
 # Remove the starflit folder from /opt
-rm -vfr /opt/starflit/*
+sudo rm -vfr /opt/starflit
 
 echo "🛬 Starflit uninstalled 😭"
-echo ""

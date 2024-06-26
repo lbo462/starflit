@@ -22,6 +22,7 @@ sudo apt update && sudo apt -y upgrade
 sudo mkdir /opt/starflit && sudo chown ${USER} /opt/starflit 
 
 # Clones the starflit repository in the /opt/starflit
+echo "Cloning the Starflit repo ..."
 cd /opt/starflit
 git init && git remote -v add origin ${GIT_REPO_URL}
 # Enable sparse checkout to clone only useful folder
@@ -33,6 +34,7 @@ git pull origin ${GIT_BRANCH}
 python3 -m venv --system-site-packages /opt/starflit/venv
 
 # Installs the requirements in the venv
+echo "Installing python requirements ..."
 /opt/starflit/venv/bin/pip install --no-cache -r /opt/starflit/raspberry/python/requirements.txt
 
 # Creates the .env file based on the default.env file provided in the repository
@@ -42,9 +44,11 @@ cp /opt/starflit/raspberry/python/default.env /opt/starflit/raspberry/python/.en
 sudo cp /opt/starflit/raspberry/starflit.service /etc/systemd/system/
 
 # ... and enable it to run on boot.
+echo "Starting service ..."
 sudo systemctl enable starflit.service
 
 # And then start the service so that is runs directly
+echo "Enabling service on boot ..."
 sudo systemctl start starflit.service
 
 echo "🚀 Starflit installation over 🚀🌟"
