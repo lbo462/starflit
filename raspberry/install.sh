@@ -13,14 +13,20 @@
 
 export GIT_REPO_URL="https://github.com/lbo462/starflit.git"
 
+# Updates the OS
+sudo apt update && sudo apt -y upgrade
+
+# Install git and python
+sudo apt install -y git python3
+
 # Creates the directory where the repo will get cloned
 sudo mkdir /opt/starflit && sudo chown ${USER} /opt/starflit 
 
 # Clones the starflit repository in the /opt/starflit
-git clone ${GIT_REPO_URL} /opt/starflit/
+git clone -b 87-docker-and-systemd-service-for-rpi ${GIT_REPO_URL} /opt/starflit/
 
 # Creates a virtual env for executing python code
-virtualenv --system-site-packages /opt/starflit/venv
+python3 -m venv --system-site-packages /opt/starflit/venv
 
 # Installs the requirements in the venv
 /opt/starflit/venv/bin/pip install -r /opt/starflit/raspberry/python/requirements.txt
@@ -29,7 +35,7 @@ virtualenv --system-site-packages /opt/starflit/venv
 cp /opt/starflit/raspberry/python/default.env /opt/starflit/raspberry/python/.env
 
 # Copy the service where it should land ...
-cp /opt/starflit/raspberry/starflit.service /etc/systemd/system/
+sudo cp /opt/starflit/raspberry/starflit.service /etc/systemd/system/
 
 # ... and enable it to run on boot.
 sudo systemctl enable starflit.service

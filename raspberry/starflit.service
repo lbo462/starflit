@@ -2,7 +2,11 @@
 Description=Starflit Object Recognition
 
 [Service]
-ExecStart=/opt/starflit/venv/bin/python /opt/starflit/raspberry/python/main.py
+ExecStart=/opt/starflit/venv/bin/python /opt/starflit/raspberry/python/main.py \
+    --env-file /opt/starflit/raspberry/python/.env \
+    --model /opt/starflit/raspberry/python/mobilenet_v2.tflite \
+    --label /opt/starflit/raspberry/python/labels.txt \
+    --obj "stop sign"
 StandardOutput=null
 
 [Install]
