@@ -7,7 +7,6 @@ ExecStart=/opt/starflit/venv/bin/python /opt/starflit/raspberry/python/main.py \
     --model /opt/starflit/raspberry/python/mobilenet_v2.tflite \
     --label /opt/starflit/raspberry/python/labels.txt \
     --obj "stop sign"
-StandardOutput=null
 
 [Install]
 WantedBy=multi-user.target

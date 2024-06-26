@@ -1,8 +1,17 @@
+import logging
+from cysystemd import journal
+
+log = logging.getLogger('starflit')
+log.addHandler(journal.JournaldLogHandler())
+log.setLevel(logging.INFO)
+log.info("Starting Starflit program ...")
+
 import os
 from dotenv import load_dotenv
 import argparse
 
 from picamera2 import Picamera2
+
 
 from frame import OutGoingFrame
 from serial_interface import get_serial
@@ -33,7 +42,7 @@ def main():
         with open(args.env_file, "r") as _:
             ...
     except FileNotFoundError:
-        print(
+        log.error(
             "Please, create a .env file in the same folder as this file, or precise its location using --env-file"
         )
         exit(1)
@@ -77,7 +86,7 @@ def main():
                     x_object_position=coord[0],
                     y_object_position=coord[1],
                 )
-                print(f"Detected {args.obj} at ({coord[0]}, {coord[1]})")
+                log.info(f"Detected {args.obj} at ({coord[0]}, {coord[1]})")
             else:
                 outgoing_frame = OutGoingFrame(initialized=True, object_detected=False)
 

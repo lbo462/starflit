@@ -472,8 +472,11 @@ You should be ready to work now, but let's see how to add a dependency ...
 To add a dependency:
 
 ```sh
-pip install <your-dep>         # install the dependency in your env
-pip freeze > requirements.txt  # add it to the list of dependencies
+pip install <your-dep>            # install the dependency in your env
+pip freeze -l > requirements.txt  # add it to the list of dependencies.
+                                  # -l indicate to keep only local packages.
+                                  # This is required to avoid avoid the packages
+                                  # retrieved by --system-site-packages
 ```
 
 If you're on Windows, copy-paste the output of `pip freeze` into `requirements.txt`.
@@ -529,6 +532,38 @@ rsync -Pru ./ strandbeest1:/home/$USER/starflit/
 
 And the code will be updated on the other side, so you just have to run it on 
 the second terminal, making sure you're in your virtual environment.
+
+## Deployment on the Raspberry
+
+To deploy the python script on the RPi, you'll find an install script named
+`install.sh` to run on a freshly flashed RPi. This script will update the RPi,
+install all the system requirements, clone the `raspberry/` folder and enable
+the `starflit.service` to run at boot.
+
+> The file `starflit.service` defines a Debian service, managed by
+> [systemD](https://wiki.debian.org/systemd).
+
+To get the file on the RPi, make sure it has access to the Internet, and pull
+it for GitHub with curl.
+
+```sh
+curl -v https://raw.githubusercontent.com/lbo462/starflit/master/raspberry/install.sh -o install.sh
+
+chmod +x install.sh  # Make it executable
+./install.sh         # Actually run the script 
+```
+
+To check that the service is working correctly, use
+`systemctl status starflit.service`.
+
+> You need to have the Arduino card plugged on `/dev/USBtty0` (you can
+> edit this port in `/opt/starflit/raspberry/python/.env`).
+
+You can restart the service with
+`systemctl restart starflit.service`.
+
+And you can check the logs with
+`journalctl -u starflit.service -f`.
 
 ---
 

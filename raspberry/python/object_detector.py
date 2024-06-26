@@ -110,7 +110,7 @@ class ObjectDetector:
                     xmax = right * initial_w
                     ymax = top * initial_h
 
-                    print(labels[class_id], "score = ", score)
+                    # print(labels[class_id], "score = ", score)
                     return self.calculate_box_center_and_normalize(
                         xmin, xmax, ymin, ymax
                     )
