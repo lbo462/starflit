@@ -6,7 +6,7 @@
 #   It installs all the necessary component to control
 #   the strandbeest to do some object recognition.
 #
-#   It also install the systemD so that the python
+#   It also install the systemd so that the python
 #   script that exhanges data with the Arduino gets
 #   executed during the RPi boot.
 #

@@ -541,7 +541,7 @@ install all the system requirements, clone the `raspberry/` folder and enable
 the `starflit.service` to run at boot.
 
 > The file `starflit.service` defines a Debian service, managed by
-> [systemD](https://wiki.debian.org/systemd).
+> [systemd](https://wiki.debian.org/systemd).
 
 To get the file on the RPi, make sure it has access to the Internet, and pull
 it for GitHub with curl.
