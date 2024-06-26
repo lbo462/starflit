@@ -44,11 +44,11 @@ cp /opt/starflit/raspberry/python/default.env /opt/starflit/raspberry/python/.en
 sudo cp /opt/starflit/raspberry/starflit.service /etc/systemd/system/
 
 # ... and enable it to run on boot.
-echo "Starting service ..."
+echo "Enabling service on boot ..."
 sudo systemctl enable starflit.service
 
 # And then start the service so that is runs directly
-echo "Enabling service on boot ..."
+echo "Starting service ..."
 sudo systemctl start starflit.service
 
 echo "🚀 Starflit installation over 🚀🌟"
