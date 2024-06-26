@@ -139,3 +139,19 @@ and the Arduino, despite the problem described above ...
 
 > Note that we didn't explore the option of Wi-Fi communication,
 > but it also seems that it's wired on the serial bus ...
+
+--
+
+## Camera positioning
+
+You'll notice a `CameraPosition` class. This class is a utility class
+to control the two servo motors holding the camera.
+
+> The camera itself is wired to the RPi. Hence, the Arduino card and
+> program do not have access to it, but it controls its position.
+
+It's currently pretty much unused. It was only created for later use,
+and to set-up an initial position when starting-up the strandbeest.
+
+> The servos motors are I2C wired and we make use of the PWN library
+> from Adafruit.

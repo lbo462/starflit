@@ -66,7 +66,7 @@ footer:
 ### Install the dependencies
 
 Now, one has to install the Arduino dependencies for the project. We kept all 
-the library we used in the folder `librairies`, but Arduino won't find them
+the library we used in the folder `libraries`, but Arduino won't find them
 here. Instead, we have to copy-paste the content of this folder where Arduino
 will find them.
 
@@ -77,6 +77,15 @@ change its location in the preferences in the Arduino IDE, if you've
 installed it.
 
 `cp arduino/libraries/* ~/Arduino/libraries/` on Linux to install the libraries.
+
+### Add a dependency
+
+Arduino recommends adding libraries using their library manager, in their IDE.
+To install a library without the Arduino IDE library manager, you can download
+the libraries as a zip file (on the Arduino website, or on GitHub) and unzip it
+into the `arduino/libraries` folder, and re-running the command
+`cp arduino/libraries/* ~/Arduino/libraries/`. This way, the libraries will be
+updated on the repo, for everyone.
 
 <br>
 

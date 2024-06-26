@@ -51,7 +51,7 @@ class SmartMotors
         /**
          * Makes the robots turning right until something else stops it.
          * The "turning right" is from the point of view of "going forward"
-         * "going forward" is going away from the dev cable port.
+         * "going forward" is going in the natural direction of the camera.
          * Note that the turning process occurs in the `update()` method.
          * @param angle The angle that the robot should aim.
          */
@@ -60,7 +60,7 @@ class SmartMotors
         /**
          * Makes the robots turning left until something else stops it.
          * The "turning left" is from the point of view of "going forward"
-         * "going forward" is going away from the dev cable port.
+         * "going forward" is going in the natural direction of the camera.
          * Note that the turning process occurs in the `update()` method.
          * @param angle The angle that the robot should aim.
          */
@@ -68,14 +68,14 @@ class SmartMotors
 
         /**
          * Makes the robots going forward until something else stops it.
-         * "going forward" is going away from the dev cable port.
+         * "going forward" is going in the natural direction of the camera.
          * @param speed Speed at which one should move. Default is 255.
          */
         void goForward(int speed = 255);
 
         /**
          * Makes the robots going backward until something else stops it.
-         * "going backward" is going in the direction of the dev cable port.
+         * "going backward" is going in the opposite direction from the camera.
          * @param speed Speed at which one should move. Default is 255.
          */
         void goBackward(int speed = 255);
