@@ -18,6 +18,9 @@ export GIT_FOLDER="raspberry"
 # Updates the OS
 sudo apt update && sudo apt -y upgrade
 
+# Install system dependencies
+sudo apt install -y libsystemd-dev
+
 # Creates the directory where the repo will get cloned
 sudo mkdir /opt/starflit && sudo chown ${USER} /opt/starflit 
 
