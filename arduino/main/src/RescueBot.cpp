@@ -27,7 +27,7 @@ void RescueBot::update()
     if(!RPIInitialized)
     {
         radio.sendString("RPI not initialized");
-        ledStrip.initializing(50);
+        ledStrip.initializing(10);
     }
 
     serial.withRecv(  // Actually receive the frame from the RPI

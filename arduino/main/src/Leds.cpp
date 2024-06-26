@@ -23,7 +23,7 @@ void Leds::blink(char* color, int interval, unsigned long time)
     {
         previousLedMillis = time;
 
-        if (ledIsOn)
+        if (!ledIsOn)
         {
             ledStrip.fill(colorValue);
             ledStrip.show();
@@ -61,7 +61,7 @@ void Leds::forwardBlink(char* color, int interval, unsigned long time)
     {
         previousLedMillis = time;
 
-        if (ledIsOn)
+        if (!ledIsOn)
         {
             // Only lights up 17 LEDs starting from the 3rd one.
             ledStrip.fill(colorValue, 3, 17);
@@ -87,7 +87,7 @@ void Leds::backwardBlink(char* color, int interval, unsigned long time)
     {
         previousLedMillis = time;
 
-        if (ledIsOn)
+        if (!ledIsOn)
         {
             // Only lights up 13 LEDs starting from the 20th.
             ledStrip.fill(colorValue, 20, 13);
@@ -110,15 +110,12 @@ void Leds::initializing(int interval)
     // Gets the `uint32_t` color value based on the color provided as a parameter.
     uint32_t colorValue = getColor("magenta");
 
-    if (ledIsOn)
+    // Lights up LEDs incrementally 
+    for (int i = 0; i < ledStrip.numPixels() + 1; i++)
     {
-        // Lights up LEDs incrementally 
-        for (int i = 0; i < ledStrip.numPixels() + 1; i++)
-        {
-            ledStrip.fill(colorValue, i, 1);
-            ledStrip.show();
-            delay(250);
-        }
+        ledStrip.fill(colorValue, i, 1);
+        ledStrip.show();
+        delay(interval);
     }
 }
 
@@ -149,38 +146,33 @@ void Leds::rainbow(int interval, unsigned long time)
 void Leds::starflitRedToBlue()
 {
     ledStrip.clear();
-    /*
-    long startH = 63488;
-    int startS = 225;
-    int startV = 192;
 
-    int endH = 0;
-    int endS = 100;
-    int endV = 100;
+    uint16_t startHue = 43690;
+    uint16_t endHue = 0;
+    uint8_t saturation = 255;
+    uint8_t value = 255;
+    
+    long hue = startHue;
 
-    int nbLeds = ledStrip.numPixels();
+    int i = 0;
 
-    for (int i = 0; i < nbLeds / 2 + 1; i++)
+    while (i < (ledStrip.numPixels() + 1))
     {
-        //ledStrip.setPixelColor(i, ledStrip.ColorHSV(startH -  i *(startH / nbLeds), startS -  i *(startS / nbLeds), startV -  i *(startV / nbLeds)));
-        //ledStrip.setPixelColor(nbLeds - i, ledStrip.ColorHSV(startH -  i *(startH / nbLeds), startS -  i *(startS / nbLeds), startV -  i *(startV / nbLeds)));
-        ledStrip.setPixelColor(i, ledStrip.gamma32(ledStrip.ColorHSV(startH, startS, startV)));
-        ledStrip.setPixelColor(nbLeds - i, ledStrip.gamma32(ledStrip.ColorHSV(startH, startS, startV)));
-        ledStrip.show();
-        delay(200);
+        if (hue > 65536)
+            hue = 0;
+        else if (i < (ledStrip.numPixels() / 2) - 2)
+            hue = startHue;
+        else if (i > (ledStrip.numPixels() / 2) + 2)
+            hue = endHue;
+        else
+            hue += 1024;
 
-    */
-
-    for (int i = 0; i < ledStrip.numPixels() / 2 + 1; i++)
-    {
-        float progress = i / ledStrip.numPixels();
-        float factor = pow(progress, 0.5);
-        uint32_t color = ledStrip.Color(43 + factor * (255 - 43),
-                                        22 + factor * (0 - 22),
-                                        190 + factor * (0 -190));
+        uint32_t color = ledStrip.ColorHSV(hue, saturation, value);
+    
+        // Set all pixels to the new color
         ledStrip.setPixelColor(i, color);
-        ledStrip.setPixelColor(ledStrip.numPixels() - i, color);
         ledStrip.show();
-        delay(200);
+        delay(50);
+        i++;
     }
 }
