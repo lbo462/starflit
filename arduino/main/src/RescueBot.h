@@ -10,11 +10,8 @@
 #include "UltrasonicSensors.h"
 #include "Communication/Communication.h"
 #include "FrameParser.h"
-<<<<<<< HEAD
 #include "CameraPosition.h"
-=======
 #include "Leds.h"
->>>>>>> e0bbb29 (led class)
 
 /** Time between two scans */
 #define SCAN_INTERVAL 5000
@@ -105,7 +102,6 @@ class RescueBot
 
         /** Parses the received frames from the Communication module */
         FrameParser parser = FrameParser();
-<<<<<<< HEAD
 
         /** Configures the camera positions */
         CameraPosition camPosition = CameraPosition();
@@ -115,9 +111,7 @@ class RescueBot
         
         /** Is an object detected or not \'O'/ */
         bool objectDetected = false;
-        
-=======
->>>>>>> fa2c5af (nearly works as intended)
+
 };
 
 #endif
