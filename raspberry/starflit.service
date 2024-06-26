@@ -1,0 +1,10 @@
+[Unit]
+Description=Starflit Object Recognition
+
+[Service]
+ExecStart=/opt/starflit/venv/bin/python /opt/starflit/raspberry/python/main.py
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
+Alias=starflit.service
