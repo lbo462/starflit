@@ -107,15 +107,19 @@ void Leds::backwardBlink(char* color, int interval, unsigned long time)
 void Leds::initializing(int interval)
 {
     ledStrip.clear();
-    // Gets the `uint32_t` color value based on the color provided as a parameter.
-    uint32_t colorValue = getColor("magenta");
+
+    uint32_t blue = ledStrip.Color(43, 22, 190);
+    uint32_t red = ledStrip.Color(255, 0, 0);
 
     // Lights up LEDs incrementally 
-    for (int i = 0; i < ledStrip.numPixels() + 1; i++)
+    for (int i = 0; i < ledStrip.numPixels() / 2 + 1; i++)
     {
-        ledStrip.fill(colorValue, i, 1);
+        ledStrip.fill(blue, i, 4);
+        ledStrip.fill(red, i + ledStrip.numPixels() / 2, 4);
         ledStrip.show();
         delay(interval);
+        ledStrip.clear();
+        ledStrip.show();
     }
 }
 
