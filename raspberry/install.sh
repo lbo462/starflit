@@ -28,7 +28,7 @@ git init && git remote -v add origin ${GIT_REPO_URL}
 # Enable sparse checkout to clone only useful folder
 git sparse-checkout init && git sparse-checkout set "raspberry"
 # And now pull repo
-git pull origin 87-docker-and-systemd-service-for-rpi
+git pull origin master
 
 # Creates a virtual env for executing python code
 python3 -m venv --system-site-packages /opt/starflit/venv
