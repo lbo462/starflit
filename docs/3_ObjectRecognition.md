@@ -186,10 +186,10 @@ f_p: false positive, number of falsely detected objects by the model.
 
 Simply put, this is the ratio of the number of all the objects the model could have detected over the number of objects it has actually detected (correctly or not).
 
-##### Recall = t_p / (t_p + f_p)
+##### Recall = t_p / (t_p + f_n)
 
 t_p: true positive, number of correctly detected objects by the model.
-f_p: false positive, number of falsely detected objects by the model.
+f_n: false negative, number of objects that were not detected by the model when they should have.
 
 The recall is the ratio of the number of all the objects the model could have detected over the number of objects it has actually detected **AND** hasn't detected when it should have.
 
