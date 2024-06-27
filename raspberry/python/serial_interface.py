@@ -41,6 +41,10 @@ class SerialInterface:
         One converts signed int into two bytes, using big endian.
 
         The data is also sent duplicated `DATA_DUPLICATION_FACTOR` times.
+
+        Note that one needs to cut integer into pieces before duplicating them.
+        Otherwise, you'll end up with something like A-B-A-B-A-B instead of
+        A-A-A-B-B-B. (PS: integer are two bytes)
         """
 
         msg_arr = [

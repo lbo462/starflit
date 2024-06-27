@@ -67,6 +67,17 @@ control through control engineering.
 Here's an example on AliExpress : 
 https://fr.aliexpress.com/item/32996181258.html
 
+__IMPORTANT FOOTNOTE__
+
+The memory of the Arduino card isn't unlimited, and we got quite
+some code.
+
+> Sketch uses 30780 bytes (95%) of program storage space.
+
+It includes our code, including the libraries. We had no problem
+during the project, but adding more code and library might
+cause some.
+
 ## Add some mapping
 
 The Starflit crew actually couldn't implement any form of mapping
