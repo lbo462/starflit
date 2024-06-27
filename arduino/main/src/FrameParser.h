@@ -4,6 +4,7 @@
 #define frame_parser_h
 
 #include "Communication/Constants.h"
+#include "Communication/Communication.h"
 
 /**
  * Expected frame length in reception from the RPI.
@@ -23,10 +24,21 @@
  * This goes for other attributes as well.
  * Use `sizeof()` to know the size of each variable type.
  * 
+ * It's multiplied by the `DATA_DUPLICATION_FACTOR` in order to have some
+ * data duplication. Please, do not change this.
+ * 
  * Also note that this variable is not used by the parser, but used by the one using the parser,
- * as a length parameter
+ * as a length parameter.
+ * 
+ * Please, keep this updated:
+ * The current value is DATA_DUPLICATION_FACTOR * 6
+ * Since we have:
+ * + 1 for initialized
+ * + 1 for objectDetected
+ * + 2 for xObjectPosition
+ * + 2 for yObjectPosition
  */
-#define RECEIVED_RPI_FRAME_LENGTH 4
+#define RECEIVED_RPI_FRAME_LENGTH DATA_DUPLICATION_FACTOR * 6
 
 /**
  * Length of a frame received from an other strandbeest.
@@ -40,6 +52,13 @@
  */
 struct RPIFrame
 {
+    /**
+     * Set by the frame parser.
+     * If false, the frame shouldn't be used,
+     * since it couldn't be parsed correctly.
+     */
+    bool isValid;
+
     /** Is the RPI initialized ? */
     bool initialized;
 
@@ -75,6 +94,8 @@ class FrameParser
     public:
         FrameParser();
         ~FrameParser();
+
+        Communication<CommunicationModule::radioModule> radio = Communication<CommunicationModule::radioModule>();
 
         /**
          * Parse a frame received from the RPI and return an instance of RPIFame.

@@ -1,10 +1,10 @@
 import logging
 from cysystemd import journal
 
-log = logging.getLogger('starflit')
+log = logging.getLogger("starflit")
 log.addHandler(journal.JournaldLogHandler())
 log.setLevel(logging.INFO)
-log.info("Starting Starflit program ...")
+log.info("Starting Starflit program 🚀 ...")
 
 import os
 from dotenv import load_dotenv

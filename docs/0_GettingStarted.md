@@ -565,7 +565,7 @@ chmod +x install.sh  # Make it executable
 To check that the service is working correctly, use
 `systemctl status starflit.service`.
 
-> You need to have the Arduino card plugged on `/dev/USBtty0` (you can
+> You need to have the Arduino card plugged on `/dev/ttyUSB0` (you can
 > edit this port in `/opt/starflit/raspberry/python/.env`).
 
 You can restart the service with

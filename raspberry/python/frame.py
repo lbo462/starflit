@@ -3,6 +3,14 @@
 
 from dataclasses import dataclass
 
+DATA_DUPLICATION_FACTOR = 3
+"""
+How many times the sent bytes are duplicated.
+Please, do not edit this without thinking. It
+would have unexpected impacts, and should match
+the Arduino side.
+"""
+
 
 @dataclass
 class OutGoingFrame:

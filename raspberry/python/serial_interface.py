@@ -5,7 +5,14 @@ from typing import ContextManager
 from contextlib import contextmanager
 from serial import Serial
 
-from frame import OutGoingFrame
+import logging
+from cysystemd import journal
+
+log = logging.getLogger("starflit")
+log.addHandler(journal.JournaldLogHandler())
+log.setLevel(logging.INFO)
+
+from frame import OutGoingFrame, DATA_DUPLICATION_FACTOR
 
 STX = b"\x02"
 ETX = b"\x03"
@@ -39,17 +46,21 @@ class SerialInterface:
 
         One converts bytes using `bytes((variable,))` since `bytes(variables)` does not output what we need.
         One converts signed int into two bytes, using big endian.
+
+        The data is also sent duplicated `DATA_DUPLICATION_FACTOR` times.
         """
-        return self._send(
-            b"".join(
-                [
-                    bytes((frame.initialized,)),
-                    bytes((frame.object_detected,)),
-                    frame.x_object_position.to_bytes(2, "big", signed=True),
-                    frame.y_object_position.to_bytes(2, "big", signed=True),
-                ]
-            )
-        )
+
+        msg_arr = [
+            bytes((frame.initialized,)),
+            bytes((frame.object_detected,)),
+            frame.x_object_position.to_bytes(2, "big", signed=True)[:1],
+            frame.x_object_position.to_bytes(2, "big", signed=True)[1:],
+            frame.y_object_position.to_bytes(2, "big", signed=True)[:1],
+            frame.y_object_position.to_bytes(2, "big", signed=True)[1:],
+        ]
+
+        duplicated_msg = [b for b in msg_arr for _ in range(DATA_DUPLICATION_FACTOR)]
+        return self._send(b"".join(duplicated_msg))
 
     def _send(self, msg: bytes):
         """
