@@ -11,6 +11,7 @@
 #include "Communication/Communication.h"
 #include "FrameParser.h"
 #include "CameraPosition.h"
+#include "Leds.h"
 
 /** Time between two scans */
 #define SCAN_INTERVAL 5000
@@ -31,6 +32,9 @@ class RescueBot
 
         /** Ultrasonic sensors used to detect incoming collisions */
         UltrasonicSensors ultrasonicSensors = UltrasonicSensors();
+
+        /** LED strip on top of the robot used to provide feedback on the state of the robot. */
+        Leds ledStrip = Leds();
 
         /** Serial communication */
         Communication<CommunicationModule::serialModule> serial = Communication<CommunicationModule::serialModule>();
@@ -75,8 +79,11 @@ class RescueBot
         /** Tells if the RPI was initialized. */
         bool RPIInitialized = false;
 
-        /** Tells if the object was found. */
-        bool objectFound = false;
+        /** If someone else found something. */
+        bool otherFound = false;
+
+        /** If the robot found something. \'O'/ */
+        bool selfFound = false;
 
         /**
          * Tells whether we're currently scanning or not.
@@ -88,7 +95,7 @@ class RescueBot
         unsigned long previousScan = 0;
 
         /**
-         * Get rewritten during the scan and tells if
+         * Gets rewritten during the scan and tells if
          * the robot did scan on right or left. 
          */
         bool scannedRight = false, scannedLeft = false;

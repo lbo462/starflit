@@ -7,6 +7,8 @@ RescueBot::~RescueBot() {}
 
 void RescueBot::setup()
 {
+    ledStrip.setup();
+    ledStrip.starflitRedToBlue();
     smartMotors.setup();
     ultrasonicSensors.setup();
     camPosition.setup();
@@ -17,13 +19,14 @@ void RescueBot::setup()
 
 void RescueBot::update()
 {
+
     unsigned long currentMillis = millis();
     smartMotors.update();
 
     if(!RPIInitialized)
     {
-        // TODO @marsia do your LEDs thing here.
         radio.sendString("RPI not initialized");
+        ledStrip.initializing(30);
     }
 
     serial.withRecv(  // Actually receive the frame from the RPI
@@ -44,12 +47,12 @@ void RescueBot::update()
                 char *strandFrame = new char[parser.getStrandFrameLen()];
                 parser.buildStrand(strandFrame, true);
                 radio.send(strandFrame, sizeof(strandFrame));
-                objectFound = true;   
+                selfFound = true;
             }
         }
     );
 
-    if(!objectFound)
+    if(!otherFound)
     {
         radio.withRecv(
             RECEIVED_STRAND_FRAME_LENGTH, [&](char *frame) {
@@ -62,17 +65,27 @@ void RescueBot::update()
                 }
 
                 // Update internal state
-                objectFound = strandFrame.objectFound;
+                otherFound = strandFrame.objectFound;
             }
         );
     }
     
 
-    // If the RPI isn't ready or if the object was found, just don't move and exit
-    if(!RPIInitialized || objectFound)
+    if (selfFound)
+    {
+        ledStrip.blink("green", 200, currentMillis);
+    }
+
+    if (otherFound)
+    {
+        ledStrip.rainbow(500, currentMillis);
+        // maybe make them do a little dance instead of the delay
+    }
+
+    // If the RPI isn't ready, if the robot or someone else found an object, just don't move.
+    if(!RPIInitialized || selfFound || otherFound)
     {
         smartMotors.stop();
-        return;
     }
 
     /*
@@ -89,11 +102,12 @@ void RescueBot::update()
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
         scan();
+        ledStrip.blink("red", 100, currentMillis);
     }
-
-    else
+    else 
     {
         explore();
+        ledStrip.blink("blue", 300, currentMillis);
     }
 }
 
@@ -174,6 +188,7 @@ void RescueBot::collisionAvoidance()
         // ... but verify that we won't collide rear objects.
         if(!ultrasonicSensors.collisionDetection(false, true))
             smartMotors.goBackward(200);
+
         // If something's behind, just stop.
         else
             smartMotors.stop();
@@ -229,3 +244,4 @@ void RescueBot::explore()
             smartMotors.goBackward(100);  // Will enter collision avoidance at next iteration
     }
 }
+
