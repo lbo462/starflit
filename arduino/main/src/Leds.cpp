@@ -180,3 +180,23 @@ void Leds::starflitRedToBlue()
         i++;
     }
 }
+
+void Leds::batteryVoltage()
+{
+    ledStrip.clear();
+
+    uint32_t blue = ledStrip.Color(43, 22, 190);
+
+    float voltage;
+    float maxVoltage = 3.9;
+    voltage = analogRead(A6) * (5.0 / 1023.0);
+    Serial.println(voltage);
+
+    for (int i = 0; i < ((ledStrip.numPixels() + 1) * voltage) / maxVoltage; i++)
+    {
+        ledStrip.setPixelColor(i, blue);
+        ledStrip.show();
+        delay(20);
+    }
+
+}

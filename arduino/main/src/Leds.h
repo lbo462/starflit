@@ -47,7 +47,7 @@ class Leds
         void backwardBlink(char* color, int interval, unsigned long time);
 
         /**
-         * Displays the battery voltage status of the robot (NOT IMPLEMENTED YET).
+         * Displays the battery voltage status of the robot.
          */
         void batteryVoltage();
         

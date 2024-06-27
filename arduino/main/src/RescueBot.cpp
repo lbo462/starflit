@@ -10,6 +10,7 @@ void RescueBot::setup()
     // Initial animation
     ledStrip.setup();
     ledStrip.starflitRedToBlue();
+    ledStrip.batteryVoltage();
 
     smartMotors.setup();
     ultrasonicSensors.setup();
