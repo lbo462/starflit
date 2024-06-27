@@ -76,14 +76,14 @@ void RescueBot::update()
         ledStrip.blink("green", 200, currentMillis);
     }
 
-    if (objectFound)
+    if (otherFound)
     {
         ledStrip.rainbow(500, currentMillis);
         // maybe make them do a little dance instead of the delay
     }
 
-    // If the RPI isn't ready or if the object was found, just don't move and exit
-    if(!RPIInitialized || selfFound || objectFound)
+    // If the RPI isn't ready, if the robot or someone else found an object, just don't move.
+    if(!RPIInitialized || selfFound || otherFound)
     {
         smartMotors.stop();
     }
