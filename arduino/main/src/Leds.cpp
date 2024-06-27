@@ -108,14 +108,14 @@ void Leds::initializing(int interval)
 {
     ledStrip.clear();
 
-    uint32_t red = ledStrip.ColorHSV(0, 255, 255);
     uint32_t blue = ledStrip.ColorHSV(43690, 255, 255);
-    
+    uint32_t red = ledStrip.ColorHSV(0, 255, 255);
+
     // Lights up LEDs incrementally 
-    for (int i = 0; i < ledStrip.numPixels() / 2; i++)
+    for (int i = 0; i < ledStrip.numPixels() / 2 + 1; i++)
     {
         ledStrip.fill(blue, i, 4);
-        ledStrip.fill(red, ledStrip.numPixels() - i, 4);
+        ledStrip.fill(red, ledStrip.numPixels() / 2 + i, 4);
 
         ledStrip.show();
         delay(interval);

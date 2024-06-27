@@ -42,7 +42,7 @@ void RescueBot::update()
             }
 
             // Check object detection
-            if(rpiFrame.objectDetected)
+            if(rpiFrame.objectDetected && !otherFound)
             {
                 // Send the information to everyone that the RPI found something
                 char *strandFrame = new char[parser.getStrandFrameLen()];
