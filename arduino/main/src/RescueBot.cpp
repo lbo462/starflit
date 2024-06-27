@@ -7,8 +7,10 @@ RescueBot::~RescueBot() {}
 
 void RescueBot::setup()
 {
+    // Initial animation
     ledStrip.setup();
     ledStrip.starflitRedToBlue();
+
     smartMotors.setup();
     ultrasonicSensors.setup();
     camPosition.setup();
@@ -22,12 +24,6 @@ void RescueBot::update()
 
     unsigned long currentMillis = millis();
     smartMotors.update();
-
-    if(!RPIInitialized)
-    {
-        radio.sendString("RPI not initialized");
-        ledStrip.initializing(30);
-    }
 
     serial.withRecv(  // Actually receive the frame from the RPI
         RECEIVED_RPI_FRAME_LENGTH, [&](char *frame) {
@@ -52,6 +48,16 @@ void RescueBot::update()
         }
     );
 
+    // If the RPI isn't ready, just don't move.
+    if(!RPIInitialized)
+    {
+        smartMotors.stop();
+        radio.sendString("Waiting RPi ...");
+        ledStrip.initializing(30);
+        return;
+    }
+
+    // Listen the radio iff no one ever found the object
     if(!otherFound)
     {
         radio.withRecv(
@@ -69,23 +75,16 @@ void RescueBot::update()
             }
         );
     }
-    
 
-    if (selfFound)
-    {
-        ledStrip.blink("green", 200, currentMillis);
-    }
-
-    if (otherFound)
-    {
-        ledStrip.rainbow(500, currentMillis);
-        // maybe make them do a little dance instead of the delay
-    }
-
-    // If the RPI isn't ready, if the robot or someone else found an object, just don't move.
-    if(!RPIInitialized || selfFound || otherFound)
+    if(selfFound || otherFound)
     {
         smartMotors.stop();
+
+        if (selfFound)
+            ledStrip.blink("green", 200, currentMillis);
+        else
+            ledStrip.rainbow(500, currentMillis);
+
         return;
     }
 
