@@ -17,8 +17,6 @@ void RescueBot::setup()
 
     serial.setup();
     radio.setup();
-
-    parser.radio.setup();
 }
 
 void RescueBot::update()
@@ -29,11 +27,7 @@ void RescueBot::update()
 
     serial.withRecv(  // Actually receive the frame from the RPI
         RECEIVED_RPI_FRAME_LENGTH, [&](char *frame) {
-            radio.sendString("Parsing this:");
-            radio.send(frame, RECEIVED_RPI_FRAME_LENGTH);
             RPIFrame rpiFrame = parser.parseRPI(frame);
-            radio.sendString("Here's what I have: " + String(rpiFrame.objectDetected));
-
             if(!rpiFrame.isValid)
                 return;  // do not read invalid frame, ignore.
 

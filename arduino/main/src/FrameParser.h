@@ -4,7 +4,6 @@
 #define frame_parser_h
 
 #include "Communication/Constants.h"
-#include "Communication/Communication.h"
 
 /**
  * Expected frame length in reception from the RPI.
@@ -94,8 +93,6 @@ class FrameParser
     public:
         FrameParser();
         ~FrameParser();
-
-        Communication<CommunicationModule::radioModule> radio = Communication<CommunicationModule::radioModule>();
 
         /**
          * Parse a frame received from the RPI and return an instance of RPIFame.

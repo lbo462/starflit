@@ -8,9 +8,6 @@ RPIFrame FrameParser::parseRPI(char *frame)
 {
     RPIFrame rpiFrame;
     rpiFrame.isValid = true;  // true while not proven otherwise
-    
-    radio.sendString("Got you. Parsing this:");
-    radio.send(frame, RECEIVED_RPI_FRAME_LENGTH);
 
     // Decoded frame, without data duplication
     char decodedFrame[RECEIVED_RPI_FRAME_LENGTH / DATA_DUPLICATION_FACTOR];
@@ -41,9 +38,6 @@ RPIFrame FrameParser::parseRPI(char *frame)
             decodedFrame[realIndex] = frame[i];  // Everything is perfect!
         }
     }
-
-    radio.sendString("Here's the decoded version bro:");
-    radio.send(decodedFrame, sizeof(decodedFrame));
 
     rpiFrame.initialized = (bool)decodedFrame[0];
     rpiFrame.objectDetected = (bool)decodedFrame[1];
@@ -88,8 +82,6 @@ RPIFrame FrameParser::parseRPI(char *frame)
      */
     rpiFrame.xObjectPosition = (signed int)(decodedFrame[2] << 8) + (unsigned char)decodedFrame[3];
     rpiFrame.yObjectPosition = (signed int)(decodedFrame[4] << 8) + (unsigned char)decodedFrame[5];
-
-    radio.sendString("I have " + String((bool)decodedFrame[1]));
 
     return rpiFrame;
 }
