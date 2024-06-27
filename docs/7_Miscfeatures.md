@@ -91,25 +91,9 @@ frame, it passes it to a parser of type `FrameParser` that parses
 the char array into a usable instance of `RPIFrame` holding all the
 information sent by the RPi.
 
-### Current problems
-
-For some reason, the communication seems unstable at this point. The
-fact is that the Arduino doesn't always receive the same data as the
-one sent by the RPi. It's correct __most of the time__, but not
-always. That has become a real problem for booleans having big
-impacts on the behavior on the robot. This arose with the attribute
-`objectDetected`:
-
-> When the strandbeest finds an object, it stops and alert the
-> others. We definitely do not want the Arduino to receive the
-> information that its Raspberry found an object if it did not!
-
-### Ameliorations
-
-To solve the discussed problem, one could implement some channel
-encoding, with data duplication.
-
 ### Encountered problems
+
+#### Bluetooth broke my teeth
 
 At the start, we thought that having the communication between the
 two using serial communication was a poorly chosen option, and that
@@ -139,6 +123,30 @@ and the Arduino, despite the problem described above ...
 
 > Note that we didn't explore the option of Wi-Fi communication,
 > but it also seems that it's wired on the serial bus ...
+
+#### Channel stability
+
+For some reason, the communication seemed unstable. The fact is that
+the Arduino doesn't always receive the same data as the one sent by
+the RPi. It's correct __most of the time__, but not always. That has 
+become a real problem for booleans having big impacts on the behavior 
+on the robot. This arose with the attribute `objectDetected`:
+
+> When the strandbeest finds an object, it stops and alert the
+> others. We definitely do not want the Arduino to receive the
+> information that its Raspberry found an object if it did not!
+
+To solve this problem, we implemented some __channel coding__, that
+you might have heard before (_codage canal_ in french). Each byte
+sent by the RPi is duplicated three times, and the Arduino checks the
+integrity of the frame this way.
+
+For each three bytes,
+- If the three bytes are the same, keep that value,
+- If they're all different, the frame is invalid,
+- If at least two are identical, keep that value.
+
+This parsing job is done through the `FrameParser` class.
 
 --
 
