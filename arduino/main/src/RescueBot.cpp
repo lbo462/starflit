@@ -28,12 +28,14 @@ void RescueBot::update()
     serial.withRecv(  // Actually receive the frame from the RPI
         RECEIVED_RPI_FRAME_LENGTH, [&](char *frame) {
             RPIFrame rpiFrame = parser.parseRPI(frame);
+            if(!rpiFrame.isValid)
+                return;  // do not read invalid frame, ignore.
+
             if(rpiFrame.initialized && !RPIInitialized)
             {
-                // Updates the RPI initialized
+                // Updates the RPi initialized
                 RPIInitialized = rpiFrame.initialized;
-
-                radio.sendString("RPI initialized");
+                radio.sendString("RPi initialized !");
             }
 
             // Check object detection

@@ -7,9 +7,40 @@ FrameParser::~FrameParser() {}
 RPIFrame FrameParser::parseRPI(char *frame)
 {
     RPIFrame rpiFrame;
+    rpiFrame.isValid = true;  // true while not proven otherwise
 
-    rpiFrame.initialized = (bool)frame[0];
-    rpiFrame.objectDetected = (bool)frame[1];
+    // Decoded frame, without data duplication
+    char decodedFrame[RECEIVED_RPI_FRAME_LENGTH / DATA_DUPLICATION_FACTOR];
+
+    // Decode frame, keep only the non-duplicated values
+    for(int i = 0; i < RECEIVED_RPI_FRAME_LENGTH; i += DATA_DUPLICATION_FACTOR)
+    {
+        // Index of the final frame to parse
+        int realIndex = i / DATA_DUPLICATION_FACTOR;
+
+        // Check the frame integrity and fix it if possible
+        if(frame[i] != frame[i+1] || frame[i] != frame[i+2])
+        {
+            // Check majority
+            if(frame[i] == frame[i+1] || frame[i] == frame[i+2])
+                decodedFrame[realIndex] = frame[i];
+
+            else if(frame[i+1] == frame[i+2])
+                decodedFrame[realIndex] = frame[i+1];
+
+            // All three values are different ...
+            else
+                rpiFrame.isValid = false;  // dismiss frame
+                return rpiFrame;
+        }
+        else 
+        {
+            decodedFrame[realIndex] = frame[i];  // Everything is perfect!
+        }
+    }
+
+    rpiFrame.initialized = (bool)decodedFrame[0];
+    rpiFrame.objectDetected = (bool)decodedFrame[1];
 
     /*
      * Hey, you!
@@ -45,12 +76,12 @@ RPIFrame FrameParser::parseRPI(char *frame)
      *       (___)))__))(__))(__)))
      * 
      * Last note,
-     * The form `frame[i] << 8 + frame[i+1]` rebuilds an integer
-     * from the two bytes `frame[i]` and `frame[i+1]`.
+     * The form `decodedFrame[i] << 8 + decodedFrame[i+1]` rebuilds an integer
+     * from the two bytes `decodedFrame[i]` and `decodedFrame[i+1]`.
      * The order is important, and we're doing big endian here.
      */
-    rpiFrame.xObjectPosition = (signed int)(frame[2] << 8) + (unsigned char)frame[3];
-    rpiFrame.yObjectPosition = (signed int)(frame[4] << 8) + (unsigned char)frame[5];
+    rpiFrame.xObjectPosition = (signed int)(decodedFrame[2] << 8) + (unsigned char)decodedFrame[3];
+    rpiFrame.yObjectPosition = (signed int)(decodedFrame[4] << 8) + (unsigned char)decodedFrame[5];
 
     return rpiFrame;
 }

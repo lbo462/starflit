@@ -4,7 +4,6 @@
 #define communication_h
 
 #include <Arduino.h>
-#include <Array.h>
 #include <SoftwareSerial.h>
 #include "Constants.h"
 #include "Radio.h"
