@@ -102,12 +102,12 @@ void RescueBot::update()
     if(isScanning() || currentMillis - previousScan > SCAN_INTERVAL)
     {
         scan();
-        ledStrip.blink("red", 100, currentMillis);
+        ledStrip.blink("starflit red", 100, currentMillis);
     }
     else 
     {
         explore();
-        ledStrip.blink("blue", 300, currentMillis);
+        ledStrip.blink("starflit blue", 300, currentMillis);
     }
 }
 
