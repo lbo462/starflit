@@ -86,6 +86,7 @@ void RescueBot::update()
     if(!RPIInitialized || selfFound || otherFound)
     {
         smartMotors.stop();
+        return;
     }
 
     /*
