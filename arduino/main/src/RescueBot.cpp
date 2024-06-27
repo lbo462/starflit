@@ -7,12 +7,12 @@ RescueBot::~RescueBot() {}
 
 void RescueBot::setup()
 {
-    // Initial animation
+    // Initial startup animation to display voltage
     ledStrip.setup();
-    //ledStrip.starflitRedToBlue();
-    //delay(500);
     ledStrip.batteryVoltage();
-    delay(200);
+    delay(1000);
+
+    ledStrip.still("grey");  // Means we're in setup
 
     smartMotors.setup();
     ultrasonicSensors.setup();

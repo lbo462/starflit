@@ -113,11 +113,12 @@ class Leds
          * Key value pairs of all the colors you can use associated with their `uint32_t` representation.
          * Feel free to add additional colors based on your needs.
          */
-        Colors colors[4] = {
+        Colors colors[5] = {
             {"starflit red", ledStrip.Color(255, 0, 0)},
             {"green", ledStrip.Color(0, 255, 0)},
             {"starflit blue", ledStrip.Color(43, 22, 190)},
-            {"magenta", ledStrip.Color(255, 0, 255)}
+            {"magenta", ledStrip.Color(255, 0, 255)},
+            {"grey", ledStrip.ColorHSV(0, 0, 100)},
         };
 };
 
