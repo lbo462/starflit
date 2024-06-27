@@ -79,10 +79,10 @@ class RescueBot
         /** Tells if the RPI was initialized. */
         bool RPIInitialized = false;
 
-        /** Tells if the object was found. */
+        /** If someone else found something. */
         bool otherFound = false;
 
-        /** Is an object detected or not \'O'/ */
+        /** If the robot found something. \'O'/ */
         bool selfFound = false;
 
         /**
