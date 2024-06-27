@@ -44,16 +44,16 @@ class CameraPosition
         int horizontalChannel = 1;
 
         /** Lowest pwm position in z. */
-        int zMin = 110;
+        int zMin = 120;
 
         /** Lowest pwm position in x. */
-        int xMin = 120;
+        int xMin = 90;
 
         /** Max pwm position in z. */
-        int zMax = 400;
+        int zMax = 360;
 
         /** Max pwm position in x. */
-        int xMax = 460;
+        int xMax = 330;
 
         /** Get the default z position, for the vertical servo */
         inline int defaultZPosition() { return (zMin+zMax)/2; }

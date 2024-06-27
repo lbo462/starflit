@@ -155,3 +155,6 @@ and to set-up an initial position when starting-up the strandbeest.
 
 > The servos motors are I2C wired and we make use of the PWN library
 > from Adafruit.
+
+__Whatever the hell the reason is, the camera positioning is different__
+__from a strandbeest to another, so we just unplugged the servos.__
