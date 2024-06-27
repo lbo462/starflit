@@ -187,16 +187,13 @@ void Leds::batteryVoltage()
 
     uint32_t blue = ledStrip.Color(43, 22, 190);
 
-    float voltage;
-    float maxVoltage = 3.9;
-    voltage = analogRead(A6) * (5.0 / 1023.0);
-    Serial.println(voltage);
+    float batteryPercent = analogRead(batteryPin) / 1023.0;
+    int ledsToLight = (ledStrip.numPixels()+1) * batteryPercent;
 
-    for (int i = 0; i < ((ledStrip.numPixels() + 1) * voltage) / maxVoltage; i++)
+    for (int i = 0; i < ledsToLight; i++)
     {
         ledStrip.setPixelColor(i, blue);
         ledStrip.show();
-        delay(20);
+        delay(8*(ledsToLight - i));
     }
-
 }

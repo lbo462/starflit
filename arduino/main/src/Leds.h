@@ -86,6 +86,9 @@ class Leds
          */
         const int ledPin=2, numLeds=33, brightness=50;
 
+        /** Analog pin to read the battery voltage. */
+        const int batteryPin = A6;
+
         /**
          * State of the LED strip used for the blinking effect.
          */

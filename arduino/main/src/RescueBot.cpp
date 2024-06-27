@@ -10,7 +10,9 @@ void RescueBot::setup()
     // Initial animation
     ledStrip.setup();
     ledStrip.starflitRedToBlue();
+    delay(500);
     ledStrip.batteryVoltage();
+    delay(500);
 
     smartMotors.setup();
     ultrasonicSensors.setup();
@@ -56,7 +58,7 @@ void RescueBot::update()
     {
         smartMotors.stop();
         radio.sendString("Waiting RPi ...");
-        ledStrip.initializing(30);
+        ledStrip.initializing(20);
         return;
     }
 
