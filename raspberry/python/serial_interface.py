@@ -5,13 +5,6 @@ from typing import ContextManager
 from contextlib import contextmanager
 from serial import Serial
 
-import logging
-from cysystemd import journal
-
-log = logging.getLogger("starflit")
-log.addHandler(journal.JournaldLogHandler())
-log.setLevel(logging.INFO)
-
 from frame import OutGoingFrame, DATA_DUPLICATION_FACTOR
 
 STX = b"\x02"

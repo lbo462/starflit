@@ -9,6 +9,11 @@ How many times the sent bytes are duplicated.
 Please, do not edit this without thinking. It
 would have unexpected impacts, and should match
 the Arduino side.
+
+Most problems will arise on the Arduino side
+when parsing the frame. Here, it would work
+just as expected and duplicate each bytes the
+expected amount of times.
 """
 
 
