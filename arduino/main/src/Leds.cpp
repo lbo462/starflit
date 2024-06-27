@@ -108,14 +108,15 @@ void Leds::initializing(int interval)
 {
     ledStrip.clear();
 
-    uint32_t blue = ledStrip.Color(43, 22, 190);
-    uint32_t red = ledStrip.Color(255, 0, 0);
+    uint32_t blue = ledStrip.ColorHSV(43690, 255, 255);
+    uint32_t red = ledStrip.ColorHSV(0, 255, 255);
 
     // Lights up LEDs incrementally 
     for (int i = 0; i < ledStrip.numPixels() / 2 + 1; i++)
     {
         ledStrip.fill(blue, i, 4);
-        ledStrip.fill(red, i + ledStrip.numPixels() / 2, 4);
+        ledStrip.fill(red, ledStrip.numPixels() / 2 + i, 4);
+
         ledStrip.show();
         delay(interval);
         ledStrip.clear();
@@ -178,5 +179,42 @@ void Leds::starflitRedToBlue()
         ledStrip.show();
         delay(50);
         i++;
+    }
+}
+
+void Leds::batteryVoltage()
+{
+    ledStrip.clear();
+
+    uint16_t startHue = 43690;
+    uint16_t endHue = 0;
+    
+    long hue = (startHue - endHue) / 2;
+
+    float batteryPercent = analogRead(batteryPin) / 1023.0;
+    int ledsToLight = (ledStrip.numPixels()+1) * batteryPercent;
+
+    for (int i = 0; i < ledsToLight; i++)
+    {
+        uint32_t color = ledStrip.ColorHSV(hue, 255, 255);
+
+        ledStrip.clear();
+        ledStrip.setPixelColor(i, color);
+        ledStrip.show();
+        delay(log(exp(2*(ledsToLight - i))));
+    }
+
+    for (int i = ledsToLight+1; i >= 0; i--)
+    {
+        if (i < ledsToLight / 2 + 2)
+            hue = endHue;
+        else if (i > ledsToLight / 2 - 2)
+            hue = startHue;
+
+        uint32_t color = ledStrip.ColorHSV(hue, 255, 255);
+
+        ledStrip.setPixelColor(i, color);
+        ledStrip.show();
+        delay(2*i);
     }
 }

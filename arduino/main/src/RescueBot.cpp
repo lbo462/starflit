@@ -7,9 +7,12 @@ RescueBot::~RescueBot() {}
 
 void RescueBot::setup()
 {
-    // Initial animation
+    // Initial startup animation to display voltage
     ledStrip.setup();
-    ledStrip.starflitRedToBlue();
+    ledStrip.batteryVoltage();
+    delay(1000);
+
+    ledStrip.still("grey");  // Means we're in setup
 
     smartMotors.setup();
     ultrasonicSensors.setup();
@@ -39,7 +42,7 @@ void RescueBot::update()
             }
 
             // Check object detection
-            if(rpiFrame.objectDetected)
+            if(rpiFrame.objectDetected && !otherFound)
             {
                 // Send the information to everyone that the RPI found something
                 char *strandFrame = new char[parser.getStrandFrameLen()];
@@ -53,9 +56,7 @@ void RescueBot::update()
     // If the RPI isn't ready, just don't move.
     if(!RPIInitialized)
     {
-        smartMotors.stop();
-        radio.sendString("Waiting RPi ...");
-        ledStrip.initializing(30);
+        ledStrip.initializing(20);
         return;
     }
 
