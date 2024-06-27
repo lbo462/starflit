@@ -12,7 +12,7 @@ void RescueBot::setup()
     //ledStrip.starflitRedToBlue();
     //delay(500);
     ledStrip.batteryVoltage();
-    delay(500);
+    delay(200);
 
     smartMotors.setup();
     ultrasonicSensors.setup();
@@ -56,8 +56,6 @@ void RescueBot::update()
     // If the RPI isn't ready, just don't move.
     if(!RPIInitialized)
     {
-        smartMotors.stop();
-        radio.sendString("Waiting RPi ...");
         ledStrip.initializing(20);
         return;
     }
