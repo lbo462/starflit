@@ -9,8 +9,8 @@ void RescueBot::setup()
 {
     // Initial animation
     ledStrip.setup();
-    ledStrip.starflitRedToBlue();
-    delay(500);
+    //ledStrip.starflitRedToBlue();
+    //delay(500);
     ledStrip.batteryVoltage();
     delay(500);
 

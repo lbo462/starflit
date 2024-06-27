@@ -185,15 +185,35 @@ void Leds::batteryVoltage()
 {
     ledStrip.clear();
 
-    uint32_t blue = ledStrip.Color(43, 22, 190);
+    uint16_t startHue = 43690;
+    uint16_t endHue = 0;
+    
+    long hue = (startHue - endHue) / 2;
 
     float batteryPercent = analogRead(batteryPin) / 1023.0;
     int ledsToLight = (ledStrip.numPixels()+1) * batteryPercent;
 
     for (int i = 0; i < ledsToLight; i++)
     {
-        ledStrip.setPixelColor(i, blue);
+        uint32_t color = ledStrip.ColorHSV(hue, 255, 255);
+
+        ledStrip.clear();
+        ledStrip.setPixelColor(i, color);
         ledStrip.show();
-        delay(8*(ledsToLight - i));
+        delay(log(exp(2*(ledsToLight - i))));
+    }
+
+    for (int i = ledsToLight+1; i >= 0; i--)
+    {
+        if (i < ledsToLight / 2 + 2)
+            hue = endHue;
+        else if (i > ledsToLight / 2 - 2)
+            hue = startHue;
+
+        uint32_t color = ledStrip.ColorHSV(hue, 255, 255);
+
+        ledStrip.setPixelColor(i, color);
+        ledStrip.show();
+        delay(2*i);
     }
 }
