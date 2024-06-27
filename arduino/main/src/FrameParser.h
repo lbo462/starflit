@@ -64,7 +64,11 @@ struct RPIFrame
     /** Was an object detected ? */
     bool objectDetected;
 
-    /** Position of the detected object. */
+    /**
+     * Position of the detected object.
+     * This is currently unused, hence
+     * half-tested. Be aware!
+     */
     signed int xObjectPosition;
     signed int yObjectPosition;
 };
