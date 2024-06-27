@@ -80,10 +80,10 @@ class RescueBot
         bool RPIInitialized = false;
 
         /** Tells if the object was found. */
-        bool objectFound = false;
+        bool otherFound = false;
 
         /** Is an object detected or not \'O'/ */
-        bool objectDetected = false;
+        bool selfFound = false;
 
         /**
          * Tells whether we're currently scanning or not.
@@ -105,9 +105,6 @@ class RescueBot
 
         /** Configures the camera positions */
         CameraPosition camPosition = CameraPosition();
-        
-        /** Params to control the LEDs */
-        const int ledPin=2, numLeds=33, brightness=50;
 };
 
 #endif

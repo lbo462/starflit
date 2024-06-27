@@ -12,7 +12,6 @@ void RescueBot::setup()
     smartMotors.setup();
     ultrasonicSensors.setup();
     camPosition.setup();
-    ledStrip.setup();
 
     serial.setup();
     radio.setup();
@@ -48,12 +47,12 @@ void RescueBot::update()
                 char *strandFrame = new char[parser.getStrandFrameLen()];
                 parser.buildStrand(strandFrame, true);
                 radio.send(strandFrame, sizeof(strandFrame));
-                objectDetected = true;
+                selfFound = true;
             }
         }
     );
 
-    if(!objectFound)
+    if(!otherFound)
     {
         radio.withRecv(
             RECEIVED_STRAND_FRAME_LENGTH, [&](char *frame) {
@@ -66,32 +65,27 @@ void RescueBot::update()
                 }
 
                 // Update internal state
-                objectFound = strandFrame.objectFound;
+                otherFound = strandFrame.objectFound;
             }
         );
     }
     
 
-    // If the RPI isn't ready or if the object was found, just don't move and exit
-    if(!RPIInitialized)
-    {
-        smartMotors.stop();
-        return;
-    }
-
-    if (objectDetected)
+    if (selfFound)
     {
         ledStrip.blink("green", 200, currentMillis);
-        return;
     }
 
     if (objectFound)
     {
-        smartMotors.stop();
         ledStrip.rainbow(500, currentMillis);
-        //delay(10000);
         // maybe make them do a little dance instead of the delay
-        return;
+    }
+
+    // If the RPI isn't ready or if the object was found, just don't move and exit
+    if(!RPIInitialized || selfFound || objectFound)
+    {
+        smartMotors.stop();
     }
 
     /*
