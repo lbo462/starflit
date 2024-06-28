@@ -8,7 +8,7 @@ Welcome to the **Starflit** project!
 
 This project aims to develop a fleet of autonomous robots capable of locating and rescuing individuals in disaster-stricken areas.
 
-![Robot in Action 1](assets/strandbeest2.png) 
+![Robot in Action 1](assets/strandbeest3.jpg)
 
 *A single Stranbeest*
 
