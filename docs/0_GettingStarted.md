@@ -188,6 +188,7 @@ anonymous_identity="anonymous@insa-lyon.fr"
 ```
 
 > For the identity and password, you can use your own university email address and password.
+> The email is in this form: `login@insa-lyon.fr`.
 
 It is a good security measure to use environment variables in configuration files when it comes to usernames and passwords so that they don't appear in cleartext on github 😄.
 
@@ -197,7 +198,13 @@ You can configure environment variables like so:
 export MYVAR='myPassword'
 ```
 
-If you want it to be permanent, add it to the `.bashrc` file or the corresponding file for your shell.
+If you want it to be permanent (**which you do**), you can create a script in `/etc/profile.d` and declare them like so:
+
+```bash
+export EDUROAM_EMAIL=yourEmail
+export EDUROAM_PW=yourPassword
+```
+
 
 The RPi (router) should now be able to connect to Eduroam. You can test it by running the following command:
 
