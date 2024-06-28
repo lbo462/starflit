@@ -1,35 +1,47 @@
-# Transfer learning and fine-tuning
+# Ongoing Work
 
-## The objective 
-The objective of this part of the project, is to use a model tht already exist, and to use it's already intelligent structure to use it to do something else.
+## Transfer learning and finetuning
+
+### The objective 
+The objective of this part of the project, is to use a model tht already exists, and to use it's already intelligent structure to use it to do something else.
 
 After the benchmark, we decided that MobileNetv3Large was the most adapted model for our needs. MobileNet is a model that has 1000 classes, so it can recognize 1000 different objects. In our case, we want it to be able to detect people in distress/wounded and people that are safe. So only 2 classes. 
 
 We chose to use leafs to represent people, for there are few datasets available of wounded people.
 
 
-## Fine-tuning with Pytorch
+### Finetuning with Pytorch
 
-During the last days of the project, we manage to finetune MobileNetv3Large with pytorch. After getting the finetuned model, we managed to make it run on the Raspberry Pi. 
+During the last days of the project, we managed to finetune MobileNetv3Large with pytorch. After getting the finetuned model, we managed to make it run on the Raspberry Pi. 
 
 The model had poor results, but the POC is here, and your mission, if you accept it, is to improve and adjust the training.
 
-### Training
+#### Training
 
-First, you will have to download the script files that are in `misc/finetuning/finetuning.py` on the repo on the machine you want to do the training. They might be :  [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
+First, you will have to download the script file that are in `misc/finetuning/finetuning.py` in the repo on the machine you want to do the training. They might be :  [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
 
 
-Once you have enjoyed downloading them, you will have to create a virtual environnement :
+Once you have enjoyed cloning it, you will have to create a virtual environnement (go and see the getting started doc [here](0_GettingStarted.md#))
+
+Next to the script, create a folder named dataset, and create one folder for each class in it containing the images you selected :
 ```
-python3 -m venv venv
-source venv/bin/activate
+dataset/
+├── healthy/
+│   ├── img1.jpg
+│   ├── img2.jpg
+│   └── ...
+└── diseased/
+    ├── img1.jpg
+    ├── img2.jpg
+    └── ...
 ```
+(we had like 8000 images in every class)
 
-Then install the dependencies :
+Then install the dependencies:
 ```
 pip install torch torchvision tqdn
 ```
-And finally start the training in the background :
+And finally start the training in the background:
 ```
 nohup python3 finetuning.py > training.log &
 ``` 
@@ -40,38 +52,34 @@ If you are connected with ssh on the machine where the training is happening, yo
 At the end of the training, you will have a .pth file : this is your fine tuned model.
 
 
-### Running the model on Raspberry Pi
+#### Running the model on Raspberry Pi
 
 First, transfer the model from the machine you made the training to the Raspberry Pi. If you are using a remote server, use rsync from the raspberry pi : 
 ```
 rsync -Pru login@ip:/path/to/the/model .
 ```
 
-Then once you have it, same as before, you create your virtual environnement :
-```
-python3 -m venv venv
-source venv/bin/activate
-```
+Then once you have it, same as before, you create your virtual environnement.
 
-Then install the dependencies :
+Then install the dependencies:
 ```
 pip install torch torchvision tqdn
 ```
 
-Once it's done, you can download the script files that are in `misc/finetuning/objectRecognition.py` on the repo, and start the script (assuming you configured correctly your Raspberry Pi).
+Once it's done, you can download the script file that are in `misc/finetuning/objectRecognition.py` on the repo, and start the script (assuming you configured correctly your Raspberry Pi).
 
 
-Okay, so now you have a script that give's you a prediction of what the camera see's with a certitude percentage.
+Okay, so now you have a script that give's you a prediction of what the camera sees with a certitude percentage.
 
-### What's left
+#### What's left
 
-#### The training
+ **The training**
 
 The model, as mentionned before, has poor results. We didn't spend much time on improving the training, but this is something you can do. 
 
 I would advise that you don't rely too much on the scripts that were made. There were just POCs, and can be largely improved.
 
-#### The implementation
+**The implementation**
 
 The script is not implemented in the rest of the project. If you want to use it on the Strandbeests, you would have to implement the code in the actual project.
 
@@ -79,7 +87,7 @@ Good luck soldier!
 
 
 
-## Fine-tuning with TensorFlow
+### Fine-tuning with TensorFlow
 > Note that this part exists because we made research and tried to fine-tune
 > a model, but we weren't able to finish the process in the given time.
 > This documentation contains some information that could be useful for
@@ -109,7 +117,7 @@ Theses docs contains all the knowledge you need to continue reading this.
 Please, take a bit of your time to read at least one of the two in order to
 understand the process of transfer learning and fine-tuning.
 
-### Starflit's transfer learning objectives
+#### Starflit's transfer learning objectives
 
 Our save-and-rescue little animated strandbeest have the objective of 
 recognizing an object in two different states: _healthy_ or _unhealthy_.
@@ -120,7 +128,7 @@ Here, we chose that this object will be leaves 🍃.
 > on the strandbeest will allow the next groups to do the same with different
 > datasets, for different uses.
 
-### HuggingFace 🤗
+#### HuggingFace 🤗
 
 In order to use a custom dataset for the transfer learning, we tryed using 
 [HuggingFace 🤗](https://huggingface.co/), which is pretty similar to
@@ -138,7 +146,7 @@ Here, we'll only use it to host our dataset.
 > [https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794](https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794)
 > to check for updates.
 
-### Creating your dataset
+#### Creating your dataset
 
 In order to create a dataset, there's two docs we could have followed:
 - The one from [Tensorflow](https://www.tensorflow.org/datasets/add_dataset)
@@ -152,7 +160,7 @@ This solution allows us to have our images in a folder and generate a fully
 labelled dataset with a single line of python code. Everything is described 
 in the documentation above.
 
-### Running model training
+#### Running model training
 
 Training a model is quite costly in terms of computation power.
 That's why the Starflit crew decided to run this bit of the project on 
@@ -188,7 +196,7 @@ this.
 
 ---
 
-# Mapping
+## Mapping
 
 __SLAM__ : Simultaneous localization and mapping
 
@@ -198,7 +206,7 @@ __SLAM__ : Simultaneous localization and mapping
 
 *Before we start, we strongly recommend that you* **explore the subject yourself**, *and that you do not only use the information that is written here. We are discovering the subject and* **we are in no case references in the matter.**
 
-## The objective
+### The objective
 
 This part of the project has for objective to implement a shared map for the Strandbeests.
 
@@ -213,7 +221,7 @@ The subject is very large, and is called SLAM for: simultaneous localization and
 
 The navigation part should be its very own, but we haven't had the time to explore this part so we integrated it here.
 
-## What is SLAM
+### What is SLAM
 
 SLAM is not a specific algorithm, nor an application. It's a term to designate the technological process that allows robots to navigate in an autonomous way, in an unknown environment.
 
@@ -233,7 +241,7 @@ SLAM asks to simultaneously localize the robot in its environment and to create 
   - MonoSLAM
   - ORB-SLAM
 
-### Landmarks
+#### Landmarks
 We can use landmarks to locate ourselves in the environment. 
 
 Landmarks are essential elements of SLAM, enabling the robot to localize itself and map its environment effectively. The appropriate selection, detection, and utilization of landmarks are crucial aspects for the success of any SLAM system.
@@ -243,7 +251,7 @@ There can be different types of landmarks:
 
 - Artificial Landmarks: These are specially placed markers in the environment to facilitate SLAM tasks, such as AR markers, reflective targets for laser sensors, or RFID tags.
 
-### Why is SLAM a hard problem
+#### Why is SLAM a hard problem
 
 In order to map the environment, we need to know where we are on our map, which we are creating at the same time. It can be compared to the problem of "the chicken or the egg".
 
@@ -266,7 +274,7 @@ The problem is that we have a lot of uncertainty:
 - Dynamic Environment
     - Changes in the environment (e.g., moving people) can disrupt measurements
 
-### Deviation
+#### Deviation
 
 Our robot doesn't move as intended and doesn't describe exactly the reality. So the real movement of the robot compared to the intended movement looks like this:
 
@@ -281,14 +289,14 @@ One way to represent the map is to evaluate the level of uncertainty of the posi
 ![](assets/SLAMHardProblem.png)
 *[Slides : SLAM-fastslam](http://ais.informatik.uni-freiburg.de/teaching/ss13/robotics/slides/14-slam-fastslam.pdf)*
 
-### Misinterpretation 
+#### Misinterpretation 
 
 Another problem is that our robot can misinterpret the landmarks:
 
 ![](assets/SLAMHardProblem2.png)
 *[Slides : SLAM-fastslam](http://ais.informatik.uni-freiburg.de/teaching/ss13/robotics/slides/14-slam-fastslam.pdf)*
 
-## Our case
+### Our case
 
 In our case, we have strandbeests that have legs:
 
@@ -314,11 +322,11 @@ To do that you would have to implement **multi-agent SLAM** :
 - [Research paper: Multi-agent SLAM](https://rpg.ifi.uzh.ch/docs/thesis_Cieslewski_final.pdf)
 
 
-## What to do 
+### What to do 
 
 In the Links section, you can inspire yourself with the Github repositories and other links. We would recommend starting by researching the subject, and then trying the [Github: Arduino SLAM using ultrasonic sensors](https://github.com/PatelVatsalB21/Ultrasonic-SLAM).
 
-## Links 
+### Links 
 - [Research paper: SLAM in weak environment information applications using Swarm robots](https://www.researchgate.net/publication/379134679_SLAM_in_Weak_Environment_Information_Applications_using_Swarm_Robots)
 - [Github: Arduino SLAM using ultrasonic sensors](https://github.com/PatelVatsalB21/Ultrasonic-SLAM)
 - [Youtube: SLAM-course-1](https://www.youtube.com/watch?v=wVsfCnyt5jA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=3)

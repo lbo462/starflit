@@ -1,3 +1,6 @@
+
+# This file use the camera of the Raspberry Pi and a finetuned version of Mobilenetv3 to do object Recognition
+
 import torch
 from torchvision import models, transforms
 from PIL import Image

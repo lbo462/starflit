@@ -110,7 +110,7 @@ to support more complex data structures.
 
 This is a tricky, yet very cool feature to implement.
 
-[Check this documentation](7_UngoingWork.md#mapping)
+[Check this documentation](7_OngoingWork.md#mapping)
 
 ## Add some fine-tuning
 
@@ -126,7 +126,7 @@ detecting.
 If you're trying to implement this, try reading what we tried
 first, and what we recommend in the object recognition doc.
 
-[Check this documentation](7_UngoingWork.md##Fine-tuning-with-Pytorch)
+[Check this documentation](7_OngoingWork.md##Fine-tuning-with-Pytorch)
 
 ## Add some arms
 

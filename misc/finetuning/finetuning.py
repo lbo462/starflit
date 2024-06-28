@@ -1,3 +1,7 @@
+
+# This file is used to finetune the model MobileNetv3Large with a customed dataset.
+
+
 import os
 import copy
 import torch
