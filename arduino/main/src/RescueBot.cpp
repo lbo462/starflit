@@ -87,6 +87,10 @@ void RescueBot::update()
             ledStrip.blink("green", 200, currentMillis);
         else
             ledStrip.rainbow(500, currentMillis);
+            smartMotors.turnLeft(PI/4);
+            delay(500);
+            smartMotors.turnRight(3*PI/4);
+            delay(500);
 
         return;
     }
