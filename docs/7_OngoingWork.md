@@ -1,14 +1,125 @@
 # Ongoing Work
 
-## Transfer learning and finetuning
+You'll find here all the research work that has been done, but couldn't be
+implemented in time. May all of this help you in some sort of way!
 
-### The objective 
+## Transfer learning and fine-tuning
 
-The objective of this part of the project, is to use a model that already exists, and to use it's already intelligent structure to use it to do something else.
+You might already have heard of _fine-tuning_ to train a pre-existing model 
+on a more specific dataset. In fact, _fine-tuning_ is an optional step to 
+increase your model's performance during __transfer learning__.
 
-After the benchmark, we decided that MobileNetv3Large was the most adapted model for our needs. MobileNet is a model that has 1000 classes, so it can recognize 1000 different objects. In our case, we want it to be able to detect people in distress/wounded and people that are safe. So only 2 classes. 
+In brief, transfer learning is:
+- _feature extraction_ is the modifying of the model architecture by adding 
+layers to an existing model, and train this new model on the new layers only, 
+by freezing the other layers.
+- _fine-tuning_ is an optional step that consists of unfreezing (almost) all
+the layers and training the model with a pretty low learning rate (to avoid
+overfitting).
 
-We chose to use leafs to represent people, for there are few datasets available of wounded people.
+Here are all the documentation you will ever need for doing some fine-tuning
+with python:
+- [from Tensorflow](https://www.tensorflow.org/tutorials/images/transfer_learning)
+(using Keras)
+- [from Keras](https://keras.io/guides/transfer_learning)
+- [from Pytorch](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html)
+
+> The tensorflow documentation had some issues that were fixed before the end
+> the starflit project, but because of this, we weren't able to follow it.
+
+In what's left of this documentation, we'll walk you through several
+approaches, using the documentation from Keras, and the one from Pytorch.
+
+### Starflit's transfer learning objectives
+
+Our save-and-rescue little animated strandbeest have the objective of 
+recognizing an object in two different states: _healthy_ or _unhealthy_.
+Here, we chose that this object will be leaves 🍃.
+
+> As you might know, there's no much use of recognizing heathly leaves from 
+> unhealthy ones. But showing how we can fine tune a model and implement it 
+> on the strandbeest will allow the next groups to do the same with different
+> datasets, for different uses.
+
+After the benchmark, we decided that MobileNetv3Large was the most adapted
+model for our needs. MobileNet is a model that has 1000 classes, so it can
+recognize 1000 different objects. In our case, we want it to be able to detect
+people (or leaves ^^) in distress/wounded from the ones that are safe. Hence,
+we'll need to have a classification layer with two nodes (i.e. two classes). 
+
+### About the dataset ...
+
+#### HuggingFace 🤗
+
+In order to use a custom dataset for the transfer learning, we tried using 
+[HuggingFace 🤗](https://huggingface.co/), which is pretty similar to
+GitHub, but fitted for AI.
+
+Here, we'll only use it to host our dataset.
+
+> WARNING! If you plan on using HuggingFace to host a dataset for Tensorflow/
+> Keras, be aware that you should be using only lower case characters (and no 
+> `-`) in your user name and the dataset's name. This comes from the fact 
+> that [tfds](https://www.tensorflow.org/datasets/overview) parses camel case
+> to turn them into snake case. See
+> [https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794](https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794)
+> and
+> [https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794](https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794)
+> to check for updates.
+
+Just for the record, note that the tfds documentation was quite incomplete
+concerning importing hugging face datasets, and that a
+[PR](https://github.com/tensorflow/datasets/pull/5462) was opened to add a 
+bit of documentation. Hopefully, it was merged by the time you're reading 
+this.
+
+#### Actually creating the dataset
+
+> By the time being, we were trying to create a dataset to use with tensorflow.
+> Don't be surprised no to find any mention of Pytorch down below.
+
+In order to create a dataset, there's two docs we could have followed:
+- The one from [Tensorflow](https://www.tensorflow.org/datasets/add_dataset)
+- The one from [HuggingFace](https://huggingface.co/docs/datasets/image_dataset)
+
+The tensorflow documentation tells us to use their `tfds` cli tool to 
+generate a dataset. This method is better for big and professional projects, 
+but we'll prefer to go with a simpler solution, given by HuggingFace.
+
+This solution allows us to have our images in a folder and generate a fully 
+labelled dataset with a single line of python code. Everything is described 
+in the documentation above.
+
+Creating the dataset that way seems to have worked in some sort of way, but we
+couldn't be able to import it using `tfds`, even though it should have been
+supported.
+
+As you'll see in the next sections, we resigned ourselves to host our dataset
+locally, which is kind of sad. Hopefully, you'll do better.
+
+### Running the training
+
+Training a model is quite costly in terms of computation power.
+That's why the Starflit crew first decided to run this bit of the project on 
+[Google Colab](https://colab.research.google.com/). Turns out that even Google
+Colab wasn't enough for our needs. Instead, we asked and received an access to
+one of the computer of the CITI.
+
+To do so,
+- write the python script (you'll find more details about it later on)
+and export it to the remote server (via `rsync` or `scp`).
+- create a python virtual environment
+- run the script using [nohup](https://linux.die.net/man/1/nohup)
+
+```
+nohup python3 script.py &  # in your venv
+``` 
+
+> [nohup](https://linux.die.net/man/1/nohup) allows to have the process running
+> in background, so that it won't stop when closing the SSH-session. The std
+> output of the command will print into the file `nohup.out`.
+>
+> To check the live output, use `tail -f` as such: `tail -f nohup.out`.
 
 
 ### Finetuning with Pytorch
@@ -43,20 +154,10 @@ pip install torch torchvision tqdn
 ```
 And finally start the training in the background:
 ```
-nohup python3 finetuning.py > training.log &
+nohup python3 finetuning.py &
 ``` 
 
-> [nohup](https://linux.die.net/man/1/nohup) allows to have the process running
-> in background, so that it won't stop when closing the SSH-session. The std
-> output of the command will print into the file `nohup.out`.
->
-> To check the live output, use `tail -f` as such: `tail -f nohup.out`.
-
-*N.B. :*
-*If you are connected with ssh on the machine where the training is happening, you can disconnect yourself, and check the results in real time on the training.log file*
-
-At the end of the training, you will have a .pth file : this is your fine tuned model.
-
+At the end of the training, you will have a .pth file: this is your fine tuned model.
 
 #### Running the model on Raspberry Pi
 
@@ -78,7 +179,7 @@ Okay, so now you have a script that give's you a prediction of what the camera s
 
  **The training**
 
-The model, as mentionned before, has poor results. We didn't spend much time on improving the training, but this is something you can do. 
+The model, as mentioned before, has poor results. We didn't spend much time on improving the training, but this is something you can do. 
 
 I would advise that you don't rely too much on the scripts that were made. There were just PoC, and can be largely improved.
 
@@ -88,86 +189,7 @@ The script is not implemented in the rest of the project. If you want to use it 
 
 Good luck soldier!
 
-
-### Fine-tuning with TensorFlow
-
-> Note that this part exists because we made research and tried to fine-tune
-> a model, but we weren't able to finish the process in the given time.
-> This documentation contains some information that could be useful for
-> future projects.
-
-You might already have heard of _fine-tuning_ to train a pre-existing model 
-on a more specific dataset. In fact, _fine-tuning_ is an optional step to 
-increase your model's performance during __transfer learning__.
-
-In brief, transfer learning is:
-- _feature extraction_ is the modifying of the model architecture by adding 
-layers to an existing model, and train this new model on the new layers only, 
-by freezing the other layers.
-- _fine-tuning_ is an optional step that consists of unfreezing (almost) all
-the layers and training the model with a pretty low learning rate (to avoid
-overfitting).
-
-For our needs, we first tried to follow the documentation from TensforFlow at 
-[https://www.tensorflow.org/tutorials/images/transfer_learning](https://www.tensorflow.org/tutorials/images/transfer_learning),
-but at the time I'm writting this, this documentation seems to have an issue
-(check it [here](https://github.com/tensorflow/tensorflow/issues/69480)).
-
-Instead, we followed the Keras documentation at
-[https://keras.io/guides/transfer_learning/](https://keras.io/guides/transfer_learning/).
-
-Theses docs contains all the knowledge you need to continue reading this.
-Please, take a bit of your time to read at least one of the two in order to
-understand the process of transfer learning and fine-tuning.
-
-#### Starflit's transfer learning objectives
-
-Our save-and-rescue little animated strandbeest have the objective of 
-recognizing an object in two different states: _healthy_ or _unhealthy_.
-Here, we chose that this object will be leaves 🍃.
-
-> As you might know, there's no much use of recognizing heathly leaves from 
-> unhealthy ones. But showing how we can fine tune a model and implement it 
-> on the strandbeest will allow the next groups to do the same with different
-> datasets, for different uses.
-
-#### HuggingFace 🤗
-
-In order to use a custom dataset for the transfer learning, we tryed using 
-[HuggingFace 🤗](https://huggingface.co/), which is pretty similar to
-GitHub, but fitted for AI.
-
-Here, we'll only use it to host our dataset.
-
-> WARNING! If you plan on using HuggingFace to host a dataset for Tensorflow/
-> Keras, be aware that you should be using only lower case characters (and no 
-> `-`) in your user name and the dataset's name. This comes from the fact 
-> that [tfds](https://www.tensorflow.org/datasets/overview) parses camel case
-> to turn them into snake case. See
-> [https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794](https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794)
-> and
-> [https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794](https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794)
-> to check for updates.
-
-#### Creating your dataset
-
-In order to create a dataset, there's two docs we could have followed:
-- The one from [Tensorflow](https://www.tensorflow.org/datasets/add_dataset)
-- The one from [HuggingFace](https://huggingface.co/docs/datasets/image_dataset)
-
-The tensorflow documentation tells us to use their `tfds` cli tool to 
-generate a dataset. This method is better for big and professional projects, 
-but we'll prefer to go with a simpler solution, given by HuggingFace.
-
-This solution allows us to have our images in a folder and generate a fully 
-labelled dataset with a single line of python code. Everything is described 
-in the documentation above.
-
-#### Running model training
-
-Training a model is quite costly in terms of computation power.
-That's why the Starflit crew decided to run this bit of the project on 
-[Google Colab](https://colab.research.google.com/).
+### Fine-tuning using Tensorflow
 
 Time ran out and we could be able to create our own notebook.
 Still, we would have made a one pretty similar to the one from
@@ -176,7 +198,7 @@ Still, we would have made a one pretty similar to the one from
 > You may want to write your custom notebook. To do so, you're encouraged to 
 > use Google Colab because of performance issues. Still, you're also highly 
 > encouraged to export the final notebook to a `.ipynb` file that you'll put 
-> in you Github repository. This way, next groups will become independant of
+> in you Github repository. This way, next groups will become independent of
 > your Google Colab and will be able to import the notebook in their own
 > environment.
 
@@ -190,12 +212,6 @@ with open('model.tflite', 'wb') as f:
 
 Now, one just have to input this model file into the project to run the 
 model on the strandbeest.
-
-Just for the record, note that the tfds documentation was quite incomplete
-concerning importing hugging face datasets, and that a
-[PR](https://github.com/tensorflow/datasets/pull/5462) was opened to add a 
-bit of documentation. Hopefully, it was merged by the time you're reading 
-this.
 
 ---
 
