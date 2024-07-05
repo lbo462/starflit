@@ -3,7 +3,8 @@
 ## Transfer learning and finetuning
 
 ### The objective 
-The objective of this part of the project, is to use a model tht already exists, and to use it's already intelligent structure to use it to do something else.
+
+The objective of this part of the project, is to use a model that already exists, and to use it's already intelligent structure to use it to do something else.
 
 After the benchmark, we decided that MobileNetv3Large was the most adapted model for our needs. MobileNet is a model that has 1000 classes, so it can recognize 1000 different objects. In our case, we want it to be able to detect people in distress/wounded and people that are safe. So only 2 classes. 
 
@@ -14,16 +15,15 @@ We chose to use leafs to represent people, for there are few datasets available 
 
 During the last days of the project, we managed to finetune MobileNetv3Large with pytorch. After getting the finetuned model, we managed to make it run on the Raspberry Pi. 
 
-The model had poor results, but the POC is here, and your mission, if you accept it, is to improve and adjust the training.
+The model had poor results, but the PoC is here, and your mission, if you accept it, is to improve and adjust the training.
 
 #### Training
 
 First, you will have to download the script file that are in `misc/finetuning/finetuning.py` in the repo on the machine you want to do the training. They might be :  [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
 
+Once you have enjoyed cloning it, you will have to create a virtual environment (go and see the getting started doc [here](0_GettingStarted.md))
 
-Once you have enjoyed cloning it, you will have to create a virtual environnement (go and see the getting started doc [here](0_GettingStarted.md#))
-
-Next to the script, create a folder named dataset, and create one folder for each class in it containing the images you selected :
+Next to the script, create a folder named dataset, and create one folder for each class in it containing the images you selected:
 ```
 dataset/
 ├── healthy/
@@ -46,28 +46,31 @@ And finally start the training in the background:
 nohup python3 finetuning.py > training.log &
 ``` 
 
-*N.B. :
-If you are connected with ssh on the machine where the training is happening, you can disconnect yourself, and check the results in real time on the training.log file*
+> [nohup](https://linux.die.net/man/1/nohup) allows to have the process running
+> in background, so that it won't stop when closing the SSH-session. The std
+> output of the command will print into the file `nohup.out`.
+>
+> To check the live output, use `tail -f` as such: `tail -f nohup.out`.
+
+*N.B. :*
+*If you are connected with ssh on the machine where the training is happening, you can disconnect yourself, and check the results in real time on the training.log file*
 
 At the end of the training, you will have a .pth file : this is your fine tuned model.
 
 
 #### Running the model on Raspberry Pi
 
-First, transfer the model from the machine you made the training to the Raspberry Pi. If you are using a remote server, use rsync from the raspberry pi : 
+First, transfer the model from the machine you made the training to the Raspberry Pi. If you are using a remote server, use rsync from the raspberry pi: 
 ```
 rsync -Pru login@ip:/path/to/the/model .
 ```
 
-Then once you have it, same as before, you create your virtual environnement.
-
-Then install the dependencies:
+Then once you have it, same as before, you create your virtual environment, then install the dependencies:
 ```
 pip install torch torchvision tqdn
 ```
 
-Once it's done, you can download the script file that are in `misc/finetuning/objectRecognition.py` on the repo, and start the script (assuming you configured correctly your Raspberry Pi).
-
+Once it's done, you can execute `misc/finetuning/objectRecognition.py`, assuming you configured correctly your Raspberry Pi.
 
 Okay, so now you have a script that give's you a prediction of what the camera sees with a certitude percentage.
 
@@ -77,7 +80,7 @@ Okay, so now you have a script that give's you a prediction of what the camera s
 
 The model, as mentionned before, has poor results. We didn't spend much time on improving the training, but this is something you can do. 
 
-I would advise that you don't rely too much on the scripts that were made. There were just POCs, and can be largely improved.
+I would advise that you don't rely too much on the scripts that were made. There were just PoC, and can be largely improved.
 
 **The implementation**
 
@@ -86,8 +89,8 @@ The script is not implemented in the rest of the project. If you want to use it 
 Good luck soldier!
 
 
-
 ### Fine-tuning with TensorFlow
+
 > Note that this part exists because we made research and tried to fine-tune
 > a model, but we weren't able to finish the process in the given time.
 > This documentation contains some information that could be useful for
