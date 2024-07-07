@@ -1,5 +1,10 @@
-
-# This file use the camera of the Raspberry Pi and a finetuned version of Mobilenetv3 to do object Recognition
+#
+# This file comes in complement of the finetunning.py file and allows
+# to test the resulting weight in the `.pth` format.
+# This should only be used during test phase and shouldn't be used
+# in production. You are encouraged to write your own custom classes
+# to implement a similar features in the starflit environment.
+#
 
 import torch
 from torchvision import models, transforms

@@ -1,6 +1,12 @@
-
-# This file is used to finetune the model MobileNetv3Large with a customed dataset.
-
+# [!IMPORTANT]
+# The following has the objective of fine-tuning MobileNetV3Large.
+# Even though this script raises no error on execution, it comes with
+# no guarantee of working as expected, as it never went to the
+# implementation phase.
+#
+# Note that you are highly encouraged to refer to the documentation
+# from pytorch concerning transfer learning.
+#
 
 import os
 import copy

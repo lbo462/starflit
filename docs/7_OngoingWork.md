@@ -57,15 +57,11 @@ GitHub, but fitted for AI.
 
 Here, we'll only use it to host our dataset.
 
-> WARNING! If you plan on using HuggingFace to host a dataset for Tensorflow/
+> [!WARNING] If you plan on using HuggingFace to host a dataset for Tensorflow/
 > Keras, be aware that you should be using only lower case characters (and no 
 > `-`) in your user name and the dataset's name. This comes from the fact 
 > that [tfds](https://www.tensorflow.org/datasets/overview) parses camel case
-> to turn them into snake case. See
-> [https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794](https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794)
-> and
-> [https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794](https://github.com/tensorflow/datasets/issues/5275#issuecomment-1929182794)
-> to check for updates.
+> to turn them into snake case.
 
 Just for the record, note that the tfds documentation was quite incomplete
 concerning importing hugging face datasets, and that a
@@ -76,7 +72,7 @@ this.
 #### Actually creating the dataset
 
 > By the time being, we were trying to create a dataset to use with tensorflow.
-> Don't be surprised no to find any mention of Pytorch down below.
+> Don't be surprised not to find any mention of Pytorch down below.
 
 In order to create a dataset, there's two docs we could have followed:
 - The one from [Tensorflow](https://www.tensorflow.org/datasets/add_dataset)
@@ -105,14 +101,14 @@ That's why the Starflit crew first decided to run this bit of the project on
 Colab wasn't enough for our needs. Instead, we asked and received an access to
 one of the computer of the CITI.
 
-To do so,
+To do so (running model training),
 - write the python script (you'll find more details about it later on)
 and export it to the remote server (via `rsync` or `scp`).
 - create a python virtual environment
 - run the script using [nohup](https://linux.die.net/man/1/nohup)
 
 ```
-nohup python3 script.py &  # in your venv
+nohup python script.py &  # in your venv
 ``` 
 
 > [nohup](https://linux.die.net/man/1/nohup) allows to have the process running
@@ -121,86 +117,35 @@ nohup python3 script.py &  # in your venv
 >
 > To check the live output, use `tail -f` as such: `tail -f nohup.out`.
 
-
-### Finetuning with Pytorch
-
-During the last days of the project, we managed to finetune MobileNetv3Large with pytorch. After getting the finetuned model, we managed to make it run on the Raspberry Pi. 
-
-The model had poor results, but the PoC is here, and your mission, if you accept it, is to improve and adjust the training.
-
-#### Training
-
-First, you will have to download the script file that are in `misc/finetuning/finetuning.py` in the repo on the machine you want to do the training. They might be :  [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
-
-Once you have enjoyed cloning it, you will have to create a virtual environment (go and see the getting started doc [here](0_GettingStarted.md))
-
-Next to the script, create a folder named dataset, and create one folder for each class in it containing the images you selected:
-```
-dataset/
-├── healthy/
-│   ├── img1.jpg
-│   ├── img2.jpg
-│   └── ...
-└── diseased/
-    ├── img1.jpg
-    ├── img2.jpg
-    └── ...
-```
-(we had like 8000 images in every class)
-
-Then install the dependencies:
-```
-pip install torch torchvision tqdn
-```
-And finally start the training in the background:
-```
-nohup python3 finetuning.py &
-``` 
-
-At the end of the training, you will have a .pth file: this is your fine tuned model.
-
-#### Running the model on Raspberry Pi
-
-First, transfer the model from the machine you made the training to the Raspberry Pi. If you are using a remote server, use rsync from the raspberry pi: 
-```
-rsync -Pru login@ip:/path/to/the/model .
-```
-
-Then once you have it, same as before, you create your virtual environment, then install the dependencies:
-```
-pip install torch torchvision tqdn
-```
-
-Once it's done, you can execute `misc/finetuning/objectRecognition.py`, assuming you configured correctly your Raspberry Pi.
-
-Okay, so now you have a script that give's you a prediction of what the camera sees with a certitude percentage.
-
-#### What's left
-
- **The training**
-
-The model, as mentioned before, has poor results. We didn't spend much time on improving the training, but this is something you can do. 
-
-I would advise that you don't rely too much on the scripts that were made. There were just PoC, and can be largely improved.
-
-**The implementation**
-
-The script is not implemented in the rest of the project. If you want to use it on the Strandbeests, you would have to implement the code in the actual project.
-
-Good luck soldier!
-
 ### Fine-tuning using Tensorflow
 
-Time ran out and we could be able to create our own notebook.
-Still, we would have made a one pretty similar to the one from
+While you'll find a draft notebook in `misc/finetunning/tensorflow`, time ran
+out and we could be able to create our own __working__ notebook. Still, we
+would have made a one pretty similar to the one from
 [Keras](https://keras.io/guides/transfer_learning/).
 
-> You may want to write your custom notebook. To do so, you're encouraged to 
-> use Google Colab because of performance issues. Still, you're also highly 
-> encouraged to export the final notebook to a `.ipynb` file that you'll put 
-> in you Github repository. This way, next groups will become independent of
-> your Google Colab and will be able to import the notebook in their own
-> environment.
+That means that you can take a look at the notebook we made, but couldn't
+managed to use correctly, just to understand the flow we tried. Don't spend too
+much on it as you should rather read the docs from Keras or Tensorflow.
+
+You may want to write your custom notebook. To do so, you're encouraged to  use
+Google Colab because of performance issues. Still, you're also highly
+encouraged to export the final notebook to a `.ipynb` file that you'll put  in
+your GitHub repository. This way, next groups will become independent of your
+Google Colab and will be able to import the notebook in their own environment.
+
+> [!NOTE]
+> You won't be able to easily run a python notebook via SSH. Instead, you
+> should transform your notebook into a python file.
+>
+> To do so, you can either write it by hand from the notebook, or use the
+> `jupyter` CLI tool as follows:
+>
+> `jupyter nbconvert --to python notebook.ipynb`
+>
+> An other solution is just not to use notebooks at all. _But notebooks are_
+> _fine for that kind of things that requires single run with bits of_
+> _documentation_.
 
 After you've run your notebook code, you should be able to download the
 model in the `.tflite` format:
@@ -212,6 +157,99 @@ with open('model.tflite', 'wb') as f:
 
 Now, one just have to input this model file into the project to run the 
 model on the strandbeest.
+
+### Fine-tuning using Pytorch
+
+During the last days of the project, we managed to fine-tune MobileNetv3Large
+with pytorch. After getting the finetuned model, we managed to make it run on
+the Raspberry Pi. 
+
+The model had poor results, but the PoC is here, and your mission, if you
+accept it, is to improve and adjust the training.
+
+#### Training
+
+First, you could use `misc/finetuning/pytorch/finetuning.py` in the repo on the machine
+you want to do the training. You can also preview the file
+[here](https://www.youtube.com/watch?v=dQw4w9WgXcQ) 
+
+> [!NOTE]
+> This file stays unimplemented and should then be looked at with care. You are
+> also highly encouraged to write your own script, based on the pytorch doc.
+
+Once you have enjoyed cloning it, you will have to create a virtual environment
+(go and see the getting started doc [here](0_GettingStarted.md))
+
+Next to the script, create a folder named dataset, and create one folder for
+each class in it containing the images you selected:
+
+```
+dataset/
+├── healthy/
+│   ├── img1.jpg
+│   ├── img2.jpg
+│   └── ...
+└── diseased/
+    ├── img1.jpg
+    ├── img2.jpg
+    └── ...
+```
+
+(we had like 8000 images in every class)
+
+Then install the dependencies:
+
+```
+pip install torch torchvision tqdn
+```
+
+And finally start the training in the background:
+
+```
+nohup python3 finetuning.py &
+``` 
+
+At the end of the training, you will have a .pth file: these are the weights
+of the fine-tuned model.
+
+#### Running the model on Raspberry Pi
+
+First, transfer the model from the machine you made the training to the
+Raspberry Pi. If you are using a remote server, use rsync from the RPi: 
+
+```
+rsync -Pru login@ip:/path/to/the/model .
+```
+
+Then once you have it, same as before, you create your virtual environment,
+then install the dependencies:
+
+```
+pip install torch torchvision tqdn
+```
+
+Once it's done, you can execute `misc/finetuning/pytorch/objectRecognition.py`,
+assuming you configured correctly your Raspberry Pi.
+
+Okay, so now you have a script that give's you a prediction of what the camera
+sees with a certitude percentage.
+
+#### What's left
+
+**The training**
+
+The model, as mentioned before, has poor results. We didn't spend much time on
+improving the training, but this is something you can do. 
+
+I would advise that you don't rely too much on the scripts that were made.
+There were just PoC, and can be largely improved. Instead, read the docs!
+
+**The implementation**
+
+The script is not implemented in the rest of the project. If you want to use it
+on the Strandbeests, you will have to implement the code in the actual project.
+
+Good luck soldier!
 
 ---
 
@@ -339,7 +377,6 @@ In our case, we don't want to have a map on each robot. We want to have a shared
 To do that you would have to implement **multi-agent SLAM** :
 - [Research paper : C-SAM Multi-Robot SLAM ](https://www.researchgate.net/figure/Two-robots-rendezvous-after-exploration-The-individually-created-maps-are-shared-and_fig1_224318651)
 - [Research paper: Multi-agent SLAM](https://rpg.ifi.uzh.ch/docs/thesis_Cieslewski_final.pdf)
-
 
 ### What to do 
 

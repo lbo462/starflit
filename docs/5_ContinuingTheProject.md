@@ -83,7 +83,7 @@ cause some.
 The Starflit crew actually couldn't implement any form of mapping
 within the given time. But we had time to do some research
 about it, and write a full document concatenating what we found
-useful.
+useful. You'll find it the _Ongoing_ section.
 
 __Why add some mapping ?__
 
@@ -110,23 +110,18 @@ to support more complex data structures.
 
 This is a tricky, yet very cool feature to implement.
 
-[Check this documentation](7_OngoingWork.md#mapping)
-
 ## Add some fine-tuning
 
-There's a whole documentation about fine-tuning in the object
-recognition documentation as this has been a non-negligible
-part of our work. Therefore, we couldn't end up with a fully
-functional transfer learning process.
+There's a whole documentation about fine-tuning in the _Ongoing_ documentation
+as this has been a non-negligible part of our work. Therefore, we couldn't end
+up with a fully functional transfer learning process.
 
-This could improve the project is a significative way since it
+This could improve the project is a signification way since it
 would add some flexibility about what the strandbeests could be
 detecting.
 
 If you're trying to implement this, try reading what we tried
 first, and what we recommend in the object recognition doc.
-
-[Check this documentation](7_OngoingWork.md##Fine-tuning-with-Pytorch)
 
 ## Add some arms
 
